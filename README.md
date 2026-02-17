@@ -1,17 +1,19 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Development Environment with Docker
 
-First, run the development server:
+This project is configured to run in a Docker container for a consistent development experience.
+
+### Prerequisites
+
+- Docker Desktop must be installed and running.
+
+### Running the Development Server
+
+To start the development server with hot-reloading, run the following command from the project root:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+docker-compose up
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

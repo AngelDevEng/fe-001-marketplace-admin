@@ -1,0 +1,17 @@
+# Etapa 1: Instalar dependencias
+FROM node:20 AS deps
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Instalar pnpm (es más rápido y robusto que npm en Docker)
+RUN npm install -g pnpm
+
+# Copiar solo el package.json
+COPY frontapp/package.json ./
+
+# Instalar dependencias con pnpm
+RUN pnpm install --no-frozen-lockfile
+
+# El comando para iniciar se ejecutará desde docker-compose
+EXPOSE 3000
