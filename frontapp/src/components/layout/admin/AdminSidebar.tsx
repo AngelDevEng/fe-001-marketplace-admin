@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { adminNavigation } from '@/lib/constants/admin-nav';
 import Logo from '@/components/layout/shared/Logo';
-import Icon from '@/components/ui/Icon';
 
 export default function AdminSidebar() {
     const pathname = usePathname();
@@ -15,19 +14,19 @@ export default function AdminSidebar() {
 
     return (
         <aside
-            className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 z-30 ${isCollapsed ? 'w-20' : 'w-64'
+            className={`fixed left-0 top-0 h-screen bg-white border-r border-sky-100 transition-all duration-300 z-30 ${isCollapsed ? 'w-20' : 'w-64'
                 }`}
         >
             {/* Header */}
-            <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 dark:border-gray-800">
+            <div className="h-16 flex items-center justify-between px-4 border-b border-sky-100">
                 <Logo variant={isCollapsed ? 'compact' : 'default'} />
                 <button
                     onClick={() => setIsCollapsed(!isCollapsed)}
-                    className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
                     aria-label="Toggle sidebar"
                 >
                     <svg
-                        className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform ${isCollapsed ? 'rotate-180' : ''
+                        className={`w-5 h-5 text-gray-600 transition-transform ${isCollapsed ? 'rotate-180' : ''
                             }`}
                         fill="none"
                         viewBox="0 0 24 24"
@@ -43,7 +42,7 @@ export default function AdminSidebar() {
                 {adminNavigation.map((section, sectionIdx) => (
                     <div key={sectionIdx}>
                         {!isCollapsed && (
-                            <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+                            <h3 className="text-[9px] font-black text-sky-500/80 uppercase tracking-[0.2em] mb-3">
                                 {section.title}
                             </h3>
                         )}
@@ -54,33 +53,35 @@ export default function AdminSidebar() {
                                     <li key={itemIdx}>
                                         <Link
                                             href={item.href}
-                                            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${active
-                                                ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                                                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                            className={`relative group block transition-all duration-500 overflow-hidden rounded-2xl mb-2 ${active ? 'bg-brand-gradient shadow-lg shadow-brand-sky/20' : 'hover:bg-brand-sky/5'
                                                 }`}
                                             title={isCollapsed ? item.label : undefined}
                                         >
-                                            {/* Icon */}
-                                            <Icon
-                                                name={item.icon || 'Circle'}
-                                                className={`w-5 h-5 flex-shrink-0 ${active ? 'text-blue-600' : 'text-gray-400'}`}
-                                            />
+                                            <div className="grid grid-cols-[80%_20%] items-center h-14 relative z-10 transition-all duration-500">
+                                                {/* Content Wrapper */}
+                                                <div className={`flex items-center h-full transition-all duration-500 ${active ? 'bg-white rounded-r-[80px] shadow-[10px_0_15px_-5px_rgba(0,0,0,0.05)]' : 'bg-transparent'
+                                                    }`}>
+                                                    {/* Icon Container */}
+                                                    <div className={`flex items-center justify-center transition-all duration-500 ${isCollapsed ? 'w-20' : 'w-14'}`}>
+                                                        <div className={`
+                                                            w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500
+                                                            ${active ? 'bg-brand-sky/10 text-brand-sky shadow-inner' : 'bg-gray-100 text-gray-400 group-hover:text-brand-sky group-hover:bg-white text-lg'}
+                                                        `}>
+                                                            <i className={`ph-bold ${item.icon} text-lg`}></i>
+                                                        </div>
+                                                    </div>
 
-                                            {!isCollapsed && (
-                                                <>
-                                                    <span className="flex-1 text-sm font-medium">{item.label}</span>
-                                                    {item.badge && (
-                                                        <span
-                                                            className={`px-2 py-0.5 text-xs rounded-full ${typeof item.badge === 'number'
-                                                                ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300'
-                                                                : 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300'
-                                                                }`}
-                                                        >
-                                                            {item.badge}
+                                                    {/* Label */}
+                                                    {!isCollapsed && (
+                                                        <span className={`text-[13px] font-black whitespace-nowrap flex-1 transition-all duration-500 pr-4 ${active ? 'text-gray-900' : 'text-gray-600 group-hover:text-gray-900'
+                                                            }`}>
+                                                            {item.label}
                                                         </span>
                                                     )}
-                                                </>
-                                            )}
+                                                </div>
+                                                {/* The 20% empty space reveals the gradient background */}
+                                                <div className="h-full"></div>
+                                            </div>
                                         </Link>
                                     </li>
                                 );
@@ -92,14 +93,15 @@ export default function AdminSidebar() {
 
             {/* Footer */}
             {!isCollapsed && (
-                <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-                    <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg p-4">
-                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-                            Panel Admin
-                        </h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                            Acceso completo al sistema
-                        </p>
+                <div className="mt-auto px-6 py-4 border-t border-blue-50 bg-gray-50/50">
+                    <div className="flex items-center justify-between opacity-60">
+                        <span className="flex items-center gap-1.5 text-[10px] font-black text-brand-sky">
+                            <i className="ph-fill ph-lightning-bolt text-xs"></i>
+                            <span>LYRIUM © 2025</span>
+                        </span>
+                        <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">
+                            v4.0 SPA
+                        </span>
                     </div>
                 </div>
             )}

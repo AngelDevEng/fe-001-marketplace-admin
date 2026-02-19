@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-8 bg-gray-50 dark:bg-gray-900">
       <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-white text-center">
-        Bienvenido al Marketplace
+        Bienvenido a Lyrium Marketplace
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
