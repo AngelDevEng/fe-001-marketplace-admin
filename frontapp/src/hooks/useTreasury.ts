@@ -27,11 +27,11 @@ export const useTreasury = () => {
         } finally {
             setLoading(false);
         }
-    }, [data]);
+    }, []);
 
     useEffect(() => {
         if (!data) fetchTreasury();
-    }, []);
+    }, [fetchTreasury]);
 
     const kpis = useMemo(() => {
         if (!data) return [];

@@ -19,25 +19,23 @@ export const useContratos = () => {
     const fetchContracts = useCallback(async () => {
         setLoading(true);
         try {
-            await new Promise(resolve => setTimeout(resolve, 600)); // Simulate network
-            if (contracts.length === 0) {
-                setContracts([...MOCK_CONTRACTS_DATA]);
-            } else {
-                setContracts([...contracts]); // Respect existing state modifications in memory
-            }
+            await new Promise(resolve => setTimeout(resolve, 600));
+            setContracts(prev => 
+                prev.length === 0 ? [...MOCK_CONTRACTS_DATA] : prev
+            );
             setError(null);
         } catch (err: any) {
             setError(err.message || 'Error al obtener contratos.');
         } finally {
             setLoading(false);
         }
-    }, [contracts]);
+    }, []);
 
     useEffect(() => {
         if (contracts.length === 0) {
             fetchContracts();
         }
-    }, []); // Run only once to fetch initial data
+    }, [fetchContracts]);
 
     const filteredContracts = useMemo(() => {
         const now = new Date();

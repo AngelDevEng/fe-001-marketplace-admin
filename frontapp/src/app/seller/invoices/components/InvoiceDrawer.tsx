@@ -1,19 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import ModalPortal from '@/components/ModalPortal';
+import React from 'react';
 import Icon from '@/components/ui/Icon';
+import { Voucher, VoucherStatus } from '@/lib/types/seller/invoices';
 
-interface BaseDrawerProps {
+interface InvoiceDrawerProps {
+    voucher: Voucher | null;
     isOpen: boolean;
     onClose: () => void;
-    title?: string;
-    subtitle?: string;
-    children: React.ReactNode;
-    footer?: React.ReactNode;
-    width?: string;
-    accentColor?: string;
-    badge?: string;
+    onRetry: (id: string) => Promise<void>;
 }
 
 const fileColorClasses: Record<string, { bg: string; bgIcon: string; textIcon: string; shadow: string }> = {
@@ -22,88 +17,154 @@ const fileColorClasses: Record<string, { bg: string; bgIcon: string; textIcon: s
     CDR: { bg: 'hover:bg-sky-500/5', bgIcon: 'bg-sky-50', textIcon: 'text-sky-500', shadow: 'shadow-sky-100/50' },
 };
 
-export default function InvoiceDrawer({
-    isOpen,
-    onClose,
-    title,
-    subtitle,
-    children,
-    footer,
-    width = 'md:w-[600px]',
-    accentColor = 'from-sky-500/10 via-indigo-500/5',
-    badge
-}: BaseDrawerProps) {
-    const [shouldRender, setShouldRender] = useState(isOpen);
+const statusConfig: Record<VoucherStatus, { label: string; color: string; iconName: string }> = {
+    ACCEPTED: { label: 'Aceptado', color: 'emerald', iconName: 'CheckCircle' },
+    SENT_WAIT_CDR: { label: 'Pendiente CDR', color: 'sky', iconName: 'Clock' },
+    REJECTED: { label: 'Rechazado', color: 'rose', iconName: 'XCircle' },
+    OBSERVED: { label: 'Observado', color: 'amber', iconName: 'AlertCircle' },
+    DRAFT: { label: 'Borrador', color: 'gray', iconName: 'FileText' },
+};
 
-    useEffect(() => {
-        if (isOpen) {
-            setShouldRender(true);
-            const prevOverflow = document.body.style.overflow;
-            document.body.style.overflow = 'hidden';
-            return () => { document.body.style.overflow = prevOverflow; };
-        } else {
-            const timer = setTimeout(() => {
-                setShouldRender(false);
-            }, 500);
-            return () => clearTimeout(timer);
-        }
-    }, [isOpen]);
+const statusColorClasses: Record<string, string> = {
+    emerald: 'bg-emerald-50 text-emerald-600 border-emerald-100',
+    sky: 'bg-sky-50 text-sky-600 border-sky-100',
+    rose: 'bg-rose-50 text-rose-600 border-rose-100',
+    amber: 'bg-amber-50 text-amber-600 border-amber-100',
+    gray: 'bg-gray-50 text-gray-600 border-gray-100',
+};
 
-    if (!shouldRender) return null;
+function formatCurrency(n: number) {
+    return `S/ ${n.toLocaleString('es-PE', { minimumFractionDigits: 2 })}`;
+}
+
+export default function InvoiceDrawer({ voucher, isOpen, onClose, onRetry }: InvoiceDrawerProps) {
+    if (!isOpen || !voucher) return null;
+
+    const status = statusConfig[voucher.sunat_status] || statusConfig.DRAFT;
+    const statusClasses = statusColorClasses[status.color] || statusColorClasses.gray;
 
     return (
-        <ModalPortal>
-            <div className="fixed inset-0 z-[99999] flex justify-end overflow-hidden">
-                <div
-                    className={`absolute inset-0 bg-gray-900/60 backdrop-blur-md transition-opacity duration-500 ease-in-out
-                        ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-                    onClick={onClose}
-                ></div>
+        <div className="fixed inset-0 z-[99999] flex items-center justify-end">
+            <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-md" onClick={onClose}></div>
 
-                <div className={`relative h-full bg-white shadow-[-40px_0_80px_-20px_rgba(0,0,0,0.15)] transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) flex flex-col w-full ${width}
-                    ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-
-                    <div className={`absolute top-0 left-0 right-0 h-64 bg-gradient-to-br ${accentColor} to-transparent -z-10 blur-3xl opacity-60`}></div>
-
-                    <div className="p-10 flex items-center justify-between border-b border-gray-50/50 backdrop-blur-2xl bg-white/30 sticky top-0 z-20">
-                        <div className="flex-1 min-w-0 pr-4">
-                            {badge && (
-                                <div className="flex items-center gap-2 mb-3">
-                                    <span className="text-[10px] font-black text-sky-600 uppercase tracking-widest border border-sky-200/50 px-2 py-1 rounded-lg bg-sky-50 shadow-sm shadow-sky-100/50">
-                                        {badge}
-                                    </span>
-                                </div>
-                            )}
-                            {title && (
-                                <h2 className="text-4xl font-black text-gray-800 tracking-tighter leading-none truncate">
-                                    {title}
-                                </h2>
-                            )}
-                            {subtitle && (
-                                <p className="text-xs text-gray-400 font-bold mt-3 uppercase tracking-widest flex items-center gap-2">
-                                    {subtitle}
-                                </p>
-                            )}
+            <div className="relative h-full bg-white shadow-[-40px_0_80px_-20px_rgba(0,0,0,0.15)] w-full md:w-[600px] flex flex-col animate-slideInRight">
+                <div className="p-8 flex items-center justify-between border-b border-gray-50 bg-white/80 backdrop-blur-xl">
+                    <div className="flex-1 min-w-0 pr-4">
+                        <div className="flex items-center gap-3 mb-3">
+                            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest border border-gray-200 px-2 py-1 rounded-lg bg-gray-50">
+                                {voucher.type}
+                            </span>
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border ${statusClasses}`}>
+                                <Icon name={status.iconName} className="w-3.5 h-3.5" /> {status.label}
+                            </span>
                         </div>
+                        <h2 className="text-3xl font-black text-gray-800 tracking-tighter leading-none">
+                            {voucher.series}-{voucher.number}
+                        </h2>
+                        <p className="text-xs text-gray-400 font-bold mt-2 uppercase tracking-widest">
+                            {new Date(voucher.emission_date).toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' })}
+                        </p>
+                    </div>
+                    <button onClick={onClose} className="w-12 h-12 flex items-center justify-center bg-gray-50 text-gray-400 rounded-2xl hover:bg-rose-50 hover:text-rose-500 transition-all">
+                        <Icon name="X" className="w-6 h-6" />
+                    </button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
+                    <div className="space-y-4">
+                        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                            <Icon name="User" className="w-4 h-4" /> Datos del Cliente
+                        </h3>
+                        <div className="bg-gray-50 p-5 rounded-[2rem]">
+                            <p className="text-lg font-black text-gray-800">{voucher.customer_name}</p>
+                            <p className="text-sm font-bold text-gray-500">RUC: {voucher.customer_ruc}</p>
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                            <Icon name="DollarSign" className="w-4 h-4" /> Monto Total
+                        </h3>
+                        <div className="bg-gray-900 p-6 rounded-[2rem]">
+                            <p className="text-3xl font-black text-white">{formatCurrency(voucher.amount)}</p>
+                        </div>
+                    </div>
+
+                    <div className="space-y-2">
+                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Orden</p>
+                        <p className="text-sm font-bold text-gray-600">{voucher.order_id}</p>
+                    </div>
+
+                    <div className="space-y-4">
+                        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                            <Icon name="Archive" className="w-4 h-4" /> Archivos Adjuntos
+                        </h3>
+                        <div className="grid grid-cols-3 gap-4">
+                            {[
+                                { label: 'PDF', icon: 'FileText', color: 'PDF', path: voucher.pdf_path },
+                                { label: 'XML', icon: 'FileCode', color: 'XML', path: voucher.xml_path },
+                                { label: 'CDR', icon: 'Archive', color: 'CDR', path: voucher.cdr_path }
+                            ].map((file) => (
+                                <button
+                                    key={file.label}
+                                    disabled={!file.path}
+                                    className={`p-6 bg-white rounded-[2.5rem] transition-all flex flex-col items-center gap-3 border border-gray-100 shadow-xl shadow-gray-100/50 group/file ${file.path ? `${fileColorClasses[file.label].bg} active:scale-95` : 'opacity-30 grayscale cursor-not-allowed'}`}
+                                >
+                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-all ${file.path ? `${fileColorClasses[file.label].bgIcon} ${fileColorClasses[file.label].textIcon} group-hover/file:scale-110 ${fileColorClasses[file.label].shadow}` : 'bg-gray-100 text-gray-300'}`}>
+                                        <Icon name={file.icon} className="w-8 h-8" />
+                                    </div>
+                                    <span className={`text-[10px] font-black uppercase tracking-widest ${file.path ? 'text-gray-500 group-hover/file:text-gray-800' : 'text-gray-300'}`}>{file.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                            <Icon name="Clock" className="w-4 h-4" /> Historial
+                        </h3>
+                        {voucher.history && voucher.history.length > 0 ? (
+                            <div className="space-y-6 relative before:absolute before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-100">
+                                {[...voucher.history].reverse().map((event, idx) => (
+                                    <div key={idx} className="relative pl-10">
+                                        <div className="absolute left-2.5 top-1 w-3 h-3 bg-indigo-500 rounded-full border-4 border-white shadow-sm -ml-0.5"></div>
+                                        <div>
+                                            <p className="text-[10px] font-black text-gray-800 leading-none mb-1 uppercase tracking-tight">{event.note}</p>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-[9px] font-bold text-gray-400 uppercase">{new Date(event.timestamp).toLocaleString()}</span>
+                                                <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                                <span className="text-[9px] font-bold text-indigo-500 uppercase">{event.user}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="p-10 text-center border-2 border-dashed border-gray-100 rounded-[2rem]">
+                                <Icon name="Clock" className="w-10 h-10 text-gray-200 mb-2 mx-auto" />
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Sin historial registrado</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="p-8 border-t border-gray-50 bg-white/80 backdrop-blur-xl flex gap-4">
+                    {voucher.sunat_status === 'REJECTED' || voucher.sunat_status === 'OBSERVED' ? (
                         <button
-                            onClick={onClose}
-                            className="w-14 h-14 flex items-center justify-center bg-white border border-gray-100 rounded-[2rem] shadow-xl shadow-gray-100/50 hover:bg-rose-50 hover:text-rose-500 hover:border-rose-100 transition-all active:scale-90 group shrink-0"
+                            onClick={() => onRetry(voucher.id)}
+                            className="flex-1 py-4 bg-gray-900 text-white rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-xl flex items-center justify-center gap-2"
                         >
-                            <Icon name="X" className="w-6 h-6 group-hover:rotate-90 transition-transform duration-500" />
+                            <Icon name="RefreshCw" className="w-4 h-4" /> Reintentar Envío
                         </button>
-                    </div>
-
-                    <div className="flex-1 overflow-y-auto p-10 space-y-10 custom-scrollbar relative z-10">
-                        {children}
-                    </div>
-
-                    {footer && (
-                        <div className="p-10 border-t border-gray-50 bg-white/80 backdrop-blur-xl flex gap-4 relative z-20">
-                            {footer}
-                        </div>
-                    )}
+                    ) : null}
+                    <button
+                        onClick={onClose}
+                        className="flex-1 py-4 bg-gray-100 text-gray-600 rounded-2xl font-black text-[11px] uppercase tracking-widest hover:bg-gray-200 transition-all"
+                    >
+                        Cerrar
+                    </button>
                 </div>
             </div>
-        </ModalPortal>
+        </div>
     );
 }
