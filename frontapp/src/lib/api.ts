@@ -18,46 +18,52 @@ const wcClient = axios.create({
   },
 });
 
-export const getProducts = async (): Promise<Product[]> => {
+export const getProducts = async (vendorId?: string): Promise<Product[]> => {
   try {
     const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
     const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
 
-    if (!key || !secret) {
-      console.error("⚠️ Error: Las llaves de WooCommerce (WP_CS_KEY/SECRET) no están cargadas.");
+    if (!key || !secret || key === 'undefined' || secret === 'undefined') {
+      throw new Error("WooCommerce credentials not configured");
     }
 
-    // WooCommerce prefiere Basic Auth en el header
     const auth = btoa(`${key}:${secret}`);
 
     const response = await wcClient.get("/products", {
       headers: {
         Authorization: `Basic ${auth}`,
       },
+      params: {
+        per_page: 100,
+        // En Dokan, el vendor ID es el ID de autor del producto
+        status: 'publish',
+        author: vendorId
+      }
     });
     return response.data;
   } catch (error: any) {
-    if (error.response) {
-      console.error("❌ WC API Error:", error.response.status, error.response.data);
-    } else {
-      console.error("❌ WC Connection Error:", error.message);
-    }
+    console.error("❌ WC API Error:", error.message);
     throw error;
   }
 };
 
-export const getOrders = async (): Promise<Order[]> => {
+export const getOrders = async (vendorId?: string): Promise<Order[]> => {
   try {
     const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
     const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
     const auth = btoa(`${key}:${secret}`);
 
+    // Para pedidos de un vendedor específico en Dokan, 
+    // usualmente se usa el endpoint de Dokan o el parámetro 'vendor_id' en WC si está integrado
     const response = await wcClient.get("/orders", {
       headers: {
         Authorization: `Basic ${auth}`,
       },
       params: {
         per_page: 50,
+        // Algunos plugins de multi-vendor usan vendor_id, Dokan usa autor o endpoints específicos
+        // Para esta implementación usaremos el filtro por metadatos o autor si aplica
+        ...(vendorId ? { vendor_id: vendorId } : {})
       }
     });
     return response.data;
@@ -89,9 +95,15 @@ export const getCategories = async (): Promise<ProductCategory[]> => {
   }
 };
 
-export const getStores = async (): Promise<Store[]> => {
+export const getStores = async (search?: string, status: string = 'all'): Promise<Store[]> => {
   try {
-    const response = await dokanClient.get("/stores");
+    const response = await dokanClient.get("/stores", {
+      params: {
+        search: search,
+        status: status,
+        per_page: 50
+      }
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching stores from Dokan:", error);
@@ -99,7 +111,7 @@ export const getStores = async (): Promise<Store[]> => {
   }
 };
 
-export const getReviews = async (): Promise<ProductReview[]> => {
+export const getReviews = async (vendorId?: string): Promise<ProductReview[]> => {
   try {
     const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
     const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
@@ -111,6 +123,7 @@ export const getReviews = async (): Promise<ProductReview[]> => {
       },
       params: {
         per_page: 50,
+        ...(vendorId ? { status: 'approved' } : {}) // Simplificación
       }
     });
     return response.data;
@@ -120,7 +133,7 @@ export const getReviews = async (): Promise<ProductReview[]> => {
   }
 };
 
-export const getSalesReport = async (period: string = "month"): Promise<SalesReport[]> => {
+export const getSalesReport = async (period: string = "month", vendorId?: string): Promise<SalesReport[]> => {
   try {
     const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
     const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
@@ -132,6 +145,7 @@ export const getSalesReport = async (period: string = "month"): Promise<SalesRep
       },
       params: {
         period: period,
+        // Nota: El reporte de ventas nativo de WC no siempre filtra por vendor fácilmente sin plugins adicionales
       }
     });
     return response.data;
@@ -152,6 +166,71 @@ export const getWithdrawals = async (): Promise<Withdrawal[]> => {
 };
 
 export const getDetailStore = async (id: string = "1126"): Promise<Store> => {
-  const response = await dokanClient.get(`/stores/${id}`);
+  try {
+    const response = await dokanClient.get(`/stores/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching store detail:", error);
+    throw error;
+  }
+};
+
+// --- CRUD: PRODUCTOS (WooCommerce) ---
+
+export const updateProduct = async (id: number, data: any): Promise<Product> => {
+  const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
+  const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
+  const auth = btoa(`${key}:${secret}`);
+
+  const response = await wcClient.put(`/products/${id}`, data, {
+    headers: { Authorization: `Basic ${auth}` }
+  });
+  return response.data;
+};
+
+// --- CRUD: CATEGORÍAS (WooCommerce) ---
+
+export const createCategory = async (data: any): Promise<ProductCategory> => {
+  const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
+  const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
+  const auth = btoa(`${key}:${secret}`);
+
+  const response = await wcClient.post('/products/categories', data, {
+    headers: { Authorization: `Basic ${auth}` }
+  });
+  return response.data;
+};
+
+export const updateCategory = async (id: number, data: any): Promise<ProductCategory> => {
+  const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
+  const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
+  const auth = btoa(`${key}:${secret}`);
+
+  const response = await wcClient.put(`/products/categories/${id}`, data, {
+    headers: { Authorization: `Basic ${auth}` }
+  });
+  return response.data;
+};
+
+export const deleteCategory = async (id: number): Promise<any> => {
+  const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
+  const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
+  const auth = btoa(`${key}:${secret}`);
+
+  const response = await wcClient.delete(`/products/categories/${id}`, {
+    headers: { Authorization: `Basic ${auth}` },
+    params: { force: true }
+  });
+  return response.data;
+};
+
+// --- CRUD: TIENDAS (Dokan) ---
+
+export const updateStoreStatus = async (id: number, status: string): Promise<any> => {
+  // Dokan usualmente requiere privilegios de admin para esto
+  // 'status' puede ser 'approved', 'pending', etc.
+  const response = await dokanClient.put(`/stores/${id}`, {
+    status: status
+  });
   return response.data;
 };

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getReviews } from '@/lib/api';
 import { ProductReview } from '@/lib/types';
+import Icon from '@/components/ui/Icon';
 
 export default function ReviewList() {
     const [reviews, setReviews] = useState<ProductReview[]>([]);
@@ -31,10 +32,11 @@ export default function ReviewList() {
         return (
             <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                    <i
+                    <Icon
                         key={i}
-                        className={`ph-fill ph-star text-xs ${i < rating ? 'text-amber-400' : 'text-gray-200'}`}
-                    ></i>
+                        name="Star"
+                        className={`w-3 h-3 ${i < rating ? 'text-amber-400 fill-amber-400' : 'text-gray-200'}`}
+                    />
                 ))}
             </div>
         );
@@ -53,7 +55,7 @@ export default function ReviewList() {
         return (
             <div className="bg-white rounded-3xl p-20 border border-rose-100 shadow-sm flex flex-col items-center justify-center gap-4 text-center">
                 <div className="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 mb-2">
-                    <i className="ph-bold ph-star-half text-4xl"></i>
+                    <Icon name="Star" className="w-10 h-10" />
                 </div>
                 <h3 className="text-gray-900 font-black uppercase tracking-widest text-sm">Error de Reseñas</h3>
                 <p className="text-gray-400 font-medium text-sm max-w-md">{error}</p>
@@ -119,8 +121,8 @@ export default function ReviewList() {
                                 </td>
                                 <td className="px-8 py-5">
                                     <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border ${review.status === 'approved'
-                                            ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
-                                            : 'bg-amber-50 text-amber-600 border-amber-100'
+                                        ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
+                                        : 'bg-amber-50 text-amber-600 border-amber-100'
                                         }`}>
                                         {review.status === 'approved' ? 'Aprobado' : 'Pendiente'}
                                     </span>
@@ -128,10 +130,10 @@ export default function ReviewList() {
                                 <td className="px-8 py-5 text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-brand-sky/10 hover:text-brand-sky transition-all active:scale-90">
-                                            <i className="ph-bold ph-check text-lg"></i>
+                                            <Icon name="Check" className="w-5 h-5" />
                                         </button>
                                         <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-rose-50 hover:text-rose-500 transition-all active:scale-90">
-                                            <i className="ph-bold ph-trash text-lg"></i>
+                                            <Icon name="Trash2" className="w-5 h-5" />
                                         </button>
                                     </div>
                                 </td>

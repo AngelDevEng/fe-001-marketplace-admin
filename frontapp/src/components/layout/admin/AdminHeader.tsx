@@ -1,37 +1,37 @@
-import React from 'react';
 import ThemeToggle from '@/components/layout/shared/ThemeToggle';
 import NotificationBell from '@/components/layout/shared/NotificationBell';
 import UserMenu from '@/components/layout/shared/UserMenu';
 
 export default function AdminHeader() {
     return (
-        <header className="bg-white shadow-sm sticky top-0 z-50 border-b-4 border-brand-sky h-[112px] flex items-center fixed right-0 left-64 transition-all">
-            <div className="max-w-[1920px] w-full mx-auto flex items-center justify-between px-10">
-                {/* 1. Lado Izquierdo: Logo */}
-                <div className="flex items-center gap-3 active:scale-95 transition-transform cursor-pointer">
-                    <div className="h-[70px] w-[200px] bg-gray-100 flex items-center justify-center rounded-lg border border-dashed border-gray-300 overflow-hidden relative group">
-                        <span className="text-gray-400 text-xs font-bold uppercase tracking-widest group-hover:hidden">Logo Lyrium</span>
-                        {/* 
-                          Nota: Aquí iría la imagen <img src="/lyrium/frontend/img/logo.png" ... /> 
-                          pero usamos un placeholder visual premium mientras se cargan los assets.
-                        */}
-                        <div className="absolute inset-0 bg-brand-gradient opacity-0 group-hover:opacity-10 transition-opacity" />
+        <header className="h-16 bg-white border-b border-gray-200 fixed top-0 right-0 left-64 z-20">
+            <div className="h-full px-6 flex items-center justify-between">
+                {/* Quick Stats */}
+                <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-sm text-gray-600">
+                            Panel Administrador
+                        </span>
+                    </div>
+                    <div className="h-6 w-px bg-gray-200" />
+                    <div className="text-sm">
+                        <span className="text-gray-600">Ventas hoy: </span>
+                        <span className="font-semibold text-gray-900">$1,234.50</span>
+                    </div>
+                    <div className="text-sm">
+                        <span className="text-gray-600">Pedidos: </span>
+                        <span className="font-semibold text-gray-900">12</span>
                     </div>
                 </div>
 
-                {/* 2. Centro: Espaciador flexible */}
-                <div className="flex-1"></div>
-
-                {/* 3. Lado Derecho: Acciones de Sesión */}
-                <div className="flex items-center gap-6">
+                {/* Actions */}
+                <div className="flex items-center gap-2">
+                    <div className="h-8 w-px bg-gray-200 mx-2" />
                     <ThemeToggle />
-                    <button
-                        className="flex items-center gap-3 px-6 py-3 bg-rose-50 text-rose-600 hover:bg-rose-100 transition-all rounded-2xl active:scale-95 group font-black text-[11px] uppercase tracking-[0.2em] border border-rose-100 shadow-sm"
-                        title="Cerrar sesión de administrador"
-                    >
-                        <span>Cerrar Sesión</span>
-                        <i className="ph ph-bold ph-power text-xl transition-transform group-hover:rotate-12"></i>
-                    </button>
+                    <NotificationBell />
+                    <div className="h-8 w-px bg-gray-200 mx-2" />
+                    <UserMenu />
                 </div>
             </div>
         </header>

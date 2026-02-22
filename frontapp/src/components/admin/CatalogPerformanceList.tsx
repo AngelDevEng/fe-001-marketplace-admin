@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getProducts, getOrders } from '@/lib/api';
 import { Product } from '@/lib/types';
+import Icon from '@/components/ui/Icon';
 
 export default function CatalogPerformanceList() {
     const [performance, setPerformance] = useState<{ stars: any[], bones: any[] }>({ stars: [], bones: [] });
@@ -59,7 +60,7 @@ export default function CatalogPerformanceList() {
                 {/* Estrellas */}
                 <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                        <i className="ph-bold ph-star text-amber-500 text-xs"></i>
+                        <Icon name="Star" className="text-amber-500 w-3 h-3 fill-amber-500" />
                         <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Productos Estrella</span>
                     </div>
                     {performance.stars.map(p => (
@@ -75,7 +76,7 @@ export default function CatalogPerformanceList() {
                 {/* Huesos (Bajo movimiento) */}
                 <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                        <i className="ph-bold ph-trend-down text-rose-500 text-xs"></i>
+                        <Icon name="TrendingDown" className="text-rose-500 w-3 h-3" />
                         <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Baja Rotación (Fuga ROI)</span>
                     </div>
                     {performance.bones.map(p => (

@@ -1,0 +1,37 @@
+import React from 'react';
+import { SalesKPI } from '@/lib/types/seller/sales';
+import BaseStatCard from '@/components/ui/BaseStatCard';
+
+interface SalesKPIsProps {
+    kpis: SalesKPI[];
+}
+
+export default function SalesKPIs({ kpis }: SalesKPIsProps) {
+    // Helper to map SalesKPI color to BaseStatCard color
+    const mapColor = (color: string): any => {
+        const mapping: Record<string, string> = {
+            'sky': 'sky',
+            'indigo': 'indigo',
+            'cyan': 'sky',
+            'amber': 'amber',
+            'red': 'rose'
+        };
+        return mapping[color] || 'sky';
+    };
+
+    return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {kpis.map((kpi, index) => (
+                <BaseStatCard
+                    key={index}
+                    label={kpi.label}
+                    value={kpi.label === 'Ingresos Mensuales' ? `S/ ${kpi.count.toLocaleString()}` : kpi.count}
+                    icon={kpi.icon}
+                    color={mapColor(kpi.color)}
+                    description={kpi.status}
+                    suffix={kpi.label === 'Ingresos Mensuales' ? undefined : 'Ord.'}
+                />
+            ))}
+        </div>
+    );
+}

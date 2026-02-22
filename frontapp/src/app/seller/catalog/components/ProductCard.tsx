@@ -1,0 +1,137 @@
+'use client';
+
+import React from 'react';
+import { Product } from '@/lib/types/seller/product';
+import Icon from '@/components/ui/Icon';
+
+interface ProductCardProps {
+    product: Product;
+    onEdit: (product: Product) => void;
+    onDelete: (productId: string) => void;
+    onViewInfo: (product: Product) => void;
+}
+
+export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: ProductCardProps) {
+    const formatCurrency = (amount: number) => {
+        return new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(amount);
+    };
+
+    return (
+        <div className="product-card glass-card p-4 hover:shadow-lg transition-all cursor-pointer group animate-fadeIn h-full flex flex-col relative w-full rounded-3xl bg-white border border-gray-100">
+            <div className="relative mb-3 overflow-hidden rounded-xl bg-gray-50 aspect-square flex items-center justify-center p-2 border border-gray-100">
+                {/* Stickers */}
+                <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
+                    {product.sticker === 'liquidacion' && (
+                        <div className="relative group/sticker">
+                            <span className="bg-red-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                                Liquidación
+                            </span>
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                Producto en remate total
+                            </div>
+                        </div>
+                    )}
+                    {product.sticker === 'oferta' && (
+                        <div className="relative group/sticker">
+                            <span className="bg-amber-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                                Oferta
+                            </span>
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                Precio especial por tiempo limitado
+                            </div>
+                        </div>
+                    )}
+                    {product.sticker === 'descuento' && (
+                        <div className="relative group/sticker">
+                            <span className="bg-emerald-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                                {product.discountPercentage ? `-${product.discountPercentage}%` : 'Descuento'}
+                            </span>
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                Ahorro directo aplicado
+                            </div>
+                        </div>
+                    )}
+                    {product.sticker === 'nuevo' && (
+                        <div className="relative group/sticker">
+                            <span className="bg-sky-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                                Nuevo
+                            </span>
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                Recién llegado al catálogo
+                            </div>
+                        </div>
+                    )}
+                    {product.sticker === 'bestseller' && (
+                        <div className="relative group/sticker">
+                            <span className="bg-purple-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                                Top Ventas
+                            </span>
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                El favorito de la comunidad
+                            </div>
+                        </div>
+                    )}
+                    {product.sticker === 'envio_gratis' && (
+                        <div className="relative group/sticker">
+                            <span className="bg-teal-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                                Envío Gratis
+                            </span>
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                                Costo de envío cubierto por la tienda
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="absolute bottom-2 right-2 z-10">
+                    <div className="medal-lyrium hidden group-hover:block group/medal relative">
+                        {/* Placeholder for medal image if available */}
+                    </div>
+                </div>
+
+                <img
+                    src={product.image || 'https://placehold.co/300x300/f3f4f6/9ca3af?text=No+Image'}
+                    alt={product.name}
+                    className="product-image w-full h-full object-contain group-hover:scale-110 transition-transform"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+            </div>
+
+            <div className="flex-1 min-h-0 text-center">
+                <h3 className="product-name font-black text-[10px] text-gray-800 truncate mb-1 uppercase tracking-tight" title={product.name}>
+                    {product.name}
+                </h3>
+                <div className="flex items-center justify-center gap-2">
+                    <span className="product-price text-xs font-black text-sky-600">
+                        {formatCurrency(product.price)}
+                    </span>
+                    <span className="product-stock text-[8px] font-bold text-gray-400">
+                        Stock: {product.stock}
+                    </span>
+                </div>
+            </div>
+
+            <div className="mt-2 flex gap-1 pt-2 border-t border-gray-50 items-center justify-center">
+                <button
+                    onClick={(e) => { e.stopPropagation(); onViewInfo(product); }}
+                    className="flex-1 py-1.5 bg-gray-50 text-[8px] font-black text-gray-500 rounded-lg hover:bg-sky-50 hover:text-sky-500 transition-all uppercase flex items-center justify-center gap-1"
+                >
+                    <Icon name="Info" className="w-3 h-3" />
+                    Info
+                </button>
+                <button
+                    onClick={(e) => { e.stopPropagation(); onEdit(product); }}
+                    className="p-1.5 text-sky-500 hover:text-sky-600 transition-all"
+                >
+                    <Icon name="Pencil" className="w-4 h-4" />
+                </button>
+                <button
+                    onClick={(e) => { e.stopPropagation(); onDelete(product.id); }}
+                    className="p-1.5 text-sky-500 hover:text-red-500 transition-all"
+                >
+                    <Icon name="Trash2" className="w-4 h-4" />
+                </button>
+            </div>
+        </div>
+    );
+}

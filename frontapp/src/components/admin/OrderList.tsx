@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getOrders } from '@/lib/api';
 import { Order } from '@/lib/types';
+import Icon from '@/components/ui/Icon';
 
 export default function OrderList() {
     const [orders, setOrders] = useState<Order[]>([]);
@@ -62,7 +63,7 @@ export default function OrderList() {
         return (
             <div className="bg-white rounded-3xl p-20 border border-rose-100 shadow-sm flex flex-col items-center justify-center gap-4 text-center">
                 <div className="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 mb-2">
-                    <i className="ph-bold ph-shopping-bag text-4xl"></i>
+                    <Icon name="ShoppingCart" className="w-10 h-10" />
                 </div>
                 <h3 className="text-gray-900 font-black uppercase tracking-widest text-sm">Error de Pedidos</h3>
                 <p className="text-gray-400 font-medium text-sm max-w-md">{error}</p>
@@ -134,10 +135,10 @@ export default function OrderList() {
                                 <td className="px-8 py-5 text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-brand-sky/10 hover:text-brand-sky transition-all active:scale-90">
-                                            <i className="ph-bold ph-eye text-lg"></i>
+                                            <Icon name="Eye" className="w-5 h-5" />
                                         </button>
                                         <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-brand-sky/10 hover:text-brand-sky transition-all active:scale-90">
-                                            <i className="ph-bold ph-printer text-lg"></i>
+                                            <Icon name="Printer" className="w-5 h-5" />
                                         </button>
                                     </div>
                                 </td>

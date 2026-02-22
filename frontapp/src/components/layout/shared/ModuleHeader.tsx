@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from '@/components/ui/Icon';
 
 interface ModuleHeaderProps {
     title: string;
@@ -29,7 +30,7 @@ export default function ModuleHeader({
                 <div className="flex items-center gap-3">
                     {icon && (
                         <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-brand-sky/10 group-hover:text-brand-sky transition-all duration-500">
-                            <i className={`ph ${icon} text-xl`}></i>
+                            <Icon name={icon} className="w-5 h-5 !stroke-[2.5px]" />
                         </div>
                     )}
                     <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight whitespace-nowrap text-gray-900">

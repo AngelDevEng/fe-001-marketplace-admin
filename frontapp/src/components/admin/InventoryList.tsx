@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getProducts } from '@/lib/api';
 import { Product } from '@/lib/types';
+import Icon from '@/components/ui/Icon';
 
 export default function InventoryList() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -52,7 +53,7 @@ export default function InventoryList() {
                     className={`p-6 rounded-3xl border transition-all text-left ${filter === 'all' ? 'bg-brand-sky border-brand-sky text-white shadow-lg shadow-brand-sky/20' : 'bg-white border-gray-100 text-gray-500 hover:border-brand-sky/30'}`}
                 >
                     <div className="flex items-center justify-between">
-                        <i className="ph-bold ph-package text-2xl"></i>
+                        <Icon name="Package" className="w-8 h-8" />
                         <span className="text-2xl font-black">{products.length}</span>
                     </div>
                     <p className="mt-4 font-black uppercase tracking-widest text-[10px]">Total Productos</p>
@@ -63,7 +64,7 @@ export default function InventoryList() {
                     className={`p-6 rounded-3xl border transition-all text-left ${filter === 'low' ? 'bg-amber-500 border-amber-500 text-white shadow-lg shadow-amber-500/20' : 'bg-white border-gray-100 text-gray-500 hover:border-amber-500/30'}`}
                 >
                     <div className="flex items-center justify-between">
-                        <i className="ph-bold ph-warning-circle text-2xl"></i>
+                        <Icon name="AlertCircle" className="w-8 h-8" />
                         <span className="text-2xl font-black">{products.filter(p => p.manage_stock && p.stock_quantity !== null && p.stock_quantity > 0 && p.stock_quantity <= 5).length}</span>
                     </div>
                     <p className="mt-4 font-black uppercase tracking-widest text-[10px]">Stock Bajo ( &lt; 5 )</p>
@@ -74,7 +75,7 @@ export default function InventoryList() {
                     className={`p-6 rounded-3xl border transition-all text-left ${filter === 'out' ? 'bg-rose-500 border-rose-500 text-white shadow-lg shadow-rose-500/20' : 'bg-white border-gray-100 text-gray-500 hover:border-rose-500/30'}`}
                 >
                     <div className="flex items-center justify-between">
-                        <i className="ph-bold ph-prohibit text-2xl"></i>
+                        <Icon name="XCircle" className="w-8 h-8" />
                         <span className="text-2xl font-black">{products.filter(p => p.stock_status === 'outofstock' || (p.manage_stock && p.stock_quantity === 0)).length}</span>
                     </div>
                     <p className="mt-4 font-black uppercase tracking-widest text-[10px]">Agotados</p>
@@ -107,7 +108,7 @@ export default function InventoryList() {
                                                 {product.images?.[0]?.src ? (
                                                     <img src={product.images[0].src} alt={product.name} className="w-full h-full object-cover" />
                                                 ) : (
-                                                    <i className="ph-bold ph-image text-lg"></i>
+                                                    <Icon name="Image" className="w-6 h-6 opacity-30" />
                                                 )}
                                             </div>
                                             <div className="flex flex-col">
@@ -131,7 +132,7 @@ export default function InventoryList() {
                                     </td>
                                     <td className="px-8 py-5 text-right">
                                         <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-brand-sky/10 hover:text-brand-sky transition-all active:scale-90">
-                                            <i className="ph-bold ph-arrows-counter-clockwise text-lg"></i>
+                                            <Icon name="RotateCcw" className="w-5 h-5" />
                                         </button>
                                     </td>
                                 </tr>

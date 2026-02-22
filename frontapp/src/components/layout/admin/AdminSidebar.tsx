@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { adminNavigation } from '@/lib/constants/admin-nav';
 import Logo from '@/components/layout/shared/Logo';
+import Icon from '@/components/ui/Icon';
 
 export default function AdminSidebar() {
     const pathname = usePathname();
@@ -14,7 +15,7 @@ export default function AdminSidebar() {
 
     return (
         <aside
-            className={`fixed left-0 top-0 h-screen bg-white border-r border-sky-100 transition-all duration-300 z-30 ${isCollapsed ? 'w-20' : 'w-64'
+            className={`fixed left-0 top-0 h-screen bg-white border-r border-sky-100 transition-all duration-300 z-30 flex flex-col ${isCollapsed ? 'w-20' : 'w-70'
                 }`}
         >
             {/* Header */}
@@ -25,15 +26,7 @@ export default function AdminSidebar() {
                     className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
                     aria-label="Toggle sidebar"
                 >
-                    <svg
-                        className={`w-5 h-5 text-gray-600 transition-transform ${isCollapsed ? 'rotate-180' : ''
-                            }`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-                    </svg>
+                    <Icon name="ChevronLeft" className={`w-5 h-5 text-gray-600 transition-transform ${isCollapsed ? 'rotate-180' : ''}`} />
                 </button>
             </div>
 
@@ -57,7 +50,7 @@ export default function AdminSidebar() {
                                                 }`}
                                             title={isCollapsed ? item.label : undefined}
                                         >
-                                            <div className="grid grid-cols-[80%_20%] items-center h-14 relative z-10 transition-all duration-500">
+                                            <div className="grid grid-cols-[65%_20%] items-center h-14 relative z-10 transition-all duration-500">
                                                 {/* Content Wrapper */}
                                                 <div className={`flex items-center h-full transition-all duration-500 ${active ? 'bg-white rounded-r-[80px] shadow-[10px_0_15px_-5px_rgba(0,0,0,0.05)]' : 'bg-transparent'
                                                     }`}>
@@ -67,7 +60,7 @@ export default function AdminSidebar() {
                                                             w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500
                                                             ${active ? 'bg-brand-sky/10 text-brand-sky shadow-inner' : 'bg-gray-100 text-gray-400 group-hover:text-brand-sky group-hover:bg-white text-lg'}
                                                         `}>
-                                                            <i className={`ph-bold ${item.icon} text-lg`}></i>
+                                                            {item.icon && <Icon name={item.icon} className="w-5 h-5" />}
                                                         </div>
                                                     </div>
 
@@ -96,7 +89,7 @@ export default function AdminSidebar() {
                 <div className="mt-auto px-6 py-4 border-t border-blue-50 bg-gray-50/50">
                     <div className="flex items-center justify-between opacity-60">
                         <span className="flex items-center gap-1.5 text-[10px] font-black text-brand-sky">
-                            <i className="ph-fill ph-lightning-bolt text-xs"></i>
+                            <Icon name="Zap" className="w-3 h-3" />
                             <span>LYRIUM © 2025</span>
                         </span>
                         <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">

@@ -1,139 +1,158 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { sellerNavigation } from '@/lib/constants/seller-nav';
-import Logo from '@/components/layout/shared/Logo';
+import { useAuth } from '@/context/AuthContext';
 import Icon from '@/components/ui/Icon';
 
 export default function SellerSidebar() {
     const pathname = usePathname();
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    const [selectedStore, setSelectedStore] = useState('store-1');
+    const { user } = useAuth();
+    const [isExpanded, setIsExpanded] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
 
-    // Mock stores data - replace with actual data
-    const stores = [
-        { id: 'store-1', name: 'Tienda Principal', status: 'active' },
-        { id: 'store-2', name: 'Tienda Secundaria', status: 'active' },
-        { id: 'store-3', name: 'Outlet', status: 'inactive' },
-    ];
+    useEffect(() => {
+        const checkMobile = () => {
+            const mobile = window.innerWidth < 768;
+            setIsMobile(mobile);
+            if (mobile) setIsExpanded(false);
+            else {
+                const stored = localStorage.getItem('seller_sidebar_expanded');
+                setIsExpanded(stored ? JSON.parse(stored) : true);
+            }
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const toggleSidebar = () => {
+        const newState = !isExpanded;
+        setIsExpanded(newState);
+        if (!isMobile) localStorage.setItem('seller_sidebar_expanded', JSON.stringify(newState));
+    };
 
     const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
+    const tiendaNombre = user?.display_name || "Mi Tienda";
+    const userRoleText = user?.role === 'administrator' ? 'Administrador' : 'Vendedor Premium';
+
     return (
-        <aside
-            className={`fixed left-0 top-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-all duration-300 z-30 ${isCollapsed ? 'w-20' : 'w-64'
-                }`}
-        >
-            {/* Header */}
-            <div className="h-16 flex items-center justify-between px-4 border-b border-gray-200 dark:border-gray-800">
-                <Logo variant={isCollapsed ? 'compact' : 'default'} />
-                <button
-                    onClick={() => setIsCollapsed(!isCollapsed)}
-                    className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                    aria-label="Toggle sidebar"
-                >
-                    <svg
-                        className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform ${isCollapsed ? 'rotate-180' : ''
-                            }`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-                    </svg>
-                </button>
-            </div>
+        <>
+            <aside
+                className={`bg-white fixed inset-y-0 left-0 md:sticky md:top-0 h-screen border-r border-sky-100 flex flex-col transition-all duration-500 ease-in-out z-[60] md:z-40 ${isExpanded ? 'w-72' : 'w-20'} ${!isExpanded && isMobile ? '-translate-x-full' : ''}`}
+            >
+                {/* 1. PERFIL DE USUARIO */}
+                <div className={`p-4 border-b border-sky-100 bg-white/95 backdrop-blur flex items-center transition-all duration-500 ${!isExpanded && !isMobile ? 'justify-center px-2' : ''}`}>
+                    <div className="flex items-center space-x-3 w-full">
+                        <div className="relative flex-shrink-0">
+                            {user?.avatar ? (
+                                <img
+                                    src={user.avatar}
+                                    alt="Usuario"
+                                    className={`rounded-xl border-2 border-sky-200 shadow-sm object-cover transition-all duration-500 ${isExpanded ? 'w-11 h-11' : 'w-10 h-10'}`}
+                                />
+                            ) : (
+                                <div className={`rounded-xl border-2 border-sky-200 shadow-sm transition-all duration-500 bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-white font-bold ${isExpanded ? 'w-11 h-11 text-base' : 'w-10 h-10 text-sm'}`}>
+                                    {tiendaNombre.substring(0, 2).toUpperCase()}
+                                </div>
+                            )}
+                            <span className="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-emerald-400"></span>
+                        </div>
 
-            {/* Store Selector */}
-            {!isCollapsed && (
-                <div className="p-4 border-b border-gray-200 dark:border-gray-800">
-                    <select
-                        value={selectedStore}
-                        onChange={(e) => setSelectedStore(e.target.value)}
-                        className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        {stores.map((store) => (
-                            <option key={store.id} value={store.id}>
-                                {store.name}
-                            </option>
-                        ))}
-                    </select>
-                    <div className="mt-2 flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-green-500" />
-                        <span className="text-xs text-gray-600 dark:text-gray-400">
-                            Tienda activa
-                        </span>
-                    </div>
-                </div>
-            )}
-
-            {/* Navigation */}
-            <nav className="flex-1 overflow-y-auto p-4 space-y-6">
-                {sellerNavigation.map((section, sectionIdx) => (
-                    <div key={sectionIdx}>
-                        {!isCollapsed && (
-                            <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
-                                {section.title}
-                            </h3>
+                        {(isExpanded || isMobile) && (
+                            <div className="flex flex-col min-w-0 animate-fadeIn">
+                                <p className="font-black text-xs text-gray-800 leading-tight truncate">
+                                    {tiendaNombre}
+                                </p>
+                                <p className="text-[9px] mt-0.5 uppercase font-black tracking-widest text-sky-500">
+                                    {userRoleText}
+                                </p>
+                            </div>
                         )}
-                        <ul className="space-y-1">
-                            {section.items.map((item, itemIdx) => {
-                                const active = isActive(item.href);
-                                return (
-                                    <li key={itemIdx}>
-                                        <Link
-                                            href={item.href}
-                                            className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${active
-                                                ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400'
-                                                : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                                                }`}
-                                            title={isCollapsed ? item.label : undefined}
-                                        >
-                                            {/* Icon */}
-                                            <Icon
-                                                name={item.icon || 'Circle'}
-                                                className={`w-5 h-5 flex-shrink-0 ${active ? 'text-purple-600' : 'text-gray-400'}`}
-                                            />
-
-                                            {!isCollapsed && (
-                                                <>
-                                                    <span className="flex-1 text-sm font-medium">{item.label}</span>
-                                                    {item.badge && (
-                                                        <span
-                                                            className={`px-2 py-0.5 text-xs rounded-full ${typeof item.badge === 'number'
-                                                                ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-300'
-                                                                : 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300'
-                                                                }`}
-                                                        >
-                                                            {item.badge}
-                                                        </span>
-                                                    )}
-                                                </>
-                                            )}
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                ))}
-            </nav>
-
-            {/* Footer */}
-            {!isCollapsed && (
-                <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg p-4">
-                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-                            Panel Vendedor
-                        </h4>
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                            Gestiona tus tiendas
-                        </p>
                     </div>
                 </div>
+
+                {/* 2. HEADER DE CONTROL */}
+                <div className="flex items-center justify-between p-4 px-6 border-b border-gray-50 bg-gray-50/20">
+                    {(isExpanded || isMobile) && (
+                        <h2 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] animate-fadeIn">
+                            Gestión Comercial
+                        </h2>
+                    )}
+                    <button onClick={toggleSidebar} className={`p-2 hover:bg-white hover:text-sky-500 rounded-xl transition-all duration-300 ${!isExpanded && !isMobile ? 'mx-auto' : ''}`}>
+                        <Icon name="ChevronLeft" className={`transition-transform duration-500 ${!isExpanded ? 'rotate-180' : ''} w-4 h-4`} />
+                    </button>
+                </div>
+
+                {/* 3. NAVEGACIÓN MÓDULOS */}
+                <div className="flex-1 overflow-y-auto custom-scrollbar py-6">
+                    <nav className="space-y-1.5 px-4">
+                        {(isExpanded || isMobile) && (
+                            <div className="flex items-center gap-2 mb-4 px-2">
+                                <span className="w-1.5 h-1.5 bg-sky-400 rounded-full"></span>
+                                <h3 className="text-[9px] font-black text-sky-500/80 uppercase tracking-[0.2em]">
+                                    Mi Ecosistema
+                                </h3>
+                            </div>
+                        )}
+
+                        {sellerNavigation.map((module) => {
+                            const active = isActive(module.href);
+                            return (
+                                <Link
+                                    key={module.id}
+                                    href={module.href}
+                                    className={`
+                                        relative group block transition-all duration-500 overflow-hidden rounded-2xl mb-2
+                                        ${active ? 'bg-brand-gradient shadow-lg shadow-sky-100/50' : 'hover:bg-sky-50/50'}
+                                    `}
+                                >
+                                    <div className={`grid ${isExpanded || isMobile ? 'grid-cols-[80%_20%]' : 'grid-cols-1'} items-center h-14 relative z-10 transition-all duration-500`}>
+                                        <div className={`flex items-center h-full transition-all duration-500 ${active ? 'bg-white rounded-r-[80px]' : 'bg-transparent'}`}>
+                                            <div className={`flex items-center justify-center transition-all duration-500 ${isExpanded || isMobile ? 'w-14' : 'w-20'}`}>
+                                                <div className={`
+                                                    w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500
+                                                    ${active ? 'bg-sky-50 text-sky-600 shadow-inner' : 'bg-sky-50/50 text-gray-400 group-hover:text-sky-500 group-hover:bg-white'}
+                                                `}>
+                                                    <Icon name={module.icon} className="w-5 h-5" />
+                                                </div>
+                                            </div>
+
+                                            {(isExpanded || isMobile) && (
+                                                <span className={`text-[13px] font-black whitespace-nowrap flex-1 transition-all duration-500 pr-4 ${active ? 'text-gray-900' : 'text-gray-600 group-hover:text-gray-900'}`}>
+                                                    {module.label}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </nav>
+                </div>
+
+                {/* 4. FOOTER */}
+                {(isExpanded || isMobile) && (
+                    <div className="mt-auto px-6 py-4 border-t border-sky-50 bg-gray-50/30 animate-fadeIn">
+                        <div className="flex items-center justify-between opacity-60">
+                            <span className="flex items-center gap-1.5 text-[10px] font-black text-sky-600">
+                                <Icon name="Zap" className="w-3 h-3" />
+                                <span>LYRIUM © 2025</span>
+                            </span>
+                            <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">
+                                v4.0 SPA
+                            </span>
+                        </div>
+                    </div>
+                )}
+            </aside>
+
+            {isMobile && isExpanded && (
+                <div className="fixed inset-0 bg-black/40 backdrop-blur-sm opacity-100 transition-all duration-500 z-[55]" onClick={() => setIsExpanded(false)} />
             )}
-        </aside>
+        </>
     );
 }

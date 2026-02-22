@@ -2,94 +2,57 @@ import { NavSection } from '@/lib/types/navigation';
 
 export const adminNavigation: NavSection[] = [
     {
-        title: 'Principal',
+        title: 'Módulos de Gestión Central',
         items: [
             {
-                label: 'Dashboard',
-                href: '/admin/dashboard',
-                icon: 'ph-house',
-            },
-            {
-                label: 'Análisis',
-                href: '/admin/analytics',
-                icon: 'ph-chart-pie-slice',
-            },
-        ],
-    },
-    {
-        title: 'Gestión de Tiendas',
-        items: [
-            {
-                label: 'Todas las Tiendas',
-                href: '/admin/stores',
-                icon: 'ph-storefront',
-                badge: 'new',
-            },
-            {
-                label: 'Vendedores',
+                label: '1. Módulo de Control de Vendedores',
                 href: '/admin/sellers',
-                icon: 'ph-users-three',
+                icon: 'Users',
             },
             {
-                label: 'Categorías',
-                href: '/admin/categories',
-                icon: 'ph-folder-star',
-            },
-        ],
-    },
-    {
-        title: 'Productos',
-        items: [
-            {
-                label: 'Todos los Productos',
-                href: '/admin/products',
-                icon: 'ph-package',
-            },
-            {
-                label: 'Inventario',
-                href: '/admin/inventory',
-                icon: 'ph-hash',
-            },
-            {
-                label: 'Revisiones',
-                href: '/admin/reviews',
-                icon: 'ph-star',
-            },
-        ],
-    },
-    {
-        title: 'Pedidos & Finanzas',
-        items: [
-            {
-                label: 'Pedidos',
-                href: '/admin/orders',
-                icon: 'ph-shopping-cart',
-                badge: 12,
-            },
-            {
-                label: 'Pagos',
-                href: '/admin/payments',
-                icon: 'ph-money',
-            },
-            {
-                label: 'Contratos',
-                href: '/admin/contracts',
-                icon: 'ph-file-text',
-            },
-        ],
-    },
-    {
-        title: 'Soporte & Operaciones',
-        items: [
-            {
-                label: 'Mesa de Ayuda',
+                label: '2. Módulo de Soporte',
                 href: '/admin/helpdesk',
-                icon: 'ph-chat-centered-text',
+                icon: 'Help',
             },
             {
-                label: 'Gestión Operativa',
+                label: '3. Módulo Centro de Finanzas y Estadísticas',
+                href: '/admin/finance',
+                icon: 'Sales',
+            },
+            {
+                label: '4. Módulo de Analítica',
+                href: '/admin/analytics',
+                icon: 'Chart',
+            },
+            {
+                label: '5. Módulo de Gestión Operativa',
                 href: '/admin/operations',
-                icon: 'ph-briefcase',
+                icon: 'Services',
+            },
+            {
+                label: '6. Módulo de Gestión de Pagos',
+                href: '/admin/payments',
+                icon: 'Landmark',
+            },
+            {
+                label: '7. Módulo de Contratación y Organización',
+                href: '/admin/contracts',
+                icon: 'Invoices',
+            },
+            {
+                label: '8. Gestión de Categorías',
+                href: '/admin/categories',
+                icon: 'FolderTree',
+            },
+            {
+                label: '9. Gestión de Inventario',
+                href: '/admin/inventory',
+                icon: 'Catalog',
+            },
+            {
+                label: '10. Gestión de Puntuación',
+                href: '/admin/reviews',
+                icon: 'Star',
             },
         ],
     },

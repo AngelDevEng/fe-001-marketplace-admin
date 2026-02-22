@@ -1,105 +1,88 @@
-import { NavSection } from '@/lib/types/navigation';
+export interface SellerModule {
+    id: string;
+    label: string;
+    description: string;
+    icon: string; // Phosphor icon class
+    href: string;
+    color?: string;
+}
 
-export const sellerNavigation: NavSection[] = [
+export const sellerNavigation: SellerModule[] = [
     {
-        title: 'Principal',
-        items: [
-            {
-                label: 'Dashboard',
-                href: '/seller/dashboard',
-                icon: 'LayoutDashboard',
-            },
-            {
-                label: 'Mis Tiendas',
-                href: '/seller/stores',
-                icon: 'Store',
-            },
-        ],
+        id: 'mis-datos',
+        label: 'Mis Datos',
+        description: 'Información de la cuenta y configuración del perfil',
+        icon: 'User',
+        href: '/seller/profile'
     },
     {
-        title: 'Productos',
-        items: [
-            {
-                label: 'Mis Productos',
-                href: '/seller/products',
-                icon: 'Package',
-            },
-            {
-                label: 'Agregar Producto',
-                href: '/seller/products/new',
-                icon: 'Plus',
-            },
-            {
-                label: 'Inventario',
-                href: '/seller/inventory',
-                icon: 'Boxes',
-            },
-        ],
+        id: 'mi-tienda',
+        label: 'Mi Tienda',
+        description: 'Personaliza tu escaparate público y presencia de marca',
+        icon: 'Store',
+        href: '/seller/store'
     },
     {
-        title: 'Ventas',
-        items: [
-            {
-                label: 'Pedidos',
-                href: '/seller/orders',
-                icon: 'ShoppingCart',
-                badge: 5,
-            },
-            {
-                label: 'Devoluciones',
-                href: '/seller/returns',
-                icon: 'RotateCcw',
-            },
-        ],
+        id: 'catalogo',
+        label: 'Mi Catálogo',
+        description: 'Gestión integral de productos, categorías y existencias',
+        icon: 'Catalog',
+        href: '/seller/catalog'
     },
     {
-        title: 'Finanzas',
-        items: [
-            {
-                label: 'Mis Ventas',
-                href: '/seller/sales',
-                icon: 'TrendingUp',
-            },
-            {
-                label: 'Pagos',
-                href: '/seller/payments',
-                icon: 'CreditCard',
-            },
-            {
-                label: 'Reportes',
-                href: '/seller/reports',
-                icon: 'FileText',
-            },
-        ],
+        id: 'servicios',
+        label: 'Mis Servicios',
+        description: 'Gestión de prestaciones y reservas activas',
+        icon: 'Services',
+        href: '/seller/services'
     },
     {
-        title: 'Marketing',
-        items: [
-            {
-                label: 'Promociones',
-                href: '/seller/promotions',
-                icon: 'Tag',
-            },
-            {
-                label: 'Cupones',
-                href: '/seller/coupons',
-                icon: 'Ticket',
-            },
-        ],
+        id: 'ventas',
+        label: 'Mis Ventas',
+        description: 'Monitoreo estratégico de transacciones y despachos',
+        icon: 'Sales',
+        href: '/seller/sales'
     },
     {
-        title: 'Configuración',
-        items: [
-            {
-                label: 'Mi Perfil',
-                href: '/seller/profile',
-                icon: 'User',
-            },
-            {
-                label: 'Configuración',
-                href: '/seller/settings',
-                icon: 'Settings',
-            },
-        ],
+        id: 'agenda',
+        label: 'Mi Agenda',
+        description: 'Gestión cronológica de entregas y compromisos',
+        icon: 'Calendar',
+        href: '/seller/agenda'
     },
+    {
+        id: 'logistica',
+        label: 'Mi Logística',
+        description: 'Configuración estratégica de envíos y operadoras',
+        icon: 'Logistics',
+        href: '/seller/logistics'
+    },
+    {
+        id: 'finanzas',
+        label: 'Centro de Finanzas',
+        description: 'Monitoreo en tiempo real de tus KPIs estratégicos y monetarios',
+        icon: 'Finance',
+        href: '/seller/finance'
+    },
+    {
+        id: 'chat',
+        label: 'Chat con Clientes',
+        description: 'Comunicación directa y soporte en tiempo real',
+        icon: 'Messages',
+        href: '/seller/chat'
+    },
+    {
+        id: 'ayuda',
+        label: 'Mesa de Ayuda',
+        description: 'Soporte técnico y gestión de incidencias',
+        icon: 'Help',
+        href: '/seller/help'
+    },
+    {
+        id: 'facturacion',
+        label: 'Mis Comprobantes',
+        description: 'Gestión de facturación y documentos electrónicos',
+        icon: 'Invoices',
+        href: '/seller/invoices'
+    }
 ];

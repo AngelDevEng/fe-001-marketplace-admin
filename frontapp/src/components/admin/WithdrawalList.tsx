@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getWithdrawals } from '@/lib/api';
 import { Withdrawal } from '@/lib/types';
+import Icon from '@/components/ui/Icon';
 
 export default function WithdrawalList() {
     const [withdrawals, setWithdrawals] = useState<Withdrawal[]>([]);
@@ -115,15 +116,15 @@ export default function WithdrawalList() {
                                         {item.status === 0 ? (
                                             <>
                                                 <button className="p-2 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all active:scale-90">
-                                                    <i className="ph-bold ph-check text-lg"></i>
+                                                    <Icon name="Check" className="w-5 h-5" />
                                                 </button>
                                                 <button className="p-2 rounded-xl bg-gray-50 hover:bg-rose-50 hover:text-rose-500 transition-all active:scale-90">
-                                                    <i className="ph-bold ph-x text-lg"></i>
+                                                    <Icon name="X" className="w-5 h-5" />
                                                 </button>
                                             </>
                                         ) : (
                                             <button className="p-2 rounded-xl bg-gray-50 hover:bg-brand-sky/10 hover:text-brand-sky transition-all active:scale-90">
-                                                <i className="ph-bold ph-file-text text-lg"></i>
+                                                <Icon name="FileText" className="w-5 h-5" />
                                             </button>
                                         )}
                                     </div>

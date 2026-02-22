@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "https://unpkg.com/@phosphor-icons/web@2.1.1/src/style.css";
 
 
 :root {
@@ -20,6 +21,21 @@
     /* Shadows Premium */
     --shadow-premium: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-active-nav: 10px 0 15px -5px rgba(0, 0, 0, 0.08);
+
+    /* Animaciones Legacy */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    --animate-fade-in: fadeIn 0.5s ease-out forwards;
 }
 
 /* Light mode forzado — no dark override */

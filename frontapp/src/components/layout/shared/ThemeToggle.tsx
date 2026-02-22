@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Icon from '@/components/ui/Icon';
 
 export default function ThemeToggle() {
     // Forzar modo claro siempre — eliminar cualquier vestigio de dark mode
@@ -15,7 +16,7 @@ export default function ThemeToggle() {
             aria-label="Tema claro activo"
             title="Modo claro (forzado)"
         >
-            <i className="ph-bold ph-sun-dim text-xl text-amber-500"></i>
+            <Icon name="Sun" className="w-5 h-5 text-amber-500" />
         </button>
     );
 }

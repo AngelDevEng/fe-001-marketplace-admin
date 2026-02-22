@@ -12,6 +12,7 @@ import {
     Cell
 } from 'recharts';
 import { getOrders } from '@/lib/api';
+import Icon from '@/components/ui/Icon';
 
 export default function RegionalDemandChart() {
     const [data, setData] = useState<any[]>([]);
@@ -64,7 +65,7 @@ export default function RegionalDemandChart() {
                     <h3 className="text-gray-900 font-black uppercase tracking-widest text-xs">Demanda Regional</h3>
                     <p className="text-gray-400 text-[10px] font-bold mt-1 uppercase">Top 5 Ciudades con más pedidos</p>
                 </div>
-                <i className="ph-bold ph-map-pin text-brand-sky text-xl opacity-20"></i>
+                <Icon name="MapPin" className="text-brand-sky w-5 h-5 opacity-20" />
             </div>
 
             <div className="flex-1 w-full min-h-0">

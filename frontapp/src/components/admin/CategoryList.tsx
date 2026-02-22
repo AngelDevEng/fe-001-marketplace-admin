@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCategories } from '@/lib/api';
 import { ProductCategory } from '@/lib/types';
+import Icon from '@/components/ui/Icon';
 
 export default function CategoryList() {
     const [categories, setCategories] = useState<ProductCategory[]>([]);
@@ -40,7 +41,7 @@ export default function CategoryList() {
         return (
             <div className="bg-white rounded-3xl p-20 border border-rose-100 shadow-sm flex flex-col items-center justify-center gap-4 text-center">
                 <div className="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 mb-2">
-                    <i className="ph-bold ph-folder-open text-4xl"></i>
+                    <Icon name="FolderTree" className="w-10 h-10" />
                 </div>
                 <h3 className="text-gray-900 font-black uppercase tracking-widest text-sm">Error de Categorías</h3>
                 <p className="text-gray-400 font-medium text-sm max-w-md">{error}</p>
@@ -89,7 +90,7 @@ export default function CategoryList() {
                                                     className="w-full h-full object-cover"
                                                 />
                                             ) : (
-                                                <i className="ph-bold ph-folders text-xl"></i>
+                                                <Icon name="FolderTree" className="w-5 h-5 opacity-30" />
                                             )}
                                         </div>
                                         <div className="flex flex-col">
@@ -111,10 +112,10 @@ export default function CategoryList() {
                                 <td className="px-8 py-5 text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-brand-sky/10 hover:text-brand-sky transition-all active:scale-90">
-                                            <i className="ph-bold ph-pencil-simple text-lg"></i>
+                                            <Icon name="Pencil" className="w-5 h-5" />
                                         </button>
                                         <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-rose-50 hover:text-rose-500 transition-all active:scale-90">
-                                            <i className="ph-bold ph-trash text-lg"></i>
+                                            <Icon name="Trash2" className="w-5 h-5" />
                                         </button>
                                     </div>
                                 </td>

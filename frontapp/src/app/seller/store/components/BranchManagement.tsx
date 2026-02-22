@@ -1,0 +1,87 @@
+'use client';
+
+import React, { useState } from 'react';
+import { Branch } from '@/lib/types/seller/shop';
+import BranchCard from './BranchCard';
+import BranchModal from './BranchModal';
+import Icon from '@/components/ui/Icon';
+
+interface BranchManagementProps {
+    branches: Branch[];
+    setBranches: React.Dispatch<React.SetStateAction<Branch[]>>;
+}
+
+export default function BranchManagement({ branches, setBranches }: BranchManagementProps) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingBranch, setEditingBranch] = useState<Branch | null>(null);
+
+    const handleOpenModal = (branch?: Branch) => {
+        setEditingBranch(branch || null);
+        setIsModalOpen(true);
+    };
+
+    const handleSave = (branchData: Branch) => {
+        if (editingBranch) {
+            setBranches(branches.map(b => b.id === editingBranch.id ? { ...branchData, id: b.id } : b));
+        } else {
+            setBranches([...branches, { ...branchData, id: Math.random().toString(36).substr(2, 9) }]);
+        }
+        setIsModalOpen(false);
+    };
+
+    const handleDelete = (id: string) => {
+        if (window.confirm('¿Estás seguro de eliminar esta sucursal?')) {
+            setBranches(branches.filter(b => b.id !== id));
+        }
+    };
+
+    return (
+        <div className="glass-card p-0 overflow-hidden border-none rounded-[2.5rem] shadow-2xl bg-white mb-8">
+            <div className="bg-gradient-to-r from-sky-500 via-sky-500 to-sky-400 p-8 flex items-center justify-between relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+                <div className="flex items-center gap-5 text-white relative z-10">
+                    <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 shadow-inner">
+                        <Icon name="Store" className="w-6 h-6" />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-black tracking-tighter leading-none">Sucursales</h3>
+                        <p className="text-[10px] font-bold text-sky-100 uppercase tracking-[0.2em] mt-1 opacity-90">
+                            Gestión de tus locales físicos y puntos de venta
+                        </p>
+                    </div>
+                </div>
+                <button
+                    onClick={() => handleOpenModal()}
+                    className="relative z-10 flex items-center gap-2 px-6 py-3 rounded-xl bg-white backdrop-blur-md text-black font-black text-xs border border-white/20 hover:bg-white hover:text-sky-600 transition-all shadow-lg shadow-black/5 uppercase tracking-widest"
+                >
+                    <Icon name="Plus" className="w-4 h-4" /> Agregar Sucursal
+                </button>
+            </div>
+
+            <div className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {branches.map(branch => (
+                        <BranchCard
+                            key={branch.id}
+                            branch={branch}
+                            onEdit={handleOpenModal}
+                            onDelete={handleDelete}
+                        />
+                    ))}
+                    {branches.length === 0 && (
+                        <div className="col-span-full py-12 text-center bg-gray-50 rounded-[2rem] border-2 border-dashed border-gray-100">
+                            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">No hay sucursales registradas</p>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            <BranchModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSave={handleSave}
+                branch={editingBranch}
+            />
+        </div>
+    );
+}
