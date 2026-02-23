@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCategories, createCategory, updateCategory, deleteCategory } from '@/lib/api';
 import { ProductCategory } from '@/lib/types';
 
@@ -9,35 +10,56 @@ export interface CategoryNode extends ProductCategory {
 }
 
 export const useCategories = () => {
-    const [categories, setCategories] = useState<ProductCategory[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const queryClient = useQueryClient();
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
 
-    const loadCategories = async () => {
-        try {
-            setLoading(true);
+    // --- Query: Fetch Categories ---
+    const { data: categories = [], isLoading, error, refetch } = useQuery({
+        queryKey: ['admin', 'categories'],
+        queryFn: async () => {
             const data = await getCategories();
-            setCategories(data);
+            return data;
+        },
+        staleTime: 10 * 60 * 1000,
+    });
 
-            // Seleccionar la primera por defecto si no hay ninguna
-            if (data.length > 0 && !selectedCategoryId) {
-                // Preferir una raíz
-                const firstRoot = data.find(c => c.parent === 0) || data[0];
-                setSelectedCategoryId(firstRoot.id);
-            }
-            setError(null);
-        } catch (err: any) {
-            console.error("Categories Load Error:", err);
-            setError("Error al cargar las categorías de WooCommerce.");
-        } finally {
-            setLoading(false);
+    // --- Mutations ---
+    const createMutation = useMutation({
+        mutationFn: async ({ name, parent }: { name: string, parent: number }) => {
+            return await createCategory({ name, parent });
+        },
+        onSuccess: (newCat) => {
+            queryClient.setQueryData(['admin', 'categories'], (old: ProductCategory[] | undefined) => {
+                return old ? [...old, newCat] : [newCat];
+            });
+            setSelectedCategoryId(newCat.id);
         }
-    };
+    });
 
-    useEffect(() => {
-        loadCategories();
-    }, []);
+    const updateMutation = useMutation({
+        mutationFn: async ({ id, data }: { id: number, data: Partial<ProductCategory> }) => {
+            return await updateCategory(id, data);
+        },
+        onSuccess: (updated) => {
+            queryClient.setQueryData(['admin', 'categories'], (old: ProductCategory[] | undefined) => {
+                if (!old) return old;
+                return old.map(c => c.id === updated.id ? updated : c);
+            });
+        }
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: async (id: number) => {
+            return await deleteCategory(id);
+        },
+        onSuccess: (_, deletedId) => {
+            queryClient.setQueryData(['admin', 'categories'], (old: ProductCategory[] | undefined) => {
+                if (!old) return old;
+                return old.filter(c => c.id !== deletedId);
+            });
+            setSelectedCategoryId(null);
+        }
+    });
 
     // Construir árbol jerárquico
     const categoryTree = useMemo(() => {
@@ -55,7 +77,6 @@ export const useCategories = () => {
                 if (parent) {
                     parent.children.push(node);
                 } else {
-                    // Si el padre no existe en la lista (raro pero posible en paginación), va a la raíz
                     tree.push(node);
                 }
             }
@@ -65,56 +86,24 @@ export const useCategories = () => {
     }, [categories]);
 
     const selectedCategory = useMemo(() => {
-        return categories.find(c => c.id === selectedCategoryId) || null;
+        const cat = categories.find(c => c.id === selectedCategoryId) || null;
+        if (!cat && categories.length > 0 && !selectedCategoryId) {
+            // Auto-selección inicial
+            return categories.find(c => c.parent === 0) || categories[0];
+        }
+        return cat;
     }, [categories, selectedCategoryId]);
-
-    const addCategory = async (name: string, parentId: number = 0) => {
-        try {
-            const newCat = await createCategory({ name, parent: parentId });
-            setCategories(prev => [...prev, newCat]);
-            setSelectedCategoryId(newCat.id);
-            return true;
-        } catch (err) {
-            console.error("Error creating category:", err);
-            return false;
-        }
-    };
-
-    const editCategory = async (id: number, data: Partial<ProductCategory>) => {
-        try {
-            const updated = await updateCategory(id, data);
-            setCategories(prev => prev.map(c => c.id === id ? updated : c));
-            return true;
-        } catch (err) {
-            console.error("Error updating category:", err);
-            return false;
-        }
-    };
-
-    const removeCategory = async (id: number) => {
-        if (typeof window === 'undefined' || !confirm("¿Está seguro de eliminar esta categoría? Esta acción es irreversible.")) return;
-        try {
-            await deleteCategory(id);
-            setCategories(prev => prev.filter(c => c.id !== id));
-            setSelectedCategoryId(null);
-            return true;
-        } catch (err) {
-            console.error("Error deleting category:", err);
-            alert("No se pudo eliminar la categoría. Verifique que no tenga productos vinculados.");
-            return false;
-        }
-    };
 
     return {
         categories,
         categoryTree,
-        loading,
-        error,
+        loading: isLoading || createMutation.isPending || updateMutation.isPending || deleteMutation.isPending,
+        error: error ? (error as Error).message : null,
         selectedCategory,
         setSelectedCategoryId,
-        refresh: loadCategories,
-        addCategory,
-        editCategory,
-        removeCategory
+        refresh: refetch,
+        addCategory: (name: string, parentId: number = 0) => createMutation.mutateAsync({ name, parent: parentId }),
+        editCategory: (id: number, data: Partial<ProductCategory>) => updateMutation.mutateAsync({ id, data }),
+        removeCategory: (id: number) => deleteMutation.mutateAsync(id)
     };
 };

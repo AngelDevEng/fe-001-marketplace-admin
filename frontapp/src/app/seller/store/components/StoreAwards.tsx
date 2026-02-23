@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { ShopConfig } from '@/lib/types/seller/shop';
 import Icon from '@/components/ui/Icon';
 
@@ -49,7 +50,13 @@ export default function StoreAwards({ config }: StoreAwardsProps) {
                 <div className="flex flex-col md:flex-row items-center justify-center gap-16">
                     <div className="relative group flex-shrink-0">
                         <div className="absolute -inset-4 bg-sky-500/10 rounded-full blur-2xl group-hover:bg-sky-500/20 transition-all"></div>
-                        <img src="https://lyriumbiomarketplace.com/wp-content/uploads/2024/09/INSIGNIA-PREMIUM.png" alt="Insignia" className="relative w-52 h-52 object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-2xl" />
+                        <Image 
+                            src="/img/INSIGNIA PREMIUM.png" 
+                            alt="Insignia" 
+                            width={208} 
+                            height={208}
+                            className="relative w-52 h-52 object-contain transition-transform duration-700 group-hover:scale-110 drop-shadow-2xl"
+                        />
                         <div className="mt-8 text-center">
                             <span className="px-6 py-2 bg-white rounded-full shadow-xl border border-sky-100 text-sky-600 font-black text-sm uppercase tracking-tighter">Vendedor de Élite Verificado</span>
                         </div>

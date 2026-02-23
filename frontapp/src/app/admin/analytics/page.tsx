@@ -2,33 +2,57 @@
 
 import { useAnalytics } from '@/hooks/useAnalytics';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
+import BaseButton from '@/components/ui/BaseButton';
 import { AnalyticsModule } from '@/components/admin/analytics/AnalyticsModule';
-import { Download, Share2 } from 'lucide-react';
+import { Download, Share2, RefreshCw } from 'lucide-react';
+import Skeleton from '@/components/ui/Skeleton';
 
 export default function AnalyticsPage() {
     const { state, actions } = useAnalytics();
+    const { loading } = state;
 
     return (
-        <div className="space-y-6 animate-fadeIn font-industrial">
+        <div className="space-y-8 animate-fadeIn font-industrial pb-20">
             <ModuleHeader
                 title="Inteligencia de Negocio"
-                subtitle="Analítica Avanzada de Vendedores y Comportamiento (RF-10, RF-11)"
-                icon="PieChart"
+                subtitle="Analítica Avanzada de Vendedores y Comportamiento de Mercado (RF-10, RF-11)"
+                icon="Activity"
                 actions={
-                    <div className="flex gap-2">
-                        <button className="p-3 bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-indigo-600 transition-all shadow-sm group">
-                            <Share2 className="w-4 h-4" />
-                        </button>
-                        <button className="px-6 py-3 bg-gray-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 transition-all flex items-center gap-2 shadow-xl shadow-indigo-100 font-industrial group">
-                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse group-hover:scale-125 transition-all"></div>
-                            Generar Reporte Ejecutivo PDF (RF-11)
-                        </button>
+                    <div className="flex gap-3">
+                        <BaseButton
+                            onClick={() => actions.refresh()}
+                            variant="ghost"
+                            size="md"
+                            className="bg-white border border-gray-100 shadow-sm"
+                        >
+                            <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} />
+                        </BaseButton>
+                        <BaseButton
+                            variant="primary"
+                            leftIcon="FileDown"
+                            size="md"
+                            className="shadow-xl shadow-indigo-100"
+                        >
+                            Generar Reporte Ejecutivo PDF
+                        </BaseButton>
                     </div>
                 }
             />
 
-            {/* Vista Principal Data Driven */}
-            <AnalyticsModule state={state} actions={actions} />
+            {loading && !state.data ? (
+                <div className="space-y-10">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-28 rounded-[2rem]" />)}
+                    </div>
+                    <div className="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-sm">
+                        <Skeleton className="h-[500px] w-full rounded-3xl" />
+                    </div>
+                </div>
+            ) : (
+                <div className="animate-in slide-in-from-bottom-4 duration-500">
+                    <AnalyticsModule state={state} actions={actions} />
+                </div>
+            )}
         </div>
     );
 }

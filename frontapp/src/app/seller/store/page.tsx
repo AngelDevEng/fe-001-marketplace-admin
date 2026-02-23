@@ -3,7 +3,8 @@
 import React from 'react';
 import { useToast } from '@/context/ToastContext';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
-import { Loader2, Save } from 'lucide-react';
+import BaseButton from '@/components/ui/BaseButton';
+import Skeleton from '@/components/ui/Skeleton';
 
 // Components
 import BranchManagement from './components/BranchManagement';
@@ -14,60 +15,71 @@ import VisualIdentity from './components/VisualIdentity';
 import StoreAwards from './components/StoreAwards';
 import LayoutSelector from './components/LayoutSelector';
 import { useSellerStore } from '@/hooks/useSellerStore';
+import { Eye, Save } from 'lucide-react';
 
 export default function MiTiendaPage() {
     const {
         config,
         branches,
-        setBranches,
+        updateBranches,
         loading,
         saving,
         handleUpdateConfig,
-        handleSave: saveAction
+        handleSave: saveAction,
+        refresh
     } = useSellerStore();
 
     const { showToast } = useToast();
 
     const handleSave = () => {
         saveAction(() => {
-            showToast("¡Configuración de tienda guardada con éxito!", "success");
+            showToast('Cambios guardados exitosamente', 'success');
         });
     };
 
-    if (loading || !config) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-                <Loader2 className="w-12 h-12 text-sky-500 animate-spin" />
-                <p className="text-gray-400 font-black uppercase tracking-widest animate-pulse">Cargando Gestor de Tienda...</p>
-            </div>
-        );
+    if (loading && !config) {
+        return <Skeleton className="w-full h-96 rounded-[2rem]" />;
     }
 
     return (
-        <div className="max-w-7xl mx-auto space-y-8 pb-20">
+        <div className="space-y-8 animate-fadeIn pb-20 font-industrial">
             <ModuleHeader
-                title="Configuración de Mi Tienda"
-                subtitle="Gestión integral de identidad, sucursales y experiencia visual"
+                title="Mi Tienda"
+                subtitle="Configura tu identidad de marca, sucursales y políticas"
+                icon="Store"
                 actions={
-                    <button
-                        onClick={handleSave}
-                        disabled={saving}
-                        className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-white backdrop-blur-md text-black font-bold text-sm border border-white shadow-xl hover:text-sky-500 transition-all active:scale-95 disabled:opacity-50"
-                    >
-                        {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                        {saving ? 'Guardando...' : 'Guardar Cambios'}
-                    </button>
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => refresh()}
+                            className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/20 backdrop-blur-md text-white font-black text-[11px] uppercase tracking-widest border border-white/30 hover:bg-white hover:text-gray-900 transition-all active:scale-95"
+                        >
+                            <Eye className="w-5 h-5" />
+                            <span>Visualizar Tienda</span>
+                        </button>
+                        <button
+                            onClick={handleSave}
+                            disabled={saving}
+                            className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-white text-gray-900 font-black text-[11px] uppercase tracking-widest border border-white shadow-xl hover:text-indigo-600 hover:shadow-indigo-100 transition-all active:scale-95 disabled:opacity-50"
+                        >
+                            {saving ? (
+                                <i className="ph ph-spinner animate-spin text-xl"></i>
+                            ) : (
+                                <i className="ph ph-floppy-disk text-xl"></i>
+                            )}
+                            <span>{saving ? 'Guardando...' : 'Guardar Cambios'}</span>
+                        </button>
+                    </div>
                 }
             />
 
-            <div className="animate-fadeIn">
-                <BranchManagement branches={branches} setBranches={setBranches} />
-                <StoreIdentity config={config} updateConfig={handleUpdateConfig} />
-                <ContactSocial config={config} updateConfig={handleUpdateConfig} />
-                <Policies config={config} updateConfig={handleUpdateConfig} />
-                <VisualIdentity config={config} updateConfig={handleUpdateConfig} />
-                <StoreAwards config={config} />
-                <LayoutSelector config={config} updateConfig={handleUpdateConfig} />
+            <div className="space-y-8">
+                <BranchManagement branches={branches} setBranches={updateBranches} />
+                <StoreIdentity config={config!} updateConfig={handleUpdateConfig} />
+                <ContactSocial config={config!} updateConfig={handleUpdateConfig} />
+                <Policies config={config!} updateConfig={handleUpdateConfig} />
+                <VisualIdentity config={config!} updateConfig={handleUpdateConfig} />
+                <StoreAwards config={config!} />
+                <LayoutSelector config={config!} updateConfig={handleUpdateConfig} />
             </div>
         </div>
     );

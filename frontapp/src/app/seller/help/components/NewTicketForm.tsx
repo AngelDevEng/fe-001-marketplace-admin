@@ -7,7 +7,7 @@ import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';
 
 interface NewTicketFormProps {
-    onCreateTicket: (data: any) => Promise<void>;
+    onCreateTicket: (data: any) => void | Promise<void>;
     onCancel: () => void;
 }
 

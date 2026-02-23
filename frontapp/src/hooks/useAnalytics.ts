@@ -1,68 +1,57 @@
-import { useState, useCallback, useEffect, useMemo } from 'react';
-import { AnalyticsData, AnalyticsTab, AnalyticsFilters, SellerAnalytics } from '@/lib/types/admin/analytics';
+'use client';
+
+import { useState, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { AnalyticsData, AnalyticsTab, AnalyticsFilters } from '@/lib/types/admin/analytics';
 import { MOCK_ANALYTICS_DATA } from '@/lib/mocks/analyticsData';
 
 export const useAnalytics = () => {
-    const [data, setData] = useState<AnalyticsData | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<AnalyticsTab>('vendedores');
-
     const [filters, setFilters] = useState<AnalyticsFilters>({
         period: 'LAST_30',
         rubro: 'ALL'
     });
 
-    const fetchAnalytics = useCallback(async () => {
-        setLoading(true);
-        try {
-            // Simulamos API al endpoint nativo de wp-json/wc/v3/...
-            // Idealmente esto se traducirá al endpoint real con Mappers de axios
-            await new Promise(resolve => setTimeout(resolve, 800));
+    // --- Query: Fetch Analytics ---
+    const { data: analyticsData, isLoading, error, refetch } = useQuery({
+        queryKey: ['admin', 'analytics', filters],
+        queryFn: async () => {
+            // Simulamos delay de red proporcional a la complejidad del reporte
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
-            // Simulación de Filtros (Solo para el Mock, en prod el backend hace esto)
             let filteredSellers = MOCK_ANALYTICS_DATA.vendedoresAnalitica;
             if (filters.rubro !== 'ALL') {
                 filteredSellers = filteredSellers.filter(s => s.rubro === filters.rubro);
             }
 
-            // Inyectar datos mock y aplicar el filtro leve
-            setData({
+            return {
                 ...MOCK_ANALYTICS_DATA,
                 vendedoresAnalitica: filteredSellers
-            });
-            setError(null);
-        } catch (err: any) {
-            setError(err.message || 'Error calculando Big Data / WooCommerce Reports');
-        } finally {
-            setLoading(false);
-        }
-    }, [filters]);
-
-    useEffect(() => {
-        fetchAnalytics();
-    }, [fetchAnalytics]);
+            } as AnalyticsData;
+        },
+        staleTime: 15 * 60 * 1000, // Analytics duran 15 min (Big Data)
+    });
 
     const kpis = useMemo(() => {
-        if (!data) return [];
+        if (!analyticsData) return [];
         return [
-            { label: 'Customer Lifetime Value (Promedio)', val: `S/ ${data.resumenGlobal.clv_promedio.toLocaleString()}`, color: 'indigo', icon: 'ChartLineUp' },
-            { label: 'Tasa de Retención (Recurrencia)', val: `${data.resumenGlobal.tasa_retencion}%`, color: 'emerald', icon: 'Magnet' },
-            { label: 'Conversión Media (Visita/Orden)', val: `${data.resumenGlobal.conversion_media}%`, color: 'sky', icon: 'Funnel' },
-            { label: 'Frecuencia de Compra (Promedio)', val: `${data.resumenGlobal.frecuencia_compra} ped/mes`, color: 'amber', icon: 'Storefront' }
+            { label: 'Customer Lifetime Value', val: `S/ ${analyticsData.resumenGlobal.clv_promedio.toLocaleString()}`, color: 'indigo', icon: 'TrendingUp' },
+            { label: 'Tasa de Retención', val: `${analyticsData.resumenGlobal.tasa_retencion}%`, color: 'emerald', icon: 'History' },
+            { label: 'Conversión Media', val: `${analyticsData.resumenGlobal.conversion_media}%`, color: 'sky', icon: 'BarChart' },
+            { label: 'Frecuencia de Compra', val: `${analyticsData.resumenGlobal.frecuencia_compra} ped/mes`, color: 'amber', icon: 'RefreshCw' }
         ];
-    }, [data]);
+    }, [analyticsData]);
 
     const topSellers = useMemo(() => {
-        if (!data) return [];
-        return [...data.vendedoresAnalitica].sort((a, b) => b.roi - a.roi).slice(0, 4);
-    }, [data]);
+        if (!analyticsData) return [];
+        return [...analyticsData.vendedoresAnalitica].sort((a, b) => b.roi - a.roi).slice(0, 4);
+    }, [analyticsData]);
 
     return {
         state: {
-            data,
-            loading,
-            error,
+            data: analyticsData || null,
+            loading: isLoading,
+            error: error ? (error as Error).message : null,
             activeTab,
             filters,
             kpis,
@@ -70,7 +59,8 @@ export const useAnalytics = () => {
         },
         actions: {
             setActiveTab,
-            setFilters
+            setFilters,
+            refresh: refetch
         }
     };
 };

@@ -2,30 +2,32 @@
 
 import { useContratos } from '@/hooks/useContratos';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
+import BaseButton from '@/components/ui/BaseButton';
 import { ContratosModule } from '@/components/admin/contracts/ContractsModule';
 import { ContractDetailModal } from '@/components/admin/contracts/ContractDetailModal';
 import ModalsPortal from '@/components/layout/shared/ModalsPortal';
-import { FolderOpen } from 'lucide-react';
+import { X } from 'lucide-react';
 
 export default function ContractsPage() {
     const { state, actions } = useContratos();
-    const { selectedContract } = state;
+    const { selectedContract, loading } = state;
 
     return (
-        <div className="space-y-6 animate-fadeIn font-industrial">
+        <div className="space-y-6 animate-fadeIn font-industrial pb-20">
             <ModuleHeader
                 title="Módulo de Contratación y Organización"
                 subtitle="Sistema Inteligente de Contratos y Gestión Documental (RF-16)"
                 icon="FileText"
                 actions={
                     <div className="flex gap-2">
-                        <button
+                        <BaseButton
                             onClick={actions.openTemplates}
-                            className="px-6 py-3 bg-white border border-gray-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-500 hover:bg-gray-50 transition-all flex items-center gap-2 shadow-sm font-industrial"
+                            variant="primary"
+                            leftIcon="FolderOpen"
+                            size="md"
                         >
-                            <FolderOpen className="w-4 h-4" />
                             Plantillas Legales
-                        </button>
+                        </BaseButton>
                     </div>
                 }
             />
@@ -41,9 +43,15 @@ export default function ContractsPage() {
                             className="absolute inset-0 bg-gray-900/60 backdrop-blur-md animate-fadeIn"
                             onClick={() => actions.setSelectedContract(null)}
                         ></div>
-                        <div className="relative z-10 w-full max-w-2xl flex items-center justify-center">
+                        <div className="relative z-10 w-full max-w-2xl animate-scaleUp">
+                            <button
+                                onClick={() => actions.setSelectedContract(null)}
+                                className="absolute -top-12 right-0 p-2 text-white/50 hover:text-white transition-colors"
+                            >
+                                <X className="w-8 h-8" />
+                            </button>
                             <ContractDetailModal
-                                contract={selectedContract!}
+                                contract={selectedContract}
                                 onClose={() => actions.setSelectedContract(null)}
                                 onValidate={actions.validateContract}
                                 onInvalidate={actions.invalidateContract}

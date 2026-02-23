@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StatusBadge, AuditTimeline } from './ContractsUIComponents';
 import { Contract } from '@/lib/types/admin/contracts';
 import { FileText, FolderOpen, CheckCircle, XCircle } from 'lucide-react';
+import BaseButton from '@/components/ui/BaseButton';
 
 interface ContractDetailModalProps {
     contract: Contract;
@@ -20,108 +21,127 @@ export const ContractDetailModal: React.FC<ContractDetailModalProps> = ({ contra
     }, [contract]);
 
     return (
-        <div className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl relative overflow-hidden animate-modalIn max-h-[90vh] flex flex-col font-industrial">
+        <div className="bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col font-industrial animate-scaleUp">
             {/* Header */}
-            <div className="px-8 py-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50 flex-shrink-0">
-                <div className="flex items-center gap-4">
-                    <div className="p-3 bg-white border border-gray-100 rounded-2xl shadow-sm text-indigo-600">
-                        <FileText className="w-6 h-6" />
+            <div className="px-10 py-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                <div className="flex items-center gap-5">
+                    <div className="w-16 h-16 bg-white border border-gray-100 rounded-[1.5rem] shadow-sm flex items-center justify-center text-indigo-600">
+                        <FileText className="w-8 h-8" />
                     </div>
-                    <div className="flex-1">
-                        <h3 className="text-xl font-black text-gray-800 tracking-tight leading-none">Contrato #{contract.id}</h3>
-                        <input
-                            type="text"
-                            value={formState.company || ''}
-                            onChange={(e) => setFormState(p => ({ ...p, company: e.target.value }))}
-                            className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1 bg-transparent border-none p-0 focus:ring-0 w-full"
-                            placeholder="NOMBRE DE LA EMPRESA"
-                        />
+                    <div>
+                        <h3 className="text-2xl font-black text-gray-900 tracking-tighter uppercase italic">Expediente Legal</h3>
+                        <p className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mt-1">Contrato Identificador: {contract.id}</p>
                     </div>
                 </div>
                 <StatusBadge status={contract.status} large />
             </div>
 
-            <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8 overflow-y-auto custom-scrollbar">
+            <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-10 overflow-y-auto custom-scrollbar max-h-[60vh]">
                 {/* Info Legal */}
-                <div className="space-y-4">
-                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">Información Legal</h4>
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="text-[9px] font-bold text-gray-400 uppercase">RUC</label>
+                <div className="space-y-6">
+                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-3">Metadata Estructural (RF-16)</h4>
+
+                    <div className="space-y-4">
+                        <div className="space-y-1.5">
+                            <label className="text-[9px] font-black text-gray-400 uppercase ml-1">Razón Social</label>
                             <input
                                 type="text"
-                                value={formState.ruc || ''}
-                                onChange={(e) => setFormState(p => ({ ...p, ruc: e.target.value }))}
-                                className="w-full bg-transparent border-none p-0 text-xs font-bold text-gray-700 focus:ring-0"
+                                value={formState.company || ''}
+                                onChange={(e) => setFormState(p => ({ ...p, company: e.target.value }))}
+                                className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial"
                             />
                         </div>
-                        <div>
-                            <label className="text-[9px] font-bold text-gray-400 uppercase">Representante</label>
-                            <input
-                                type="text"
-                                value={formState.rep || ''}
-                                onChange={(e) => setFormState(p => ({ ...p, rep: e.target.value }))}
-                                className="w-full bg-transparent border-none p-0 text-xs font-bold text-gray-700 focus:ring-0"
-                            />
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                                <label className="text-[9px] font-black text-gray-400 uppercase ml-1">RUC Fiscal</label>
+                                <input
+                                    type="text"
+                                    value={formState.ruc || ''}
+                                    onChange={(e) => setFormState(p => ({ ...p, ruc: e.target.value }))}
+                                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial"
+                                />
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="text-[9px] font-black text-gray-400 uppercase ml-1">Representante</label>
+                                <input
+                                    type="text"
+                                    value={formState.rep || ''}
+                                    onChange={(e) => setFormState(p => ({ ...p, rep: e.target.value }))}
+                                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial"
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <label className="text-[9px] font-bold text-gray-400 uppercase">Fecha Inicio</label>
-                            <input
-                                type="date"
-                                value={formState.start || ''}
-                                onChange={(e) => setFormState(p => ({ ...p, start: e.target.value }))}
-                                className="w-full bg-transparent border-none p-0 text-xs font-bold text-gray-700 focus:ring-0"
-                            />
-                        </div>
-                        <div>
-                            <label className="text-[9px] font-bold text-gray-400 uppercase">Vencimiento</label>
-                            <input
-                                type="date"
-                                value={formState.end || ''}
-                                onChange={(e) => setFormState(p => ({ ...p, end: e.target.value }))}
-                                className="w-full bg-transparent border-none p-0 text-xs font-bold text-gray-700 focus:ring-0"
-                            />
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                                <label className="text-[9px] font-black text-gray-400 uppercase ml-1">Fecha de Firma</label>
+                                <input
+                                    type="date"
+                                    value={formState.start || ''}
+                                    onChange={(e) => setFormState(p => ({ ...p, start: e.target.value }))}
+                                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial uppercase"
+                                />
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="text-[9px] font-black text-gray-400 uppercase ml-1">Vencimiento</label>
+                                <input
+                                    type="date"
+                                    value={formState.end || ''}
+                                    onChange={(e) => setFormState(p => ({ ...p, end: e.target.value }))}
+                                    className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial uppercase"
+                                />
+                            </div>
                         </div>
                     </div>
 
-                    <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                        <p className="text-[8px] font-black text-gray-400 uppercase mb-2">Ruta Estructural (RF-16)</p>
-                        <p className="text-[10px] font-bold text-gray-800 flex items-center gap-2">
-                            <FolderOpen className="w-4 h-4 text-amber-500" />
-                            <span>{formState.storage_path || '--- / --- / ---'}</span>
-                        </p>
+                    <div className="p-5 bg-indigo-50/30 rounded-2xl border border-indigo-100 flex gap-4 items-center">
+                        <FolderOpen className="w-8 h-8 text-indigo-500 opacity-40 shrink-0" />
+                        <div>
+                            <p className="text-[8px] font-black text-indigo-400 uppercase mb-0.5">Ruta en Nodo de Almacenamiento</p>
+                            <p className="text-[10px] font-black text-indigo-900 truncate max-w-[180px]">{formState.storage_path || 'pendiente_de_carga.pdf'}</p>
+                        </div>
                     </div>
                 </div>
 
-                {/* Acciones */}
-                <div className="space-y-4 flex flex-col justify-between">
-                    <div>
-                        <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2 mb-4">Historial de Auditoría (RF-16)</h4>
+                {/* Acciones & Auditoría */}
+                <div className="space-y-6 flex flex-col">
+                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-3">Track de Auditoría</h4>
+
+                    <div className="flex-1 min-h-[200px]">
                         <AuditTimeline events={contract.auditTrail} />
                     </div>
 
                     {contract.status === 'PENDING' && (
-                        <div className="space-y-3 mt-4">
-                            <button
+                        <div className="space-y-3 pt-6 border-t border-gray-50">
+                            <BaseButton
                                 onClick={() => onValidate(contract.id, formState)}
-                                className="w-full py-3 bg-emerald-500 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-200 flex items-center justify-center gap-2"
+                                variant="primary"
+                                className="w-full h-14 rounded-2xl flex items-center justify-center gap-3 shadow-xl shadow-indigo-100"
                             >
-                                <CheckCircle className="w-4 h-4" /> Validar Contrato
-                            </button>
-                            <button
+                                <CheckCircle className="w-5 h-5" /> Validar y Activar
+                            </BaseButton>
+                            <BaseButton
                                 onClick={() => onInvalidate(contract.id, formState)}
-                                className="w-full py-3 bg-white border border-red-100 text-red-500 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-red-50 transition-all flex items-center justify-center gap-2"
+                                variant="ghost"
+                                className="w-full h-14 rounded-2xl border border-rose-100 text-rose-500 hover:bg-rose-50 flex items-center justify-center gap-3"
                             >
-                                <XCircle className="w-4 h-4" /> Rechazar / Expirar
-                            </button>
+                                <XCircle className="w-5 h-5" /> Denegar / Expirar
+                            </BaseButton>
                         </div>
                     )}
                 </div>
             </div>
 
             {/* Footer */}
-            <div className="px-8 py-4 bg-gray-50 border-t border-gray-100 text-right flex-shrink-0">
-                <button onClick={onClose} className="text-xs font-bold text-gray-500 hover:text-gray-800 uppercase tracking-wider transition-colors">Cerrar Ventana</button>
+            <div className="px-10 py-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+                <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest italic">Seguridad Criptográfica Lyrium © 2025</p>
+                <button
+                    onClick={onClose}
+                    className="text-[10px] font-black text-gray-500 hover:text-indigo-600 uppercase tracking-widest transition-all hover:translate-x-1"
+                >
+                    Volver al Panel
+                </button>
             </div>
         </div>
     );

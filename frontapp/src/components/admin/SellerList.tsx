@@ -1,66 +1,47 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { getStores } from '@/lib/api';
-import { Store } from '@/lib/types/stores/store';
+import React from 'react';
 import { User, Mail, Phone, Store as StoreIcon, ExternalLink, ShieldCheck, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { Seller } from '@/lib/types/admin/sellers';
+import Skeleton, { SkeletonRow } from '@/components/ui/Skeleton';
 
-export default function SellerList() {
+interface SellerListProps {
+    sellers: Seller[];
+    loading?: boolean;
+    onResetPassword?: (id: number) => void;
+}
+
+export default function SellerList({ sellers, loading = false, onResetPassword }: SellerListProps) {
     const router = useRouter();
-    const [vendors, setVendors] = useState<Store[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchVendors = async () => {
-            try {
-                setLoading(true);
-                const data = await getStores();
-                setVendors(data);
-                setError(null);
-            } catch (err) {
-                console.error('Error fetching vendors:', err);
-                setError('No se pudo establecer conexión con los datos de vendedores.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchVendors();
-    }, []);
 
     if (loading) {
         return (
-            <div className="bg-white rounded-3xl p-20 border border-gray-100 shadow-sm flex flex-col items-center justify-center gap-4">
-                <div className="w-12 h-12 border-4 border-rose-500/20 border-t-rose-500 rounded-full animate-spin"></div>
-                <p className="text-gray-400 font-black uppercase tracking-widest text-[10px]">Cargando base de datos de vendedores...</p>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="bg-white rounded-3xl p-20 border border-rose-100 shadow-sm flex flex-col items-center justify-center gap-4 text-center">
-                <div className="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500 mb-2">
-                    <ShieldCheck className="w-10 h-10" />
+            <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm overflow-hidden">
+                <div className="mb-8 flex justify-between items-center">
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-48" />
+                        <Skeleton className="h-3 w-32" />
+                    </div>
+                    <Skeleton className="h-8 w-40 rounded-full" />
                 </div>
-                <h3 className="text-gray-900 font-black uppercase tracking-widest text-sm text-rose-600">Error de Sincronización</h3>
-                <p className="text-gray-400 font-medium text-sm max-w-md">{error}</p>
+                <div className="space-y-4">
+                    <SkeletonRow count={5} />
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm transition-all hover:shadow-md">
+        <div className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-sm transition-all hover:shadow-md">
             <div className="p-8 border-b border-gray-50 bg-gray-50/30 flex items-center justify-between">
                 <div>
                     <h3 className="text-gray-900 font-black uppercase tracking-widest text-xs">Gestión Estratégica de Vendedores</h3>
                     <p className="text-gray-400 text-[10px] font-bold mt-1 uppercase">Control centralizado de cuentas Dokan Pro</p>
                 </div>
                 <div className="flex gap-2">
-                    <span className="px-4 py-1.5 bg-rose-50 text-rose-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-rose-100">
-                        {vendors.length} Vendedores Activos
+                    <span className="px-4 py-1.5 bg-sky-50 text-sky-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-sky-100">
+                        {sellers.length} Vendedores Activos
                     </span>
                 </div>
             </div>
@@ -77,25 +58,21 @@ export default function SellerList() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-50">
-                        {vendors.map((vendor) => (
+                        {sellers.map((vendor) => (
                             <tr key={vendor.id} className="group hover:bg-gray-50/50 transition-colors">
                                 <td className="px-8 py-6">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400 group-hover:from-rose-500 group-hover:to-rose-600 group-hover:text-white transition-all shadow-sm">
+                                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400 group-hover:from-sky-500 group-hover:to-sky-600 group-hover:text-white transition-all shadow-sm">
                                             <User className="w-6 h-6" />
                                         </div>
                                         <div>
                                             <p className="text-sm font-black text-gray-900 uppercase tracking-tight">
-                                                {vendor.first_name} {vendor.last_name || ''}
+                                                {vendor.name}
                                             </p>
                                             <div className="flex flex-col gap-1 mt-1">
                                                 <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold uppercase">
-                                                    <Mail className="w-3 h-3 text-rose-400" />
-                                                    {vendor.email || 'correo@no-registrado.com'}
-                                                </div>
-                                                <div className="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase">
-                                                    <Phone className="w-3 h-3 text-gray-300" />
-                                                    {vendor.phone || 'Sin teléfono'}
+                                                    <Mail className="w-3 h-3 text-sky-400" />
+                                                    {vendor.email}
                                                 </div>
                                             </div>
                                         </div>
@@ -103,17 +80,17 @@ export default function SellerList() {
                                 </td>
                                 <td className="px-8 py-6">
                                     <div className="flex items-center gap-3 bg-gray-50/50 group-hover:bg-white p-3 rounded-2xl border border-transparent group-hover:border-gray-100 transition-all w-fit">
-                                        <StoreIcon className="w-4 h-4 text-rose-500" />
+                                        <StoreIcon className="w-4 h-4 text-sky-500" />
                                         <span className="text-xs font-black text-gray-700 uppercase tracking-wide">
-                                            {vendor.store_name}
+                                            {vendor.company}
                                         </span>
                                     </div>
                                 </td>
                                 <td className="px-8 py-6">
                                     <div className="flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">
-                                            Verificado
+                                        <span className={`w-2 h-2 rounded-full ${(vendor.status === 'ACTIVE' || vendor.status === 'activa') ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500'}`}></span>
+                                        <span className={`text-[10px] font-black uppercase tracking-widest ${(vendor.status === 'ACTIVE' || vendor.status === 'activa') ? 'text-emerald-600' : 'text-rose-600'}`}>
+                                            {vendor.status}
                                         </span>
                                     </div>
                                 </td>
@@ -121,15 +98,17 @@ export default function SellerList() {
                                     <div className="space-y-1">
                                         <div className="flex items-center gap-2">
                                             <ShieldCheck className="w-3 h-3 text-emerald-500" />
-                                            <span className="text-[9px] font-black text-gray-600 uppercase tracking-widest">Activo (90d)</span>
+                                            <span className="text-[9px] font-black text-gray-600 uppercase tracking-widest">Activo</span>
                                         </div>
-                                        <p className="text-[8px] text-rose-500 font-black uppercase">Expira en 5 días</p>
+                                        {vendor.contractStatus === 'VENCIDO' && (
+                                            <p className="text-[8px] text-rose-500 font-black uppercase animate-pulse">Contrato Vencido</p>
+                                        )}
                                     </div>
                                 </td>
                                 <td className="px-8 py-6 text-right">
                                     <div className="flex items-center justify-end gap-2">
                                         <button
-                                            onClick={() => alert('SOLICITUD RF-04: Cambio de contraseña forzado enviado al correo del vendedor.')}
+                                            onClick={() => onResetPassword?.(vendor.id)}
                                             className="p-2.5 rounded-xl bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white transition-all shadow-sm"
                                             title="Forzar Cambio de Clave (RF-04)"
                                         >
@@ -137,7 +116,7 @@ export default function SellerList() {
                                         </button>
                                         <button
                                             onClick={() => router.push(`/admin/sellers/${vendor.id}`)}
-                                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 text-white text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 transition-all active:scale-95 shadow-lg shadow-gray-200/50 group-hover:shadow-rose-200"
+                                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-500 text-white text-[10px] font-black uppercase tracking-widest hover:bg-sky-600 transition-all active:scale-95 shadow-lg shadow-sky-100 group-hover:shadow-sky-200"
                                         >
                                             Ver Perfil
                                             <ExternalLink className="w-3 h-3" />
@@ -150,7 +129,7 @@ export default function SellerList() {
                 </table>
             </div>
 
-            {vendors.length === 0 && (
+            {sellers.length === 0 && (
                 <div className="p-20 text-center">
                     <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">No se encontraron vendedores registrados</p>
                 </div>

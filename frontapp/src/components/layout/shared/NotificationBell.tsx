@@ -4,10 +4,27 @@ import { useState } from 'react';
 import { Bell, AlertTriangle, ShieldAlert, Activity, Check } from 'lucide-react';
 import { useNotifications } from '@/context/NotificationContext';
 import { ProactiveNotification } from '@/lib/types/notifications';
+import { useAuth } from '@/context/AuthContext';
 
 export default function NotificationBell() {
     const [isOpen, setIsOpen] = useState(false);
     const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications();
+    const { user } = useAuth();
+
+    const getPanelInfo = () => {
+        switch (user?.role) {
+            case 'administrator':
+                return { title: 'Centro de Monitoreo', subtitle: 'Sistemas de Alerta Temprana', cta: 'Abrir Consola Forense de Eventos' };
+            case 'seller':
+                return { title: 'Notificaciones de Mi Tienda', subtitle: 'Actualizaciones en tiempo real', cta: 'Ver todas mis notificaciones' };
+            case 'logistics_operator':
+                return { title: 'Panel de Envíos', subtitle: 'Seguimiento de entregas', cta: 'Ir a Mis Envíos' };
+            default:
+                return { title: 'Centro de Monitoreo', subtitle: 'Sistemas de Alerta Temprana', cta: 'Abrir Consola Forense de Eventos' };
+        }
+    };
+
+    const panelInfo = getPanelInfo();
 
     const getLevelUI = (level: ProactiveNotification['level']) => {
         switch (level) {
@@ -44,8 +61,8 @@ export default function NotificationBell() {
                     <div className="absolute right-0 mt-3 w-[400px] bg-white rounded-[2rem] shadow-2xl border border-gray-100 z-50 overflow-hidden animate-fadeIn">
                         <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/80 flex justify-between items-center">
                             <div>
-                                <h3 className="font-black text-xs uppercase tracking-widest text-gray-800">Centro de Monitoreo</h3>
-                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Sistemas de Alerta Temprana</p>
+                                <h3 className="font-black text-xs uppercase tracking-widest text-gray-800">{panelInfo.title}</h3>
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">{panelInfo.subtitle}</p>
                             </div>
                             <div className="flex items-center gap-2">
                                 {unreadCount > 0 && (
@@ -104,7 +121,7 @@ export default function NotificationBell() {
                         </div>
                         <div className="p-4 border-t border-gray-100 bg-gray-50/50 text-center">
                             <button className="text-[10px] font-black uppercase tracking-widest text-indigo-500 hover:text-indigo-700 transition-colors">
-                                Abrir Consola Forense de Eventos
+                                {panelInfo.cta}
                             </button>
                         </div>
                     </div>

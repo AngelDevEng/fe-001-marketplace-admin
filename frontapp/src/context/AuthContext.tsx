@@ -45,15 +45,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             const isAuthPath = pathname === '/login';
             const isAdminPath = pathname.startsWith('/admin');
             const isSellerPath = pathname.startsWith('/seller');
+            const isLogisticsPath = pathname.startsWith('/logistics');
 
-            if (!token && (isAdminPath || isSellerPath)) {
+            if (!token && (isAdminPath || isSellerPath || isLogisticsPath)) {
                 router.push('/login');
             } else if (token && isAuthPath) {
-                // Si ya está logueado y va al login, redirigir según rol
+                //ueado y va Si ya está log al login, redirigir según rol
                 if (user?.role === 'administrator') {
                     router.push('/admin');
                 } else if (user?.role === 'seller') {
                     router.push('/seller');
+                } else if (user?.role === 'logistics_operator') {
+                    router.push('/logistics');
                 }
             }
         }
@@ -75,6 +78,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     nicename: 'Admin',
                     display_name: 'Administrador Maestro',
                     role: 'administrator'
+                };
+            } else if (credentials.username === 'logistics') {
+                selectedUser = {
+                    id: 999,
+                    username: 'operador_logistico',
+                    email: 'logistics@lyrium.com',
+                    nicename: 'Operador Logístico',
+                    display_name: 'Operador Logístico',
+                    role: 'logistics_operator'
                 };
             } else {
                 // Lógica de "Bypass" por nombre de tienda para desarrollo
@@ -128,6 +140,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
             if (selectedUser.role === 'administrator') {
                 router.push('/admin');
+            } else if (selectedUser.role === 'logistics_operator') {
+                router.push('/logistics');
             } else {
                 router.push('/seller');
             }

@@ -25,7 +25,7 @@ export default function DayActivityModal({ isOpen, date, events, onClose }: DayA
     const footer = (
         <BaseButton
             onClick={onClose}
-            variant="dark"
+            className="bg-sky-500 text-gray-600 hover:bg-sky-400 hover:text-white"
             size="lg"
             fullWidth
         >

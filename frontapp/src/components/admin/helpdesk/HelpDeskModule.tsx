@@ -4,20 +4,33 @@ import React from 'react';
 import { TicketList } from './TicketList';
 import { ChatView } from './ChatView';
 import { FAQView, AuditTable } from './HelpDeskSections';
-import { Priority, TicketStatus, ActionType } from '@/lib/types/admin/helpdesk';
+import { Ticket, Priority, TicketStatus, ActionType, MesaAyudaData } from '@/lib/types/admin/helpdesk';
 import { MessageSquare, LayoutGrid, BookOpen, ShieldCheck } from 'lucide-react';
+import Skeleton from '@/components/ui/Skeleton';
 
 interface HelpDeskModuleProps {
-    data: any;
+    data: MesaAyudaData | null;
     loading: boolean;
-    currentTab: string;
-    setCurrentTab: (tab: string) => void;
-    selectedTicket: any;
-    filteredTickets: any[];
+    currentTab: 'todos' | 'asignados' | 'faq' | 'auditoria';
+    setCurrentTab: (tab: 'todos' | 'asignados' | 'faq' | 'auditoria') => void;
+    selectedTicket: Ticket | null;
+    filteredTickets: Ticket[];
     filteredAudit: any[];
-    filters: any;
+    filters: {
+        search: string;
+        status: TicketStatus | '';
+        priority: Priority | '';
+        auditSearch: string;
+        auditDate: string;
+        auditType: ActionType | '';
+    };
     setFilters: React.Dispatch<React.SetStateAction<any>>;
-    actions: any;
+    actions: {
+        selectTicket: (id: number) => void;
+        sendReply: (text: string) => void;
+        updateTicketPriority: (id: number, p: Priority) => void;
+        updateTicketAdmin: (id: number, adminId: number) => void;
+    };
     onEscalate: () => void;
     onCloseTicket: () => void;
     onFAQCreate: () => void;
@@ -31,17 +44,7 @@ export const HelpDeskModule: React.FC<HelpDeskModuleProps> = ({
     onEscalate, onCloseTicket, onFAQCreate, onFAQDetail
 }) => {
 
-    if (loading || !data) {
-        return (
-            <div className="flex items-center justify-center p-20">
-                <div className="text-center font-black animate-pulse uppercase tracking-widest text-sky-500 font-industrial">
-                    Cargando Mesa de Ayuda...
-                </div>
-            </div>
-        );
-    }
-
-    const renderTabButton = (id: string, label: string, icon: React.ReactNode) => {
+    const renderTabButton = (id: 'todos' | 'asignados' | 'faq' | 'auditoria', label: string, icon: React.ReactNode) => {
         const isActive = currentTab === id;
         return (
             <button
@@ -54,10 +57,33 @@ export const HelpDeskModule: React.FC<HelpDeskModuleProps> = ({
         );
     };
 
+    if (loading || !data) {
+        return (
+            <div className="relative h-[calc(100vh-8rem)]">
+                {/* Tab Navigation Skeleton */}
+                <div className="flex bg-gray-100/80 backdrop-blur-md p-1.5 rounded-[2rem] gap-1 shadow-inner border border-white/50 w-fit mx-auto mb-4">
+                    {[1, 2, 3, 4].map(i => (
+                        <Skeleton key={i} className="h-10 w-32 rounded-[1.7rem]" />
+                    ))}
+                </div>
+
+                <div className="flex gap-6 h-full">
+                    <div className="w-1/3 space-y-4">
+                        <Skeleton className="h-full rounded-[2.5rem]" />
+                    </div>
+                    <div className="flex-1 space-y-6">
+                        <Skeleton className="h-[200px] rounded-[2.5rem]" />
+                        <Skeleton className="flex-1 rounded-[2.5rem]" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="relative min-h-[800px] overflow-hidden">
+        <div className="relative h-[calc(100vh-8rem)]">
             {/* Tab Navigation */}
-            <div className="flex bg-gray-100/80 backdrop-blur-md p-1.5 rounded-[2rem] gap-1 shadow-inner border border-white/50 w-fit mx-auto mb-10">
+            <div className="flex bg-gray-100/80 backdrop-blur-md p-1.5 rounded-[2rem] gap-1 shadow-inner border border-white/50 w-fit mx-auto mb-4">
                 {renderTabButton('todos', 'Todos los Casos', <LayoutGrid className="w-4 h-4" />)}
                 {renderTabButton('asignados', 'Mis Asignados', <MessageSquare className="w-4 h-4" />)}
                 {renderTabButton('faq', 'Base de Conocimiento', <BookOpen className="w-4 h-4" />)}
@@ -83,7 +109,7 @@ export const HelpDeskModule: React.FC<HelpDeskModuleProps> = ({
                     onFilterChange={(f) => setFilters((prev: any) => ({ ...prev, ...f }))}
                 />
             ) : (
-                <div className="grid grid-cols-12 gap-8 animate-fadeIn">
+                <div className="flex gap-6 animate-fadeIn h-full">
                     <TicketList
                         tickets={filteredTickets}
                         selectedId={selectedTicket?.id || null}
@@ -106,8 +132,8 @@ export const HelpDeskModule: React.FC<HelpDeskModuleProps> = ({
                             onCloseTicket={onCloseTicket}
                         />
                     ) : (
-                        <div className="col-span-12 lg:col-span-7 h-full min-h-[600px]">
-                            <div className="h-full flex flex-col items-center justify-center border-2 border-dashed border-gray-100 bg-white/40 backdrop-blur-sm rounded-[2.5rem]">
+                        <div className="flex-1 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+                            <div className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-gray-100 bg-white/40 backdrop-blur-sm rounded-[2.5rem]">
                                 <div className="w-24 h-24 bg-sky-50 text-sky-200 rounded-full flex items-center justify-center mb-6">
                                     <MessageSquare className="w-12 h-12" />
                                 </div>

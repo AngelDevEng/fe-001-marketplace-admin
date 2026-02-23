@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
+import BaseButton from '@/components/ui/BaseButton';
 import { Receipt, TrendingDown, DollarSign, ArrowUpRight, Plus } from 'lucide-react';
 
 export default function OperationalExpensesPage() {
@@ -18,9 +19,14 @@ export default function OperationalExpensesPage() {
                 subtitle="Control de Egresos vs Utilidad Neta (ROI Corporativo)"
                 icon="FileText"
                 actions={
-                    <button className="px-6 py-3 bg-gray-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-xl font-industrial flex items-center gap-2">
-                        <Plus className="w-4 h-4" /> Registrar Gasto
-                    </button>
+                    <BaseButton 
+                        variant="dark" 
+                        leftIcon="Plus"
+                        size="md"
+                        className="hover:!bg-indigo-600"
+                    >
+                        Registrar Gasto
+                    </BaseButton>
                 }
             />
 

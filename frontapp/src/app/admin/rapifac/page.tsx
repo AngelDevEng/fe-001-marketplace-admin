@@ -7,8 +7,10 @@ import {
     Receipt, Search, RefreshCw, Download, CheckCircle,
     Clock, XCircle, AlertCircle, User, TrendingUp, FileText
 } from 'lucide-react';
+import BaseButton from '@/components/ui/BaseButton';
+import Skeleton, { SkeletonRow } from '@/components/ui/Skeleton';
 
-// ─── Helpers ────────────────────────────────────────────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────────────
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
     ACCEPTED: { label: 'Aceptado', color: 'emerald', icon: <CheckCircle className="w-3.5 h-3.5" /> },
@@ -49,7 +51,7 @@ function formatCurrency(n: number) {
     return `S/ ${n.toLocaleString('es-PE', { minimumFractionDigits: 2 })}`;
 }
 
-// ─── Main Component ──────────────────────────────────────────────────────────
+// ── Main Component ──────────────────────────────────────────────────────────
 
 export default function AdminRapifacInvoicesPage() {
     const { invoices, kpis, isLoading, error, search, setSearch, refresh } = useAdminInvoices();
@@ -57,7 +59,7 @@ export default function AdminRapifacInvoicesPage() {
     // Exportar CSV
     const handleExportCSV = () => {
         const headers = ['ID', 'Vendedor', 'Tipo', 'Serie', 'Número', 'Cliente', 'RUC', 'Monto', 'Estado', 'Fecha'];
-        const rows = invoices.map(i => [
+        const rows = (invoices || []).map(i => [
             i.id, i.seller_name, i.type, i.series, i.number,
             i.customer_name, i.customer_ruc,
             i.amount.toFixed(2), i.sunat_status,
@@ -68,7 +70,8 @@ export default function AdminRapifacInvoicesPage() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `comprobantes-rapifac-${new Date().toISOString().split('T')[0]}.csv`;
+        const dateStr = new Date().toISOString().split('T')[0];
+        a.download = `comprobantes-rapifac-${dateStr}.csv`;
         a.click();
         URL.revokeObjectURL(url);
     };
@@ -102,213 +105,169 @@ export default function AdminRapifacInvoicesPage() {
     ] : [];
 
     return (
-        <div className="px-8 pb-20 space-y-8 animate-fadeIn font-industrial">
+        <main className="p-8 space-y-8 animate-fadeIn">
+            <ModuleHeader
+                title="Trazabilidad Rapifac"
+                subtitle="Registro centralizado de comprobantes electrónicos nacionales"
+                icon="Receipt"
+            />
 
-            {/* Header + Acciones */}
-            <div className="flex justify-between items-start">
-                <ModuleHeader
-                    title="Comprobantes Electrónicos (Rapifac)"
-                    subtitle="Auditoría global de facturas emitidas por todos los vendedores vía Rapifac / SUNAT"
-                    icon="Receipt"
-                />
-                <div className="flex gap-3 pt-6">
-                    <button
-                        onClick={refresh}
-                        title="Actualizar"
-                        className="p-3 bg-white border border-gray-100 text-gray-400 rounded-2xl
-                            hover:text-emerald-600 hover:border-emerald-100 transition-all shadow-sm"
-                    >
-                        <RefreshCw className={`w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
-                    </button>
-                    <button
-                        onClick={handleExportCSV}
-                        className="flex items-center gap-3 px-6 py-3 bg-gray-900 text-white rounded-2xl
-                            font-black text-[11px] uppercase tracking-widest
-                            hover:bg-indigo-600 transition-all shadow-xl active:scale-95"
-                    >
-                        <Download className="w-4 h-4" /> Exportar CSV
-                    </button>
-                </div>
-            </div>
-
-            {/* Error Banner */}
             {error && (
-                <div className="p-5 bg-rose-50 border border-rose-100 rounded-[2rem] flex items-center gap-4 text-rose-600 font-bold text-sm">
-                    <AlertCircle className="w-5 h-5 shrink-0" />
-                    <span>{error}</span>
+                <div className="bg-rose-50 border border-rose-200 p-6 rounded-[2rem] flex items-center gap-4 text-rose-700 font-bold shadow-sm">
+                    <AlertCircle className="w-6 h-6" />
+                    <div>
+                        <p className="text-xs uppercase tracking-widest text-rose-500 mb-1">Error de Sincronización</p>
+                        <p>{error}</p>
+                    </div>
                 </div>
             )}
 
-            {/* KPI Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {isLoading
-                    ? Array.from({ length: 4 }).map((_, i) => (
-                        <div key={i} className="h-28 bg-gray-100 animate-pulse rounded-[2.5rem]" />
-                    ))
-                    : kpiCards.map((card, i) => (
-                        <div
-                            key={i}
-                            className="bg-white p-7 rounded-[2.5rem] border border-gray-100 shadow-sm
-                                hover:shadow-md transition-all overflow-hidden"
+            {isLoading ? (
+                <div className="space-y-8">
+                    {/* Skeleton KPIs */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-28 rounded-[2rem]" />)}
+                    </div>
+                    {/* Skeleton actions */}
+                    <div className="flex justify-end gap-3">
+                        <Skeleton className="w-32 h-10 rounded-xl" />
+                        <Skeleton className="w-40 h-10 rounded-xl" />
+                    </div>
+                    {/* Skeleton Search Bar */}
+                    <div className="h-20 bg-white rounded-[2rem] border border-gray-100 flex items-center px-8">
+                        <Skeleton className="w-full h-10 rounded-xl" />
+                    </div>
+                    {/* Skeleton List */}
+                    <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                        <SkeletonRow count={8} />
+                    </div>
+                </div>
+            ) : (
+                <>
+                    {/* Acciones */}
+                    <div className="flex justify-end items-center gap-3">
+                        <BaseButton
+                            onClick={() => refresh()}
+                            variant="ghost"
+                            leftIcon="RefreshCw"
+                            size="md"
                         >
-                            <div className="flex items-center justify-between mb-3">
-                            <div className={`p-3 ${cardColorClasses[card.color]} rounded-2xl`}>
-                                    {card.icon}
+                            Sincronizar
+                        </BaseButton>
+
+                        <BaseButton
+                            onClick={handleExportCSV}
+                            variant="primary"
+                            leftIcon="Download"
+                            size="md"
+                        >
+                            Exportar Reporte
+                        </BaseButton>
+                    </div>
+
+                    {/* Resumen KPIs */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {kpiCards.map((card, idx) => (
+                            <div
+                                key={idx}
+                                className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-gray-200/50 transition-all group"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 ${cardColorClasses[card.color] || 'bg-gray-50'}`}>
+                                        {card.icon}
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest truncate">{card.label}</p>
+                                        <p className="text-xl font-black text-gray-900 tracking-tighter mt-0.5">{card.value}</p>
+                                    </div>
                                 </div>
-                                <span className="text-2xl font-black text-gray-900 tracking-tighter">
-                                    {card.value}
-                                </span>
                             </div>
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
-                                {card.label}
-                            </p>
+                        ))}
+                    </div>
+
+                    {/* Listado Comprobantes */}
+                    <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col">
+                        {/* Header Listado */}
+                        <div className="p-8 border-b border-gray-50 flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gray-50/30">
+                            <div>
+                                <h3 className="text-xl font-black text-gray-900 tracking-tight">Comprobantes Recientes</h3>
+                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Sincronizado con Rapifac Cloud Nodes</p>
+                            </div>
+                            <div className="relative w-full md:w-96">
+                                <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                <input
+                                    type="text"
+                                    placeholder="Buscar por cliente, documento o serie..."
+                                    className="w-full pl-14 pr-6 py-4 bg-white border-gray-100 border rounded-2xl text-sm font-bold focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                />
+                            </div>
                         </div>
-                    ))}
-            </div>
 
-            {/* Buscador */}
-            <div className="relative">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                    id="admin-invoice-search"
-                    type="text"
-                    placeholder="Buscar por vendedor, cliente, RUC, serie, número de orden..."
-                    value={search}
-                    onChange={e => setSearch(e.target.value)}
-                    className="w-full pl-12 pr-6 py-4 bg-white border border-gray-100 rounded-[2rem]
-                        text-sm text-gray-700 placeholder:text-gray-300 focus:outline-none
-                        focus:ring-2 focus:ring-indigo-100 shadow-sm transition-all"
-                />
-            </div>
-
-            {/* Tabla */}
-            <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden">
-                {/* Table header */}
-                <div className="px-8 py-5 border-b border-gray-50 flex items-center justify-between">
-                    <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest">
-                        Listado de Comprobantes
-                    </h3>
-                    {!isLoading && (
-                        <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">
-                            {invoices.length} registros
-                        </span>
-                    )}
-                </div>
-
-                {isLoading ? (
-                    <div className="p-20 flex flex-col items-center gap-6">
-                        <div className="w-16 h-16 border-4 border-indigo-100 border-t-indigo-500 rounded-full animate-spin" />
-                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.25em] animate-pulse">
-                            Cargando comprobantes de Rapifac…
-                        </p>
-                    </div>
-                ) : invoices.length === 0 ? (
-                    <div className="p-20 flex flex-col items-center gap-4 text-gray-300">
-                        <Receipt className="w-16 h-16" />
-                        <p className="text-sm font-black uppercase tracking-widest">
-                            {search ? 'Sin resultados para esa búsqueda' : 'No hay comprobantes emitidos aún'}
-                        </p>
-                        <p className="text-xs text-gray-400">
-                            {!search && 'Cuando un vendedor emita una factura aparecerá aquí en tiempo real.'}
-                        </p>
-                    </div>
-                ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-sm">
-                            <thead>
-                                <tr className="border-b border-gray-50">
-                                    {['Vendedor', 'Tipo', 'Serie / N°', 'Cliente / RUC', 'Monto', 'Estado', 'Fecha'].map(h => (
-                                        <th
-                                            key={h}
-                                            className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest"
-                                        >
-                                            {h}
-                                        </th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {invoices.map((inv) => (
-                                    <tr
-                                        key={inv.id}
-                                        className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors group"
-                                    >
-                                        {/* Vendedor */}
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-7 h-7 bg-indigo-50 rounded-full flex items-center justify-center">
-                                                    <User className="w-3.5 h-3.5 text-indigo-500" />
-                                                </div>
-                                                <div>
-                                                    <p className="text-xs font-black text-gray-700">{inv.seller_name}</p>
-                                                    <p className="text-[10px] font-medium text-gray-400">{inv.seller_id}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        {/* Tipo */}
-                                        <td className="px-6 py-4">
-                                            <span className="text-[10px] font-black text-gray-500 uppercase tracking-wider">
-                                                {inv.type}
-                                            </span>
-                                        </td>
-                                        {/* Serie / N° */}
-                                        <td className="px-6 py-4">
-                                            <p className="text-xs font-bold text-gray-700">{inv.series}-{inv.number}</p>
-                                            <p className="text-[10px] text-gray-400">{inv.order_id}</p>
-                                        </td>
-                                        {/* Cliente */}
-                                        <td className="px-6 py-4">
-                                            <p className="text-xs font-bold text-gray-700">{inv.customer_name}</p>
-                                            <p className="text-[10px] text-gray-400">{inv.customer_ruc}</p>
-                                        </td>
-                                        {/* Monto */}
-                                        <td className="px-6 py-4">
-                                            <span className="text-sm font-black text-gray-900 tracking-tight">
-                                                {formatCurrency(inv.amount)}
-                                            </span>
-                                        </td>
-                                        {/* Estado */}
-                                        <td className="px-6 py-4">
-                                            <StatusBadge status={inv.sunat_status} />
-                                        </td>
-                                        {/* Fecha */}
-                                        <td className="px-6 py-4">
-                                            <p className="text-xs font-medium text-gray-500">
-                                                {new Date(inv.emission_date).toLocaleDateString('es-PE', {
-                                                    day: '2-digit', month: 'short', year: 'numeric'
-                                                })}
-                                            </p>
-                                            <p className="text-[10px] text-gray-400">
-                                                {new Date(inv.emission_date).toLocaleTimeString('es-PE', {
-                                                    hour: '2-digit', minute: '2-digit'
-                                                })}
-                                            </p>
-                                        </td>
+                        {/* Tabla */}
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="bg-gray-50/50">
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Documento / Vendedor</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Serie-Nro</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Cliente / RUC</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Monto Operación</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 text-center">Estado SUNAT</th>
+                                        <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 text-right">Fecha</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
-            </div>
+                                </thead>
+                                <tbody>
+                                    {(invoices || []).map((invoice) => (
+                                        <tr key={invoice.id} className="hover:bg-blue-50/30 transition-colors group">
+                                            <td className="px-8 py-6 border-b border-gray-50">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 group-hover:bg-white group-hover:text-blue-500 transition-all">
+                                                        <User className="w-5 h-5" />
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-[11px] font-black text-blue-500 uppercase tracking-tight">{invoice.type}</div>
+                                                        <div className="text-[13px] font-black text-gray-900 mt-0.5">{invoice.seller_name}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className="px-8 py-6 border-b border-gray-50 font-black text-gray-600 font-mono text-sm">
+                                                {invoice.series}-{invoice.number}
+                                            </td>
+                                            <td className="px-8 py-6 border-b border-gray-50">
+                                                <div className="text-[13px] font-black text-gray-900 uppercase truncate max-w-xs">{invoice.customer_name}</div>
+                                                <div className="text-[10px] font-bold text-gray-400 mt-0.5 font-mono">{invoice.customer_ruc}</div>
+                                            </td>
+                                            <td className="px-8 py-6 border-b border-gray-50">
+                                                <div className="text-sm font-black text-gray-900 tracking-tighter">{formatCurrency(invoice.amount)}</div>
+                                            </td>
+                                            <td className="px-8 py-6 border-b border-gray-50 text-center">
+                                                <StatusBadge status={invoice.sunat_status} />
+                                            </td>
+                                            <td className="px-8 py-6 border-b border-gray-50 text-right">
+                                                <div className="text-[11px] font-bold text-gray-400 uppercase">{new Date(invoice.emission_date).toLocaleDateString('es-PE')}</div>
+                                                <div className="text-[10px] text-gray-300 font-medium mt-0.5 italic">{new Date(invoice.emission_date).toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })}</div>
+                                            </td>
+                                        </tr>
+                                    ))}
 
-            {/* Footer informativo */}
-            <div className="bg-indigo-900 p-8 rounded-[2.5rem] text-white flex items-center gap-6 relative overflow-hidden shadow-2xl shadow-indigo-200">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/20 rounded-full -mr-32 -mt-32 blur-3xl" />
-                <div className="p-4 bg-white/10 rounded-2xl backdrop-blur-md">
-                    <Receipt className="w-8 h-8 text-indigo-300" />
-                </div>
-                <div className="flex-1">
-                    <h4 className="text-sm font-black uppercase tracking-widest mb-1">
-                        Auditoría en Tiempo Real
-                    </h4>
-                    <p className="text-xs text-indigo-200 font-medium">
-                        Cada factura emitida por un vendedor queda registrada automáticamente en este panel.
-                        Los datos provienen del store compartido de la API interna de Rapifac
-                        (<code className="bg-white/10 px-1.5 py-0.5 rounded font-mono text-[10px]">GET /api/rapifac/invoices</code>).
-                    </p>
-                </div>
-            </div>
-        </div>
+                                    {(!invoices || invoices.length === 0) && (
+                                        <tr>
+                                            <td colSpan={6} className="px-8 py-20 text-center">
+                                                <div className="flex flex-col items-center gap-3">
+                                                    <AlertCircle className="w-12 h-12 text-gray-200" />
+                                                    <p className="font-black text-gray-300 uppercase tracking-widest text-xs">No se encontraron comprobantes registrados</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </>
+            )}
+        </main>
     );
 }

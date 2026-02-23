@@ -1,15 +1,16 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { InventoryItem, ItemType, ItemStatus } from '@/lib/types/admin/inventory';
 import { getProducts, updateProduct } from '@/lib/api';
 import { Product } from '@/lib/types';
 import { useNotifications } from '@/context/NotificationContext';
 
 export const useInventory = () => {
-    const [items, setItems] = useState<InventoryItem[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const queryClient = useQueryClient();
+    const { addNotification } = useNotifications();
+
     const [filters, setFilters] = useState({
         search: '',
         seller: 'ALL',
@@ -17,57 +18,91 @@ export const useInventory = () => {
         status: 'ALL' as ItemStatus | 'ALL'
     });
 
-    useEffect(() => {
-        const loadRealData = async () => {
-            try {
-                setLoading(true);
-                const wcProducts = await getProducts();
+    // --- Query: Fetch Products ---
+    const { data: items = [], isLoading, error, refetch } = useQuery({
+        queryKey: ['admin', 'inventory'],
+        queryFn: async () => {
+            const wcProducts = await getProducts();
 
-                // Mapeo: WC Product -> InventoryItem (RF compliant)
-                const mappedItems: InventoryItem[] = wcProducts.map((p: Product) => {
-                    // Determinar si es Servicio basado en categoría o nombre (lógica legacy Dokan)
-                    const isService = p.categories.some(c =>
-                        c.name.toLowerCase().includes('servicio') ||
-                        c.name.toLowerCase().includes('asesoría')
-                    );
+            return wcProducts.map((p: Product) => {
+                const isService = p.categories.some(c =>
+                    c.name.toLowerCase().includes('servicio') ||
+                    c.name.toLowerCase().includes('asesoría')
+                );
 
-                    // Determinar Estado Operativo
-                    let status: ItemStatus = 'IN_STOCK';
-                    if (p.stock_status === 'outofstock' || (p.manage_stock && p.stock_quantity === 0)) {
-                        status = 'OUT_OF_STOCK';
-                    } else if (p.manage_stock && (p.stock_quantity ?? 0) < 5) {
-                        status = 'LOW_STOCK';
+                let status: ItemStatus = 'IN_STOCK';
+                if (p.stock_status === 'outofstock' || (p.manage_stock && p.stock_quantity === 0)) {
+                    status = 'OUT_OF_STOCK';
+                } else if (p.manage_stock && (p.stock_quantity ?? 0) < 5) {
+                    status = 'LOW_STOCK';
+                }
+
+                return {
+                    id: p.id.toString(),
+                    name: p.name,
+                    type: isService ? 'SERVICE' : 'PRODUCT',
+                    sku: p.sku || `SKU-${p.id}`,
+                    seller: {
+                        id: p.store?.id?.toString() || '0',
+                        name: p.store?.shop_name || 'Tienda Principal'
+                    },
+                    category: p.categories[0]?.name || 'Sin Categoría',
+                    price: parseFloat(p.price) || 0,
+                    stock: p.stock_quantity || 0,
+                    status: isService ? 'ACTIVE' : status,
+                    lastUpdate: new Date().toLocaleDateString()
+                } as InventoryItem;
+            });
+        },
+        staleTime: 5 * 60 * 1000,
+    });
+
+    // --- Mutation: Update Stock/Price ---
+    const updateInventoryMutation = useMutation({
+        mutationFn: async ({ id, newStock, newPrice }: { id: string, newStock?: number, newPrice?: number }) => {
+            return await updateProduct(Number(id), {
+                stock_quantity: newStock,
+                price: newPrice?.toString(),
+                manage_stock: newStock !== undefined
+            });
+        },
+        onSuccess: (updatedProduct, variables) => {
+            queryClient.setQueryData(['admin', 'inventory'], (old: InventoryItem[] | undefined) => {
+                if (!old) return old;
+                return old.map(item => {
+                    if (item.id === variables.id) {
+                        const newStock = variables.newStock ?? item.stock;
+                        const isService = item.type === 'SERVICE';
+                        let newStatus: ItemStatus = item.status;
+
+                        if (!isService) {
+                            if (newStock === 0) newStatus = 'OUT_OF_STOCK';
+                            else if (newStock < 5) newStatus = 'LOW_STOCK';
+                            else newStatus = 'IN_STOCK';
+                        }
+
+                        return {
+                            ...item,
+                            stock: newStock,
+                            price: variables.newPrice ?? item.price,
+                            status: newStatus,
+                            lastUpdate: new Date().toLocaleDateString()
+                        };
                     }
-
-                    return {
-                        id: p.id.toString(),
-                        name: p.name,
-                        type: isService ? 'SERVICE' : 'PRODUCT',
-                        sku: p.sku || `SKU-${p.id}`,
-                        seller: {
-                            id: p.store?.id?.toString() || '0',
-                            name: p.store?.shop_name || 'Tienda Principal'
-                        },
-                        category: p.categories[0]?.name || 'Sin Categoría',
-                        price: parseFloat(p.price) || 0,
-                        stock: p.stock_quantity || 0,
-                        status: isService ? 'ACTIVE' : status,
-                        lastUpdate: new Date().toLocaleDateString()
-                    };
+                    return item;
                 });
+            });
 
-                setItems(mappedItems);
-                setError(null);
-            } catch (err: any) {
-                console.error("Inventory Fetch Error:", err);
-                setError("No se pudo conectar con el servidor de WooCommerce. Verifique sus llaves API.");
-            } finally {
-                setLoading(false);
+            if (variables.newStock === 0) {
+                const item = items.find(i => i.id === variables.id);
+                addNotification({
+                    level: 'CRITICAL',
+                    title: 'Stock Agotado',
+                    message: `El producto "${item?.name}" se ha agotado en WooCommerce.`
+                });
             }
-        };
-
-        loadRealData();
-    }, []);
+        }
+    });
 
     const filteredItems = useMemo(() => {
         return items.filter(item => {
@@ -90,7 +125,7 @@ export const useInventory = () => {
         };
     }, [items]);
 
-    const sellers = useMemo(() => {
+    const sellersList = useMemo(() => {
         const uniqueSellersMap = new Map();
         items.forEach(i => {
             if (!uniqueSellersMap.has(i.seller.id)) {
@@ -100,42 +135,17 @@ export const useInventory = () => {
         return Array.from(uniqueSellersMap.values());
     }, [items]);
 
-    const { addNotification } = useNotifications();
-
-    const updateStock = async (id: string, newStock: number) => {
-        try {
-            const product = items.find(i => i.id === id);
-            await updateProduct(Number(id), {
-                stock_quantity: newStock,
-                manage_stock: true
-            });
-
-            // Alerta Real-Time si el stock llega a 0
-            if (newStock === 0 && product) {
-                addNotification({
-                    level: 'CRITICAL',
-                    title: 'Stock Agotado Canal Crítico',
-                    message: `El producto "${product.name}" de la tienda "${product.seller.name}" se ha agotado completamente.`
-                });
-            }
-
-            setItems(prev => prev.map(item =>
-                item.id === id ? { ...item, stock: newStock } : item
-            ));
-        } catch (err) {
-            console.error("Error updating stock in WC:", err);
-            return false;
-        }
-    };
-
     return {
         items: filteredItems,
-        loading,
-        error,
+        loading: isLoading || updateInventoryMutation.isPending,
+        error: error ? (error as Error).message : null,
         stats,
-        sellers,
+        sellers: sellersList,
         filters,
         setFilters,
-        updateStock
+        updateStock: (id: string, newStock: number) => updateInventoryMutation.mutateAsync({ id, newStock }),
+        updateProductDetails: (id: string, newStock: number, newPrice: number) =>
+            updateInventoryMutation.mutateAsync({ id, newStock, newPrice }),
+        refresh: refetch
     };
 };

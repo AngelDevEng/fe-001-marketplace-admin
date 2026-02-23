@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Product } from '@/lib/types/seller/product';
-import Icon from '@/components/ui/Icon';
 
 interface ProductCardProps {
     product: Product;
@@ -17,8 +16,9 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: P
     };
 
     return (
-        <div className="product-card glass-card p-4 hover:shadow-lg transition-all cursor-pointer group animate-fadeIn h-full flex flex-col relative w-full rounded-3xl bg-white border border-gray-100">
+        <div className="product-card glass-card p-4 hover:shadow-lg transition-all cursor-pointer group animate-fadeIn h-full flex flex-col relative">
             <div className="relative mb-3 overflow-hidden rounded-xl bg-gray-50 aspect-square flex items-center justify-center p-2 border border-gray-100">
+
                 {/* Stickers */}
                 <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
                     {product.sticker === 'liquidacion' && (
@@ -44,7 +44,7 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: P
                     {product.sticker === 'descuento' && (
                         <div className="relative group/sticker">
                             <span className="bg-emerald-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
-                                {product.discountPercentage ? `-${product.discountPercentage}%` : 'Descuento'}
+                                {(product as any).discountPercentage ? `-${(product as any).discountPercentage}%` : 'Descuento'}
                             </span>
                             <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
                                 Ahorro directo aplicado
@@ -83,12 +83,6 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: P
                     )}
                 </div>
 
-                <div className="absolute bottom-2 right-2 z-10">
-                    <div className="medal-lyrium hidden group-hover:block group/medal relative">
-                        {/* Placeholder for medal image if available */}
-                    </div>
-                </div>
-
                 <img
                     src={product.image || 'https://placehold.co/300x300/f3f4f6/9ca3af?text=No+Image'}
                     alt={product.name}
@@ -114,22 +108,21 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: P
             <div className="mt-2 flex gap-1 pt-2 border-t border-gray-50 items-center justify-center">
                 <button
                     onClick={(e) => { e.stopPropagation(); onViewInfo(product); }}
-                    className="flex-1 py-1.5 bg-gray-50 text-[8px] font-black text-gray-500 rounded-lg hover:bg-sky-50 hover:text-sky-500 transition-all uppercase flex items-center justify-center gap-1"
+                    className="flex-1 py-1.5 bg-gray-50 text-[8px] font-black text-gray-400 rounded-lg hover:bg-sky-50 hover:text-sky-500 transition-all uppercase"
                 >
-                    <Icon name="Info" className="w-3 h-3" />
                     Info
                 </button>
                 <button
                     onClick={(e) => { e.stopPropagation(); onEdit(product); }}
                     className="p-1.5 text-sky-500 hover:text-sky-600 transition-all"
                 >
-                    <Icon name="Pencil" className="w-4 h-4" />
+                    <i className="ph ph-pencil-simple text-sm"></i>
                 </button>
                 <button
                     onClick={(e) => { e.stopPropagation(); onDelete(product.id); }}
                     className="p-1.5 text-sky-500 hover:text-red-500 transition-all"
                 >
-                    <Icon name="Trash2" className="w-4 h-4" />
+                    <i className="ph ph-trash text-sm"></i>
                 </button>
             </div>
         </div>

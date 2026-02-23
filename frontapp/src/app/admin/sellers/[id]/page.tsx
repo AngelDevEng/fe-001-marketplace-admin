@@ -66,7 +66,7 @@ export default function SellerDetailPage() {
     }
 
     return (
-        <div className="px-8 pb-20 space-y-8 animate-fadeIn">
+        <div className="space-y-8 animate-fadeIn font-industrial">
             <div className="flex items-center gap-4 mb-4">
                 <button
                     onClick={() => router.back()}

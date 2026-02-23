@@ -12,6 +12,7 @@ import { AnalyticsKPI } from '@/lib/types/admin/analytics';
 import { Store, Users } from 'lucide-react';
 import { SalesHeatmap } from '@/components/admin/finance/FinanceCharts';
 import { MOCK_FINANCE_DATA } from '@/lib/mocks/financeData';
+import Skeleton from '@/components/ui/Skeleton';
 
 interface AnalyticsModuleProps {
     state: any;
@@ -23,8 +24,38 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
 
     if (loading || !data) {
         return (
-            <div className="p-20 text-center font-black animate-pulse text-indigo-500 uppercase tracking-widest font-industrial">
-                Procesando Big Data con Inteligencia de Negocio...
+            <div className="space-y-8 animate-fadeIn pb-20 font-industrial">
+                {/* FILTROS SKELETON */}
+                <Skeleton className="w-full h-32 rounded-[2.5rem]" />
+
+                {/* KPI SKELETONS */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {[1, 2, 3, 4].map(idx => (
+                        <div key={idx} className="bg-white p-7 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4">
+                            <div className="flex justify-between items-center">
+                                <Skeleton className="h-10 w-10 rounded-xl" />
+                                <Skeleton className="h-8 w-16 rounded-md" />
+                            </div>
+                            <Skeleton className="h-4 w-24 rounded" />
+                        </div>
+                    ))}
+                </div>
+
+                {/* TABS SKELETON */}
+                <div className="flex bg-gray-100/80 p-1.5 rounded-[2rem] w-fit mx-auto border border-white/50 backdrop-blur-sm shadow-inner mb-4">
+                    <Skeleton className="h-12 w-48 rounded-[1.7rem]" />
+                    <Skeleton className="h-12 w-48 rounded-[1.7rem] ml-1" />
+                </div>
+
+                {/* CONTENT SKELETON */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div className="lg:col-span-8">
+                        <Skeleton className="w-full h-[500px] rounded-[2.5rem]" />
+                    </div>
+                    <div className="lg:col-span-4">
+                        <Skeleton className="w-full h-[500px] rounded-[2.5rem]" />
+                    </div>
+                </div>
             </div>
         );
     }

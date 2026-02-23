@@ -1,6 +1,7 @@
 import React from 'react';
 import { FAQArticle, AuditEntry, ActionType } from '@/lib/types/admin/helpdesk';
 import { scrollbarClass, glassCardClass } from './HelpDeskShared';
+import BaseButton from '@/components/ui/BaseButton';
 import { Search, PlusCircle, ShieldCheck, ThumbsUp, ThumbsDown } from 'lucide-react';
 
 // --- FAQ VIEW ---
@@ -24,13 +25,14 @@ export const FAQView: React.FC<FAQViewProps> = ({ articles, onCreateClick, onSea
                         className="w-full pl-12 pr-6 py-4 bg-gray-50 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-sky-500/20 font-industrial"
                     />
                 </div>
-                <button
+                <BaseButton
                     onClick={onCreateClick}
-                    className="px-8 py-4 bg-emerald-500 text-white rounded-2xl font-black text-sm shadow-xl shadow-emerald-100/50 hover:bg-emerald-600 transition-all flex items-center gap-3 font-industrial"
+                    variant="success"
+                    leftIcon="PlusCircle"
+                    size="md"
                 >
-                    <PlusCircle className="w-6 h-6" />
-                    <span>Crear Artículo</span>
-                </button>
+                    Crear Artículo
+                </BaseButton>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {articles.map(f => (

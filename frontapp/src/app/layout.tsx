@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   description: "Tu marketplace de confianza",
 };
 
+import QueryProvider from '@/components/providers/QueryProvider';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,13 +34,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <NotificationProvider>
-            <ToastProvider>
-              {children}
-            </ToastProvider>
-          </NotificationProvider>
-        </AuthProvider>
+        <QueryProvider>
+          <AuthProvider>
+            <NotificationProvider>
+              <ToastProvider>
+                {children}
+              </ToastProvider>
+            </NotificationProvider>
+          </AuthProvider>
+        </QueryProvider>
         <div id="modal-root"></div>
       </body>
     </html>

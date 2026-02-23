@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBadge, ModalityBadge, KpiCard, ExpiryTrafficLight } from './ContractsUIComponents';
 import { Contract } from '@/lib/types/admin/contracts';
 import { Search, Plus, ArrowRight, ChevronRight } from 'lucide-react';
+import Skeleton from '@/components/ui/Skeleton';
 
 interface ContratosModuleProps {
     state: any;
@@ -12,7 +13,40 @@ export const ContratosModule: React.FC<ContratosModuleProps> = ({ state, actions
     const { contracts, kpis, loading, error, filters } = state;
 
     if (loading && contracts.length === 0) {
-        return <div className="p-20 text-center font-black animate-pulse text-indigo-500 uppercase tracking-widest font-industrial">Inicializando Base Legal...</div>;
+        return (
+            <div className="space-y-6 animate-fadeIn pb-20 text-left font-industrial">
+                {/* KPI SKELETONS */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    {[1, 2, 3, 4].map(idx => (
+                        <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
+                            <Skeleton className="h-4 w-24 rounded" />
+                            <Skeleton className="h-8 w-16 rounded-md" />
+                        </div>
+                    ))}
+                </div>
+
+                {/* FILTROS SKELETON */}
+                <Skeleton className="w-full h-24 rounded-3xl" />
+
+                {/* TABLA SKELETON */}
+                <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden p-6">
+                    <div className="space-y-4">
+                        {[1, 2, 3, 4, 5, 6].map(idx => (
+                            <div key={idx} className="flex gap-4 py-4 border-b border-gray-50 last:border-0 items-center">
+                                <Skeleton className="h-8 w-16 rounded" />
+                                <div className="flex-1 space-y-2">
+                                    <Skeleton className="h-4 w-1/3 rounded" />
+                                    <Skeleton className="h-2 w-1/4 rounded" />
+                                </div>
+                                <Skeleton className="h-4 w-32 rounded" />
+                                <Skeleton className="h-8 w-24 rounded-full" />
+                                <Skeleton className="h-8 w-8 rounded-xl" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (

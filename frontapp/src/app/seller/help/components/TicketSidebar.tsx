@@ -19,17 +19,17 @@ interface TicketSidebarProps {
 
 export default function TicketSidebar({ tickets, activeTicketId, filters, onSetFilters, onSetActiveTicket, onNewTicket }: TicketSidebarProps) {
     return (
-        <div className="flex flex-col h-full bg-white/30 backdrop-blur-xl border-r border-gray-100 overflow-hidden">
+        <div className="flex flex-col h-full bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden">
             {/* Search & Filter Header */}
-            <div className="p-6 space-y-4">
+            <div className="p-4 space-y-3 border-b border-gray-50">
                 <div className="relative">
-                    <Icon name="Search" className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold w-4 h-4" />
+                    <Icon name="Search" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold w-4 h-4" />
                     <input
                         type="text"
                         placeholder="Buscar ticket o ID..."
                         value={filters.search}
                         onChange={(e) => onSetFilters({ search: e.target.value })}
-                        className="w-full pl-10 pr-4 py-3 bg-white border-none rounded-2xl text-xs font-bold text-gray-700 shadow-sm focus:ring-2 focus:ring-sky-500/10 placeholder:text-gray-300 transition-all font-mono outline-none"
+                        className="w-full pl-10 pr-3 py-2 bg-gray-50 border-none rounded-xl text-xs font-bold text-gray-700 placeholder:text-gray-300 transition-all outline-none"
                     />
                 </div>
 
@@ -37,7 +37,7 @@ export default function TicketSidebar({ tickets, activeTicketId, filters, onSetF
                     <select
                         value={filters.category}
                         onChange={(e: any) => onSetFilters({ category: e.target.value })}
-                        className="w-full px-4 py-2 bg-white border-none rounded-xl text-[10px] font-black uppercase tracking-widest text-sky-600 shadow-sm focus:ring-2 focus:ring-sky-500/10 cursor-pointer outline-none"
+                        className="w-full px-3 py-2 bg-gray-50 border-none rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-600 cursor-pointer outline-none"
                     >
                         <option value="all">Todas las Categorías</option>
                         <option value="tech">Soporte Técnico</option>
@@ -47,7 +47,7 @@ export default function TicketSidebar({ tickets, activeTicketId, filters, onSetF
                     </select>
                 </div>
 
-                <div className="flex justify-between items-center px-2">
+                <div className="flex justify-between items-center">
                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                         {tickets.length} Ticket{tickets.length !== 1 ? 's' : ''}
                     </span>
@@ -62,7 +62,7 @@ export default function TicketSidebar({ tickets, activeTicketId, filters, onSetF
             </div>
 
             {/* List */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar">
+            <div className="flex-1 overflow-y-auto p-2 space-y-2 no-scrollbar">
                 {tickets.length === 0 ? (
                     <div className="py-10 text-center opacity-40">
                         <Icon name="FolderOpen" className="text-4xl mb-2 mx-auto block font-bold w-10 h-10" />

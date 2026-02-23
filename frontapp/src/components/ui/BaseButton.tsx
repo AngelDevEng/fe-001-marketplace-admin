@@ -1,30 +1,71 @@
-import React from 'react';
+import React, { ReactNode, CSSProperties } from 'react';
 import Icon from './Icon';
 import { Loader2 } from 'lucide-react';
 
-interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'success' | 'dark';
-    size?: 'sm' | 'md' | 'lg' | 'xl';
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'success' | 'dark';
+type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
+
+interface BaseButtonProps {
+    variant?: ButtonVariant;
+    size?: ButtonSize;
     isLoading?: boolean;
     leftIcon?: string;
     rightIcon?: string;
     fullWidth?: boolean;
+    children?: ReactNode;
+    className?: string;
+    disabled?: boolean;
+    type?: 'button' | 'submit' | 'reset';
+    onClick?: () => void;
+    style?: CSSProperties;
+    title?: string;
+    id?: string;
 }
 
-const variantClasses = {
-    primary: 'bg-sky-500 text-white shadow-xl shadow-sky-100 hover:bg-sky-600 border-none',
-    secondary: 'bg-white text-gray-700 border border-gray-100 hover:bg-gray-50 shadow-sm',
-    ghost: 'bg-transparent text-gray-500 hover:bg-gray-50 border-none',
-    danger: 'bg-rose-50 text-rose-500 border border-rose-100 hover:bg-rose-100',
-    success: 'bg-emerald-500 text-white shadow-xl shadow-emerald-100 hover:bg-emerald-600 border-none',
-    dark: 'bg-gray-900 text-white shadow-2xl shadow-gray-200 hover:bg-black border-none'
+const variantClasses: Record<ButtonVariant, string> = {
+    primary: `
+        bg-white text-black
+        hover:text-sky-600
+        focus:ring-2 focus:ring-sky-500/50 focus:ring-offset-2 focus:ring-offset-white
+        active:bg-sky-700
+    `,
+    secondary: `
+        bg-emerald-500 text-white
+        hover:bg-emerald-600
+        focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-white
+        active:bg-emerald-700
+    `,
+    ghost: `
+        bg-transparent text-gray-600
+        hover:bg-gray-100
+        focus:ring-2 focus:ring-gray-300/50 focus:ring-offset-2 focus:ring-offset-white
+        active:bg-gray-200
+    `,
+    danger: `
+        bg-rose-500 text-white
+        hover:bg-rose-600
+        focus:ring-2 focus:ring-rose-500/50 focus:ring-offset-2 focus:ring-offset-white
+        active:bg-rose-700
+    `,
+    success: `
+        bg-emerald-500 text-white
+        hover:bg-emerald-600
+        focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-white
+        active:bg-emerald-700
+    `,
+    dark: `
+        bg-gray-900 text-white
+        hover:bg-gray-800
+        focus:ring-2 focus:ring-gray-500/50 focus:ring-offset-2 focus:ring-offset-white
+        active:bg-gray-950
+    `,
 };
 
-const sizeClasses = {
-    sm: 'px-4 py-2 text-[10px] rounded-xl',
-    md: 'px-6 py-3.5 text-[11px] rounded-2xl',
-    lg: 'px-10 py-5 text-[12px] rounded-[1.75rem]',
-    xl: 'px-14 py-6 text-[13px] rounded-[2rem]'
+const sizeClasses: Record<ButtonSize, string> = {
+    sm: 'px-5 py-2.5 text-xs rounded-2xl gap-2',
+    md: 'px-8 py-4 text-sm rounded-3xl gap-3',
+    lg: 'px-10 py-5 text-sm rounded-3xl gap-3',
+    xl: 'px-14 py-6 text-sm rounded-3xl gap-3',
 };
 
 export default function BaseButton({
@@ -37,29 +78,43 @@ export default function BaseButton({
     children,
     className = '',
     disabled,
-    ...props
+    type = 'button',
+    onClick,
+    style,
+    title,
+    id,
 }: BaseButtonProps) {
-    const baseStyles = 'inline-flex items-center justify-center font-black uppercase tracking-[0.15em] transition-all duration-300 active:scale-95 disabled:opacity-40 disabled:pointer-events-none gap-3';
+    const baseStyles = `
+        inline-flex items-center justify-center
+        font-black uppercase tracking-wider
+        transition-colors duration-200
+        disabled:opacity-40 disabled:pointer-events-none
+        outline-none
+    `.trim().replace(/\s+/g, ' ');
 
     return (
         <button
             className={`
-                ${baseStyles} 
-                ${variantClasses[variant]} 
-                ${sizeClasses[size]} 
-                ${fullWidth ? 'w-full' : ''} 
+                ${baseStyles}
+                ${variantClasses[variant]}
+                ${sizeClasses[size]}
+                ${fullWidth ? 'w-full' : ''}
                 ${className}
             `}
             disabled={disabled || isLoading}
-            {...props}
+            type={type}
+            onClick={onClick}
+            style={style}
+            title={title}
+            id={id}
         >
             {isLoading ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin" />
             ) : (
                 <>
-                    {leftIcon && <Icon name={leftIcon} className="w-5 h-5" />}
+                    {leftIcon && <Icon name={leftIcon} className="w-4 h-4" />}
                     {children}
-                    {rightIcon && <Icon name={rightIcon} className="w-5 h-5" />}
+                    {rightIcon && <Icon name={rightIcon} className="w-4 h-4" />}
                 </>
             )}
         </button>

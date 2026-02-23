@@ -8,7 +8,7 @@ interface InvoiceDrawerProps {
     voucher: Voucher | null;
     isOpen: boolean;
     onClose: () => void;
-    onRetry: (id: string) => Promise<void>;
+    onRetry: (id: string) => void | Promise<void>;
 }
 
 const fileColorClasses: Record<string, { bg: string; bgIcon: string; textIcon: string; shadow: string }> = {

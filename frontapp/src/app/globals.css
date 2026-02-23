@@ -54,6 +54,11 @@ body {
         background-image: linear-gradient(to right, var(--color-brand-teal), var(--color-brand-lime), var(--color-brand-sky));
     }
 
+    /* Gradient Logistics */
+    .bg-logistics-gradient {
+        background-image: linear-gradient(to right, #8b5cf6, #a855f7, #6366f1);
+    }
+
     /* MÁSCARA DE DEGRADADO LATERAL (Efecto Premium Lyrium) */
     .lateral-gradient-mask {
         @apply bg-white rounded-r-[60px] md:rounded-r-[80px] transition-all duration-500;

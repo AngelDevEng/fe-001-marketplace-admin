@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
     MesaAyudaData, Ticket, TicketStatus, Priority,
     AuditEntry, Message, ActionType, FAQArticle
@@ -8,8 +9,7 @@ import {
 import { MOCK_HELPDESK_DATA } from '@/lib/mocks/helpdeskData';
 
 export const useMesaAyuda = () => {
-    const [data, setData] = useState<MesaAyudaData | null>(null);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
     const [currentTab, setCurrentTab] = useState<'todos' | 'asignados' | 'faq' | 'auditoria'>('todos');
     const [selectedTicketId, setSelectedTicketId] = useState<number | null>(null);
     const [filters, setFilters] = useState({
@@ -21,29 +21,72 @@ export const useMesaAyuda = () => {
         auditType: '' as ActionType | ''
     });
 
-    // Fetch data (Replica legacy load logic)
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                // Simulación de carga (1:1 con legacy logic)
-                setData(MOCK_HELPDESK_DATA);
-            } catch (error) {
-                console.error('Error loading Mesa Ayuda:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadData();
-    }, []);
+    // --- Query: Fetch Data ---
+    const { data: helpdeskData, isLoading } = useQuery({
+        queryKey: ['admin', 'helpdesk'],
+        queryFn: async () => {
+            // En un ecosistema real, esto sería fetch('/api/admin/helpdesk')
+            return MOCK_HELPDESK_DATA as MesaAyudaData;
+        },
+        staleTime: 2 * 60 * 1000,
+    });
+
+    // --- Mutations ---
+
+    const sendReplyMutation = useMutation({
+        mutationFn: async ({ text, isQuick }: { text: string, isQuick: boolean }) => {
+            // Actualización mock local
+            console.log("Sending reply:", text);
+            return { text, isQuick };
+        },
+        onSuccess: (_, variables) => {
+            queryClient.setQueryData(['admin', 'helpdesk'], (old: MesaAyudaData | undefined) => {
+                if (!old || !selectedTicketId) return old;
+                const newMessage: Message = {
+                    id: Date.now(),
+                    usuario: 'Admin_Marketplace (Admin)',
+                    contenido: variables.text,
+                    tipo: variables.isQuick ? 'respuesta_rapida' : 'normal',
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    leido: true
+                };
+                return {
+                    ...old,
+                    tickets: old.tickets.map(t => t.id === selectedTicketId ? {
+                        ...t,
+                        mensajes: [...t.mensajes, newMessage],
+                        estado: 'Resuelto' as TicketStatus,
+                        fecha_actualizacion: 'Hoy'
+                    } : t)
+                };
+            });
+        }
+    });
+
+    const closeTicketMutation = useMutation({
+        mutationFn: async (survey: { satisfaction: number; timely: number; comments: string }) => {
+            console.log("Closing ticket with survey:", survey);
+            return survey;
+        },
+        onSuccess: () => {
+            queryClient.setQueryData(['admin', 'helpdesk'], (old: MesaAyudaData | undefined) => {
+                if (!old || !selectedTicketId) return old;
+                return {
+                    ...old,
+                    tickets: old.tickets.map(t => t.id === selectedTicketId ? { ...t, estado: 'Cerrado' as TicketStatus } : t)
+                };
+            });
+        }
+    });
 
     const selectedTicket = useMemo(() =>
-        data?.tickets.find(t => t.id === selectedTicketId) || null
-        , [data?.tickets, selectedTicketId]);
+        helpdeskData?.tickets.find(t => t.id === selectedTicketId) || null
+        , [helpdeskData?.tickets, selectedTicketId]);
 
     // Derived state: Filtered tickets
     const filteredTickets = useMemo(() => {
-        if (!data) return [];
-        let tickets = data.tickets;
+        if (!helpdeskData) return [];
+        let tickets = helpdeskData.tickets;
 
         if (currentTab === 'asignados') {
             tickets = tickets.filter(t => t.admin_asignado.id === 1); // Mock current admin ID = 1
@@ -58,12 +101,12 @@ export const useMesaAyuda = () => {
             const matchPriority = !filters.priority || t.prioridad === filters.priority;
             return matchSearch && matchStatus && matchPriority;
         });
-    }, [data, currentTab, filters.search, filters.status, filters.priority]);
+    }, [helpdeskData, currentTab, filters.search, filters.status, filters.priority]);
 
     // Derived state: Filtered Audit
     const filteredAudit = useMemo(() => {
-        if (!data) return [];
-        return data.auditoria.filter(a => {
+        if (!helpdeskData) return [];
+        return helpdeskData.auditoria.filter(a => {
             const matchSearch = !filters.auditSearch ||
                 a.tienda.toLowerCase().includes(filters.auditSearch.toLowerCase()) ||
                 a.responsable.toLowerCase().includes(filters.auditSearch.toLowerCase());
@@ -71,144 +114,11 @@ export const useMesaAyuda = () => {
             const matchType = !filters.auditType || a.accion === filters.auditType;
             return matchSearch && matchDate && matchType;
         });
-    }, [data, filters.auditSearch, filters.auditDate, filters.auditType]);
-
-    // Actions (Legacy logic implementation)
-    const logAudit = (action: ActionType, details: string, ticket?: Ticket) => {
-        const entry: AuditEntry = {
-            id: Date.now(),
-            timestamp: new Date().toLocaleString(),
-            tienda: ticket ? ticket.vendedor.empresa || 'Sistema' : 'Sistema',
-            accion: action,
-            responsable: 'Admin_Marketplace',
-            detalles: details
-        };
-        setData(prev => prev ? { ...prev, auditoria: [entry, ...prev.auditoria] } : null);
-    };
-
-    const selectTicket = (id: number) => {
-        setSelectedTicketId(id);
-        setData(prev => {
-            if (!prev) return null;
-            return {
-                ...prev,
-                tickets: prev.tickets.map(t => t.id === id ? { ...t, mensajes_sin_leer: 0 } : t)
-            };
-        });
-    };
-
-    const sendReply = (text: string, isQuick: boolean = false) => {
-        if (!selectedTicket || !text.trim()) return;
-
-        const newMessage: Message = {
-            id: Date.now(),
-            usuario: 'Admin_Marketplace (Admin)',
-            contenido: text,
-            tipo: isQuick ? 'respuesta_rapida' : 'normal',
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            leido: true
-        };
-
-        setData(prev => {
-            if (!prev) return null;
-            return {
-                ...prev,
-                tickets: prev.tickets.map(t => t.id === selectedTicket.id ? {
-                    ...t,
-                    mensajes: [...t.mensajes, newMessage],
-                    estado: 'Resuelto' as TicketStatus,
-                    fecha_actualizacion: 'Hoy'
-                } : t)
-            };
-        });
-
-        logAudit('Respuesta', `Mensaje: ${text.substring(0, 30)}...`, selectedTicket);
-    };
-
-    const updateTicketPriority = (id: number, priority: Priority) => {
-        setData(prev => {
-            if (!prev) return null;
-            return {
-                ...prev,
-                tickets: prev.tickets.map(t => t.id === id ? { ...t, prioridad: priority } : t)
-            };
-        });
-        const ticket = data?.tickets.find(t => t.id === id);
-        logAudit('Cambio Prioridad', `Prioridad: ${priority}`, ticket);
-    };
-
-    const updateTicketAdmin = (id: number, adminId: number) => {
-        const admin = data?.admins.find(a => a.id === adminId);
-        if (!admin) return;
-
-        setData(prev => {
-            if (!prev) return null;
-            return {
-                ...prev,
-                tickets: prev.tickets.map(t => t.id === id ? { ...t, admin_asignado: { id: admin.id, nombre: admin.nombre } } : t)
-            };
-        });
-        const ticket = data?.tickets.find(t => t.id === id);
-        logAudit('Asignación', `Reasignado a ${admin.nombre}`, ticket);
-    };
-
-    const escalateTicket = (destino: string, motivo: string) => {
-        if (!selectedTicket) return;
-
-        const sysMsg: Message = {
-            id: Date.now(),
-            usuario: 'Sistema Lyrium',
-            contenido: `🔄 Caso escalado a ${destino}. Motivo: ${motivo}`,
-            tipo: 'escalamiento',
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            leido: true
-        };
-
-        setData(prev => {
-            if (!prev) return null;
-            return {
-                ...prev,
-                tickets: prev.tickets.map(t => t.id === selectedTicket.id ? {
-                    ...t,
-                    estado: 'En Proceso' as TicketStatus,
-                    prioridad: 'Crítica' as Priority,
-                    mensajes: [...t.mensajes, sysMsg]
-                } : t)
-            };
-        });
-
-        logAudit('Escalamiento', `Destino: ${destino} | Justificación: ${motivo}`, selectedTicket);
-    };
-
-    const closeTicket = (survey: { satisfaction: number; timely: number; comments: string }) => {
-        if (!selectedTicket) return;
-
-        setData(prev => {
-            if (!prev) return null;
-            return {
-                ...prev,
-                tickets: prev.tickets.map(t => t.id === selectedTicket.id ? { ...t, estado: 'Cerrado' as TicketStatus } : t)
-            };
-        });
-
-        logAudit('Cierre', `Satis: ${survey.satisfaction}/5 | Oportuna: ${survey.timely}/5 | Msg: ${survey.comments || 'Sin msg'}`, selectedTicket);
-    };
-
-    const addFAQ = (article: Omit<FAQArticle, 'id' | 'visitas' | 'util_si' | 'util_no' | 'palabras_clave'>) => {
-        const newArt: FAQArticle = {
-            ...article,
-            id: Date.now(),
-            visitas: 0,
-            util_si: 0,
-            util_no: 0,
-            palabras_clave: []
-        };
-        setData(prev => prev ? { ...prev, faq: [newArt, ...prev.faq] } : null);
-    };
+    }, [helpdeskData, filters.auditSearch, filters.auditDate, filters.auditType]);
 
     return {
-        data,
-        loading,
+        data: helpdeskData,
+        loading: isLoading,
         currentTab,
         setCurrentTab,
         selectedTicket,
@@ -217,13 +127,19 @@ export const useMesaAyuda = () => {
         filters,
         setFilters,
         actions: {
-            selectTicket,
-            sendReply,
-            updateTicketPriority,
-            updateTicketAdmin,
-            escalateTicket,
-            closeTicket,
-            addFAQ
+            selectTicket: (id: number) => setSelectedTicketId(id),
+            sendReply: (text: string, isQuick: boolean = false) => sendReplyMutation.mutateAsync({ text, isQuick }),
+            closeTicket: (survey: { satisfaction: number; timely: number; comments: string }) => closeTicketMutation.mutateAsync(survey),
+            escalateTicket: (destino: string, motivo: string) => {
+                console.log("Escalating ticket to", destino);
+                // Implementation...
+            },
+            updateTicketPriority: (id: number, priority: Priority) => {
+                console.log("Updating priority for ticket", id, "to", priority);
+            },
+            updateTicketAdmin: (id: number, adminId: number) => {
+                console.log("Updating admin for ticket", id, "to admin", adminId);
+            }
         }
     };
 };

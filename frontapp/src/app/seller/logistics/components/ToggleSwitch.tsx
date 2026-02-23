@@ -23,29 +23,33 @@ export default function ToggleSwitch({ enabled, onChange, size = 'md' }: ToggleS
                 checked={enabled}
                 onChange={(e) => onChange(e.target.checked)}
             />
+            {/* Track */}
             <div className={`
                 ${width} ${height} 
                 bg-gray-200 peer-focus:outline-none rounded-full 
-                peer peer-checked:bg-sky-500 transition-all duration-300
+                peer-checked:bg-sky-500 transition-all duration-300
             `}></div>
 
             {/* Knob */}
             <div className={`
                 absolute top-[2px] left-[2px] bg-white border-gray-300 border rounded-full 
-                ${knobSize} transition-all duration-300 peer-checked:${translateX} 
+                ${knobSize} transition-all duration-300
+                ${enabled ? translateX : ''}
                 peer-checked:border-white shadow-sm z-20
             `}></div>
 
-            {/* Labels */}
+            {/* ON Label - visible cuando enabled */}
             <span className={`
-                absolute left-2 top-1/2 -translate-y-1/2 ${labelSize} font-black text-white 
-                opacity-0 peer-checked:opacity-100 transition-opacity duration-300 
-                pointer-events-none drop-shadow-sm z-10
+                absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 ${labelSize} font-black text-white 
+                transition-opacity duration-300 z-30
+                ${enabled ? 'opacity-100' : 'opacity-0'}
             `}>ON</span>
+
+            {/* OFF Label - visible cuando NO enabled */}
             <span className={`
-                absolute right-2 top-1/2 -translate-y-1/2 ${labelSize} font-black text-gray-400 
-                opacity-100 peer-checked:opacity-0 transition-opacity duration-300 
-                pointer-events-none z-10
+                absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 ${labelSize} font-black text-gray-400 
+                transition-opacity duration-300 z-30
+                ${enabled ? 'opacity-0' : 'opacity-100'}
             `}>OFF</span>
         </label>
     );

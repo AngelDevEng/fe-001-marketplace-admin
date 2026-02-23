@@ -3,6 +3,7 @@
 import React from 'react';
 import { Seller, Product, Notification, AuditEntry, ProductStatus } from '@/lib/types/admin/sellers';
 import { CVStatusBadge, CVCard } from './SharedCVUI';
+import BaseButton from '@/components/ui/BaseButton';
 import { User, Mail, Phone, ShieldAlert, ShieldCheck, Clock, Bell, Info, Sliders, Package, Store, Eye, CheckCircle, XCircle, Terminal } from 'lucide-react';
 
 // --- STATS OVERVIEW ---
@@ -158,18 +159,24 @@ export const ProductModeration: React.FC<{
                             </div>
 
                             <div className="flex gap-4">
-                                <button
+                                <BaseButton
                                     onClick={() => onAction(p, 'APPROVED')}
-                                    className="flex-1 py-4 bg-emerald-500 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.1em] shadow-lg shadow-emerald-200/50 hover:bg-emerald-600 hover:-translate-y-1 transition-all active:translate-y-0 flex items-center justify-center gap-2"
+                                    variant="success"
+                                    leftIcon="CheckCircle"
+                                    size="md"
+                                    fullWidth
                                 >
-                                    <CheckCircle className="w-4 h-4" /> Aprobar
-                                </button>
-                                <button
+                                    Aprobar
+                                </BaseButton>
+                                <BaseButton
                                     onClick={() => onAction(p, 'REJECTED')}
-                                    className="flex-1 py-4 bg-rose-500 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.1em] shadow-lg shadow-rose-200/50 hover:bg-rose-600 hover:-translate-y-1 transition-all active:translate-y-0 flex items-center justify-center gap-2"
+                                    variant="danger"
+                                    leftIcon="XCircle"
+                                    size="md"
+                                    fullWidth
                                 >
-                                    <XCircle className="w-4 h-4" /> Rechazar
-                                </button>
+                                    Rechazar
+                                </BaseButton>
                             </div>
                         </div>
                     </CVCard>

@@ -9,56 +9,56 @@ interface TicketListProps {
     onSelect: (id: number) => void;
     onFilterChange: (filters: { search?: string; status?: TicketStatus | ''; priority?: Priority | '' }) => void;
     filters: { search: string; status: TicketStatus | ''; priority: Priority | '' };
+    className?: string;
 }
 
 export const TicketList: React.FC<TicketListProps> = ({
-    tickets, selectedId, onSelect, onFilterChange, filters
+    tickets, selectedId, onSelect, onFilterChange, filters, className = ''
 }) => {
     return (
-        <div className="col-span-12 lg:col-span-5 space-y-6">
-            <div className={`${glassCardClass} p-6 space-y-6`}>
+        <div className={`w-full md:w-5/12 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col h-full ${className}`}>
+            <div className="p-4 border-b border-gray-50">
                 <div className="relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <input
                         type="text"
                         placeholder="Buscar por #Ticket, Vendedor o Asunto..."
                         value={filters.search}
                         onChange={(e) => onFilterChange({ search: e.target.value })}
-                        className="w-full pl-12 pr-6 py-4 bg-gray-50 border-none rounded-2xl text-xs font-medium focus:ring-2 focus:ring-sky-500/20 transition-all font-industrial"
+                        className="w-full pl-12 pr-4 py-3 bg-gray-50 border-none rounded-xl text-xs font-bold"
                     />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                    <select
-                        value={filters.status}
-                        onChange={(e) => onFilterChange({ status: e.target.value as TicketStatus | '' })}
-                        className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-[10px] font-black uppercase text-gray-500 tracking-wider font-industrial"
-                    >
-                        <option value="">Todos los Estados</option>
-                        <option value="Abierto">Abierto</option>
-                        <option value="En Proceso">En Proceso</option>
-                        <option value="Cerrado">Cerrado</option>
-                    </select>
-                    <select
-                        value={filters.priority}
-                        onChange={(e) => onFilterChange({ priority: e.target.value as Priority | '' })}
-                        className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-[10px] font-black uppercase text-gray-500 tracking-wider font-industrial"
-                    >
-                        <option value="">Todas las Prioridades</option>
-                        <option value="Baja">Baja</option>
-                        <option value="Media">Media</option>
-                        <option value="Alta">Alta</option>
-                        <option value="Crítica">Crítica</option>
-                    </select>
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4 p-4 border-b border-gray-50">
+                <select
+                    value={filters.status}
+                    onChange={(e) => onFilterChange({ status: e.target.value as TicketStatus | '' })}
+                    className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-[10px] font-black uppercase text-gray-500 tracking-wider"
+                >
+                    <option value="">Todos los Estados</option>
+                    <option value="Abierto">Abierto</option>
+                    <option value="En Proceso">En Proceso</option>
+                    <option value="Cerrado">Cerrado</option>
+                </select>
+                <select
+                    value={filters.priority}
+                    onChange={(e) => onFilterChange({ priority: e.target.value as Priority | '' })}
+                    className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-[10px] font-black uppercase text-gray-500 tracking-wider"
+                >
+                    <option value="">Todas las Prioridades</option>
+                    <option value="Baja">Baja</option>
+                    <option value="Media">Media</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Crítica">Crítica</option>
+                </select>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 <div className="flex items-center justify-between px-2 mb-2">
-                    <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest font-industrial">{tickets.length} Casos</h3>
+                    <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{tickets.length} Casos</h3>
                 </div>
-                <div className={`space-y-4 max-h-[600px] ${scrollbarClass}`}>
-                    {tickets.map((t) => (
+                {tickets.map((t) => (
                         <div
                             key={t.id}
                             onClick={() => onSelect(t.id)}
@@ -106,7 +106,6 @@ export const TicketList: React.FC<TicketListProps> = ({
                         </div>
                     )}
                 </div>
-            </div>
         </div>
     );
 };

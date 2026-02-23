@@ -1,6 +1,7 @@
 import React from 'react';
 import { ProvidersTab, ExpensesTab, CredentialsTab, AuditTab } from './OperationsTabs';
 import { Provider } from '@/lib/types/admin/operations';
+import Skeleton from '@/components/ui/Skeleton';
 
 import { Users, TrendingUp, ShieldCheck, Terminal } from 'lucide-react';
 import { OperationalKPI } from '@/lib/types/admin/operations';
@@ -14,7 +15,47 @@ export const GestionOperativaModule: React.FC<GestionOperativaModuleProps> = ({ 
     const { data, loading, activeTab, kpis, filteredProviders, filteredExpenses, totalInvestment, providerFilters } = state;
 
     if (loading || !data) {
-        return <div className="p-20 text-center font-black animate-pulse text-indigo-500 uppercase tracking-widest font-industrial">Inicializando Gestión Operativa...</div>;
+        return (
+            <div className="space-y-6 pb-20">
+                {/* KPI SKELETONS */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {[1, 2, 3, 4].map(idx => (
+                        <div key={idx} className="bg-white p-8 rounded-[2rem] shadow-sm space-y-4">
+                            <div className="flex justify-between items-center">
+                                <Skeleton className="h-14 w-14 rounded-2xl" />
+                                <Skeleton className="h-10 w-16 rounded-md" />
+                            </div>
+                            <Skeleton className="h-4 w-32 rounded" />
+                        </div>
+                    ))}
+                </div>
+
+                {/* TABS SKELETON */}
+                <div className="flex bg-gray-100/80 p-1.5 rounded-[2rem] w-fit mx-auto border border-white/50 backdrop-blur-sm shadow-inner mb-10">
+                    {[1, 2, 3, 4].map(idx => (
+                        <Skeleton key={idx} className="h-12 w-32 rounded-[1.7rem] mx-1" />
+                    ))}
+                </div>
+
+                {/* CONTENT SKELETON */}
+                <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-6">
+                    <div className="flex justify-between items-center">
+                        <Skeleton className="h-12 w-1/3 rounded-xl" />
+                        <Skeleton className="h-12 w-32 rounded-xl" />
+                    </div>
+                    {[1, 2, 3, 4, 5].map(idx => (
+                        <div key={idx} className="flex gap-4 py-4 border-b border-gray-50 last:border-0">
+                            <Skeleton className="h-12 w-12 rounded-full" />
+                            <div className="flex-1 space-y-2">
+                                <Skeleton className="h-4 w-1/4 rounded" />
+                                <Skeleton className="h-3 w-1/3 rounded" />
+                            </div>
+                            <Skeleton className="h-8 w-24 rounded-lg" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     const MapIcon = (iconName: string) => {
@@ -24,9 +65,6 @@ export const GestionOperativaModule: React.FC<GestionOperativaModuleProps> = ({ 
             default: return <Users className="w-8 h-8" />;
         }
     }
-
-    // Filtrar KPIs para mostrar solo los de proveedores
-    const providerKpis = kpis.filter((k: any) => k.label.includes('Proveedores') || k.label.includes('Pausa'));
 
     return (
         <div className="space-y-6 pb-20">

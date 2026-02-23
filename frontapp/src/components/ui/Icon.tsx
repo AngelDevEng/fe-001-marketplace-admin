@@ -42,6 +42,7 @@ import {
     HelpCircle,
     Info,
     CheckCircle2,
+    CheckCircle,
     XCircle,
     AlertTriangle,
     Image as LucideImage,
@@ -89,6 +90,16 @@ import {
     MessageCircle,
     Music,
     Sun,
+    Inbox,
+    Send,
+    CloudUpload,
+    Bold,
+    Italic,
+    Headset,
+    Banknote,
+    Timer,
+    Smile,
+    Target,
     LucideIcon
 } from 'lucide-react';
 
@@ -137,6 +148,7 @@ export const Icons: Record<string, LucideIcon> = {
     HelpCircle,
     Info,
     CheckCircle2,
+    CheckCircle,
     XCircle,
     AlertTriangle,
     Image: LucideImage,
@@ -162,6 +174,7 @@ export const Icons: Record<string, LucideIcon> = {
     Services: Briefcase,
     Catalog: Package,
     Help: HelpCircle,
+    Headset,
     Profile: User,
     Chart: BarChart3,
     Zap,
@@ -193,7 +206,16 @@ export const Icons: Record<string, LucideIcon> = {
     Map,
     MessageCircle,
     Music,
-    Sun
+    Sun,
+    Inbox,
+    Send,
+    CloudUpload,
+    Bold,
+    Italic,
+    Banknote,
+    Timer,
+    Smile,
+    Target
 };
 
 interface IconProps {

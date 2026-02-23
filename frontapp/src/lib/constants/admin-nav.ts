@@ -5,52 +5,52 @@ export const adminNavigation: NavSection[] = [
         title: 'Módulos de Gestión Central',
         items: [
             {
-                label: '1. Módulo de Control de Vendedores',
+                label: 'Control de Vendedores',
                 href: '/admin/sellers',
                 icon: 'Users',
             },
             {
-                label: '2. Módulo de Soporte',
+                label: 'Mesa de Ayuda',
                 href: '/admin/helpdesk',
                 icon: 'Help',
             },
             {
-                label: '3. Módulo Centro de Finanzas y Estadísticas',
+                label: 'Centro de Finanzas y Estadísticas',
                 href: '/admin/finance',
                 icon: 'Sales',
             },
             {
-                label: '4. Módulo de Analítica',
+                label: 'Analítica',
                 href: '/admin/analytics',
                 icon: 'Chart',
             },
             {
-                label: '5. Módulo de Gestión Operativa',
+                label: 'Gestión Operativa',
                 href: '/admin/operations',
                 icon: 'Services',
             },
             {
-                label: '6. Módulo de Gestión de Pagos',
+                label: 'Gestión de Pagos',
                 href: '/admin/payments',
                 icon: 'Landmark',
             },
             {
-                label: '7. Módulo de Contratación y Organización',
+                label: 'Contratos',
                 href: '/admin/contracts',
                 icon: 'Invoices',
             },
             {
-                label: '8. Gestión de Categorías',
+                label: 'Gestión de Categorías',
                 href: '/admin/categories',
                 icon: 'FolderTree',
             },
             {
-                label: '9. Gestión de Inventario',
+                label: 'Gestión de Inventario',
                 href: '/admin/inventory',
                 icon: 'Catalog',
             },
             {
-                label: '10. Gestión de Puntuación',
+                label: 'Gestión de Puntuación',
                 href: '/admin/reviews',
                 icon: 'Star',
             },

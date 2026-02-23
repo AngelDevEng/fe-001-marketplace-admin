@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { AgendaEvent } from '@/lib/types/seller/agenda';
 import { MOCK_ORDERS, MOCK_APPOINTMENTS, MOCK_SPECIALISTS, buildUnifiedEvents } from '@/lib/mocks/mockAgendaData';
 
@@ -16,7 +19,7 @@ export function generateCalendarDays(currentMonth: Date) {
 
     // Previous Month
     for (let i = firstDay; i > 0; i--) {
-        calendarCells.push({ day: prevMonthDays - i + 1, date: new Date(year, month, -i + 1), isOtherMonth: true });
+        calendarCells.push({ day: prevMonthDays - i + 1, date: new Date(year, month - 1, prevMonthDays - i + 1), isOtherMonth: true });
     }
 
     // Current Month
@@ -34,20 +37,17 @@ export function generateCalendarDays(currentMonth: Date) {
 }
 
 export function useAgenda() {
-    const [events, setEvents] = useState<AgendaEvent[]>([]);
-    const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2026, 0, 1));
-    const [isLoading, setIsLoading] = useState(true);
+    const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2026, 1, 1)); // Feb 2026 based on mock context
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-            setIsLoading(true);
-            await new Promise(r => setTimeout(r, 600)); // Simula llamada API
-            const unified = buildUnifiedEvents(MOCK_ORDERS, MOCK_APPOINTMENTS, MOCK_SPECIALISTS);
-            setEvents(unified);
-            setIsLoading(false);
-        };
-        fetchEvents();
-    }, []);
+    // --- Query: Fetch Agenda Events ---
+    const { data: events = [], isLoading } = useQuery({
+        queryKey: ['seller', 'agenda'],
+        queryFn: async () => {
+            await new Promise(r => setTimeout(r, 800));
+            return buildUnifiedEvents(MOCK_ORDERS, MOCK_APPOINTMENTS, MOCK_SPECIALISTS) as AgendaEvent[];
+        },
+        staleTime: 10 * 60 * 1000,
+    });
 
     const nextMonth = () => {
         const next = new Date(currentMonth);

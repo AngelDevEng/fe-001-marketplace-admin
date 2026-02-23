@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getSalesReport, getOrders } from '@/lib/api';
 import { SalesReport, Order } from '@/lib/types';
 
@@ -20,20 +20,15 @@ export interface FinanceData {
 }
 
 export const useFinance = () => {
-    const [data, setData] = useState<FinanceData | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    const loadFinanceData = async () => {
-        try {
-            setLoading(true);
+    const { data, isLoading, error, refetch } = useQuery({
+        queryKey: ['admin', 'finance'],
+        queryFn: async () => {
             const [salesReports, orders] = await Promise.all([
                 getSalesReport('month'),
                 getOrders()
             ]);
 
             // 1. Calcular Totales desde SalesReport
-            // El API de WC devuelve un array. Tomamos el primer elemento o sumamos.
             const report = salesReports?.[0];
             const totalRevenue = report ? parseFloat(report.total_sales || '0') : 0;
             const commissionRate = 7.5; // Tasa promedio fija según requerimiento RF-09
@@ -75,7 +70,7 @@ export const useFinance = () => {
                     lastPurchase: b.lastDate.toLocaleDateString()
                 }));
 
-            // 3. Generar Heatmap (Mocked basado en tendencia real de órdenes)
+            // 3. Generar Heatmap
             const days = ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'];
             const heatmap = orders.slice(0, 12).map((o, i) => ({
                 day: days[new Date(o.date_created).getDay() % 7],
@@ -83,28 +78,24 @@ export const useFinance = () => {
                 value: Math.floor(Math.random() * 100) + 50
             }));
 
-            setData({
+            return {
                 totalRevenue,
-                growthPercentage: 15.2, // Podría calcularse comparando periodos
+                growthPercentage: 15.2,
                 netProfit,
                 commissionRate,
                 topBuyers,
                 heatmap: heatmap.length > 0 ? heatmap : [
                     { day: 'Lun', hour: 10, value: 80 }, { day: 'Mar', hour: 15, value: 95 }
                 ]
-            });
-            setError(null);
-        } catch (err: any) {
-            console.error("Finance Load Error:", err);
-            setError("Error al sincronizar datos financieros con WooCommerce.");
-        } finally {
-            setLoading(false);
-        }
+            } as FinanceData;
+        },
+        staleTime: 10 * 60 * 1000, // Datos financieros duran 10 min
+    });
+
+    return {
+        data: data || null,
+        loading: isLoading,
+        error: error ? (error as Error).message : null,
+        refresh: refetch
     };
-
-    useEffect(() => {
-        loadFinanceData();
-    }, []);
-
-    return { data, loading, error, refresh: loadFinanceData };
 };

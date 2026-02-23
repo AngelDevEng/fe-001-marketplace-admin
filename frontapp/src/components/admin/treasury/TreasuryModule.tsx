@@ -2,6 +2,7 @@ import React from 'react';
 import { TreasuryKPI } from '@/lib/types/admin/treasury';
 import { BalanceTab, CashInTab, CashOutTab } from './TreasuryTabs';
 import { TrendingUp, Clock, ArrowLeftRight, AlertCircle, Search } from 'lucide-react';
+import Skeleton from '@/components/ui/Skeleton';
 
 interface TreasuryModuleProps {
     state: any;
@@ -12,7 +13,44 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
     const { data, loading, activeTab, kpis, filteredCashIn, filteredCashOut, filters } = state;
 
     if (loading && !data) {
-        return <div className="p-20 text-center font-black animate-pulse text-indigo-500 uppercase tracking-widest font-industrial">Inicializando Tesorería Global...</div>;
+        return (
+            <div className="space-y-6 pb-20 font-industrial">
+                {/* KPI SKELETONS */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {[1, 2, 3, 4].map(idx => (
+                        <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
+                            <div className="flex justify-between items-center">
+                                <Skeleton className="h-12 w-12 rounded-xl" />
+                                <Skeleton className="h-8 w-20 rounded-md" />
+                            </div>
+                            <Skeleton className="h-4 w-32 rounded" />
+                        </div>
+                    ))}
+                </div>
+
+                {/* TABS SKELETON */}
+                <div className="flex flex-wrap gap-2 pt-6 border-t border-gray-100">
+                    {[1, 2, 3].map(idx => (
+                        <Skeleton key={idx} className="h-10 w-48 rounded-[1.2rem]" />
+                    ))}
+                </div>
+
+                {/* CONTENT SKELETON */}
+                <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-6">
+                    <div className="flex gap-4 mb-4">
+                        <Skeleton className="h-48 w-1/3 rounded-[2rem]" />
+                        <Skeleton className="h-48 w-2/3 rounded-[2rem]" />
+                    </div>
+                    {[1, 2, 3, 4].map(idx => (
+                        <div key={idx} className="flex gap-4 py-4 border-b border-gray-50 last:border-0 px-2">
+                            <Skeleton className="h-12 w-32 rounded-lg" />
+                            <Skeleton className="flex-1 h-12 rounded-lg" />
+                            <Skeleton className="h-12 w-24 rounded-lg" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     const MapIcon = (iconName: string) => {

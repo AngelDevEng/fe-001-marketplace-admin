@@ -1,12 +1,26 @@
 import React from 'react';
 import { ContractStatus, ContractKPI, ContractModality, AuditEvent, ExpiryUrgency } from '@/lib/types/admin/contracts';
-import { CheckCircle, AlertTriangle, AlertOctagon, CheckCircle2, Clock, XCircle, Handshake, Cloud } from 'lucide-react';
+import { CheckCircle, AlertTriangle, AlertOctagon, Clock, XCircle, Handshake, Cloud } from 'lucide-react';
+
+const colorMap: Record<string, string> = {
+    emerald: 'bg-emerald-50 text-emerald-600 border-emerald-100',
+    indigo: 'bg-indigo-50 text-indigo-600 border-indigo-100',
+    amber: 'bg-amber-50 text-amber-600 border-amber-100',
+    red: 'bg-red-50 text-red-600 border-red-100',
+};
+
+const borderMap: Record<string, string> = {
+    emerald: 'border-emerald-500',
+    indigo: 'border-indigo-500',
+    amber: 'border-amber-500',
+    red: 'border-red-500',
+};
 
 export const StatusBadge: React.FC<{ status: ContractStatus, large?: boolean }> = ({ status, large }) => {
     const configs = {
-        ACTIVE: { label: 'Vigente', class: 'bg-emerald-50 text-emerald-600 border-emerald-100' },
-        PENDING: { label: 'En Revisión / Pendiente', class: 'bg-amber-50 text-amber-600 border-amber-100' },
-        EXPIRED: { label: 'Vencido / Expirado', class: 'bg-red-50 text-red-600 border-red-100' }
+        ACTIVE: { label: 'Vigente', class: colorMap.emerald },
+        PENDING: { label: 'En Revisión / Pendiente', class: colorMap.amber },
+        EXPIRED: { label: 'Vencido / Expirado', class: colorMap.red }
     };
     const config = configs[status] || configs.PENDING;
     return (
@@ -72,16 +86,16 @@ export const ModalityBadge: React.FC<{ modality: ContractModality }> = ({ modali
 };
 
 export const KpiCard: React.FC<{ kpi: ContractKPI }> = ({ kpi }) => (
-    <div className={`bg-white p-4 border-l-4 border-${kpi.color}-500 flex items-center justify-between rounded-2xl shadow-sm border border-gray-100 transition-all hover:shadow-md font-industrial`}>
+    <div className={`bg-white p-6 border-l-4 ${borderMap[kpi.color] || 'border-indigo-500'} flex items-center justify-between rounded-[2rem] shadow-sm border border-gray-100 transition-all hover:shadow-md font-industrial`}>
         <div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{kpi.label}</p>
             <p className="text-2xl font-black text-gray-800 tracking-tighter">{kpi.val}</p>
         </div>
-        <div className={`p-3 bg-${kpi.color}-50 text-${kpi.color}-600 rounded-xl`}>
-            {kpi.icon === 'Files' && <Clock className="w-6 h-6" />}
-            {kpi.icon === 'CheckCircle' && <CheckCircle className="w-6 h-6" />}
-            {kpi.icon === 'Hourglass' && <Clock className="w-6 h-6" />}
-            {kpi.icon === 'AlertOctagon' && <AlertOctagon className="w-6 h-6" />}
+        <div className={`p-4 ${colorMap[kpi.color] || colorMap.indigo} rounded-2xl`}>
+            {kpi.icon === 'Files' && <Clock className="w-7 h-7" />}
+            {kpi.icon === 'CheckCircle' && <CheckCircle className="w-7 h-7" />}
+            {kpi.icon === 'Hourglass' && <Clock className="w-7 h-7" />}
+            {kpi.icon === 'AlertOctagon' && <AlertOctagon className="w-7 h-7" />}
         </div>
     </div>
 );

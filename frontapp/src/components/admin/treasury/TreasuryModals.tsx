@@ -1,5 +1,6 @@
 import React from 'react';
 import { CashInPayment, CashOutPayment, PaymentDirection, CashInStatus, CashOutStatus } from '@/lib/types/admin/treasury';
+import BaseButton from '@/components/ui/BaseButton';
 import { X, CheckCircle, CheckCircle2, XCircle, AlertTriangle, AlertOctagon, Link as LinkIcon, DollarSign, Wallet, ShieldCheck, Download } from 'lucide-react';
 
 export const PaymentModal: React.FC<{
@@ -68,18 +69,24 @@ export const PaymentModal: React.FC<{
                         {p.status === CashInStatus.PENDING_VALIDATION && (
                             <div className="space-y-3 mt-4 flex flex-col pt-4 border-t border-gray-100">
                                 <p className="text-[9px] font-black text-amber-600 uppercase tracking-widest text-center animate-pulse mb-2">Requiere Auditoría Humana/Bancaria</p>
-                                <button
+                                <BaseButton
                                     onClick={() => onProcessIn(p.id, 'VALIDATE')}
-                                    className="w-full py-3 bg-emerald-500 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-200 flex items-center justify-center gap-2"
+                                    variant="success"
+                                    leftIcon="CheckCircle"
+                                    size="md"
+                                    fullWidth
                                 >
-                                    <CheckCircle className="w-4 h-4" /> Validar y Emitir Rapifac
-                                </button>
-                                <button
+                                    Validar y Emitir Rapifac
+                                </BaseButton>
+                                <BaseButton
                                     onClick={() => onProcessIn(p.id, 'REJECT')}
-                                    className="w-full py-3 bg-white border border-red-100 text-red-500 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-red-50 transition-all flex items-center justify-center gap-2"
+                                    variant="danger"
+                                    leftIcon="XCircle"
+                                    size="md"
+                                    fullWidth
                                 >
-                                    <XCircle className="w-4 h-4" /> Rechazar Voucher
-                                </button>
+                                    Rechazar Voucher
+                                </BaseButton>
                             </div>
                         )}
                         {p.status === CashInStatus.VALIDATED && (

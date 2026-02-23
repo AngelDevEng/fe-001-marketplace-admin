@@ -2,6 +2,7 @@
 
 import { useGestionOperativa } from '@/hooks/useGestionOperativa';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
+import BaseButton from '@/components/ui/BaseButton';
 import { GestionOperativaModule } from '@/components/admin/operations/GestionOperativaModule';
 import { ProviderModal, TwoFactorModalContent } from '@/components/admin/operations/OperationsModals';
 import ModalsPortal from '@/components/layout/shared/ModalsPortal';
@@ -26,13 +27,14 @@ export default function OperationsPage() {
                 icon="Briefcase"
                 actions={
                     <div className="flex gap-2">
-                        <button
+                        <BaseButton
                             onClick={() => alert('Generando Reporte Operativo Mensual...')}
-                            className="px-6 py-3 bg-white border border-gray-100 rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-500 hover:bg-gray-50 transition-all flex items-center gap-2 shadow-sm font-industrial"
+                            variant="primary"
+                            leftIcon="FileText"
+                            size="md"
                         >
-                            <FileText className="w-4 h-4" />
                             Reporte Mensual
-                        </button>
+                        </BaseButton>
                     </div>
                 }
             />
