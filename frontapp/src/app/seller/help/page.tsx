@@ -44,7 +44,7 @@ export default function HelpPage() {
     }
 
     return (
-        <div className="flex flex-col h-[calc(100vh-140px)] animate-fadeIn">
+        <div className="flex flex-col h-[calc(100vh-8rem)] animate-fadeIn">
             <ModuleHeader
                 title="Mesa de Ayuda"
                 subtitle="Centro de soporte y gestión de incidencias"
@@ -72,9 +72,9 @@ export default function HelpPage() {
             {/* Module Content Area */}
             <div className="flex-1 min-h-0">
                 {activeTab === 'soporte' ? (
-                    <div className="flex glass-card h-full overflow-hidden border-none shadow-2xl shadow-gray-200/50">
+                    <div className="grid grid-cols-12 glass-card h-full overflow-hidden border-none shadow-2xl shadow-gray-200/50">
                         {/* Sidebar (List) */}
-                        <div className="w-full lg:w-96 flex-shrink-0">
+                        <div className="col-span-12 lg:col-span-4 xl:col-span-4">
                             <TicketSidebar
                                 tickets={tickets}
                                 activeTicketId={activeTicketId}
@@ -86,7 +86,7 @@ export default function HelpPage() {
                         </div>
 
                         {/* Detail Area */}
-                        <div className="hidden lg:flex flex-1 min-w-0 bg-white">
+                        <div className="hidden lg:block col-span-8 xl:col-span-8 bg-white">
                             {activeTicketId ? (
                                 <TicketChatView
                                     ticket={activeTicket!}

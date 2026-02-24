@@ -48,7 +48,7 @@ export default function TicketChatView({ ticket, isSending, isClosing, onSendMes
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col no-scrollbar bg-slate-50/20">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col custom-scrollbar bg-slate-50/20">
                 {/* Store Info Banner - Compacto */}
                 <div className="flex items-center gap-4 p-3 bg-white border border-gray-100 rounded-2xl">
                     <div className="flex-1 min-w-0">

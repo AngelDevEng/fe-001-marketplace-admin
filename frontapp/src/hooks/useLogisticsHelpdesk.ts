@@ -3,27 +3,68 @@
 import { useState, useMemo } from 'react';
 import { LogisticsTicket, LogisticsTicketMessage } from '@/lib/types/logistics';
 import { mockLogisticsTickets } from '@/lib/mocks/logistics';
+import { useFilteredList, FilterConfig } from './useFilteredList';
+
+export interface LogisticsTicketFilters {
+    search: string;
+    status: 'all' | 'open' | 'in_progress' | 'resolved' | 'closed';
+}
+
+const filterConfig: FilterConfig<LogisticsTicket, LogisticsTicketFilters> = {
+    search: {
+        enabled: true,
+        fields: [
+            (t: LogisticsTicket) => t.id,
+            (t: LogisticsTicket) => t.subject
+        ]
+    },
+    fields: {
+        status: {
+            type: 'select',
+            options: [
+                { value: 'all', label: 'Todos' },
+                { value: 'open', label: 'Abiertos' },
+                { value: 'in_progress', label: 'En Proceso' },
+                { value: 'resolved', label: 'Resueltos' },
+                { value: 'closed', label: 'Cerrados' }
+            ]
+        }
+    }
+};
 
 export function useLogisticsHelpdesk() {
     const [tickets, setTickets] = useState<LogisticsTicket[]>(mockLogisticsTickets);
     const [selectedTicket, setSelectedTicket] = useState<LogisticsTicket | null>(null);
-    const [filters, setFilters] = useState({
-        search: '',
-        status: 'all' as 'all' | 'open' | 'in_progress' | 'resolved' | 'closed',
-    });
     const [isLoading, setIsLoading] = useState(false);
 
-    const filteredTickets = useMemo(() => {
-        return tickets.filter(t => {
-            const matchesSearch = !filters.search || 
-                t.id.toLowerCase().includes(filters.search.toLowerCase()) ||
-                t.subject.toLowerCase().includes(filters.search.toLowerCase());
-            
-            const matchesStatus = filters.status === 'all' || t.status === filters.status;
-            
-            return matchesSearch && matchesStatus;
-        });
-    }, [tickets, filters]);
+    const {
+        filteredData: filteredTickets,
+        filters,
+        setFilter,
+        setSearch,
+        clearFilters,
+        hasActiveFilters
+    } = useFilteredList<LogisticsTicket, LogisticsTicketFilters>({
+        data: tickets,
+        config: filterConfig,
+        initialFilters: { search: '', status: 'all' }
+    });
+
+    const setFilters = (newFilters: Partial<LogisticsTicketFilters> | ((prev: LogisticsTicketFilters) => Partial<LogisticsTicketFilters>)) => {
+        if (typeof newFilters === 'function') {
+            const prevFilters: LogisticsTicketFilters = { search: filters.search ?? '', status: filters.status ?? 'all' };
+            const updates = newFilters(prevFilters);
+            if (updates.search !== undefined) setSearch(updates.search);
+            if (updates.status !== undefined) setFilter('status', updates.status);
+        } else {
+            if (newFilters.search !== undefined) {
+                setSearch(newFilters.search);
+            }
+            if (newFilters.status !== undefined) {
+                setFilter('status', newFilters.status);
+            }
+        }
+    };
 
     const ticketStats = useMemo(() => {
         return {
@@ -46,7 +87,7 @@ export function useLogisticsHelpdesk() {
             messages: [{
                 id: `tmsg-${Date.now()}`,
                 sender: 'operator',
-                senderName: 'Operador Logístico', // TODO: reemplazar por user.name desde AuthContext
+                senderName: 'Operador Logístico',
                 content,
                 timestamp: new Date().toISOString(),
             }],
@@ -60,7 +101,7 @@ export function useLogisticsHelpdesk() {
         const newMessage: LogisticsTicketMessage = {
             id: `tmsg-${Date.now()}`,
             sender: 'operator',
-            senderName: 'Operador Logístico', // TODO: reemplazar por user.name desde AuthContext
+            senderName: 'Operador Logístico',
             content,
             timestamp: new Date().toISOString(),
         };
@@ -87,13 +128,19 @@ export function useLogisticsHelpdesk() {
         }
     };
 
+    const typedFilters: LogisticsTicketFilters = {
+        search: filters.search ?? '',
+        status: filters.status ?? 'all'
+    };
+
     return {
         tickets: filteredTickets,
         allTickets: tickets,
         selectedTicket,
         setSelectedTicket,
-        filters,
+        filters: typedFilters,
         setFilters,
+        clearFilters,
         ticketStats,
         isLoading,
         createTicket,

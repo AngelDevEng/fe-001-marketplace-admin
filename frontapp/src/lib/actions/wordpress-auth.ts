@@ -14,6 +14,7 @@
 
 import { revalidateTag } from 'next/cache';
 import { cookies, headers } from 'next/headers';
+import { API_CONFIG } from '../config/api';
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
@@ -35,7 +36,7 @@ async function getWooClient() {
   }
 
   return axios.create({
-    baseURL: process.env.NEXT_PUBLIC_WC_API_URL || 'https://lyriumbiomarketplace.com/wp-json/wc/v3',
+    baseURL: API_CONFIG.wcApiUrl,
     auth: {
       username: key,
       password: secret,

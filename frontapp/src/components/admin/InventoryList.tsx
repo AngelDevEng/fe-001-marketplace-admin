@@ -1,9 +1,71 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getProducts } from '@/lib/api';
 import { Product } from '@/lib/types';
 import Icon from '@/components/ui/Icon';
+import DataTable, { Column } from '@/components/ui/DataTable';
+import BaseLoading from '@/components/ui/BaseLoading';
+import ErrorState from '@/components/ui/ErrorState';
+import BaseEmptyState from '@/components/ui/BaseEmptyState';
+
+const columns: Column<Product>[] = [
+    {
+        key: 'sku',
+        header: 'SKU / ID',
+        render: (p) => (
+            <div className="flex flex-col">
+                <span className="text-xs font-black text-gray-900 uppercase">{p.sku || 'SIN-SKU'}</span>
+                <span className="text-[9px] text-gray-400 font-bold uppercase">ID: #{p.id}</span>
+            </div>
+        )
+    },
+    {
+        key: 'name',
+        header: 'Producto',
+        render: (product) => (
+            <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 overflow-hidden border border-gray-200">
+                    {product.images?.[0]?.src ? (
+                        <img src={product.images[0].src} alt={product.name} className="w-full h-full object-cover" />
+                    ) : (
+                        <Icon name="Image" className="w-6 h-6 opacity-30" />
+                    )}
+                </div>
+                <div className="flex flex-col">
+                    <span className="text-sm font-black text-gray-900 uppercase tracking-tight">{product.name}</span>
+                    <span className="text-[9px] text-gray-400 font-bold uppercase">en {product.store?.shop_name || 'Tienda Oficial'}</span>
+                </div>
+            </div>
+        )
+    },
+    {
+        key: 'stock',
+        header: 'Existencias',
+        render: (p) => (
+            <div className="flex items-center gap-2">
+                <span className={`text-sm font-black ${p.stock_status === 'outofstock' ? 'text-rose-500' :
+                    (p.manage_stock && p.stock_quantity !== null && p.stock_quantity <= 5) ? 'text-amber-500' : 'text-emerald-500'
+                    }`}>
+                    {p.manage_stock ? (p.stock_quantity ?? 0) : 'Stock Simple'}
+                </span>
+                <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${p.stock_status === 'instock' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}`}>
+                    {p.stock_status === 'instock' ? 'Disponible' : 'Agotado'}
+                </span>
+            </div>
+        )
+    },
+    {
+        key: 'actions',
+        header: '',
+        align: 'right',
+        render: () => (
+            <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-brand-sky/10 hover:text-brand-sky transition-all active:scale-90">
+                <Icon name="RotateCcw" className="w-5 h-5" />
+            </button>
+        )
+    }
+];
 
 export default function InventoryList() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -36,17 +98,32 @@ export default function InventoryList() {
     });
 
     if (loading) {
+        return <BaseLoading message="Analizando Existencias..." variant="card" />;
+    }
+
+    if (error) {
         return (
-            <div className="bg-white rounded-3xl p-20 border border-gray-100 shadow-sm flex flex-col items-center justify-center gap-4">
-                <div className="w-12 h-12 border-4 border-brand-sky/20 border-t-brand-sky rounded-full animate-spin"></div>
-                <p className="text-gray-400 font-black uppercase tracking-widest text-[10px]">Analizando Existencias...</p>
-            </div>
+            <ErrorState
+                title="Error de Inventario"
+                message={error}
+                icon="Package"
+                onRetry={() => window.location.reload()}
+            />
+        );
+    }
+
+    if (products.length === 0) {
+        return (
+            <BaseEmptyState
+                title="Sin productos"
+                description="No hay productos en el inventario"
+                icon="Package"
+            />
         );
     }
 
     return (
         <div className="space-y-6">
-            {/* Filtros de Inventario */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <button
                     onClick={() => setFilter('all')}
@@ -82,65 +159,16 @@ export default function InventoryList() {
                 </button>
             </div>
 
-            <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr className="bg-gray-50/50">
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">SKU / ID</th>
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Producto</th>
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Existencias</th>
-                                <th className="px-8 py-5 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100 text-right">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-50">
-                            {filteredProducts.map((product) => (
-                                <tr key={product.id} className="group hover:bg-gray-50/50 transition-colors">
-                                    <td className="px-8 py-5">
-                                        <div className="flex flex-col">
-                                            <span className="text-xs font-black text-gray-900 uppercase">{product.sku || 'SIN-SKU'}</span>
-                                            <span className="text-[9px] text-gray-400 font-bold uppercase">ID: #{product.id}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-8 py-5">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 overflow-hidden border border-gray-200">
-                                                {product.images?.[0]?.src ? (
-                                                    <img src={product.images[0].src} alt={product.name} className="w-full h-full object-cover" />
-                                                ) : (
-                                                    <Icon name="Image" className="w-6 h-6 opacity-30" />
-                                                )}
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <span className="text-sm font-black text-gray-900 uppercase tracking-tight">{product.name}</span>
-                                                <span className="text-[9px] text-gray-400 font-bold uppercase">en {product.store?.shop_name || 'Tienda Oficial'}</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-8 py-5">
-                                        <div className="flex items-center gap-2">
-                                            <span className={`text-sm font-black ${product.stock_status === 'outofstock' ? 'text-rose-500' :
-                                                (product.manage_stock && product.stock_quantity !== null && product.stock_quantity <= 5) ? 'text-amber-500' : 'text-emerald-500'
-                                                }`}>
-                                                {product.manage_stock ? (product.stock_quantity ?? 0) : 'Stock Simple'}
-                                            </span>
-                                            <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest ${product.stock_status === 'instock' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
-                                                }`}>
-                                                {product.stock_status === 'instock' ? 'Disponible' : 'Agotado'}
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td className="px-8 py-5 text-right">
-                                        <button className="p-2 rounded-xl bg-gray-50 text-gray-400 hover:bg-brand-sky/10 hover:text-brand-sky transition-all active:scale-90">
-                                            <Icon name="RotateCcw" className="w-5 h-5" />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <DataTable
+                data={filteredProducts}
+                columns={columns}
+                loading={false}
+                error={null}
+                emptyTitle="Sin productos"
+                emptyDescription={`No hay productos con stock ${filter === 'low' ? 'bajo' : filter === 'out' ? 'agotado' : ''}`}
+                emptyIcon="Package"
+                keyField="id"
+            />
         </div>
     );
 }

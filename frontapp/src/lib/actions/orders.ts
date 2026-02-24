@@ -3,6 +3,7 @@
 import { revalidateTag, revalidatePath } from 'next/cache';
 import { getStatusLabel } from '../utils/order-utils';
 import { getAuthUser, checkOwnership } from '../auth/permissions';
+import { API_CONFIG } from '../config/api';
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
@@ -106,7 +107,7 @@ export async function getOrderById(orderId: string): Promise<OrderActionResult> 
     }
 
     const auth = Buffer.from(`${key}:${secret}`).toString('base64');
-    const wcUrl = process.env.NEXT_PUBLIC_WC_API_URL || 'https://lyriumbiomarketplace.com/wp-json/wc/v3';
+    const wcUrl = API_CONFIG.wcApiUrl;
 
     const response = await fetch(`${wcUrl}/orders/${orderId}`, {
       headers: { 'Authorization': `Basic ${auth}` },
@@ -199,7 +200,7 @@ export async function updateOrderStatus(
     }
 
     const auth = Buffer.from(`${key}:${secret}`).toString('base64');
-    const wcUrl = process.env.NEXT_PUBLIC_WC_API_URL || 'https://lyriumbiomarketplace.com/wp-json/wc/v3';
+    const wcUrl = API_CONFIG.wcApiUrl;
 
     const response = await fetch(`${wcUrl}/orders/${orderId}`, {
       method: 'PUT',
@@ -251,7 +252,7 @@ export async function addOrderNote(
     }
 
     const auth = Buffer.from(`${key}:${secret}`).toString('base64');
-    const wcUrl = process.env.NEXT_PUBLIC_WC_API_URL || 'https://lyriumbiomarketplace.com/wp-json/wc/v3';
+    const wcUrl = API_CONFIG.wcApiUrl;
 
     const response = await fetch(`${wcUrl}/orders/${orderId}/notes`, {
       method: 'POST',

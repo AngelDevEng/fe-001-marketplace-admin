@@ -3,7 +3,8 @@
 import React, { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { OrderDetails, updateOrderStatus, OrderStatus, addOrderNote } from '@/lib/actions/orders';
-import { getStatusLabel, getStatusColor, formatCurrency, formatDateTime, ORDER_STATUSES } from '@/lib/utils/order-utils';
+import { getStatusLabel, getStatusColor, formatDateTime, ORDER_STATUSES } from '@/lib/utils/order-utils';
+import { formatCurrency } from '@/lib/utils/formatters';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import Icon from '@/components/ui/Icon';
 import { useToast } from '@/context/ToastContext';

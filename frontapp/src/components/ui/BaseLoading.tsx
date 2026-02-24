@@ -4,14 +4,23 @@ import Icon from './Icon';
 interface BaseLoadingProps {
     message?: string;
     fullPage?: boolean;
-    variant?: 'spinner' | 'shimmer' | 'dots';
+    variant?: 'spinner' | 'shimmer' | 'dots' | 'card';
+    containerClass?: string;
 }
 
 export default function BaseLoading({
     message = 'Sincronizando datos...',
     fullPage = false,
-    variant = 'spinner'
+    variant = 'spinner',
+    containerClass = ''
 }: BaseLoadingProps) {
+    const cardStyle = (
+        <div className={`bg-white rounded-3xl p-20 border border-gray-100 shadow-sm flex flex-col items-center justify-center gap-4 ${containerClass}`}>
+            <div className="w-12 h-12 border-4 border-brand-sky/20 border-t-brand-sky rounded-full animate-spin"></div>
+            <p className="text-gray-400 font-black uppercase tracking-widest text-[10px]">{message}</p>
+        </div>
+    );
+
     const content = (
         <div className="flex flex-col items-center justify-center gap-6 p-12 text-center animate-fadeIn">
             {variant === 'spinner' && (
@@ -42,6 +51,10 @@ export default function BaseLoading({
             </div>
         </div>
     );
+
+    if (variant === 'card') {
+        return cardStyle;
+    }
 
     if (fullPage) {
         return (

@@ -12,9 +12,10 @@
  */
 
 import { revalidateTag } from 'next/cache';
+import { API_CONFIG } from '../config/api';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_WC_API_URL || 'https://lyriumbiomarketplace.com/wp-json/wc/v3';
-const DOKAN_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://lyriumbiomarketplace.com/wp-json/dokan/v1';
+const API_BASE_URL = API_CONFIG.wcApiUrl;
+const DOKAN_BASE_URL = API_CONFIG.dokanApiUrl;
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 

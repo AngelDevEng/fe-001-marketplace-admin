@@ -47,7 +47,7 @@ export default function HelpDeskPage() {
     const faqSelected = data?.faq?.find(f => f.id === faqDetailId);
 
     return (
-        <div className="space-y-8 animate-fadeIn font-industrial">
+        <div className="space-y-8 animate-fadeIn font-industrial pb-20">
             <ModuleHeader
                 title="Módulo de Soporte"
                 subtitle="Comunicación Estratégica y Mesa de Ayuda (RF-05, RF-06)"

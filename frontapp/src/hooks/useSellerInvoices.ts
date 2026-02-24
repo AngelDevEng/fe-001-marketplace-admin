@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Voucher, InvoiceKPIs, VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
 import { MOCK_VOUCHERS, calculateKPIs } from '@/lib/mocks/mockInvoiceData';
+import { useFilteredList, FilterConfig } from './useFilteredList';
 
 export interface EmitInvoicePayload {
     seller_id: string;
@@ -17,31 +18,94 @@ export interface EmitInvoicePayload {
     order_id: string;
 }
 
+export interface VoucherFilters {
+    search: string;
+    status: VoucherStatus | 'ALL';
+    type: VoucherType | 'ALL';
+}
+
+const filterConfig: FilterConfig<Voucher, VoucherFilters> = {
+    search: {
+        enabled: true,
+        fields: [
+            (v: Voucher) => v.series,
+            (v: Voucher) => v.number,
+            (v: Voucher) => v.customer_name,
+            (v: Voucher) => v.customer_ruc
+        ]
+    },
+    fields: {
+        status: {
+            type: 'select',
+            options: [
+                { value: 'ALL', label: 'Todos' },
+                { value: 'DRAFT', label: 'Borrador' },
+                { value: 'PENDING', label: 'Pendiente' },
+                { value: 'SENT', label: 'Enviado' },
+                { value: 'SENT_WAIT_CDR', label: 'Esperando CDR' },
+                { value: 'ACCEPTED', label: 'Aceptado' },
+                { value: 'REJECTED', label: 'Rechazado' }
+            ]
+        },
+        type: {
+            type: 'select',
+            options: [
+                { value: 'ALL', label: 'Todos' },
+                { value: 'FACTURA', label: 'Factura' },
+                { value: 'BOLETA', label: 'Boleta' }
+            ]
+        }
+    }
+};
+
 export function useSellerInvoices() {
     const queryClient = useQueryClient();
     const [selectedVoucher, setSelectedVoucher] = useState<Voucher | null>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [filters, setFiltersState] = useState({
-        search: '',
-        status: 'ALL' as VoucherStatus | 'ALL',
-        type: 'ALL' as VoucherType | 'ALL'
-    });
 
-    // --- Query: Fetch Invoices ---
-    const { data: vouchers = [], isLoading, refetch } = useQuery({
+    const { data: vouchers = [] } = useQuery({
         queryKey: ['seller', 'invoices', 'list'],
         queryFn: async () => {
             await new Promise(r => setTimeout(r, 800));
-            // In a real app: const res = await fetch('/api/seller/invoices'); return res.json();
             return [...MOCK_VOUCHERS] as Voucher[];
         },
         staleTime: 2 * 60 * 1000,
     });
 
-    // --- Query: KPIs (Calculados del pool) ---
+    const {
+        filteredData: filteredVouchers,
+        filters,
+        setFilter,
+        setSearch,
+        clearFilters,
+        hasActiveFilters
+    } = useFilteredList<Voucher, VoucherFilters>({
+        data: vouchers,
+        config: filterConfig,
+        initialFilters: { search: '', status: 'ALL', type: 'ALL' }
+    });
+
+    const isLoading = false;
     const kpis = calculateKPIs(vouchers);
 
-    // --- Mutation: Emit New Invoice ---
+    const typedFilters: VoucherFilters = {
+        search: filters.search ?? '',
+        status: filters.status ?? 'ALL',
+        type: filters.type ?? 'ALL'
+    };
+
+    const setFilters = (newFilters: Partial<VoucherFilters>) => {
+        if (newFilters.search !== undefined) {
+            setSearch(newFilters.search);
+        }
+        if (newFilters.status !== undefined) {
+            setFilter('status', newFilters.status);
+        }
+        if (newFilters.type !== undefined) {
+            setFilter('type', newFilters.type);
+        }
+    };
+
     const emitMutation = useMutation({
         mutationFn: async (payload: EmitInvoicePayload) => {
             const res = await fetch('/api/rapifac/emit', {
@@ -59,7 +123,6 @@ export function useSellerInvoices() {
         }
     });
 
-    // --- Mutation: Retry Sync ---
     const retryMutation = useMutation({
         mutationFn: async (id: string) => {
             await new Promise(r => setTimeout(r, 1200));
@@ -86,25 +149,16 @@ export function useSellerInvoices() {
         }
     });
 
-    const filteredVouchers = vouchers.filter(v => {
-        const matchesSearch = v.series.toLowerCase().includes(filters.search.toLowerCase()) ||
-            v.number.includes(filters.search) ||
-            v.customer_name.toLowerCase().includes(filters.search.toLowerCase()) ||
-            v.customer_ruc.includes(filters.search);
-        const matchesStatus = filters.status === 'ALL' || v.sunat_status === filters.status;
-        const matchesType = filters.type === 'ALL' || v.type === filters.type;
-        return matchesSearch && matchesStatus && matchesType;
-    });
-
     return {
         vouchers: filteredVouchers,
         kpis,
         isLoading,
         selectedVoucher,
         isDrawerOpen,
-        filters,
-        setFilters: (newFilters: any) => setFiltersState(prev => ({ ...prev, ...newFilters })),
-        clearFilters: () => setFiltersState({ search: '', status: 'ALL', type: 'ALL' }),
+        filters: typedFilters,
+        setFilters,
+        clearFilters,
+        hasActiveFilters,
         handleViewDetail: (voucher: Voucher) => {
             setSelectedVoucher(voucher);
             setIsDrawerOpen(true);

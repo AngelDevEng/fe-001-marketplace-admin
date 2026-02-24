@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import { useSellerInvoices } from '@/hooks/useSellerInvoices';
+import { VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
 
 import InvoiceKPIsDisplay from './components/InvoiceKPIs';
 import InvoiceFilters from './components/InvoiceFilters';
