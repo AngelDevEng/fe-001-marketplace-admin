@@ -5,11 +5,16 @@ import { useRouter, usePathname } from 'next/navigation';
 import { User } from '@/lib/types/auth';
 import { getStores } from '@/lib/api';
 
+export interface LoginCredentials {
+    username: string;
+    password: string;
+}
+
 interface AuthContextType {
     user: User | null;
     token: string | null;
     loading: boolean;
-    login: (credentials: any) => Promise<void>;
+    login: (credentials: LoginCredentials) => Promise<void>;
     logout: () => void;
 }
 

@@ -52,7 +52,7 @@ export default function BaseEmptyState({
 
                 {actionLabel && onAction && (
                     <div className="pt-4">
-                        <BaseButton onClick={onAction} variant="dark" size="lg">
+                        <BaseButton onClick={onAction} variant="primary" size="lg">
                             {actionLabel}
                         </BaseButton>
                     </div>

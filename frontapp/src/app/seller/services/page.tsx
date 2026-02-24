@@ -8,8 +8,13 @@ import SpecialistModal from './components/SpecialistModal';
 import ServiceConfigModal from './components/ServiceConfigModal';
 import ServiceDetailModal from './components/ServiceDetailModal';
 import RescheduleModal from './components/RescheduleModal';
+import BaseEmptyState from '@/components/ui/BaseEmptyState';
 import { Service, Specialist, Appointment } from '@/lib/types/seller/service';
 import { useSellerServices } from '@/hooks/useSellerServices';
+import { useToast } from '@/context/ToastContext';
+import BaseLoading from '@/components/ui/BaseLoading';
+import Icon from '@/components/ui/Icon';
+import { useConfirmDialog } from '@/components/ui/confirm-dialog';
 
 export default function ServicesPage() {
     const {
@@ -23,6 +28,9 @@ export default function ServicesPage() {
         handleReschedule,
     } = useSellerServices();
 
+    const { showToast } = useToast();
+    const { confirm, ConfirmDialog } = useConfirmDialog();
+
     const [activeService, setActiveService] = useState<Service | null>(null);
     const [selectedSpecialist, setSelectedSpecialist] = useState<Specialist | null>(null);
     const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
@@ -34,65 +42,77 @@ export default function ServicesPage() {
         reschedule: false
     });
 
-    if (loading) {
-        return (
-            <div className="p-20 text-center text-xs font-black text-gray-400 uppercase tracking-widest animate-pulse">
-                Cargando ecosistema de servicios...
-            </div>
+    const deleteService = async (id: number) => {
+        const confirmed = await confirm(
+            'Eliminar servicio',
+            '¿Seguro de eliminar este servicio?'
         );
+        if (confirmed) {
+            handleDeleteService(id);
+            showToast('Servicio eliminado del catálogo', 'info');
+        }
+    };
+
+    if (loading) {
+        return <BaseLoading message="Cargando ecosistema de servicios..." />;
     }
 
+    const headerActions = (
+        <div className="flex gap-3 items-center whitespace-nowrap">
+            <button
+                onClick={() => {
+                    setActiveService(null);
+                    setModals({ ...modals, serviceConfig: true });
+                }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white backdrop-blur-md text-black font-bold text-[11px] border border-white/30 hover:text-sky-600 transition-all active:scale-95 shadow-sm"
+            >
+                <Icon name="Briefcase" className="w-4 h-4" /> Nuevo Servicio
+            </button>
+            <button
+                onClick={() => {
+                    setSelectedSpecialist(null);
+                    setModals({ ...modals, specialist: true });
+                }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white backdrop-blur-md text-black font-bold text-[11px] border border-white/30 hover:text-sky-600 transition-all active:scale-95 shadow-sm"
+            >
+                <Icon name="PlusCircle" className="w-4 h-4" /> Especialista
+            </button>
+        </div>
+    );
+
     return (
-        <div className="space-y-8 animate-fadeIn pb-20 font-industrial">
+        <div className="space-y-8 animate-fadeIn pb-20">
             <ModuleHeader
                 title="Gestión de Servicios"
-                subtitle="Registro y administración de especialistas y servicios disponibles"
+                subtitle="Registro y administración de especialistas y servicios disponibles."
                 icon="Services"
-                actions={
-                    <div className="flex gap-2.5 items-center whitespace-nowrap">
-                        <button
-                            onClick={() => {
-                                setActiveService(null);
-                                setModals({ ...modals, serviceConfig: true });
-                            }}
-                            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-gray-900 font-black text-[11px] uppercase tracking-widest border border-gray-100 shadow-xl hover:text-indigo-600 hover:shadow-indigo-100 transition-all active:scale-95"
-                        >
-                            <i className="ph ph-plus-circle text-lg"></i> Nuevo
-                        </button>
-                        <button
-                            onClick={() => {
-                                setSelectedSpecialist(null);
-                                setModals({ ...modals, specialist: true });
-                            }}
-                            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-gray-900 font-black text-[11px] uppercase tracking-widest border border-gray-100 shadow-xl hover:text-indigo-600 hover:shadow-indigo-100 transition-all active:scale-95"
-                        >
-                            <i className="ph ph-user-plus text-lg"></i> Especialista
-                        </button>
-                    </div>
-                }
+                actions={headerActions}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-8">
                 {/* LADO IZQUIERDO: Catálogo */}
-                <div className="lg:col-span-8 space-y-4">
-                    <div className="flex items-center justify-between mb-2 px-1">
+                <div className="lg:col-span-8 space-y-6">
+                    <div className="flex items-center justify-between mb-4 px-2">
                         <div className="flex items-center gap-3">
-                            <div className="p-2 bg-gray-900 rounded-xl text-white">
-                                <i className="ph ph-briefcase text-lg"></i>
+                            <div className="w-10 h-10 bg-sky-50 rounded-2xl flex items-center justify-center border border-sky-100 shadow-sm text-sky-500">
+                                <Icon name="Services" className="w-5 h-5 stroke-[2.5px]" />
                             </div>
-                            <h2 className="text-xs font-black text-gray-600 uppercase tracking-widest">Catálogo de Servicios</h2>
+                            <div>
+                                <h2 className="text-sm font-black text-gray-800 uppercase tracking-widest">Catálogo de Servicios</h2>
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Tus ofertas activas</p>
+                            </div>
                         </div>
                         <div className="flex gap-4">
-                            <span className="flex items-center gap-1.5 text-[9px] font-black text-emerald-500 uppercase tracking-tighter">
-                                <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>Disponible
+                            <span className="flex items-center gap-2 text-[10px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-100">
+                                <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-sm shadow-emerald-500"></span>Disponible
                             </span>
-                            <span className="flex items-center gap-1.5 text-[9px] font-black text-rose-500 uppercase tracking-tighter">
-                                <span className="w-2 h-2 bg-rose-500 rounded-full"></span>Agotado/Lleno
+                            <span className="flex items-center gap-2 text-[10px] font-black text-rose-500 uppercase tracking-widest bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-100">
+                                <span className="w-2.5 h-2.5 bg-rose-500 rounded-full"></span>Agotado
                             </span>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         {services.length > 0 ? (
                             services.map(s => (
                                 <ServiceCard
@@ -107,27 +127,39 @@ export default function ServicesPage() {
                                         setActiveService(serv);
                                         setModals({ ...modals, serviceConfig: true });
                                     }}
-                                    onDelete={handleDeleteService}
+                                    onDelete={deleteService}
                                 />
                             ))
                         ) : (
-                            <div className="col-span-full py-20 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100">
-                                <i className="ph ph-selection-all text-4xl text-gray-200 mb-2 block"></i>
-                                <p className="text-xs font-black text-gray-400 uppercase tracking-widest">No hay servicios registrados</p>
+                            <div className="col-span-full">
+                                <BaseEmptyState
+                                    title="Sin servicios activos"
+                                    description="Tu catálogo de servicios está esperando su primera oferta."
+                                    icon="Services"
+                                    actionLabel="Nuevo Servicio"
+                                    onAction={() => {
+                                        setActiveService(null);
+                                        setModals({ ...modals, serviceConfig: true });
+                                    }}
+                                    suggestion="Definir horarios claros y especialistas aumenta la confianza del cliente."
+                                />
                             </div>
                         )}
                     </div>
                 </div>
 
                 {/* LADO DERECHO: Especialistas */}
-                <div className="lg:col-span-4 space-y-4">
-                    <div className="flex items-center gap-3 mb-2 px-1">
-                        <div className="p-2 bg-gray-900 rounded-xl text-white">
-                            <i className="ph ph-users-three text-lg"></i>
+                <div className="lg:col-span-4 space-y-6">
+                    <div className="flex items-center gap-3 mb-4 px-2">
+                        <div className="w-10 h-10 bg-indigo-50 rounded-2xl flex items-center justify-center border border-indigo-100 shadow-sm text-indigo-500">
+                            <Icon name="Users" className="w-5 h-5 stroke-[2.5px]" />
                         </div>
-                        <h2 className="text-xs font-black text-gray-600 uppercase tracking-widest">Especialistas</h2>
+                        <div>
+                            <h2 className="text-sm font-black text-gray-800 uppercase tracking-widest">Especialistas</h2>
+                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Tu equipo de profesionales</p>
+                        </div>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                         {specialists.length > 0 ? (
                             specialists.map(esp => (
                                 <SpecialistItem
@@ -140,7 +172,7 @@ export default function ServicesPage() {
                                 />
                             ))
                         ) : (
-                            <div className="p-10 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-gray-100">
+                            <div className="p-10 text-center bg-gray-50/50 rounded-[2.5rem] border border-dashed border-gray-200">
                                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Sin especialistas</p>
                             </div>
                         )}
@@ -186,6 +218,8 @@ export default function ServicesPage() {
                 onClose={() => setModals({ ...modals, reschedule: false, detail: true })}
                 onConfirm={handleReschedule}
             />
+
+            <ConfirmDialog />
         </div>
     );
 }

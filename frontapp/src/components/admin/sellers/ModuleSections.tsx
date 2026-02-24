@@ -161,7 +161,7 @@ export const ProductModeration: React.FC<{
                             <div className="flex gap-4">
                                 <BaseButton
                                     onClick={() => onAction(p, 'APPROVED')}
-                                    variant="success"
+                                    variant="secondary"
                                     leftIcon="CheckCircle"
                                     size="md"
                                     fullWidth
@@ -200,7 +200,7 @@ export const AuditLog: React.FC<{ entries: AuditEntry[] }> = ({ entries }) => {
                     <h2 className="text-xl font-black text-gray-900 tracking-tight">Historial Forense Inmutable</h2>
                     <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">RF-04: Trazabilidad Absoluta (Log de Transacciones)</p>
                 </div>
-                <div className="p-3 bg-gray-900 text-white rounded-xl">
+                <div className="p-3 bg-sky-500 text-white rounded-xl">
                     <Terminal className="w-5 h-5" />
                 </div>
             </div>

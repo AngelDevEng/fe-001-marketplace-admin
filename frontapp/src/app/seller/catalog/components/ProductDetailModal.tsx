@@ -3,6 +3,8 @@
 import React from 'react';
 import { Product } from '@/lib/types/seller/product';
 import ModalsPortal from '@/components/layout/shared/ModalsPortal';
+import { formatCurrency } from '@/lib/utils/formatters';
+import Icon from '@/components/ui/Icon';
 
 interface ProductDetailModalProps {
     product: Product | null;
@@ -12,10 +14,6 @@ interface ProductDetailModalProps {
 
 export default function ProductDetailModal({ product, isOpen, onClose }: ProductDetailModalProps) {
     if (!product || !isOpen) return null;
-
-    const formatCurrency = (amount: number) => {
-        return new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(amount);
-    };
 
     const mainAttributes = product.mainAttributes || [];
     const additionalAttributes = product.additionalAttributes || [];
@@ -38,7 +36,7 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                             <h2 className="text-2xl font-black text-gray-800 tracking-tighter">Detalle del Producto</h2>
                         </div>
                         <button onClick={onClose} className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all">
-                            <i className="ph ph-x text-xl"></i>
+                            <Icon name="X" className="text-xl w-5 h-5" />
                         </button>
                     </div>
 

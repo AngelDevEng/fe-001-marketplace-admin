@@ -6,6 +6,7 @@ import TicketSidebar from './components/TicketSidebar';
 import TicketChatView from './components/TicketChatView';
 import NewTicketForm from './components/NewTicketForm';
 import RegisteredStoreInfo from './components/RegisteredStoreInfo';
+import BaseLoading from '@/components/ui/BaseLoading';
 import { useSellerHelp } from '@/hooks/useSellerHelp';
 
 export default function HelpPage() {
@@ -27,8 +28,23 @@ export default function HelpPage() {
 
     const [activeTab, setTab] = useState('soporte');
 
+    if (isLoading) {
+        return (
+            <div className="flex flex-col h-[calc(100vh-140px)] animate-fadeIn">
+                <ModuleHeader
+                    title="Mesa de Ayuda"
+                    subtitle="Centro de soporte y gestión de incidencias"
+                    icon="Headset"
+                />
+                <div className="flex-1 flex items-center justify-center">
+                    <BaseLoading message="Cargando tickets de soporte..." />
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="flex flex-col h-[calc(100vh-140px)] animate-fadeIn font-industrial">
+        <div className="flex flex-col h-[calc(100vh-140px)] animate-fadeIn">
             <ModuleHeader
                 title="Mesa de Ayuda"
                 subtitle="Centro de soporte y gestión de incidencias"
@@ -36,18 +52,18 @@ export default function HelpPage() {
             />
 
             {/* Tab System Header */}
-            <div className="flex gap-1 bg-gray-100/80 p-1.5 rounded-[2rem] w-fit mb-8 border border-gray-100 shadow-sm ml-2">
+            <div className="flex gap-1 bg-gray-100/50 p-1.5 rounded-3xl w-fit mb-8 border border-gray-100/50 shadow-sm ml-2">
                 <button
                     onClick={() => setTab('soporte')}
                     className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all
-                        ${activeTab === 'soporte' ? 'bg-white text-indigo-600 shadow-md' : 'text-gray-400 hover:text-gray-700'}`}
+                        ${activeTab === 'soporte' ? 'bg-white text-sky-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                 >
                     Centro de Soporte
                 </button>
                 <button
                     onClick={() => setTab('tienda')}
                     className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all
-                        ${activeTab === 'tienda' ? 'bg-white text-indigo-600 shadow-md' : 'text-gray-400 hover:text-gray-700'}`}
+                        ${activeTab === 'tienda' ? 'bg-white text-sky-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                 >
                     Datos Registrados
                 </button>
@@ -56,7 +72,7 @@ export default function HelpPage() {
             {/* Module Content Area */}
             <div className="flex-1 min-h-0">
                 {activeTab === 'soporte' ? (
-                    <div className="flex bg-white rounded-[2.5rem] border border-gray-100 shadow-xl h-full overflow-hidden">
+                    <div className="flex glass-card h-full overflow-hidden border-none shadow-2xl shadow-gray-200/50">
                         {/* Sidebar (List) */}
                         <div className="w-full lg:w-96 flex-shrink-0">
                             <TicketSidebar

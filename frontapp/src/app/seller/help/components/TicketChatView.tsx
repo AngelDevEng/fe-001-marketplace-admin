@@ -66,7 +66,7 @@ export default function TicketChatView({ ticket, isSending, isClosing, onSendMes
                 </div>
 
                 {/* Messages */}
-                {ticket.mensajes.map((msg: any) => (
+                {ticket.mensajes.map((msg) => (
                     <ChatMessage key={msg.id} message={msg} />
                 ))}
 

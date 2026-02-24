@@ -183,30 +183,6 @@ export default function SellerDetailPage() {
                             </div>
                         </div>
                     </div>
-
-                    {/* Security Badge */}
-                    <div className="bg-gradient-to-br from-gray-900 to-slate-800 rounded-3xl p-8 text-white shadow-2xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20">
-                                <ShieldCheck className="w-6 h-6 text-blue-400" />
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-black uppercase tracking-widest">Estatus de Seguridad</h3>
-                                <p className="text-[10px] text-blue-300 font-bold uppercase tracking-wider">Validación Dokan Pro</p>
-                            </div>
-                        </div>
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/10 text-[10px] font-bold uppercase">
-                                <span className="text-gray-400 tracking-widest">Validación KYC</span>
-                                <span className="text-emerald-400">Completada</span>
-                            </div>
-                            <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/10 text-[10px] font-bold uppercase">
-                                <span className="text-gray-400 tracking-widest">Cuenta Activa</span>
-                                <span className="text-blue-400">Verificada</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Right Column: Detailed Tabs/Sections */}

@@ -27,7 +27,7 @@ export const FAQView: React.FC<FAQViewProps> = ({ articles, onCreateClick, onSea
                 </div>
                 <BaseButton
                     onClick={onCreateClick}
-                    variant="success"
+                    variant="secondary"
                     leftIcon="PlusCircle"
                     size="md"
                 >

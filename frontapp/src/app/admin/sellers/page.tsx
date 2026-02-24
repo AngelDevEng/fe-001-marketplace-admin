@@ -14,9 +14,17 @@ import Skeleton, { SkeletonRow } from '@/components/ui/Skeleton';
 import { exportToCSV } from '@/lib/utils/export';
 import ModalsPortal from '@/components/layout/shared/ModalsPortal';
 
+interface TabButtonProps {
+    active: boolean;
+    onClick: () => void;
+    label: string;
+    icon: React.ReactNode;
+    badge?: number;
+}
+
 // --- Internal Components (Externalized to avoid re-renders) ---
 
-const TabButton = ({ active, onClick, label, icon, badge }: any) => (
+const TabButton = ({ active, onClick, label, icon, badge }: TabButtonProps) => (
     <button
         onClick={onClick}
         className={`px-8 py-4 rounded-2xl text-[11px] font-black transition-all flex items-center gap-3 relative border ${active ? 'bg-white shadow-xl shadow-gray-200/50 text-blue-600 border-gray-100' : 'text-gray-400 border-transparent hover:bg-white/50'
@@ -32,7 +40,18 @@ const TabButton = ({ active, onClick, label, icon, badge }: any) => (
     </button>
 );
 
-const ManagementModal = ({ isOpen, onClose, title, type, onSubmit, isSubmitting, suggested, sellerContractStatus }: any) => {
+interface ManagementModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    title: string;
+    type: 'seller' | 'product';
+    onSubmit: (data: { status: string; reason: string }) => void | Promise<void>;
+    isSubmitting: boolean;
+    suggested?: string;
+    sellerContractStatus?: string;
+}
+
+const ManagementModal = ({ isOpen, onClose, title, type, onSubmit, isSubmitting, suggested, sellerContractStatus }: ManagementModalProps) => {
     if (!isOpen) return null;
 
     return (
@@ -237,7 +256,7 @@ export default function SellersPage() {
                             </div>
                             <BaseButton
                                 onClick={handleExport}
-                                variant="success"
+                                variant="secondary"
                                 leftIcon="Download"
                                 size="md"
                             >

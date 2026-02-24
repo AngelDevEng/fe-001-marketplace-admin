@@ -2,6 +2,26 @@ import axios from "axios";
 import { Product, ProductCategory, Order, ProductReview, SalesReport, Withdrawal } from "./types";
 import { Store } from "./types/stores/store";
 
+export interface ProductUpdateData {
+    name?: string;
+    description?: string;
+    price?: string | number;
+    regular_price?: string | number;
+    stock_quantity?: number;
+    manage_stock?: boolean;
+    categories?: { id: number }[];
+    images?: { src: string }[];
+    status?: string;
+    sku?: string;
+}
+
+export interface CategoryData {
+    name?: string;
+    description?: string;
+    parent?: number;
+    image?: { src: string };
+}
+
 // Cliente para Dokan (Tiendas)
 const dokanClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "https://lyriumbiomarketplace.com/wp-json/dokan/v1",
@@ -41,8 +61,9 @@ export const getProducts = async (vendorId?: string): Promise<Product[]> => {
       }
     });
     return response.data;
-  } catch (error: any) {
-    console.error("❌ WC API Error:", error.message);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    console.error("❌ WC API Error:", message);
     throw error;
   }
 };
@@ -177,7 +198,7 @@ export const getDetailStore = async (id: string = "1126"): Promise<Store> => {
 
 // --- CRUD: PRODUCTOS (WooCommerce) ---
 
-export const updateProduct = async (id: number, data: any): Promise<Product> => {
+export const updateProduct = async (id: number, data: ProductUpdateData): Promise<Product> => {
   const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
   const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
   const auth = btoa(`${key}:${secret}`);
@@ -190,7 +211,7 @@ export const updateProduct = async (id: number, data: any): Promise<Product> => 
 
 // --- CRUD: CATEGORÍAS (WooCommerce) ---
 
-export const createCategory = async (data: any): Promise<ProductCategory> => {
+export const createCategory = async (data: CategoryData): Promise<ProductCategory> => {
   const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
   const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
   const auth = btoa(`${key}:${secret}`);
@@ -201,7 +222,7 @@ export const createCategory = async (data: any): Promise<ProductCategory> => {
   return response.data;
 };
 
-export const updateCategory = async (id: number, data: any): Promise<ProductCategory> => {
+export const updateCategory = async (id: number, data: CategoryData): Promise<ProductCategory> => {
   const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
   const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
   const auth = btoa(`${key}:${secret}`);
@@ -212,7 +233,7 @@ export const updateCategory = async (id: number, data: any): Promise<ProductCate
   return response.data;
 };
 
-export const deleteCategory = async (id: number): Promise<any> => {
+export const deleteCategory = async (id: number): Promise<ProductCategory> => {
   const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
   const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
   const auth = btoa(`${key}:${secret}`);

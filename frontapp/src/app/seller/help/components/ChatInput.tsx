@@ -2,8 +2,15 @@
 
 import React, { useState, useRef } from 'react';
 import Icon from '@/components/ui/Icon';
+
+type Attachment = {
+    name: string;
+    url: string;
+    type: string;
+}
+
 interface ChatInputProps {
-    onSendMessage: (text: string, attachments?: any[]) => void;
+    onSendMessage: (text: string, attachments?: Attachment[]) => void;
     quickReplies: string[];
     disabled?: boolean;
 }

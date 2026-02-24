@@ -20,12 +20,7 @@ export function useLogin(): UseLoginReturn {
 
     const validateCredentials = (credentials: LoginCredentials): string | null => {
         if (!credentials.username || credentials.username.trim().length === 0) {
-            return 'El correo electrónico es requerido';
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(credentials.username)) {
-            return 'Ingresa un correo electrónico válido';
+            return 'El usuario es requerido';
         }
 
         if (!credentials.password || credentials.password.length === 0) {

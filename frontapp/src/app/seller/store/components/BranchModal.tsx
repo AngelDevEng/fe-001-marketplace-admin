@@ -6,10 +6,21 @@ import BaseModal from '@/components/ui/BaseModal';
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';
 
+interface BranchFormData {
+    name: string;
+    address: string;
+    city: string;
+    phone: string;
+    hours: string;
+    isPrincipal: boolean;
+}
+
+type BranchSaveHandler = (branch: unknown) => void;
+
 interface BranchModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSave: (branch: any) => void;
+    onSave: BranchSaveHandler;
     branch?: Branch | null;
 }
 
@@ -157,7 +168,7 @@ export default function BranchModal({ isOpen, onClose, onSave, branch }: BranchM
                     </BaseButton>
                     <BaseButton
                         type="submit"
-                        variant="dark"
+                        variant="primary"
                         className="flex-[2]"
                     >
                         Confirmar Sucursal

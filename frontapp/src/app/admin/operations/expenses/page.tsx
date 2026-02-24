@@ -20,10 +20,10 @@ export default function OperationalExpensesPage() {
                 icon="FileText"
                 actions={
                     <BaseButton 
-                        variant="dark" 
+                        variant="primary" 
                         leftIcon="Plus"
                         size="md"
-                        className="hover:!bg-indigo-600"
+                        className="hover:!bg-sky-600"
                     >
                         Registrar Gasto
                     </BaseButton>

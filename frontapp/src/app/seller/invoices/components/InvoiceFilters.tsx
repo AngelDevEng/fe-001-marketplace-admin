@@ -4,11 +4,17 @@ import React from 'react';
 import { VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
 import Icon from '@/components/ui/Icon';
 
+interface InvoiceFilters {
+    search?: string;
+    status?: VoucherStatus | 'ALL';
+    type?: VoucherType | 'ALL';
+}
+
 interface InvoiceFiltersProps {
     search: string;
     status: VoucherStatus | 'ALL';
     type: VoucherType | 'ALL';
-    onFilterChange: (filters: any) => void;
+    onFilterChange: (filters: Partial<InvoiceFilters>) => void;
     onClear: () => void;
 }
 
@@ -34,7 +40,7 @@ export default function InvoiceFilters({ search, status, type, onFilterChange, o
                     <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado SUNAT</label>
                     <select
                         value={status}
-                        onChange={(e) => onFilterChange({ status: e.target.value })}
+                        onChange={(e) => onFilterChange({ status: e.target.value as VoucherStatus | 'ALL' })}
                         className="w-full p-3 bg-gray-50 border-none rounded-2xl text-[10px] font-black uppercase tracking-widest text-emerald-600 focus:ring-2 focus:ring-emerald-500/20 cursor-pointer outline-none"
                     >
                         <option value="ALL">Todos los Estados</option>
@@ -50,7 +56,7 @@ export default function InvoiceFilters({ search, status, type, onFilterChange, o
                     <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Tipo de Comprobante</label>
                     <select
                         value={type}
-                        onChange={(e) => onFilterChange({ type: e.target.value })}
+                        onChange={(e) => onFilterChange({ type: e.target.value as VoucherType | 'ALL' })}
                         className="w-full p-3 bg-gray-50 border-none rounded-2xl text-[10px] font-black uppercase tracking-widest text-emerald-600 focus:ring-2 focus:ring-emerald-500/20 cursor-pointer outline-none"
                     >
                         <option value="ALL">Todos los Tipos</option>

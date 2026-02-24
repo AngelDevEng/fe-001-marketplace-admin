@@ -9,9 +9,23 @@ import { useLogisticsShipments } from '@/hooks/useLogisticsShipments';
 import { ShipmentStatus } from '@/lib/types/logistics';
 import ModalsPortal from '@/components/layout/shared/ModalsPortal';
 
+interface StatusLabels {
+    [key: string]: { label: string; color: string };
+}
+
+interface LogisticsActionModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    action?: string;
+    onConfirm: () => void;
+    shipmentId?: string;
+    note?: string;
+    onNoteChange: (note: string) => void;
+}
+
 // --- Internal Components (Architectural Pattern: Externalized to avoid redeclaration) ---
 
-const ShipmentStatusBadge = ({ status, labels }: { status: ShipmentStatus, labels: any }) => {
+const ShipmentStatusBadge = ({ status, labels }: { status: ShipmentStatus, labels: StatusLabels }) => {
     const config = labels[status];
     return (
         <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider ${config.color}`}>
@@ -20,7 +34,7 @@ const ShipmentStatusBadge = ({ status, labels }: { status: ShipmentStatus, label
     );
 };
 
-const LogisticsActionModal = ({ isOpen, onClose, action, onConfirm, shipmentId, note, onNoteChange }: any) => {
+const LogisticsActionModal = ({ isOpen, onClose, action, onConfirm, shipmentId, note, onNoteChange }: LogisticsActionModalProps) => {
     if (!isOpen) return null;
 
     const titles: Record<string, string> = {
@@ -37,13 +51,13 @@ const LogisticsActionModal = ({ isOpen, onClose, action, onConfirm, shipmentId, 
                     <div className="h-3 w-full absolute top-0 left-0 bg-violet-600"></div>
 
                     <h3 className="text-2xl font-black text-gray-900 tracking-tighter uppercase italic mb-6">
-                        {titles[action]}
+                        {titles[action || 'advance']}
                     </h3>
 
                     <div className="space-y-6">
                         <div className="p-6 bg-gray-50 rounded-[2rem] border border-gray-100">
                             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Identificador de Envío</p>
-                            <p className="text-xl font-black text-violet-600">{shipmentId}</p>
+                            <p className="text-xl font-black text-violet-600">{shipmentId || 'N/A'}</p>
                         </div>
 
                         {(action === 'incident' || action === 'reschedule') && (

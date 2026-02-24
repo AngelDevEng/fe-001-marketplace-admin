@@ -21,10 +21,10 @@ export const BalanceTab: React.FC<{ resume: FinanceSummary; monthly: MonthlyLiqu
                         Sólido
                     </span>
                 </div>
-                <div className="bg-gray-900 text-white p-6 rounded-[2rem] border border-gray-100 shadow-sm relative overflow-hidden group">
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1 text-emerald-400">Margen Operativo</p>
+                <div className="bg-sky-500 text-white p-6 rounded-[2rem] border border-sky-400 shadow-sm relative overflow-hidden group">
+                    <p className="text-[10px] font-black text-sky-200 uppercase tracking-widest leading-none mb-1">Margen Operativo</p>
                     <p className="text-3xl font-black text-white tracking-tighter mb-4">{resume.margen_operativo}%</p>
-                    <span className="text-[9px] font-black text-gray-400 uppercase">
+                    <span className="text-[9px] font-black text-sky-200 uppercase">
                         Optimizado por Algoritmo (RF-08)
                     </span>
                 </div>
@@ -163,7 +163,7 @@ export const CashOutTab: React.FC<{
                         <p className="text-[10px] text-gray-400 font-bold tracking-widest uppercase">Desembolsos y Cálculo de Comisión Lyrium (RF-15)</p>
                     </div>
                     <button
-                        className={`px-4 py-2 ${windowOpen ? 'bg-gray-900 hover:bg-black text-white' : 'bg-gray-100 text-gray-400 cursor-not-allowed'} rounded-xl text-[10px] font-black uppercase transition-colors flex items-center gap-2`}
+                        className={`px-4 py-2 ${windowOpen ? 'bg-sky-500 hover:bg-sky-600 text-white' : 'bg-gray-100 text-gray-400 cursor-not-allowed'} rounded-xl text-[10px] font-black uppercase transition-colors flex items-center gap-2`}
                         disabled={!windowOpen}
                     >
                         <Zap className="w-4 h-4" /> Desembolso Masivo (Batch)

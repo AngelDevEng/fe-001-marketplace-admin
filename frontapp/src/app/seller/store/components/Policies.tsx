@@ -30,7 +30,15 @@ export default function Policies({ config, updateConfig }: PoliciesProps) {
         });
     };
 
-    const PolicyRow = ({ label, icon, color, type, value }: any) => (
+    interface PolicyRowProps {
+        label: string;
+        icon: string;
+        color: string;
+        type: 'shippingPdf' | 'returnPdf' | 'privacyPdf';
+        value?: string;
+    }
+
+    const PolicyRow = ({ label, icon, color, type, value }: PolicyRowProps) => (
         <div className="space-y-3">
             <div className="flex items-center justify-between">
                 <label className="text-[10px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-1">

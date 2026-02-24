@@ -268,7 +268,7 @@ export default function ServiceConfigModal({ service, specialists, isOpen, onClo
                     </BaseButton>
                     <BaseButton
                         type="submit"
-                        variant="success"
+                        variant="secondary"
                         leftIcon="Save"
                         className="px-8"
                     >

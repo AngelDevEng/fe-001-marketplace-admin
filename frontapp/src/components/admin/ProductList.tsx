@@ -47,7 +47,7 @@ export default function ProductList() {
                 <p className="text-gray-400 font-medium text-sm max-w-md">{error}</p>
                 <button
                     onClick={() => window.location.reload()}
-                    className="mt-4 px-8 py-3 bg-gray-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-sky transition-all active:scale-95"
+                    className="mt-4 px-8 py-3 bg-sky-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-sky-600 transition-all active:scale-95"
                 >
                     Reintentar Sincronización
                 </button>

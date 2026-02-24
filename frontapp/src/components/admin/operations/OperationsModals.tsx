@@ -125,7 +125,7 @@ export const ProviderModal: React.FC<{
             <div className="col-span-2 pt-6 flex gap-4">
                 <button
                     type="submit"
-                    className="flex-1 py-5 bg-gray-900 text-white rounded-[1.5rem] font-black text-[10px] uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-gray-200"
+                    className="flex-1 py-5 bg-sky-500 text-white rounded-[1.5rem] font-black text-[10px] uppercase tracking-widest hover:bg-sky-600 transition-all shadow-xl shadow-gray-200"
                 >
                     Actualizar Registro Operativo
                 </button>
@@ -170,7 +170,7 @@ export const TwoFactorModalContent: React.FC<{
             <div className="flex flex-col gap-3">
                 <button
                     type="submit"
-                    className="w-full py-4 bg-gray-900 text-white rounded-2xl font-black text-xs uppercase hover:bg-black transition-all"
+                    className="w-full py-4 bg-sky-500 text-white rounded-2xl font-black text-xs uppercase hover:bg-sky-600 transition-all"
                 >
                     Validar Acceso
                 </button>

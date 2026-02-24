@@ -15,7 +15,7 @@ export const ProvidersTab: React.FC<{
                 <h3 className="text-xl font-black text-gray-800 tracking-tighter">Directorio Especializado</h3>
                 <button
                     onClick={onNewProvider}
-                    className="px-6 py-3 bg-gray-900 text-white rounded-2xl font-black text-xs uppercase hover:bg-black transition-all flex items-center gap-2 shadow-xl shadow-gray-200"
+                    className="px-6 py-3 bg-sky-500 text-white rounded-2xl font-black text-xs uppercase hover:bg-sky-600 transition-all flex items-center gap-2 shadow-xl shadow-gray-200"
                 >
                     <PlusCircle className="w-5 h-5" /> Nuevo Proveedor
                 </button>
@@ -182,7 +182,7 @@ export const CredentialsTab: React.FC<{
                 <h3 className="text-xl font-black text-gray-800 tracking-tighter">Gestión de Roles y Permisos</h3>
                 <button
                     onClick={onNewRole}
-                    className="px-6 py-3 bg-gray-900 text-white rounded-2xl font-black text-xs uppercase hover:bg-black transition-all flex items-center gap-2 shadow-xl shadow-gray-200"
+                    className="px-6 py-3 bg-sky-500 text-white rounded-2xl font-black text-xs uppercase hover:bg-sky-600 transition-all flex items-center gap-2 shadow-xl shadow-gray-200"
                 >
                     <PlusCircle className="w-5 h-5" /> Nuevo Rol
                 </button>
@@ -285,14 +285,14 @@ export const CredentialsTab: React.FC<{
 export const AuditTab: React.FC<{ logs: AuditLog[]; }> = ({ logs }) => {
     return (
         <div className="bg-white p-0 overflow-hidden rounded-3xl border border-gray-100 shadow-sm">
-            <div className="p-6 bg-gray-900 text-white">
+            <div className="p-6 bg-sky-500 text-white">
                 <h3 className="font-black tracking-tight font-industrial uppercase">Log Avanzado de Ingeniería Senior</h3>
-                <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest mt-1 font-industrial">Cumplimiento Estándar de Auditoría (RF-13)</p>
+                <p className="text-[10px] text-sky-200 uppercase font-bold tracking-widest mt-1 font-industrial">Cumplimiento Estándar de Auditoría (RF-13)</p>
             </div>
             <div className="p-6 space-y-4 max-h-[600px] overflow-y-auto custom-scrollbar">
                 {logs.map((log, idx) => (
                     <div key={idx} className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                        <div className="w-10 h-10 bg-gray-900 text-white rounded-xl flex items-center justify-center flex-shrink-0">
+                        <div className="w-10 h-10 bg-sky-500 text-white rounded-xl flex items-center justify-center flex-shrink-0">
                             <Fingerprint className="w-6 h-6" />
                         </div>
                         <div className="flex-1">

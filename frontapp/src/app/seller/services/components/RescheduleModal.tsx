@@ -77,7 +77,7 @@ export default function RescheduleModal({ appointment, isOpen, onClose, onConfir
                             onClose();
                         }}
                         disabled={hasConflict}
-                        variant="dark"
+                        variant="primary"
                         size="lg"
                         fullWidth
                         leftIcon="CheckCircle2"

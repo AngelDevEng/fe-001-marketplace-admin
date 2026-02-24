@@ -2,7 +2,7 @@ import React, { ReactNode, CSSProperties } from 'react';
 import Icon from './Icon';
 import { Loader2 } from 'lucide-react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'success' | 'dark';
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'danger';
 type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 
 interface BaseButtonProps {
@@ -24,8 +24,8 @@ interface BaseButtonProps {
 
 const variantClasses: Record<ButtonVariant, string> = {
     primary: `
-        bg-white text-black
-        hover:text-sky-600
+        bg-sky-500 text-white
+        hover:bg-sky-600
         focus:ring-2 focus:ring-sky-500/50 focus:ring-offset-2 focus:ring-offset-white
         active:bg-sky-700
     `,
@@ -34,6 +34,12 @@ const variantClasses: Record<ButtonVariant, string> = {
         hover:bg-emerald-600
         focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-white
         active:bg-emerald-700
+    `,
+    tertiary: `
+        bg-lime-500 text-white
+        hover:bg-lime-600
+        focus:ring-2 focus:ring-lime-500/50 focus:ring-offset-2 focus:ring-offset-white
+        active:bg-lime-700
     `,
     ghost: `
         bg-transparent text-gray-600
@@ -46,18 +52,6 @@ const variantClasses: Record<ButtonVariant, string> = {
         hover:bg-rose-600
         focus:ring-2 focus:ring-rose-500/50 focus:ring-offset-2 focus:ring-offset-white
         active:bg-rose-700
-    `,
-    success: `
-        bg-emerald-500 text-white
-        hover:bg-emerald-600
-        focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 focus:ring-offset-white
-        active:bg-emerald-700
-    `,
-    dark: `
-        bg-gray-900 text-white
-        hover:bg-gray-800
-        focus:ring-2 focus:ring-gray-500/50 focus:ring-offset-2 focus:ring-offset-white
-        active:bg-gray-950
     `,
 };
 

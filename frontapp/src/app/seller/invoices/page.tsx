@@ -9,6 +9,8 @@ import InvoiceFilters from './components/InvoiceFilters';
 import InvoiceTable from './components/InvoiceTable';
 import InvoiceDrawer from './components/InvoiceDrawer';
 import EmitInvoiceModal from './components/EmitInvoiceModal';
+import Icon from '@/components/ui/Icon';
+import BaseLoading from '@/components/ui/BaseLoading';
 
 export default function InvoicesPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,20 +31,29 @@ export default function InvoicesPage() {
     } = useSellerInvoices();
 
     if (isLoading && filteredVouchers.length === 0) {
-        return (
-            <div className="p-20 flex flex-col items-center justify-center animate-pulse">
-                <i className="ph ph-circle-notch animate-spin text-4xl text-indigo-500 mb-4"></i>
-                <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Sincronizando con SUNAT via Rapifac...</p>
-            </div>
-        );
+        return <BaseLoading message="Sincronizando con SUNAT vía Rapifac..." />;
     }
 
     return (
-        <div className="space-y-8 pb-20 animate-fadeIn font-industrial">
+        <div className="space-y-8 pb-20 animate-fadeIn">
             <ModuleHeader
-                title="Facturación"
-                subtitle="Gestión de comprobantes electrónicos vía Rapifac y SUNAT"
+                title="Mis Comprobantes"
+                subtitle="Gestión de facturación electrónica y sincronización SUNAT vía Rapifac"
                 icon="Receipt"
+                actions={
+                    <button
+                        id="btn-nueva-factura"
+                        onClick={() => setIsModalOpen(true)}
+                        className="flex items-center gap-3 px-7 py-4
+                            bg-sky-500 text-white rounded-[2.5rem]
+                            font-black text-[11px] uppercase tracking-widest
+                            hover:bg-sky-600 transition-all shadow-xl shadow-sky-100
+                            active:scale-95 group"
+                    >
+                        <Icon name="PlusCircle" className="w-5 h-5" />
+                        Nueva Factura
+                    </button>
+                }
             />
 
             <InvoiceKPIsDisplay kpis={kpis} />

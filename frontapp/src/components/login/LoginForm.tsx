@@ -277,17 +277,17 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                             <form onSubmit={handleLoginSubmit} className="space-y-5" noValidate>
                                 <div>
                                     <label htmlFor="login-email" className="block text-sm font-semibold text-slate-700 mb-2">
-                                        Correo Electrónico <span className="text-red-500">*</span>
+                                        Usuario / Nombre de Tienda <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
                                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" aria-hidden="true" />
                                         <input
                                             id="login-email"
-                                            type="email"
+                                            type="text"
                                             name="username"
                                             value={loginData.username}
                                             onChange={(e) => handleInputChange(e, 'login')}
-                                            placeholder="tienda@correo.com"
+                                            placeholder="Nombre de tu tienda o admin"
                                             autoComplete="username"
                                             required
                                             aria-required="true"

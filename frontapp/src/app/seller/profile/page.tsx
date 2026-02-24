@@ -2,17 +2,32 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
+import { sellerNavigation } from '@/lib/constants/seller-nav';
 import { allowOnlyNumbers } from '@/lib/utils/validation';
+
+import BaseLoading from '@/components/ui/BaseLoading';
+import BaseButton from '@/components/ui/BaseButton';
+import Icon from '@/components/ui/Icon';
 import { useSellerProfile, VendorProfileData } from '@/hooks/useSellerProfile';
 
+
 export default function MisDatosPage() {
-    const { data: hookData, loading, isSaving, updateProfile } = useSellerProfile();
+    const moduleConfig = sellerNavigation.find(m => m.id === 'mis-datos')!;
+
+    const {
+        data: hookData,
+        loading,
+        isSaving,
+        updateProfile
+    } = useSellerProfile();
+
     const [data, setData] = useState<VendorProfileData | null>(null);
     const [isEditMode, setIsEditMode] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const EDIT_FIELD_CLASSES = "bg-indigo-50/50 ring-indigo-500/10 px-3 py-1 rounded-xl border-2 border-indigo-100";
-    const READONLY_FIELD_CLASSES = "";
+    const EDIT_FIELD_CLASSES = "bg-white/70 ring-sky-500/10 px-3 py-1 rounded-xl border-2 border-sky-100";
+    const READONLY_FIELD_CLASSES = "border-transparent px-3 py-1";
+
 
     useEffect(() => {
         if (hookData && !isEditMode) {
@@ -20,13 +35,8 @@ export default function MisDatosPage() {
         }
     }, [hookData, isEditMode]);
 
-    if (loading && !data) {
-        return (
-            <div className="p-20 flex flex-col items-center justify-center animate-pulse">
-                <i className="ph ph-circle-notch animate-spin text-4xl text-indigo-500 mb-4"></i>
-                <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Cargando...</p>
-            </div>
-        );
+    if (loading) {
+        return <BaseLoading message="Sincronizando con tu tienda en WordPress..." />;
     }
 
     if (!data) return null;
@@ -52,9 +62,11 @@ export default function MisDatosPage() {
                 const key = name.replace('rrss_', '') as keyof typeof prev.rrss;
                 newData.rrss = { ...prev.rrss, [key]: value };
             } else {
+                // TODO: Mejorar tipado - usar tipo genérico o interfaz específica para campos dinámicos
                 // @ts-ignore
                 newData[name] = value;
             }
+
             return newData;
         });
     };
@@ -74,45 +86,43 @@ export default function MisDatosPage() {
         }
     };
 
-    const fieldCls = `w-full text-sm font-black text-gray-800 bg-transparent p-3 border-2 border-gray-200 rounded-xl outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-300 edit-field`;
+    const fieldCls = `w-full text-sm font-black text-gray-800 bg-transparent p-3 border-2 border-gray-100 rounded-xl outline-none focus:border-sky-500 transition-all`;
 
     return (
-        <div className="space-y-8 animate-fadeIn pb-20 font-industrial">
+        <div className="space-y-8 animate-fadeIn">
             <ModuleHeader
-                title="Mis Datos"
-                subtitle="Información legal, comercial y financiera del comercio"
-                icon="ph-identification-card"
+                title={moduleConfig.label}
+                subtitle={moduleConfig.description}
+                icon={moduleConfig.icon}
                 actions={
-                    <button
+                    <BaseButton
                         onClick={toggleEditMode}
-                        disabled={isSaving}
-                        className={`flex items-center gap-3 px-8 py-4 rounded-2xl font-black text-[11px] uppercase tracking-widest transition-all active:scale-95 shadow-xl ${isEditMode
-                            ? "bg-emerald-500 text-white shadow-emerald-200"
-                            : "bg-white text-gray-900 hover:text-indigo-600 hover:shadow-indigo-100 border border-white/30"
-                            } ${isSaving ? 'opacity-70 cursor-wait' : ''}`}
+                        isLoading={isSaving}
+                        variant="secondary"
+                        leftIcon={isEditMode ? "Save" : "Edit3"}
+                        className="shadow-2xl"
                     >
-                        <i className={`ph ${isSaving ? "ph-spinner animate-spin" : (isEditMode ? "ph-floppy-disk" : "ph-pencil-simple")} text-xl`}></i>
-                        <span>{isSaving ? "Guardando..." : (isEditMode ? "Guardar Cambios" : "Editar Información")}</span>
-                    </button>
+                        {isEditMode ? "Guardar Cambios" : "Editar Información"}
+                    </BaseButton>
                 }
             />
 
             <form id="form-mis-datos" className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start" onSubmit={(e) => e.preventDefault()}>
 
                 {/* 1. DATOS EMPRESARIALES */}
-                <div className="md:col-span-8 bg-white overflow-hidden rounded-[3rem] border border-gray-100 shadow-xl">
+                <div className="md:col-span-8 overflow-hidden rounded-[2.5rem] shadow-2xl bg-white border border-gray-100">
                     <div className="bg-gradient-to-r from-sky-500 via-sky-500 to-sky-400 p-8 flex items-center justify-between relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
                         <div className="flex items-center gap-5 text-white relative z-10">
                             <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 shadow-inner">
-                                <i className="ph-bold ph-buildings text-2xl"></i>
+                                <Icon name="Building2" className="w-6 h-6" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-black tracking-tighter leading-none uppercase italic">Datos Empresariales</h3>
+                                <h3 className="text-2xl font-black tracking-tighter leading-none">Datos Empresariales</h3>
                                 <div className="flex items-center gap-2 mt-1">
                                     <p className="text-[10px] font-black text-sky-100 uppercase tracking-[0.2em] opacity-80">Gestión de Entidad Legal</p>
                                     <span className="px-2 py-0.5 bg-emerald-500/20 backdrop-blur-md rounded-full text-[8px] font-black uppercase tracking-widest text-emerald-100 border border-emerald-500/30 flex items-center gap-1">
-                                        Verificado <i className="ph-bold ph-seal-check"></i>
+                                        Verificado <Icon name="BadgeCheck" className="w-3 h-3 ml-1" />
                                     </span>
                                 </div>
                             </div>
@@ -182,18 +192,18 @@ export default function MisDatosPage() {
                             {!isEditMode && (
                                 <div className="flex flex-wrap gap-4">
                                     {data.rrss.instagram && (
-                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl border bg-pink-50 text-pink-600 border-pink-100 font-black text-xs uppercase tracking-tight">
-                                            <i className="ph ph-instagram-logo ph-bold"></i> <span>{data.rrss.instagram}</span>
+                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border bg-pink-50 text-pink-600 border-pink-100 font-bold text-xs">
+                                            <Icon name="Instagram" className="w-4 h-4" /> <span>{data.rrss.instagram}</span>
                                         </div>
                                     )}
                                     {data.rrss.facebook && (
-                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl border bg-sky-50 text-sky-600 border-sky-100 font-black text-xs uppercase tracking-tight">
-                                            <i className="ph ph-facebook-logo ph-bold"></i> <span>{data.rrss.facebook}</span>
+                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border bg-sky-50 text-sky-600 border-sky-100 font-bold text-xs">
+                                            <Icon name="Facebook" className="w-4 h-4" /> <span>{data.rrss.facebook}</span>
                                         </div>
                                     )}
                                     {data.rrss.tiktok && (
-                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl border bg-gray-50 text-gray-600 border-gray-100 font-black text-xs uppercase tracking-tight">
-                                            <i className="ph ph-tiktok-logo ph-bold"></i> <span>{data.rrss.tiktok}</span>
+                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border bg-gray-50 text-gray-600 border-gray-100 font-bold text-xs">
+                                            <Icon name="MonitorPlay" className="w-4 h-4" /> <span>{data.rrss.tiktok}</span>
                                         </div>
                                     )}
                                 </div>
@@ -203,17 +213,17 @@ export default function MisDatosPage() {
                                     <div className="space-y-1">
                                         <label className="text-[9px] font-black text-pink-500 uppercase tracking-widest ml-1">Instagram</label>
                                         <input type="text" name="rrss_instagram" placeholder="@usuario" value={data.rrss.instagram} onChange={handleInputChange}
-                                            className={`edit-field w-full text-xs font-bold p-3 border-2 border-gray-200 rounded-xl outline-none focus:border-pink-400 transition-all ${isEditMode ? EDIT_FIELD_CLASSES : ''}`} />
+                                            className={`w-full text-xs font-bold p-3 border-2 border-gray-200 rounded-xl outline-none focus:border-pink-400 transition-all ${EDIT_FIELD_CLASSES}`} />
                                     </div>
                                     <div className="space-y-1">
                                         <label className="text-[9px] font-black text-sky-500 uppercase tracking-widest ml-1">Facebook</label>
                                         <input type="text" name="rrss_facebook" placeholder="/pagina" value={data.rrss.facebook} onChange={handleInputChange}
-                                            className={`edit-field w-full text-xs font-bold p-3 border-2 border-gray-200 rounded-xl outline-none focus:border-sky-400 transition-all ${isEditMode ? EDIT_FIELD_CLASSES : ''}`} />
+                                            className={`w-full text-xs font-bold p-3 border-2 border-gray-200 rounded-xl outline-none focus:border-sky-400 transition-all ${EDIT_FIELD_CLASSES}`} />
                                     </div>
                                     <div className="space-y-1">
                                         <label className="text-[9px] font-black text-gray-500 uppercase tracking-widest ml-1">TikTok</label>
                                         <input type="text" name="rrss_tiktok" placeholder="@usuario" value={data.rrss.tiktok} onChange={handleInputChange}
-                                            className={`edit-field w-full text-xs font-bold p-3 border-2 border-gray-200 rounded-xl outline-none focus:border-gray-400 transition-all ${isEditMode ? EDIT_FIELD_CLASSES : ''}`} />
+                                            className={`w-full text-xs font-bold p-3 border-2 border-gray-200 rounded-xl outline-none focus:border-gray-400 transition-all ${EDIT_FIELD_CLASSES}`} />
                                     </div>
                                 </div>
                             )}
@@ -222,26 +232,26 @@ export default function MisDatosPage() {
                 </div>
 
                 {/* 2. ADMIN DEL PANEL */}
-                <div className="md:col-span-4 self-stretch">
-                    <div className="bg-white overflow-hidden rounded-[3rem] border border-gray-100 shadow-xl h-full shrink-0">
+                <div className="md:col-span-4 h-full">
+                    <div className="overflow-hidden rounded-[2.5rem] shadow-2xl bg-white border border-gray-100 h-full">
                         {/* Header Premium */}
                         <div className="bg-gradient-to-r from-sky-500 via-sky-500 to-sky-400 p-8 flex items-center justify-between relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
                             <div className="flex items-center gap-5 text-white relative z-10">
                                 <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 shadow-inner">
-                                    <i className="ph-bold ph-user-gear text-2xl"></i>
+                                    <Icon name="UserCog" className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-black tracking-tighter leading-none uppercase italic">Admin del Panel</h3>
+                                    <h3 className="text-xl font-black tracking-tighter leading-none">Admin del Panel</h3>
                                     <p className="text-[10px] font-black text-sky-100 uppercase tracking-[0.2em] mt-1 opacity-80">Contacto Directo</p>
                                 </div>
                             </div>
                             <div className="relative group z-10" onClick={handlePhotoClick}>
                                 <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-white/30 shadow-xl backdrop-blur-md group-hover:scale-110 transition-all duration-500 cursor-pointer">
-                                    <img src={data.rep_legal_photo || "../img/rep_legal.png"} alt="Representante Legal" className="w-full h-full object-cover" />
+                                    <img src={data.rep_legal_photo} alt="Representante Legal" className="w-full h-full object-cover" />
                                     {isEditMode && (
                                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                                            <i className="ph-bold ph-camera text-white text-lg"></i>
+                                            <Icon name="Camera" className="text-white w-5 h-5" />
                                         </div>
                                     )}
                                 </div>
@@ -280,21 +290,18 @@ export default function MisDatosPage() {
                     </div>
                 </div>
 
-                {/* 3. FINANZAS / FACTURACIÓN */}
-                <div className="md:col-span-12 bg-white overflow-hidden rounded-[3rem] border border-gray-100 shadow-xl">
+                {/* 3. FINANZAS */}
+                <div className="md:col-span-12 overflow-hidden rounded-[2.5rem] shadow-2xl bg-white border border-gray-100">
                     <div className="bg-gradient-to-r from-sky-500 via-sky-500 to-sky-400 p-8 flex items-center justify-between relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
                         <div className="flex items-center gap-5 text-white relative z-10">
                             <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 shadow-inner">
-                                <i className="ph-bold ph-receipt text-2xl"></i>
+                                <Icon name="Receipt" className="w-6 h-6" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-black tracking-tighter leading-none uppercase italic">Finanzas</h3>
+                                <h3 className="text-2xl font-black tracking-tighter leading-none">Finanzas</h3>
                                 <p className="text-[10px] font-black text-sky-100 uppercase tracking-[0.2em] mt-1 opacity-80">Configuración de Facturación y Cuentas</p>
                             </div>
-                        </div>
-                        <div className="relative z-10">
-                            <span className="px-4 py-2 bg-black/10 backdrop-blur-md rounded-full text-[9px] font-black uppercase tracking-widest text-white border border-white/10">Bancario</span>
                         </div>
                     </div>
 
@@ -303,16 +310,16 @@ export default function MisDatosPage() {
                             <div className="space-y-1 lg:col-span-3">
                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Dirección Fiscal <span className="text-red-500">*</span></label>
                                 <textarea name="direccion_fiscal" required readOnly={!isEditMode} rows={1} value={data.direccion_fiscal} onChange={handleInputChange}
-                                    className={`w-full text-xs font-black text-gray-800 bg-transparent p-3 border-2 border-gray-200 rounded-xl outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all duration-300 ${isEditMode ? EDIT_FIELD_CLASSES : READONLY_FIELD_CLASSES}`}></textarea>
+                                    className={`w-full text-xs font-black text-gray-800 bg-transparent p-3 border-2 border-gray-100 rounded-xl outline-none focus:border-sky-500 transition-all ${isEditMode ? EDIT_FIELD_CLASSES : READONLY_FIELD_CLASSES}`}></textarea>
                             </div>
                             <div className="space-y-1">
                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Cuenta BCP (Soles) <span className="text-red-500">*</span></label>
-                                <input type="text" name="cuenta_bcp" required readOnly={!isEditMode} maxLength={14} pattern="[0-9]{14}" placeholder="14 dígitos" value={data.cuenta_bcp} onChange={handleInputChange} onKeyDown={allowOnlyNumbers}
+                                <input type="text" name="cuenta_bcp" required readOnly={!isEditMode} maxLength={14} placeholder="14 dígitos" value={data.cuenta_bcp} onChange={handleInputChange} onKeyDown={allowOnlyNumbers}
                                     className={`${fieldCls} ${isEditMode ? EDIT_FIELD_CLASSES : READONLY_FIELD_CLASSES}`} />
                             </div>
                             <div className="space-y-1">
                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">CCI <span className="text-red-500">*</span></label>
-                                <input type="text" name="cci" readOnly={!isEditMode} maxLength={20} pattern="[0-9]{20}" placeholder="20 dígitos (CCI)" value={data.cci} onChange={handleInputChange} onKeyDown={allowOnlyNumbers}
+                                <input type="text" name="cci" readOnly={!isEditMode} maxLength={20} placeholder="20 dígitos (CCI)" value={data.cci} onChange={handleInputChange} onKeyDown={allowOnlyNumbers}
                                     className={`${fieldCls} ${isEditMode ? EDIT_FIELD_CLASSES : READONLY_FIELD_CLASSES}`} />
                             </div>
                             <div className="space-y-1">

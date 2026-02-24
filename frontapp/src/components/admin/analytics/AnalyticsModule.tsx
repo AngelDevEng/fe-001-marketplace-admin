@@ -206,9 +206,9 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
                         </div>
 
                         {/* Frecuencia de Compra Segmentada */}
-                        <div className="lg:col-span-5 bg-sky-900 text-white p-8 border-none shadow-2xl shadow-sky-100 rounded-[2.5rem] relative overflow-hidden group">
+                        <div className="lg:col-span-5 bg-sky-500 text-white p-8 border-none shadow-2xl shadow-sky-100 rounded-[2.5rem] relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/50 rounded-full -mr-16 -mt-16 blur-xl group-hover:bg-sky-400/50 transition-all duration-700"></div>
-                            <h3 className="text-xs font-black text-sky-300 uppercase tracking-widest mb-8 relative z-10">
+                            <h3 className="text-xs font-black text-white uppercase tracking-widest mb-8 relative z-10">
                                 Elasticidad de Frecuencia (Días)
                             </h3>
                             <FrequencyBars segments={data.comportamientoClientes.frecuencia_segmentos} />

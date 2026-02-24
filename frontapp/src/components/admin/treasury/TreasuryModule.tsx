@@ -93,7 +93,7 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
                         <button
                             key={tab.id}
                             onClick={() => actions.setActiveTab(tab.id as any)}
-                            className={`px-6 py-3 rounded-[1.2rem] font-black text-[11px] uppercase transition-all flex items-center gap-2 font-industrial ${activeTab === tab.id ? 'bg-gray-900 text-white shadow-xl' : 'text-gray-400 hover:bg-gray-50'
+                            className={`px-6 py-3 rounded-[1.2rem] font-black text-[11px] uppercase transition-all flex items-center gap-2 font-industrial ${activeTab === tab.id ? 'bg-sky-500 text-white shadow-xl' : 'text-gray-400 hover:bg-gray-50'
                                 }`}
                         >
                             <IconComp className="w-4 h-4" /> {tab.label}

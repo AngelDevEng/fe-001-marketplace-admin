@@ -180,7 +180,7 @@ export default function SmartSidebar({
                                     </div>
                                 )}
 
-                                {section.items.map((module: any, idx: number) => {
+                                {section.items.map((module: NavItem, idx: number) => {
                                     const active = isActive(module.href);
                                     return (
                                         <Link

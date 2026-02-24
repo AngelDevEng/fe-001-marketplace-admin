@@ -5,14 +5,16 @@ import { Ticket, TicketType } from '@/lib/types/seller/helpDesk';
 import TicketItem from './TicketItem';
 import Icon from '@/components/ui/Icon';
 
+interface TicketFilters {
+    search: string;
+    category: TicketType | 'all' | 'critical' | 'tech-critical';
+}
+
 interface TicketSidebarProps {
     tickets: Ticket[];
     activeTicketId: number | null;
-    filters: {
-        search: string;
-        category: TicketType | 'all' | 'critical' | 'tech-critical';
-    };
-    onSetFilters: (filters: any) => void;
+    filters: TicketFilters;
+    onSetFilters: (filters: Partial<TicketFilters>) => void;
     onSetActiveTicket: (id: number | null) => void;
     onNewTicket: () => void;
 }
@@ -36,7 +38,7 @@ export default function TicketSidebar({ tickets, activeTicketId, filters, onSetF
                 <div className="flex gap-2">
                     <select
                         value={filters.category}
-                        onChange={(e: any) => onSetFilters({ category: e.target.value })}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onSetFilters({ category: e.target.value as TicketFilters['category'] })}
                         className="w-full px-3 py-2 bg-gray-50 border-none rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-600 cursor-pointer outline-none"
                     >
                         <option value="all">Todas las Categorías</option>

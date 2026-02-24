@@ -3,6 +3,7 @@
 import React from 'react';
 import Icon from '@/components/ui/Icon';
 import { Voucher, VoucherStatus } from '@/lib/types/seller/invoices';
+import { formatCurrency } from '@/lib/utils/formatters';
 
 interface InvoiceDrawerProps {
     voucher: Voucher | null;
@@ -32,10 +33,6 @@ const statusColorClasses: Record<string, string> = {
     amber: 'bg-amber-50 text-amber-600 border-amber-100',
     gray: 'bg-gray-50 text-gray-600 border-gray-100',
 };
-
-function formatCurrency(n: number) {
-    return `S/ ${n.toLocaleString('es-PE', { minimumFractionDigits: 2 })}`;
-}
 
 export default function InvoiceDrawer({ voucher, isOpen, onClose, onRetry }: InvoiceDrawerProps) {
     if (!isOpen || !voucher) return null;

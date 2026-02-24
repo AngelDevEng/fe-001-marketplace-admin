@@ -164,8 +164,8 @@ export default function ServiceDetailModal({ service, specialists, appointments,
                 </div>
 
                 {/* Technical Meta (Horarios, etc) */}
-                <div className="p-8 bg-gray-900 rounded-[3rem] text-white shadow-2xl space-y-6 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 blur-[100px] -z-0"></div>
+                <div className="p-8 bg-sky-500 rounded-[3rem] text-white shadow-2xl space-y-6 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[100px] -z-0"></div>
                     <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-6">
                         <div className="flex items-center gap-3">
                             <Icon name="ShieldCheck" className="text-sky-400 w-6 h-6" />

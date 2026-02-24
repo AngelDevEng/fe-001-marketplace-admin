@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Icon from '@/components/ui/Icon';
 
 interface SalesFiltersProps {
     dateStart: string | null;
@@ -18,7 +19,7 @@ export default function SalesFilters({ dateStart, dateEnd, onDateChange, onClear
                     <div className="space-y-2">
                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Fecha Inicio</label>
                         <div className="relative">
-                            <i className="ph ph-calendar-blank absolute left-4 top-1/2 -translate-y-1/2 text-sky-500 text-lg"></i>
+                            <Icon name="Calendar" className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-500 text-lg" />
                             <input
                                 type="date"
                                 value={dateStart || ''}
@@ -30,7 +31,7 @@ export default function SalesFilters({ dateStart, dateEnd, onDateChange, onClear
                     <div className="space-y-2">
                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Fecha Fin</label>
                         <div className="relative">
-                            <i className="ph ph-calendar-blank absolute left-4 top-1/2 -translate-y-1/2 text-sky-500 text-lg"></i>
+                            <Icon name="Calendar" className="absolute left-4 top-1/2 -translate-y-1/2 text-sky-500 text-lg" />
                             <input
                                 type="date"
                                 value={dateEnd || ''}
@@ -47,7 +48,7 @@ export default function SalesFilters({ dateStart, dateEnd, onDateChange, onClear
                         className="p-3 bg-gray-100 text-gray-400 rounded-2xl hover:bg-red-50 hover:text-red-500 transition-all flex items-center justify-center min-w-[3rem]"
                         title="Limpiar filtros"
                     >
-                        <i className="ph ph-trash text-xl"></i>
+                        <Icon name="Trash2" className="text-xl" />
                     </button>
 
                     <div className="flex gap-2">
@@ -55,14 +56,14 @@ export default function SalesFilters({ dateStart, dateEnd, onDateChange, onClear
                             onClick={() => onExport('excel')}
                             className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-gray-700 font-bold text-xs border border-gray-100 hover:text-sky-600 transition-all shadow-sm"
                         >
-                            <i className="ph ph-file-xls text-xl"></i>
+                            <Icon name="FileSpreadsheet" className="text-xl" />
                             <span className="hidden sm:inline">Excel</span>
                         </button>
                         <button
                             onClick={() => onExport('pdf')}
                             className="flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-gray-700 font-bold text-xs border border-gray-100 hover:text-sky-600 transition-all shadow-sm"
                         >
-                            <i className="ph ph-file-pdf text-xl"></i>
+                            <Icon name="FileText" className="text-xl" />
                             <span className="hidden sm:inline">PDF</span>
                         </button>
                     </div>

@@ -420,7 +420,7 @@ export default function ProductModal({ isOpen, onClose, onSave, productToEdit }:
                     </BaseButton>
                     <BaseButton
                         type="submit"
-                        variant="dark"
+                        variant="primary"
                         className="px-10"
                     >
                         Guardar Ficha

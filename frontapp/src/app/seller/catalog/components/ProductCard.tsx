@@ -1,19 +1,19 @@
 'use client';
 
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Product } from '@/lib/types/seller/product';
+import { formatCurrency } from '@/lib/utils/formatters';
+import Icon from '@/components/ui/Icon';
 
 interface ProductCardProps {
     product: Product;
     onEdit: (product: Product) => void;
     onDelete: (productId: string) => void;
     onViewInfo: (product: Product) => void;
+    renderPrice?: () => ReactNode;
 }
 
-export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: ProductCardProps) {
-    const formatCurrency = (amount: number) => {
-        return new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(amount);
-    };
+export default function ProductCard({ product, onEdit, onDelete, onViewInfo, renderPrice }: ProductCardProps) {
 
     return (
         <div className="product-card glass-card p-4 hover:shadow-lg transition-all cursor-pointer group animate-fadeIn h-full flex flex-col relative">
@@ -33,7 +33,7 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: P
                     )}
                     {product.sticker === 'oferta' && (
                         <div className="relative group/sticker">
-                            <span className="bg-amber-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                            <span className="bg-lime-400/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
                                 Oferta
                             </span>
                             <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
@@ -96,9 +96,13 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: P
                     {product.name}
                 </h3>
                 <div className="flex items-center justify-center gap-2">
-                    <span className="product-price text-xs font-black text-sky-600">
-                        {formatCurrency(product.price)}
-                    </span>
+                    {renderPrice ? (
+                        renderPrice()
+                    ) : (
+                        <span className="product-price text-xs font-black text-sky-600">
+                            {formatCurrency(product.price)}
+                        </span>
+                    )}
                     <span className="product-stock text-[8px] font-bold text-gray-400">
                         Stock: {product.stock}
                     </span>
@@ -116,13 +120,13 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo }: P
                     onClick={(e) => { e.stopPropagation(); onEdit(product); }}
                     className="p-1.5 text-sky-500 hover:text-sky-600 transition-all"
                 >
-                    <i className="ph ph-pencil-simple text-sm"></i>
+                    <Icon name="Pencil" className="text-sm w-4 h-4" />
                 </button>
                 <button
                     onClick={(e) => { e.stopPropagation(); onDelete(product.id); }}
                     className="p-1.5 text-sky-500 hover:text-red-500 transition-all"
                 >
-                    <i className="ph ph-trash text-sm"></i>
+                    <Icon name="Trash2" className="text-sm w-4 h-4" />
                 </button>
             </div>
         </div>

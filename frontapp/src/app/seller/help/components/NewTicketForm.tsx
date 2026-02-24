@@ -6,8 +6,15 @@ import { TicketType } from '@/lib/types/seller/helpDesk';
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';
 
+interface TicketFormData {
+    asunto: string;
+    tipo_ticket: string;
+    criticidad: string;
+    mensaje: string;
+}
+
 interface NewTicketFormProps {
-    onCreateTicket: (data: any) => void | Promise<void>;
+    onCreateTicket: (data: TicketFormData) => void | Promise<void>;
     onCancel: () => void;
 }
 
@@ -21,7 +28,7 @@ export default function NewTicketForm({ onCreateTicket, onCancel }: NewTicketFor
         if (!formRef.current) return;
 
         const formData = new FormData(formRef.current);
-        const data = Object.fromEntries(formData.entries());
+        const data = Object.fromEntries(formData.entries()) as unknown as TicketFormData;
 
         setIsSubmitting(true);
         try {
@@ -139,7 +146,7 @@ export default function NewTicketForm({ onCreateTicket, onCancel }: NewTicketFor
                 <BaseButton
                     type="submit"
                     isLoading={isSubmitting}
-                    variant="dark"
+                    variant="primary"
                     leftIcon="Send"
                     className="min-w-[200px]"
                 >

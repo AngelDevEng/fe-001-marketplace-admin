@@ -91,7 +91,7 @@ export default function AddCityModal({ isOpen, onClose, onSave }: AddCityModalPr
                     <BaseButton
                         onClick={handleSave}
                         disabled={!dept || !city}
-                        variant="dark"
+                        variant="primary"
                         size="lg"
                         fullWidth
                         leftIcon="MapPin"

@@ -73,7 +73,7 @@ export default function AddAgencyModal({ isOpen, onClose, onSave }: AddAgencyMod
                     <BaseButton
                         onClick={handleSave}
                         disabled={!name || !address}
-                        variant="dark"
+                        variant="primary"
                         size="lg"
                         fullWidth
                         leftIcon="PlusCircle"

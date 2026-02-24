@@ -71,7 +71,7 @@ export const PaymentModal: React.FC<{
                                 <p className="text-[9px] font-black text-amber-600 uppercase tracking-widest text-center animate-pulse mb-2">Requiere Auditoría Humana/Bancaria</p>
                                 <BaseButton
                                     onClick={() => onProcessIn(p.id, 'VALIDATE')}
-                                    variant="success"
+                                    variant="secondary"
                                     leftIcon="CheckCircle"
                                     size="md"
                                     fullWidth
@@ -156,7 +156,7 @@ export const PaymentModal: React.FC<{
                     <div className="px-8 py-5 bg-indigo-50 border-t border-indigo-100 flex gap-4">
                         <button
                             onClick={() => onProcessOut(p.id, 'PAY')}
-                            className="flex-1 py-3 bg-gray-900 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all flex items-center justify-center gap-2"
+                            className="flex-1 py-3 bg-sky-500 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-sky-600 transition-all flex items-center justify-center gap-2"
                         >
                             <Wallet className="w-4 h-4" /> Desembolsar Manualmente
                         </button>

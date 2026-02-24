@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from '@/components/ui/Icon';
 
 interface Step {
     id: number;
@@ -11,11 +12,11 @@ interface OrderStepperProps {
 }
 
 const STEPS: Step[] = [
-    { id: 1, label: 'Validación', icon: 'ph-check-square' },
-    { id: 2, label: 'Despacho', icon: 'ph-package' },
-    { id: 3, label: 'Recojo / Agencia', icon: 'ph-barcode' },
-    { id: 4, label: 'En Tránsito', icon: 'ph-truck' },
-    { id: 5, label: 'Validación Comprador', icon: 'ph-user-check' }
+    { id: 1, label: 'Validación', icon: 'CheckSquare' },
+    { id: 2, label: 'Despacho', icon: 'Package' },
+    { id: 3, label: 'Recojo / Agencia', icon: 'ScanBarcode' },
+    { id: 4, label: 'En Tránsito', icon: 'Truck' },
+    { id: 5, label: 'Validación Comprador', icon: 'UserCheck' }
 ];
 
 export default function OrderStepper({ currentStep }: OrderStepperProps) {
@@ -43,7 +44,7 @@ export default function OrderStepper({ currentStep }: OrderStepperProps) {
                                     isActive ? 'border-sky-500 bg-sky-500 text-white shadow-lg shadow-sky-200 -translate-y-1' :
                                         'border-slate-100 text-slate-300'}`}
                         >
-                            <i className={`ph ph-bold ${step.icon} text-lg`}></i>
+                            <Icon name={step.icon} className="text-lg" />
                         </div>
                         <span
                             className={`mt-3 text-[8px] font-black uppercase tracking-wider text-center leading-tight transition-colors

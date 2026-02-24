@@ -95,9 +95,9 @@ export const SecurityAlertsCenter: React.FC = () => {
                 </div>
 
                 {/* Motor de Detección Requerido (RF-01) */}
-                <div className="lg:col-span-4 bg-gray-900 text-white rounded-[2.5rem] p-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-                    <h3 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-6">Parámetros del Motor (RF-01)</h3>
+                <div className="lg:col-span-4 bg-sky-500 text-white rounded-[2.5rem] p-8 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+                    <h3 className="text-[10px] font-black text-sky-200 uppercase tracking-widest mb-6">Parámetros del Motor (RF-01)</h3>
                     <p className="text-xl font-black mb-8 leading-tight">Configuración de Alertas Proactivas</p>
 
                     <div className="space-y-6 relative z-10">
@@ -205,7 +205,7 @@ export const ImmutableAuditLog: React.FC = () => {
                             className="pl-11 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-[10px] font-black uppercase tracking-widest focus:ring-4 focus:ring-indigo-500/10 transition-all"
                         />
                     </div>
-                    <button className="px-6 py-3 bg-gray-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-xl">
+                    <button className="px-6 py-3 bg-sky-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-sky-600 transition-all shadow-xl">
                         Exportar SHA-256
                     </button>
                 </div>
@@ -237,7 +237,7 @@ export const ImmutableAuditLog: React.FC = () => {
                                     <span className="text-xs font-black text-gray-700 uppercase">{entry.entity}</span>
                                 </td>
                                 <td className="px-8 py-5">
-                                    <span className="px-3 py-1 bg-gray-900 text-white text-[9px] font-black rounded-lg uppercase tracking-widest">
+                                    <span className="px-3 py-1 bg-sky-500 text-white text-[9px] font-black rounded-lg uppercase tracking-widest">
                                         {entry.action}
                                     </span>
                                 </td>
@@ -293,8 +293,8 @@ export const DynamicRolesManager: React.FC = () => {
                 </div>
 
                 {/* Revocación en Tiempo Real */}
-                <div className="bg-gray-900 text-white p-10 rounded-[2.5rem] relative overflow-hidden flex flex-col justify-between shadow-2xl shadow-indigo-100/20">
-                    <div className="absolute bottom-0 right-0 w-80 h-80 bg-rose-500/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
+                <div className="bg-sky-500 text-white p-10 rounded-[2.5rem] relative overflow-hidden flex flex-col justify-between shadow-2xl shadow-sky-100/20">
+                    <div className="absolute bottom-0 right-0 w-80 h-80 bg-white/10 rounded-full -mr-40 -mb-40 blur-3xl"></div>
                     <div>
                         <div className="p-4 bg-rose-500/10 text-rose-500 w-fit rounded-2xl mb-6 border border-rose-500/20">
                             <ShieldAlert className="w-8 h-8" />
