@@ -57,20 +57,20 @@ export default function AgendaPage() {
                     <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-600 border border-amber-100/50">
                         <Icon name="Package" className="text-lg w-5 h-5 fill-current" />
                     </div>
-                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Pedidos</span>
+                    <span className="text-xs font-black text-gray-400 uppercase tracking-widest">Pedidos</span>
                 </div>
                 <div className="flex items-center gap-2 group">
                     <div className="w-8 h-8 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-600 border border-sky-100/50">
                         <Icon name="Clock" className="text-lg w-5 h-5 fill-current" />
                     </div>
-                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Servicios</span>
+                    <span className="text-xs font-black text-gray-400 uppercase tracking-widest">Servicios</span>
                 </div>
             </div>
 
             <div className="glass-card !p-0 overflow-hidden border-t-4 border-emerald-500/50 shadow-2xl shadow-emerald-100/20 rounded-[2.5rem] bg-white">
                 <div className="grid grid-cols-7 bg-gray-50/50 border-b border-gray-100">
                     {['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map(dia => (
-                        <div key={dia} className="py-5 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        <div key={dia} className="py-5 text-center text-xs font-black text-gray-400 uppercase tracking-widest">
                             {dia}
                         </div>
                     ))}
@@ -105,7 +105,7 @@ export default function AgendaPage() {
                                     {dayEvents.map(event => (
                                         <div
                                             key={event.id}
-                                            className={`text-[8px] font-extrabold p-1.5 px-2 rounded-lg border-l-[3px] shadow-sm flex items-center gap-1.5 whitespace-nowrap overflow-hidden
+                                            className={`text-xs font-extrabold p-1.5 px-2 rounded-lg border-l-[3px] shadow-sm flex items-center gap-1.5 whitespace-nowrap overflow-hidden
                                                 ${event.type === 'order'
                                                     ? 'border-l-amber-500 bg-amber-50 text-amber-800'
                                                     : 'border-l-sky-500 bg-sky-50 text-sky-800'}

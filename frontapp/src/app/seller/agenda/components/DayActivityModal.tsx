@@ -49,17 +49,17 @@ export default function DayActivityModal({ isOpen, date, events, onClose }: DayA
                 <div className="grid grid-cols-2 gap-6">
                     <div className="bg-sky-50/50 p-6 rounded-[2.5rem] border border-sky-100/50 flex flex-col justify-between h-32">
                         <div className="flex justify-between items-start">
-                            <span className="text-[10px] font-black text-sky-600 uppercase tracking-widest">Servicios</span>
+                            <span className="text-xs font-black text-sky-600 uppercase tracking-widest">Servicios</span>
                             <Icon name="CalendarCheck" className="text-2xl text-sky-400 w-6 h-6" />
                         </div>
-                        <p className="text-3xl font-black text-gray-800">{serviceEvents.length}</p>
+                        <p className="text-2xl font-black text-gray-800">{serviceEvents.length}</p>
                     </div>
                     <div className="bg-amber-50/50 p-6 rounded-[2.5rem] border border-amber-100/50 flex flex-col justify-between h-32">
                         <div className="flex justify-between items-start">
-                            <span className="text-[10px] font-black text-amber-600 uppercase tracking-widest">Pedidos</span>
+                            <span className="text-xs font-black text-amber-600 uppercase tracking-widest">Pedidos</span>
                             <Icon name="Package" className="text-2xl text-amber-400 w-6 h-6" />
                         </div>
-                        <p className="text-3xl font-black text-gray-800">{orderEvents.length}</p>
+                        <p className="text-2xl font-black text-gray-800">{orderEvents.length}</p>
                     </div>
                 </div>
 

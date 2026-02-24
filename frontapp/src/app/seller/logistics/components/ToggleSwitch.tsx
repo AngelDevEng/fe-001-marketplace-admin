@@ -40,14 +40,14 @@ export default function ToggleSwitch({ enabled, onChange, size = 'md' }: ToggleS
 
             {/* ON Label - visible cuando enabled */}
             <span className={`
-                absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 ${labelSize} font-black text-white 
+                absolute left-1.5 top-1/2 -translate-y-1/2 ${labelSize} font-black text-white 
                 transition-opacity duration-300 z-30
                 ${enabled ? 'opacity-100' : 'opacity-0'}
             `}>ON</span>
 
             {/* OFF Label - visible cuando NO enabled */}
             <span className={`
-                absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 ${labelSize} font-black text-gray-400 
+                absolute right-1.5 top-1/2 -translate-y-1/2 ${labelSize} font-black text-gray-400 
                 transition-opacity duration-300 z-30
                 ${enabled ? 'opacity-0' : 'opacity-100'}
             `}>OFF</span>

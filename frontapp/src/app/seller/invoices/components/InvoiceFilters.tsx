@@ -3,6 +3,8 @@
 import React from 'react';
 import { VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
 import Icon from '@/components/ui/Icon';
+import InputField from '@/components/ui/InputField';
+import SelectField from '@/components/ui/SelectField';
 
 interface InvoiceFilters {
     search?: string;
@@ -23,17 +25,14 @@ export default function InvoiceFilters({ search, status, type, onFilterChange, o
         <div className="glass-card p-6 border-gray-100 animate-fadeIn">
             <div className="flex flex-col md:flex-row gap-4 items-end">
                 <div className="flex-1 space-y-2 w-full">
-                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Búsqueda</label>
-                    <div className="relative">
-                        <Icon name="Search" className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-                        <input
-                            type="text"
-                            placeholder="Serie, Número o Cliente..."
-                            value={search}
-                            onChange={(e) => onFilterChange({ search: e.target.value })}
-                            className="w-full pl-12 pr-4 py-3 bg-gray-50 border-none rounded-2xl text-sm font-bold text-gray-700 focus:ring-2 focus:ring-emerald-500/20 transition-all font-mono outline-none"
-                        />
-                    </div>
+                    <InputField
+                        label="Búsqueda"
+                        value={search}
+                        onChange={(value) => onFilterChange({ search: value })}
+                        placeholder="Serie, Número o Cliente..."
+                        icon="Search"
+                        inputClassName="bg-gray-50 text-sm font-mono focus:ring-emerald-500/20"
+                    />
                 </div>
 
                 <div className="w-full md:w-48 space-y-2">

@@ -10,6 +10,7 @@ import InvoiceTable from './components/InvoiceTable';
 import InvoiceDrawer from './components/InvoiceDrawer';
 import EmitInvoiceModal from './components/EmitInvoiceModal';
 import Icon from '@/components/ui/Icon';
+import BaseButton from '@/components/ui/BaseButton';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default function InvoicesPage() {
@@ -41,18 +42,13 @@ export default function InvoicesPage() {
                 subtitle="Gestión de facturación electrónica y sincronización SUNAT vía Rapifac"
                 icon="Receipt"
                 actions={
-                    <button
-                        id="btn-nueva-factura"
+                    <BaseButton
+                        variant="action"
+                        leftIcon="PlusCircle"
                         onClick={() => setIsModalOpen(true)}
-                        className="flex items-center gap-3 px-7 py-4
-                            bg-sky-500 text-white rounded-[2.5rem]
-                            font-black text-[11px] uppercase tracking-widest
-                            hover:bg-sky-600 transition-all shadow-xl shadow-sky-100
-                            active:scale-95 group"
                     >
-                        <Icon name="PlusCircle" className="w-5 h-5" />
                         Nueva Factura
-                    </button>
+                    </BaseButton>
                 }
             />
 

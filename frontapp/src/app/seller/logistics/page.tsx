@@ -7,6 +7,7 @@ import ToggleSwitch from './components/ToggleSwitch';
 import AddCityModal from './components/AddCityModal';
 import AddAgencyModal from './components/AddAgencyModal';
 import Icon from '@/components/ui/Icon';
+import BaseButton from '@/components/ui/BaseButton';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 import { useSellerLogistics } from '@/hooks/useSellerLogistics';
@@ -31,15 +32,10 @@ export default function LogisticsPage() {
         saveConfig
     } = useSellerLogistics();
 
-    // ── Header ──
     const headerActions = (
-        <button
-            onClick={saveConfig}
-            className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white backdrop-blur-md text-black font-bold text-sm border border-white/30 hover:text-sky-500 transition-all active:scale-95 shadow-sm"
-        >
-            <Icon name="Save" className="w-5 h-5" />
-            <span>Guardar Configuración</span>
-        </button>
+        <BaseButton variant="action" onClick={saveConfig} leftIcon="Save">
+            Guardar Configuración
+        </BaseButton>
     );
 
     if (isLoading && !config) {
@@ -78,7 +74,7 @@ export default function LogisticsPage() {
                             <div key={item.key} className="flex items-center gap-5 bg-white/80 p-4 pr-6 rounded-[2rem] border border-white shadow-sm transition-all hover:shadow-md">
                                 <div className="flex flex-col text-left">
                                     <span className="text-[11px] font-black text-gray-800 uppercase tracking-tight">{item.label}</span>
-                                    <span className="text-[9px] font-bold text-gray-400 uppercase">{item.sub}</span>
+                                    <span className="text-xs font-bold text-gray-400 uppercase">{item.sub}</span>
                                 </div>
                                 <ToggleSwitch
                                     enabled={!!config.globalConfig[item.key]}
@@ -107,7 +103,7 @@ export default function LogisticsPage() {
                     <h3 className="text-lg font-black text-gray-800 mb-2">Envío Gratuito</h3>
                     <p className="text-xs font-medium text-gray-500 mb-8 flex-1">Incentiva compras mayores con envíos sin costo adicional.</p>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Monto Mínimo <span className="text-red-500">*</span></label>
+                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Monto Mínimo <span className="text-red-500">*</span></label>
                         <div className="relative">
                             <span className="absolute left-4 top-1/2 -translate-y-1/2 font-black text-gray-400">S/</span>
                             <input
@@ -134,7 +130,7 @@ export default function LogisticsPage() {
                     <h3 className="text-lg font-black text-gray-800 mb-2">Recojo en Tienda</h3>
                     <p className="text-xs font-medium text-gray-500 mb-8 flex-1">Permite a tus clientes recoger pedidos localmente en tus sedes.</p>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Dirección de Recojo <span className="text-red-500">*</span></label>
+                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Dirección de Recojo <span className="text-red-500">*</span></label>
                         <textarea
                             rows={2}
                             value={config.globalConfig.direccionTienda}
@@ -190,7 +186,7 @@ export default function LogisticsPage() {
                         <div key={`${city.department}-${city.city}`} className="glass-card p-6 border-l-4 border-sky-500 bg-white space-y-6 rounded-3xl hover:shadow-xl transition-all border border-gray-100">
                             <div className="flex justify-between items-start">
                                 <div>
-                                    <span className="text-[9px] font-black text-sky-400 uppercase tracking-widest block mb-1">{city.department}</span>
+                                    <span className="text-xs font-black text-sky-400 uppercase tracking-widest block mb-1">{city.department}</span>
                                     <h4 className="text-sm font-black text-gray-800 uppercase tracking-tight">{city.city}</h4>
                                 </div>
                                 <button
@@ -203,7 +199,7 @@ export default function LogisticsPage() {
 
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Tarifa Plana</label>
+                                    <label className="text-xs font-black text-gray-400 uppercase tracking-widest ml-1">Tarifa Plana</label>
                                     <div className="flex items-center gap-2 bg-emerald-50 p-3 rounded-2xl border border-emerald-100">
                                         <span className="text-xs font-black text-emerald-600">S/</span>
                                         <input
@@ -217,13 +213,13 @@ export default function LogisticsPage() {
 
                                 <div className="space-y-3">
                                     <div className="flex items-center justify-between px-1">
-                                        <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Puntos de Recojo</label>
+                                        <label className="text-xs font-black text-gray-400 uppercase tracking-widest">Puntos de Recojo</label>
                                         <button
                                             onClick={() => {
                                                 setSelectedCityIndex(index);
                                                 setIsAddAgencyOpen(true);
                                             }}
-                                            className="text-[9px] font-black text-sky-600 uppercase hover:underline"
+                                            className="text-xs font-black text-sky-600 uppercase hover:underline"
                                         >
                                             + Añadir
                                         </button>
@@ -237,7 +233,7 @@ export default function LogisticsPage() {
                                                     </div>
                                                     <div className="min-w-0">
                                                         <p className="text-[11px] font-black text-gray-800 truncate">{ag.name}</p>
-                                                        <p className="text-[8px] font-bold text-gray-400 uppercase truncate max-w-[120px]">{ag.address}</p>
+                                                        <p className="text-xs font-bold text-gray-400 uppercase truncate max-w-[120px]">{ag.address}</p>
                                                     </div>
                                                 </div>
                                                 <button
@@ -271,7 +267,7 @@ export default function LogisticsPage() {
                                     </div>
                                     <div>
                                         <h4 className="text-sm font-black text-gray-800">{op.name}</h4>
-                                        <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-lg ${op.enabled ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-100 text-gray-400'}`}>
+                                        <span className={`text-xs font-black uppercase tracking-widest px-2 py-0.5 rounded-lg ${op.enabled ? 'bg-emerald-50 text-emerald-600' : 'bg-gray-100 text-gray-400'}`}>
                                             {op.enabled ? 'Operando' : 'Inactivo'}
                                         </span>
                                     </div>

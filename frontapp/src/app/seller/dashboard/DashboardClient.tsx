@@ -2,6 +2,7 @@
 
 import React, { useState, useTransition } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { SalesKPIs, RecentOrder, refreshDashboard } from '@/lib/actions/dashboard';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import Icon from '@/components/ui/Icon';
@@ -98,7 +99,7 @@ function OrderRow({ order }: { order: RecentOrder }) {
       </div>
       <div className="text-right">
         <p className="text-sm font-black text-gray-800">{formatCurrency(order.total)}</p>
-        <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${config.color}`}>
+        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-bold ${config.color}`}>
           {config.label}
         </span>
       </div>
@@ -116,6 +117,7 @@ function ChartSkeleton() {
 }
 
 export default function DashboardClient({ initialKPIs, initialOrders }: DashboardClientProps) {
+  const router = useRouter();
   const [kpis, setKpis] = useState(initialKPIs);
   const [orders, setOrders] = useState(initialOrders);
   const [isRefreshing, startTransition] = useTransition();
@@ -197,7 +199,7 @@ export default function DashboardClient({ initialKPIs, initialOrders }: Dashboar
         <div className="glass-card p-6 rounded-3xl bg-white border border-gray-100 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-black text-gray-800 uppercase">Pedidos Recientes</h3>
-            <button className="text-xs font-bold text-sky-500 hover:text-sky-600">
+            <button onClick={() => router.push('/seller/sales')} className="text-xs font-bold text-sky-500 hover:text-sky-600 hover:underline">
               Ver todos
             </button>
           </div>

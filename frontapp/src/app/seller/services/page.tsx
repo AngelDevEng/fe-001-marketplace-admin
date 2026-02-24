@@ -9,6 +9,7 @@ import ServiceConfigModal from './components/ServiceConfigModal';
 import ServiceDetailModal from './components/ServiceDetailModal';
 import RescheduleModal from './components/RescheduleModal';
 import BaseEmptyState from '@/components/ui/BaseEmptyState';
+import BaseButton from '@/components/ui/BaseButton';
 import { Service, Specialist, Appointment } from '@/lib/types/seller/service';
 import { useSellerServices } from '@/hooks/useSellerServices';
 import { useToast } from '@/context/ToastContext';
@@ -59,24 +60,26 @@ export default function ServicesPage() {
 
     const headerActions = (
         <div className="flex gap-3 items-center whitespace-nowrap">
-            <button
+            <BaseButton
+                variant="action"
+                leftIcon="Briefcase"
                 onClick={() => {
                     setActiveService(null);
                     setModals({ ...modals, serviceConfig: true });
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white backdrop-blur-md text-black font-bold text-[11px] border border-white/30 hover:text-sky-600 transition-all active:scale-95 shadow-sm"
             >
-                <Icon name="Briefcase" className="w-4 h-4" /> Nuevo Servicio
-            </button>
-            <button
+                Nuevo Servicio
+            </BaseButton>
+            <BaseButton
+                variant="action"
+                leftIcon="PlusCircle"
                 onClick={() => {
                     setSelectedSpecialist(null);
                     setModals({ ...modals, specialist: true });
                 }}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white backdrop-blur-md text-black font-bold text-[11px] border border-white/30 hover:text-sky-600 transition-all active:scale-95 shadow-sm"
             >
-                <Icon name="PlusCircle" className="w-4 h-4" /> Especialista
-            </button>
+                Especialista
+            </BaseButton>
         </div>
     );
 

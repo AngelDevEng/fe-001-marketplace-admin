@@ -18,6 +18,7 @@ import {
     Shield,
     Plus,
     TrendingUp,
+    TrendingDown,
     Tag,
     Ticket,
     User,
@@ -100,6 +101,17 @@ import {
     Timer,
     Smile,
     Target,
+    Gift,
+    Home,
+    MonitorPlay,
+    AlertOctagon,
+    PieChart,
+    SearchX,
+    ShieldX,
+    StarHalf,
+    CheckCheck,
+    ListChecks,
+    RefreshCw,
     LucideIcon
 } from 'lucide-react';
 
@@ -124,11 +136,13 @@ export const Icons: Record<string, LucideIcon> = {
     Shield,
     Plus,
     TrendingUp,
+    TrendingDown,
     Tag,
     Ticket,
     User,
     DollarSign,
     AlertCircle,
+    AlertOctagon,
     Bell,
     Mail,
     Search,
@@ -215,7 +229,17 @@ export const Icons: Record<string, LucideIcon> = {
     Banknote,
     Timer,
     Smile,
-    Target
+    Target,
+    Gift,
+    Home,
+    MonitorPlay,
+    PieChart,
+    SearchX,
+    ShieldX,
+    StarHalf,
+    CheckCheck,
+    ListChecks,
+    RefreshCw
 };
 
 interface IconProps {

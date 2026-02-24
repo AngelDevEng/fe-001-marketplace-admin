@@ -2,7 +2,7 @@ import React, { ReactNode, CSSProperties } from 'react';
 import Icon from './Icon';
 import { Loader2 } from 'lucide-react';
 
-type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'danger';
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost' | 'danger' | 'action';
 type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 
 interface BaseButtonProps {
@@ -53,10 +53,16 @@ const variantClasses: Record<ButtonVariant, string> = {
         focus:ring-2 focus:ring-rose-500/50 focus:ring-offset-2 focus:ring-offset-white
         active:bg-rose-700
     `,
+    action: `
+        relative z-10 flex items-center gap-2 px-6 py-3 rounded-xl
+        bg-white backdrop-blur-md text-black font-black text-xs
+        border border-white/20 hover:bg-white hover:text-sky-600
+        transition-all shadow-lg shadow-black/5 uppercase tracking-widest
+    `,
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-    sm: 'px-5 py-2.5 text-xs rounded-2xl gap-2',
+    sm: 'px-5 py-2.5 text-xs rounded-xl gap-2',
     md: 'px-8 py-4 text-sm rounded-3xl gap-3',
     lg: 'px-10 py-5 text-sm rounded-3xl gap-3',
     xl: 'px-14 py-6 text-sm rounded-3xl gap-3',
@@ -64,7 +70,7 @@ const sizeClasses: Record<ButtonSize, string> = {
 
 export default function BaseButton({
     variant = 'primary',
-    size = 'md',
+    size = 'sm',
     isLoading = false,
     leftIcon,
     rightIcon,

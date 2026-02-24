@@ -55,14 +55,14 @@ export default function HelpPage() {
             <div className="flex gap-1 bg-gray-100/50 p-1.5 rounded-3xl w-fit mb-8 border border-gray-100/50 shadow-sm ml-2">
                 <button
                     onClick={() => setTab('soporte')}
-                    className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all
+                    className={`px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all
                         ${activeTab === 'soporte' ? 'bg-white text-sky-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                 >
                     Centro de Soporte
                 </button>
                 <button
                     onClick={() => setTab('tienda')}
-                    className={`px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all
+                    className={`px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all
                         ${activeTab === 'tienda' ? 'bg-white text-sky-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                 >
                     Datos Registrados

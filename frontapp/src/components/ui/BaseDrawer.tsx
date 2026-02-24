@@ -67,13 +67,13 @@ export default function BaseDrawer({
                         <div className="flex-1 min-w-0 pr-4">
                             {badge && (
                                 <div className="flex items-center gap-2 mb-3">
-                                    <span className="text-[10px] font-black text-sky-600 uppercase tracking-widest border border-sky-200/50 px-2 py-1 rounded-lg bg-sky-50 shadow-sm shadow-sky-100/50">
+                                    <span className="text-[10px] font-black text-sky-600 uppercase tracking-widest border border-sky-200/50 rounded-lg bg-sky-50 shadow-sm shadow-sky-100/50">
                                         {badge}
                                     </span>
                                 </div>
                             )}
                             {title && (
-                                <h2 className="text-4xl font-black text-gray-800 tracking-tighter leading-none truncate">
+                                <h2 className="text-3xl font-black text-gray-800 tracking-tighter leading-none truncate">
                                     {title}
                                 </h2>
                             )}
@@ -98,7 +98,7 @@ export default function BaseDrawer({
 
                     {/* Footer Actions */}
                     {footer && (
-                        <div className="p-10 border-t border-gray-50 bg-white/80 backdrop-blur-xl flex gap-4 relative z-20">
+                        <div className="p-2 border-t border-gray-50 bg-white/80 backdrop-blur-xl flex gap-4 relative z-20">
                             {footer}
                         </div>
                     )}

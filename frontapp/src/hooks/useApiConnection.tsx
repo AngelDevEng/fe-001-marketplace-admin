@@ -15,6 +15,7 @@ interface UseApiConnectionReturn {
   isHealthy: boolean;
   checkConnection: () => Promise<void>;
   lastChecked: Date | null;
+  showLaravel: boolean;
 }
 
 /**
@@ -46,7 +47,7 @@ export function useApiConnection(): UseApiConnectionReturn {
     try {
       // Verificar WordPress REST API
       const wpStatus = await checkEndpoint(
-        process.env.NEXT_PUBLIC_WP_API_URL + '/wp-json'
+        process.env.NEXT_PUBLIC_WP_API_URL
       );
 
       // Verificar Laravel (cuando esté disponible)
@@ -84,9 +85,11 @@ export function useApiConnection(): UseApiConnectionReturn {
     return () => clearInterval(interval);
   }, [checkConnection]);
 
-  const isHealthy = status.wordpress === 'connected' || status.woocommerce === 'connected';
+  const isHealthy = status.wordpress === 'connected';
 
-  return { status, isHealthy, checkConnection, lastChecked };
+  const showLaravel = !!process.env.NEXT_PUBLIC_LARAVEL_API_URL;
+
+  return { status, isHealthy, checkConnection, lastChecked, showLaravel };
 }
 
 /**
@@ -100,8 +103,11 @@ async function checkEndpoint(url: string | undefined): Promise<boolean> {
     const timeout = setTimeout(() => controller.abort(), 5000);
 
     const response = await fetch(url, {
-      method: 'HEAD',
+      method: 'GET',
       signal: controller.signal,
+      headers: url.includes('wc/v3') ? {
+        'Authorization': 'Basic ' + btoa(process.env.NEXT_PUBLIC_WP_CS_KEY + ':' + process.env.NEXT_PUBLIC_WP_CS_SECRET)
+      } : {}
     });
 
     clearTimeout(timeout);
@@ -170,15 +176,16 @@ export function ConnectionIndicator({ status, label, showLabel = true }: Connect
 /**
  * Panel completo de estado de conexiones
  */
-export function ConnectionStatusPanel({ status, onRefresh }: { 
+export function ConnectionStatusPanel({ status, onRefresh, showLaravel = true }: { 
   status: ConnectionState; 
   onRefresh: () => void;
+  showLaravel?: boolean;
 }) {
   return (
     <div className="flex items-center gap-2">
       <ConnectionIndicator status={status.wordpress} label="WP" showLabel={false} />
       <ConnectionIndicator status={status.woocommerce} label="WC" showLabel={false} />
-      <ConnectionIndicator status={status.laravel} label="API" showLabel={false} />
+      {showLaravel && <ConnectionIndicator status={status.laravel} label="API" showLabel={false} />}
       <button 
         onClick={onRefresh}
         className="p-1 hover:bg-gray-100 rounded transition-colors"

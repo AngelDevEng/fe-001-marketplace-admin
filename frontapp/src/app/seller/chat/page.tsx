@@ -55,18 +55,18 @@ export default function ChatPage() {
                         </div>
                         <div className="min-w-0">
                             <h3 className="text-sm font-black text-gray-800 uppercase tracking-tight truncate">Centro de Atención</h3>
-                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest truncate">Soporte en Tiempo Real</p>
+                            <p className="text-xs text-gray-400 font-black uppercase tracking-widest truncate">Soporte en Tiempo Real</p>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 mb-6">
                         <div className="bg-white p-4 rounded-3xl border border-gray-100 text-center shadow-sm">
                             <div className="text-xl font-black text-gray-800">{totalConversations}</div>
-                            <div className="text-[9px] text-gray-400 font-black uppercase tracking-widest">Total</div>
+                            <div className="text-xs text-gray-400 font-black uppercase tracking-widest">Total</div>
                         </div>
                         <div className="bg-rose-50 p-4 rounded-3xl border border-rose-100 text-center shadow-sm">
                             <div className="text-xl font-black text-rose-600">{criticalCount}</div>
-                            <div className="text-[9px] text-rose-500 font-black uppercase tracking-widest">Críticos</div>
+                            <div className="text-xs text-rose-500 font-black uppercase tracking-widest">Críticos</div>
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@ export default function ChatPage() {
                         <select
                             value={filters.category}
                             onChange={(e) => setFilters({ category: e.target.value })}
-                            className="w-full text-[10px] py-3 px-4 bg-white border border-gray-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 font-black uppercase tracking-wider text-gray-700 cursor-pointer outline-none shadow-sm"
+                            className="w-full text-xs py-3 px-4 bg-white border border-gray-100 rounded-2xl focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 font-black uppercase tracking-wider text-gray-700 cursor-pointer outline-none shadow-sm"
                         >
                             <option value="all">TODAS LAS CATEGORÍAS</option>
                             <option value="tech">DIAGNÓSTICO TÉCNICO</option>
@@ -109,21 +109,21 @@ export default function ChatPage() {
                             >
                                 <div className="relative">
                                     <img src={conv.avatar} className="w-12 h-12 rounded-2xl object-cover border-2 border-white shadow-sm group-hover:scale-105 transition-transform" />
-                                    {conv.critical && <span className="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center text-[8px] text-white font-black">!</span>}
+                                    {conv.critical && <span className="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center text-xs text-white font-black">!</span>}
                                 </div>
                                 <div className="flex-1 text-left overflow-hidden">
                                     <div className="flex justify-between items-center mb-1">
                                         <h4 className={`text-xs font-black uppercase tracking-tight truncate ${activeConversation?.id === conv.id ? 'text-white' : 'text-gray-800'}`}>{conv.nombre}</h4>
-                                        <span className={`text-[8px] font-black uppercase ${activeConversation?.id === conv.id ? 'text-white/70' : 'text-gray-400'}`}>{conv.fecha}</span>
+                                        <span className={`text-xs font-black uppercase ${activeConversation?.id === conv.id ? 'text-white/70' : 'text-gray-400'}`}>{conv.fecha}</span>
                                     </div>
-                                    <p className={`text-[10px] font-bold truncate ${activeConversation?.id === conv.id ? 'text-white/80' : 'text-gray-400'}`}>{conv.ultimoMensaje}</p>
+                                    <p className={`text-xs font-bold truncate ${activeConversation?.id === conv.id ? 'text-white/80' : 'text-gray-400'}`}>{conv.ultimoMensaje}</p>
                                 </div>
                             </button>
                         ))
                     ) : (
                         <div className="p-12 text-center opacity-40">
                             <Icon name="MessageSquareOff" className="text-4xl mb-4 text-gray-300 mx-auto w-10 h-10" />
-                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 leading-relaxed">Sin resultados para<br />tu búsqueda</p>
+                            <p className="text-xs font-black uppercase tracking-widest text-gray-400 leading-relaxed">Sin resultados para<br />tu búsqueda</p>
                         </div>
                     )}
                 </div>
@@ -154,9 +154,9 @@ export default function ChatPage() {
                                 <div>
                                     <h3 className="text-sm font-black text-gray-800 uppercase tracking-tight">{activeConversation.nombre}</h3>
                                     <div className="flex items-center gap-2 flex-wrap">
-                                        <span className="text-[10px] text-gray-400 font-black uppercase">{activeConversation.email}</span>
-                                        <span className="text-[10px] text-sky-500 font-black bg-sky-50 px-2 py-0.5 rounded-lg uppercase tracking-tight">DNI: {activeConversation.dni}</span>
-                                        {activeConversation.critical && <span className="text-[9px] bg-rose-50 text-rose-500 font-black px-2 py-0.5 rounded-lg uppercase tracking-widest">Prioridad Alta</span>}
+                                        <span className="text-xs text-gray-400 font-black uppercase">{activeConversation.email}</span>
+                                        <span className="text-xs text-sky-500 font-black bg-sky-50 px-2 py-0.5 rounded-lg uppercase tracking-tight">DNI: {activeConversation.dni}</span>
+                                        {activeConversation.critical && <span className="text-xs bg-rose-50 text-rose-500 font-black px-2 py-0.5 rounded-lg uppercase tracking-widest">Prioridad Alta</span>}
                                     </div>
                                 </div>
                             </div>
@@ -175,11 +175,11 @@ export default function ChatPage() {
                                         : 'bg-white text-gray-800 rounded-3xl rounded-tl-none border border-gray-100'
                                         }`}>
                                         <p className="text-sm font-bold leading-relaxed">{msg.contenido}</p>
-                                        <div className={`mt-3 flex items-center gap-2 text-[8px] font-black uppercase tracking-widest ${msg.sender === 'user' ? 'text-emerald-100' : 'text-gray-400'}`}>
+                                        <div className={`mt-3 flex items-center gap-2 text-xs font-black uppercase tracking-widest ${msg.sender === 'user' ? 'text-emerald-100' : 'text-gray-400'}`}>
                                             <span>{msg.sender === 'user' ? 'Tú' : 'Cliente'}</span>
                                             <span>•</span>
                                             <span>{msg.hora}</span>
-                                            {msg.sender === 'user' && <Icon name="CheckCheck" className="text-emerald-100 text-[10px] w-3 h-3" />}
+                                            {msg.sender === 'user' && <Icon name="CheckCheck" className="text-emerald-100 text-xs w-3 h-3" />}
                                         </div>
                                     </div>
                                 </div>

@@ -193,7 +193,7 @@ export default function FinancePage() {
                                 <div className="w-full h-[200px]">
                                     <FinanceChart type="bar" labels={data.defectuosos.labels} data={data.defectuosos.data} color="#10B981" />
                                 </div>
-                                <p className="text-4xl font-black text-emerald-400 mt-6">{data.defectuosos.data[data.defectuosos.data.length - 1]}%</p>
+                                <p className="text-2xl font-black text-emerald-400 mt-6">{data.defectuosos.data[data.defectuosos.data.length - 1]}%</p>
                                 <p className="text-xs text-gray-400 mt-2 font-bold uppercase tracking-widest">Productos con reportes de fallas</p>
                             </div>
                         </div>
@@ -224,7 +224,7 @@ export default function FinancePage() {
                             <div className="overflow-x-auto">
                                 <table className="w-full">
                                     <thead>
-                                        <tr className="border-b border-gray-50 uppercase text-[10px] font-black text-gray-400">
+                                        <tr className="border-b border-gray-50 uppercase text-xs font-black text-gray-400">
                                             <th className="pb-4 text-left pl-4">Cliente</th>
                                             <th className="pb-4 text-left">Métrica</th>
                                             <th className="pb-4 text-left">Progreso</th>
@@ -243,7 +243,7 @@ export default function FinancePage() {
                                                         <div className="w-10 h-10 rounded-2xl bg-sky-50 flex items-center justify-center text-sky-600 font-black text-xs border border-sky-100 shadow-sm group-hover:scale-110 transition-transform">{c.initials}</div>
                                                         <div>
                                                             <p className="font-black text-gray-800 text-xs uppercase tracking-tight">{c.name}</p>
-                                                            <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest">{c.category}</p>
+                                                            <p className="text-xs text-gray-400 font-black uppercase tracking-widest">{c.category}</p>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -273,8 +273,8 @@ export default function FinancePage() {
                                             <div className="bg-sky-100 p-2 rounded-lg text-sky-500"><Icon name="Users" className="text-xl w-5 h-5" /></div>
                                             <span className="text-xs font-black text-sky-500 uppercase tracking-widest">Customer LTV</span>
                                         </div>
-                                        <h3 className="text-4xl font-black text-gray-800">{formatCurrency(data.ltv.data[data.ltv.data.length - 1])}</h3>
-                                        <p className="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Valor proyectado por cliente activo basado en su historial de compras y recurrencia.</p>
+                                        <h3 className="text-2xl font-black text-gray-800">{formatCurrency(data.ltv.data[data.ltv.data.length - 1])}</h3>
+                                        <p className="text-xs text-gray-400 font-bold uppercase leading-relaxed">Valor proyectado por cliente activo basado en su historial de compras y recurrencia.</p>
                                     </div>
                                     <div className="md:w-2/3 w-full h-[300px]">
                                         <FinanceChart type="line" labels={data.ltv.labels} data={data.ltv.data} color="#0EA5E9" height="300px" />
@@ -304,7 +304,7 @@ export default function FinancePage() {
                                         <span className="text-2xl font-black text-gray-800">{data.tiempoRespuesta.data[data.tiempoRespuesta.data.length - 1]} min</span>
                                     </div>
                                 </div>
-                                <p className="text-[10px] text-gray-400 mt-6 font-black uppercase tracking-widest">Promedio de respuesta en Chat</p>
+                                <p className="text-xs text-gray-400 mt-6 font-black uppercase tracking-widest">Promedio de respuesta en Chat</p>
                             </div>
                         </div>
                     </div>
@@ -325,8 +325,8 @@ export default function FinancePage() {
                                             <div className="bg-emerald-50 p-2 rounded-lg text-emerald-500"><Icon name="PieChart" className="text-xl w-5 h-5" /></div>
                                             <span className="text-xs font-black text-emerald-400 uppercase tracking-widest">Cuota de Mercado</span>
                                         </div>
-                                        <h3 className="text-4xl font-black text-gray-800">{data.cuotaMercado.data[0]}%</h3>
-                                        <p className="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">Participación de tus productos dentro de las categorías del marketplace.</p>
+                                        <h3 className="text-2xl font-black text-gray-800">{data.cuotaMercado.data[0]}%</h3>
+                                        <p className="text-xs text-gray-400 font-bold uppercase leading-relaxed">Participación de tus productos dentro de las categorías del marketplace.</p>
                                     </div>
                                     <div className="md:w-2/3 w-full h-[300px]">
                                         <FinanceChart type="radar" labels={data.cuotaMercado.labels} data={data.cuotaMercado.data} color="#10B981" height="300px" />
@@ -351,7 +351,7 @@ export default function FinancePage() {
                                     <div className="bg-sky-50 p-2 rounded-lg text-sky-500"><Icon name="Package" className="text-xl w-5 h-5" /></div>
                                 </div>
                                 <div className="flex items-baseline gap-2 mb-4">
-                                    <h3 className="text-4xl font-black text-gray-800">{data.stockRotacion.data[data.stockRotacion.data.length - 1].toFixed(1)}x</h3>
+                                    <h3 className="text-2xl font-black text-gray-800">{data.stockRotacion.data[data.stockRotacion.data.length - 1].toFixed(1)}x</h3>
                                     <span className="text-xs text-gray-400 font-black uppercase tracking-widest">Veces/Mes</span>
                                 </div>
                                 <div className="w-full h-[200px]">
@@ -385,7 +385,7 @@ export default function FinancePage() {
                                     </div>
                                     <span className="text-6xl font-black text-gray-800 tracking-tighter">4.5</span>
                                 </div>
-                                <p className="text-[10px] text-gray-400 mt-8 font-black uppercase tracking-widest">Basado en últimas reseñas y feedback directo</p>
+                                <p className="text-xs text-gray-400 mt-8 font-black uppercase tracking-widest">Basado en últimas reseñas y feedback directo</p>
                             </div>
                         </div>
                     </div>

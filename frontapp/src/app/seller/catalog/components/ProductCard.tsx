@@ -23,60 +23,60 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo, ren
                 <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
                     {product.sticker === 'liquidacion' && (
                         <div className="relative group/sticker">
-                            <span className="bg-red-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                            <span className="bg-red-500/90 backdrop-blur-sm text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
                                 Liquidación
                             </span>
-                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-xs font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
                                 Producto en remate total
                             </div>
                         </div>
                     )}
                     {product.sticker === 'oferta' && (
                         <div className="relative group/sticker">
-                            <span className="bg-lime-400/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                            <span className="bg-lime-400/90 backdrop-blur-sm text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
                                 Oferta
                             </span>
-                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-xs font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
                                 Precio especial por tiempo limitado
                             </div>
                         </div>
                     )}
                     {product.sticker === 'descuento' && (
                         <div className="relative group/sticker">
-                            <span className="bg-emerald-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                            <span className="bg-emerald-500/90 backdrop-blur-sm text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
                                 {(product as any).discountPercentage ? `-${(product as any).discountPercentage}%` : 'Descuento'}
                             </span>
-                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-xs font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
                                 Ahorro directo aplicado
                             </div>
                         </div>
                     )}
                     {product.sticker === 'nuevo' && (
                         <div className="relative group/sticker">
-                            <span className="bg-sky-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                            <span className="bg-sky-500/90 backdrop-blur-sm text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
                                 Nuevo
                             </span>
-                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-xs font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
                                 Recién llegado al catálogo
                             </div>
                         </div>
                     )}
                     {product.sticker === 'bestseller' && (
                         <div className="relative group/sticker">
-                            <span className="bg-purple-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                            <span className="bg-purple-500/90 backdrop-blur-sm text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
                                 Top Ventas
                             </span>
-                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-xs font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
                                 El favorito de la comunidad
                             </div>
                         </div>
                     )}
                     {product.sticker === 'envio_gratis' && (
                         <div className="relative group/sticker">
-                            <span className="bg-teal-500/90 backdrop-blur-sm text-white text-[7px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
+                            <span className="bg-teal-500/90 backdrop-blur-sm text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase cursor-help border border-white/20">
                                 Envío Gratis
                             </span>
-                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-[8px] font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
+                            <div className="absolute left-full ml-2 top-0 px-2 py-1 bg-gray-900 text-white text-xs font-bold rounded opacity-0 group-hover/sticker:opacity-100 transition-opacity whitespace-nowrap z-20 pointer-events-none">
                                 Costo de envío cubierto por la tienda
                             </div>
                         </div>
@@ -92,18 +92,18 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo, ren
             </div>
 
             <div className="flex-1 min-h-0 text-center">
-                <h3 className="product-name font-black text-[10px] text-gray-800 truncate mb-1 uppercase tracking-tight" title={product.name}>
+                <h3 className="product-name font-black text-xs text-gray-800 truncate mb-1 uppercase tracking-tight" title={product.name}>
                     {product.name}
                 </h3>
                 <div className="flex items-center justify-center gap-2">
                     {renderPrice ? (
                         renderPrice()
                     ) : (
-                        <span className="product-price text-xs font-black text-sky-600">
+                        <span className="product-price text-sm font-black text-sky-600">
                             {formatCurrency(product.price)}
                         </span>
                     )}
-                    <span className="product-stock text-[8px] font-bold text-gray-400">
+                    <span className="product-stock text-xs font-bold text-gray-400">
                         Stock: {product.stock}
                     </span>
                 </div>
@@ -112,7 +112,7 @@ export default function ProductCard({ product, onEdit, onDelete, onViewInfo, ren
             <div className="mt-2 flex gap-1 pt-2 border-t border-gray-50 items-center justify-center">
                 <button
                     onClick={(e) => { e.stopPropagation(); onViewInfo(product); }}
-                    className="flex-1 py-1.5 bg-gray-50 text-[8px] font-black text-gray-400 rounded-lg hover:bg-sky-50 hover:text-sky-500 transition-all uppercase"
+                    className="flex-1 py-1.5 bg-gray-50 text-xs font-black text-gray-400 rounded-lg hover:bg-sky-50 hover:text-sky-500 transition-all uppercase"
                 >
                     Info
                 </button>

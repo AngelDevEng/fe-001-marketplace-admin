@@ -4,6 +4,7 @@ import React from 'react';
 import { useToast } from '@/context/ToastContext';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import Icon from '@/components/ui/Icon';
+import BaseButton from '@/components/ui/BaseButton';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 // Components
@@ -45,14 +46,14 @@ export default function MiTiendaPage() {
                 title="Configuración de Mi Tienda"
                 subtitle="Gestión integral de identidad, sucursales y experiencia visual"
                 actions={
-                    <button
+                    <BaseButton
+                        variant="action"
                         onClick={handleSave}
-                        disabled={saving}
-                        className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-white backdrop-blur-md text-black font-bold text-sm border border-white shadow-xl hover:text-sky-500 transition-all active:scale-95 disabled:opacity-50"
+                        isLoading={saving}
+                        leftIcon="Save"
                     >
-                        {saving ? <Icon name="Loader2" className="w-4 h-4 animate-spin" /> : <Icon name="Save" className="w-4 h-4" />}
                         {saving ? 'Guardando...' : 'Guardar Cambios'}
-                    </button>
+                    </BaseButton>
                 }
             />
 
