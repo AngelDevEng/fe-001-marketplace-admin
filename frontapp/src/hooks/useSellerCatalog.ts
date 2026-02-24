@@ -1,0 +1,102 @@
+'use client';
+
+import { useState, useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Product } from '@/lib/types/seller/product';
+import { MOCK_CATALOG_DATA } from '@/lib/mocks/mockCatalogData';
+
+export function useSellerCatalog() {
+    const queryClient = useQueryClient();
+    const [searchText, setSearchText] = useState('');
+    const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
+    // --- Query: Fetch Catalog ---
+    const { data: products = [], isLoading, error, refetch } = useQuery({
+        queryKey: ['seller', 'catalog'],
+        queryFn: async () => {
+            // Simulamos delay de red
+            await new Promise(res => setTimeout(res, 800));
+            return MOCK_CATALOG_DATA as Product[];
+        },
+        staleTime: 5 * 60 * 1000,
+    });
+
+    // --- Mutations ---
+    const upsertProductMutation = useMutation({
+        mutationFn: async (product: Partial<Product>) => {
+            await new Promise(res => setTimeout(res, 1000));
+            return product;
+        },
+        onSuccess: (data, variables) => {
+            queryClient.setQueryData(['seller', 'catalog'], (old: Product[] | undefined) => {
+                if (!old) return [data as Product];
+                const exists = old.find(p => p.id === variables.id);
+                if (exists) {
+                    return old.map(p => p.id === variables.id ? { ...p, ...data } : p);
+                }
+                return [{ ...data, id: Date.now().toString() } as Product, ...old];
+            });
+            setIsEditModalOpen(false);
+            setSelectedProductId(null);
+        }
+    });
+
+    const deleteProductMutation = useMutation({
+        mutationFn: async (productId: string) => {
+            await new Promise(res => setTimeout(res, 800));
+            return productId;
+        },
+        onSuccess: (deletedId) => {
+            queryClient.setQueryData(['seller', 'catalog'], (old: Product[] | undefined) => {
+                return old ? old.filter(p => p.id !== deletedId) : [];
+            });
+        }
+    });
+
+    const filteredProducts = useMemo(() => {
+        return products.filter(p =>
+            p.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            p.category.toLowerCase().includes(searchText.toLowerCase())
+        );
+    }, [products, searchText]);
+
+    const selectedProduct = useMemo(() => {
+        return products.find(p => p.id === selectedProductId) || null;
+    }, [products, selectedProductId]);
+
+    return {
+        products: filteredProducts,
+        searchText,
+        setSearchText,
+        loading: isLoading || upsertProductMutation.isPending || deleteProductMutation.isPending,
+        error: error ? (error as Error).message : null,
+        selectedProduct,
+        isModalOpen: isEditModalOpen,
+        isDetailModalOpen,
+        handleSaveProduct: (product: Partial<Product>) => upsertProductMutation.mutateAsync(product),
+        handleDeleteProduct: (productId: string) => deleteProductMutation.mutateAsync(productId),
+        openEditModal: (product: Product) => {
+            setSelectedProductId(product.id);
+            setIsEditModalOpen(true);
+        },
+        handleCreateProduct: () => {
+            setSelectedProductId(null);
+            setIsEditModalOpen(true);
+        },
+        openDetailModal: (product: Product) => {
+            setSelectedProductId(product.id);
+            setIsDetailModalOpen(true);
+        },
+        closeDetailModal: () => {
+            setSelectedProductId(null);
+            setIsDetailModalOpen(false);
+        },
+        closeModal: () => {
+            setSelectedProductId(null);
+            setIsEditModalOpen(false);
+        },
+        refresh: refetch
+    };
+}

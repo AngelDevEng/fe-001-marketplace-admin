@@ -1,22 +1,27 @@
+'use client';
+
+import React, { useState } from 'react';
 import AdminSidebar from '@/components/layout/admin/AdminSidebar';
 import AdminHeader from '@/components/layout/admin/AdminHeader';
-import Footer from '@/components/layout/shared/Footer';
+import BaseLayout from '@/components/layout/shared/BaseLayout';
 
 export default function AdminLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-            <AdminSidebar />
-            <div className="ml-64">
-                <AdminHeader />
-                <main className="mt-16 min-h-[calc(100vh-4rem)]">
-                    {children}
-                </main>
-                <Footer />
-            </div>
-        </div>
+        <BaseLayout
+            header={<AdminHeader onOpenMenu={() => setIsMobileOpen(true)} />}
+            sidebar={<AdminSidebar isMobileOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />}
+            sidebarOpen={isMobileOpen}
+            onSidebarClose={() => setIsMobileOpen(false)}
+            className="bg-gray-50/50"
+            mainClassName="p-6 md:p-8"
+        >
+            {children}
+        </BaseLayout>
     );
 }

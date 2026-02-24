@@ -16,7 +16,7 @@ export default function Logo({ variant = 'default', className = '' }: LogoProps)
             </div>
             {variant === 'default' && (
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    MarketPlace
+                    Lyrium Marketplace
                 </span>
             )}
         </Link>

@@ -2,119 +2,57 @@ import { NavSection } from '@/lib/types/navigation';
 
 export const adminNavigation: NavSection[] = [
     {
-        title: 'Principal',
+        title: 'Módulos de Gestión Central',
         items: [
             {
-                label: 'Dashboard',
-                href: '/admin/dashboard',
-                icon: 'LayoutDashboard',
-            },
-            {
-                label: 'Análisis',
-                href: '/admin/analytics',
-                icon: 'BarChart3',
-            },
-        ],
-    },
-    {
-        title: 'Gestión de Tiendas',
-        items: [
-            {
-                label: 'Todas las Tiendas',
-                href: '/admin/stores',
-                icon: 'Store',
-                badge: 'new',
-            },
-            {
-                label: 'Vendedores',
+                label: 'Control de Vendedores',
                 href: '/admin/sellers',
                 icon: 'Users',
             },
             {
-                label: 'Categorías',
+                label: 'Mesa de Ayuda',
+                href: '/admin/helpdesk',
+                icon: 'Help',
+            },
+            {
+                label: 'Centro de Finanzas y Estadísticas',
+                href: '/admin/finance',
+                icon: 'Sales',
+            },
+            {
+                label: 'Analítica',
+                href: '/admin/analytics',
+                icon: 'Chart',
+            },
+            {
+                label: 'Gestión Operativa',
+                href: '/admin/operations',
+                icon: 'Services',
+            },
+            {
+                label: 'Gestión de Pagos',
+                href: '/admin/payments',
+                icon: 'Landmark',
+            },
+            {
+                label: 'Contratos',
+                href: '/admin/contracts',
+                icon: 'Invoices',
+            },
+            {
+                label: 'Gestión de Categorías',
                 href: '/admin/categories',
                 icon: 'FolderTree',
             },
-        ],
-    },
-    {
-        title: 'Productos',
-        items: [
             {
-                label: 'Todos los Productos',
-                href: '/admin/products',
-                icon: 'Package',
-            },
-            {
-                label: 'Inventario',
+                label: 'Gestión de Inventario',
                 href: '/admin/inventory',
-                icon: 'Boxes',
+                icon: 'Catalog',
             },
             {
-                label: 'Revisiones',
+                label: 'Gestión de Puntuación',
                 href: '/admin/reviews',
                 icon: 'Star',
-            },
-        ],
-    },
-    {
-        title: 'Pedidos',
-        items: [
-            {
-                label: 'Todos los Pedidos',
-                href: '/admin/orders',
-                icon: 'ShoppingCart',
-                badge: 12,
-            },
-            {
-                label: 'Devoluciones',
-                href: '/admin/returns',
-                icon: 'RotateCcw',
-            },
-            {
-                label: 'Envíos',
-                href: '/admin/shipments',
-                icon: 'Truck',
-            },
-        ],
-    },
-    {
-        title: 'Finanzas',
-        items: [
-            {
-                label: 'Transacciones',
-                href: '/admin/transactions',
-                icon: 'CreditCard',
-            },
-            {
-                label: 'Comisiones',
-                href: '/admin/commissions',
-                icon: 'Percent',
-            },
-            {
-                label: 'Reportes',
-                href: '/admin/reports',
-                icon: 'FileText',
-            },
-        ],
-    },
-    {
-        title: 'Configuración',
-        items: [
-            {
-                label: 'General',
-                href: '/admin/settings',
-                icon: 'Settings',
-            },
-            {
-                label: 'Usuarios',
-                href: '/admin/users',
-                icon: 'UserCog',
-            },
-            {
-                label: 'Seguridad',
-                href: '/admin/security',
-                icon: 'Shield',
             },
         ],
     },

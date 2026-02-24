@@ -1,22 +1,27 @@
+'use client';
+
+import React, { useState } from 'react';
 import SellerSidebar from '@/components/layout/seller/SellerSidebar';
 import SellerHeader from '@/components/layout/seller/SellerHeader';
-import Footer from '@/components/layout/shared/Footer';
+import BaseLayout from '@/components/layout/shared/BaseLayout';
 
 export default function SellerLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-            <SellerSidebar />
-            <div className="ml-64">
-                <SellerHeader />
-                <main className="mt-16 min-h-[calc(100vh-4rem)]">
-                    {children}
-                </main>
-                <Footer />
-            </div>
-        </div>
+        <BaseLayout
+            header={<SellerHeader onOpenMenu={() => setIsMobileOpen(true)} />}
+            sidebar={<SellerSidebar isMobileOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />}
+            sidebarOpen={isMobileOpen}
+            onSidebarClose={() => setIsMobileOpen(false)}
+            className="bg-gray-50"
+            mainClassName="p-4 md:p-8"
+        >
+            {children}
+        </BaseLayout>
     );
 }

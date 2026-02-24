@@ -4,29 +4,29 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-auto">
+        <footer className="bg-white border-t border-gray-200 mt-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="text-sm text-gray-600">
                         © {currentYear} MarketPlace. Todos los derechos reservados.
                     </div>
 
                     <div className="flex items-center gap-6">
                         <Link
                             href="/terms"
-                            className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                            className="text-sm text-gray-600 hover:text-gray-900"
                         >
                             Términos
                         </Link>
                         <Link
                             href="/privacy"
-                            className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                            className="text-sm text-gray-600 hover:text-gray-900"
                         >
                             Privacidad
                         </Link>
                         <Link
                             href="/support"
-                            className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                            className="text-sm text-gray-600 hover:text-gray-900"
                         >
                             Soporte
                         </Link>

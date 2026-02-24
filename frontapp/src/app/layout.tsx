@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { NotificationProvider } from '@/context/NotificationContext';
+import { AuthProvider } from '@/context/AuthContext';
+import { ToastProvider } from '@/context/ToastContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bienvenido al Marketplace",
+  title: "Bienvenido al Lyrium Marketplace",
   description: "Tu marketplace de confianza",
 };
+
+import QueryProvider from '@/components/providers/QueryProvider';
 
 export default function RootLayout({
   children,
@@ -23,11 +28,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" data-theme="light" style={{ colorScheme: 'light' }}>
+      <head>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <QueryProvider>
+          <AuthProvider>
+            <NotificationProvider>
+              <ToastProvider>
+                {children}
+              </ToastProvider>
+            </NotificationProvider>
+          </AuthProvider>
+        </QueryProvider>
+        <div id="modal-root"></div>
       </body>
     </html>
   );

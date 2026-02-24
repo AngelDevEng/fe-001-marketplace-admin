@@ -1,40 +1,54 @@
+"use client";
 import ThemeToggle from '@/components/layout/shared/ThemeToggle';
 import NotificationBell from '@/components/layout/shared/NotificationBell';
 import UserMenu from '@/components/layout/shared/UserMenu';
+import Breadcrumb from '@/components/layout/shared/Breadcrumb';
+import { useAutoBreadcrumb } from '@/hooks/useAutoBreadcrumb';
 
-export default function AdminHeader() {
-    // Mock user data - replace with actual auth data
-    const user = {
-        name: 'Admin Usuario',
-        email: 'admin@marketplace.com',
-        role: 'admin' as const,
-    };
+import { Menu } from 'lucide-react';
+
+export default function AdminHeader({ onOpenMenu }: { onOpenMenu: () => void }) {
+    const breadcrumbs = useAutoBreadcrumb();
+    const isAdmin = breadcrumbs[0]?.label === 'Admin';
 
     return (
-        <header className="h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 fixed top-0 right-0 left-64 z-20">
+        <header className="h-16 bg-white border-b border-gray-200 sticky top-0 z-50">
             <div className="h-full px-6 flex items-center justify-between">
-                {/* Search Bar */}
-                <div className="flex-1 max-w-2xl">
-                    <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                        <input
-                            type="search"
-                            placeholder="Buscar productos, pedidos, vendedores..."
-                            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        />
+                {/* Left: Panel Indicator + Breadcrumb */}
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={onOpenMenu}
+                        className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-gray-100 transition-colors"
+                        aria-label="Open menu"
+                    >
+                        <Menu className="w-6 h-6 text-gray-600" />
+                    </button>
+                    <span className="hidden md:inline-block px-3 py-1 bg-sky-500 text-white text-xs font-bold uppercase rounded-full whitespace-nowrap">
+                        Panel de Administración Central
+                    </span>
+                    <div className="hidden sm:block">
+                        <Breadcrumb items={breadcrumbs} />
                     </div>
                 </div>
 
-                {/* Actions */}
-                <div className="flex items-center gap-2 ml-6">
+                {/* Right: Quick Stats + Actions */}
+                <div className="flex items-center gap-6">
+                    <div className="hidden lg:flex items-center gap-6">
+                        <div className="h-6 w-px bg-gray-200" />
+                        <div className="text-sm">
+                            <span className="text-gray-600">Ventas hoy: </span>
+                            <span className="font-semibold text-gray-900">$1,234.50</span>
+                        </div>
+                        <div className="text-sm">
+                            <span className="text-gray-600">Pedidos: </span>
+                            <span className="font-semibold text-gray-900">12</span>
+                        </div>
+                    </div>
+                    <div className="h-8 w-px bg-gray-200 mx-2 hidden sm:block" />
                     <ThemeToggle />
                     <NotificationBell />
-                    <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 mx-2" />
-                    <UserMenu user={user} />
+                    <div className="h-8 w-px bg-gray-200 mx-2" />
+                    <UserMenu />
                 </div>
             </div>
         </header>
