@@ -72,9 +72,10 @@ export default function HelpPage() {
             {/* Module Content Area */}
             <div className="flex-1 min-h-0">
                 {activeTab === 'soporte' ? (
-                    <div className="grid grid-cols-12 glass-card h-full overflow-hidden border-none shadow-2xl shadow-gray-200/50">
-                        {/* Sidebar (List) */}
-                        <div className="col-span-12 lg:col-span-4 xl:col-span-4">
+                    <div className="h-[calc(100vh-8rem)] overflow-hidden">
+                        <div className="grid grid-cols-12 gap-8 h-full">
+                            {/* Sidebar (List) */}
+                            <div className="col-span-12 md:col-span-5 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col min-h-[500px]">
                             <TicketSidebar
                                 tickets={tickets}
                                 activeTicketId={activeTicketId}
@@ -83,10 +84,10 @@ export default function HelpPage() {
                                 onSetActiveTicket={setActiveTicketId}
                                 onNewTicket={() => handleCreateTicket({ subject: '', description: '', priority: 'normal', category: 'general' })}
                             />
-                        </div>
+                            </div>
 
-                        {/* Detail Area */}
-                        <div className="hidden lg:block col-span-8 xl:col-span-8 bg-white">
+                            {/* Detail Area */}
+                        <div className="col-span-12 md:col-span-7 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col min-h-[600px]">
                             {activeTicketId ? (
                                 <TicketChatView
                                     ticket={activeTicket!}
@@ -97,13 +98,14 @@ export default function HelpPage() {
                                     onSubmitSurvey={({ rating, comment }) => handleSubmitSurvey(rating, comment)}
                                 />
                             ) : (
-                                <div className="flex-1">
+                                <div className="flex-1 flex items-center justify-center">
                                     <NewTicketForm
                                         onCreateTicket={handleCreateTicket}
                                         onCancel={() => { }}
                                     />
                                 </div>
                             )}
+                        </div>
                         </div>
                     </div>
                 ) : (

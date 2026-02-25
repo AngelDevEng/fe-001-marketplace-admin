@@ -159,6 +159,28 @@ Los siguientes hooks NO fueron migrados a useFilteredList porque tienen lógica 
 - accentColor disponible: 'emerald' | 'violet' | 'sky'
 - Agregar nuevo color si el diseño lo requiere en accentColorMap
 
+**Patrón obligatorio para contenedores de chat:**
+```
+<!-- Contenedor principal -->
+<div className="flex flex-col h-[calc(100vh-8rem)] overflow-hidden">
+
+  <!-- Área de mensajes: scroll interno -->
+  <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar">
+    {messages}
+  </div>
+
+  <!-- Input: nunca se comprime -->
+  <div className="flex-shrink-0">
+    <MessageInput />
+  </div>
+</div>
+```
+- **Contenedor:** `flex flex-col` + `overflow-hidden` + altura fija
+- **Área mensajes:** `flex-1` + `min-h-0` + `overflow-y-auto`
+- **Input:** `flex-shrink-0` (OBLIGATORIO para que no se comprima)
+
+> Sin `min-h-0`, el área de mensajes crece infinitamente y empuja el input fuera de la vista.
+
 ---
 
 ## Estructura de Componentes Recomendada

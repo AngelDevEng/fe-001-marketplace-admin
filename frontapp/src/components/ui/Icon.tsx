@@ -2,6 +2,7 @@ import {
     LayoutDashboard,
     BarChart3,
     Store,
+    ShoppingBag,
     Users,
     FolderTree,
     Package,
@@ -112,8 +113,10 @@ import {
     CheckCheck,
     ListChecks,
     RefreshCw,
-    LucideIcon
+    Lock,
+    Newspaper
 } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 
 
 export const Icons: Record<string, LucideIcon> = {
@@ -239,7 +242,20 @@ export const Icons: Record<string, LucideIcon> = {
     StarHalf,
     CheckCheck,
     ListChecks,
-    RefreshCw
+    RefreshCw,
+    Lock,
+    Newspaper,
+    ShoppingBag,
+    UserCircle: User,
+    ShoppingCartSimple: ShoppingCart,
+    Storefront: Store,
+    Buildings: Building2,
+    PhoneCall: Phone,
+    EnvelopeSimple: Mail,
+    ChatCircle: MessageCircle,
+    WhatsAppLogo: MessageCircle,
+    TiktokLogo: MessageCircle,
+    LockKey: Lock
 };
 
 interface IconProps {

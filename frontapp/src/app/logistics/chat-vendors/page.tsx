@@ -107,25 +107,29 @@ export default function LogisticsChatVendorsPage() {
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-8 space-y-6 bg-gray-50/30 custom-scrollbar">
+            <div className="flex-1 min-h-0 overflow-y-auto p-8 space-y-6 bg-gray-50/30 custom-scrollbar">
                 <MessageBubble messages={messages} />
                 <div ref={messagesEndRef} />
             </div>
 
-            <MessageInput
-                onSend={handleSendMessage}
-                placeholder="Escribe un mensaje de gestión técnica..."
-            />
+            <div className="flex-shrink-0">
+                <MessageInput
+                    onSend={handleSendMessage}
+                    placeholder="Escribe un mensaje de gestión técnica..."
+                />
+            </div>
         </>
     );
 
     return (
-        <div className="space-y-8 animate-fadeIn pb-20 font-industrial">
-            <ModuleHeader
-                title="Consola de Mensajería"
-                subtitle="Comunicación bidireccional con Vendedores (RF-05)"
-                icon="Messages"
-            />
+        <div className="h-[calc(100vh-8rem)] overflow-hidden pb-4 font-industrial">
+            <div className="animate-fadeIn">
+                <ModuleHeader
+                    title="Consola de Mensajería"
+                    subtitle="Comunicación bidireccional con Vendedores (RF-05)"
+                    icon="Messages"
+                />
+            </div>
 
             <ChatLayout
                 list={listContent}

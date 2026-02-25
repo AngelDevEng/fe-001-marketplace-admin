@@ -20,7 +20,7 @@ export default function TicketChatView({ ticket, isSending, isClosing, onSendMes
     if (!ticket) return null;
 
     return (
-        <div className="flex flex-col h-full bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden animate-fadeIn">
+        <div className="flex flex-col flex-1 bg-white rounded-[2.5rem] overflow-hidden animate-fadeIn">
             {/* Header */}
             <div className="border-b border-gray-50 flex justify-between items-center bg-white p-4">
                 <div className="flex items-center gap-3">
@@ -48,7 +48,7 @@ export default function TicketChatView({ ticket, isSending, isClosing, onSendMes
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 flex flex-col custom-scrollbar bg-slate-50/20">
+            <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 flex flex-col custom-scrollbar bg-slate-50/20">
                 {/* Store Info Banner - Compacto */}
                 <div className="flex items-center gap-4 p-3 bg-white border border-gray-100 rounded-2xl">
                     <div className="flex-1 min-w-0">
@@ -78,15 +78,17 @@ export default function TicketChatView({ ticket, isSending, isClosing, onSendMes
 
             {/* Input Area (Only if not closed or survey pending) */}
             {ticket.status !== 'cerrado' && !ticket.survey_required && (
-                <ChatInput
-                    onSendMessage={(text) => onSendMessage({ text })}
-                    quickReplies={[
-                        "Quiero que un asesor me contacte.",
-                        "Necesito información sobre mi solicitud.",
-                        "Quiero cancelar mi solicitud."
-                    ]}
-                    disabled={isSending}
-                />
+                <div className="flex-shrink-0">
+                    <ChatInput
+                        onSendMessage={(text) => onSendMessage({ text })}
+                        quickReplies={[
+                            "Quiero que un asesor me contacte.",
+                            "Necesito información sobre mi solicitud.",
+                            "Quiero cancelar mi solicitud."
+                        ]}
+                        disabled={isSending}
+                    />
+                </div>
             )}
 
             {ticket.status === 'cerrado' && !ticket.survey_required && (

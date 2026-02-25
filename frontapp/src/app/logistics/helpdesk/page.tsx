@@ -138,12 +138,14 @@ export default function LogisticsHelpdeskPage() {
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-8 space-y-6 bg-gray-50/30 custom-scrollbar">
+            <div className="flex-1 min-h-0 overflow-y-auto p-8 space-y-6 bg-gray-50/30 custom-scrollbar">
                 <MessageBubble messages={messages} />
             </div>
 
             {selectedTicket.status !== 'resolved' && selectedTicket.status !== 'closed' && (
-                <MessageInput onSend={handleReply} placeholder="Escribe una respuesta técnica..." />
+                <div className="flex-shrink-0">
+                    <MessageInput onSend={handleReply} placeholder="Escribe una respuesta técnica..." />
+                </div>
             )}
         </>
     );
@@ -157,7 +159,7 @@ export default function LogisticsHelpdeskPage() {
                 actions={
                     <BaseButton
                         onClick={() => setShowNewTicketModal(true)}
-                        variant="primary"
+                        variant="action"
                         leftIcon="Plus"
                         size="md"
                         className="shadow-xl shadow-violet-100"

@@ -24,14 +24,14 @@ export default function ChatLayout({
   const detailWidth = detailWidthMap[listWidth];
 
   return (
-    <div className="grid grid-cols-12 gap-6 h-[calc(100vh-8rem)] min-h-[600px]">
+    <div className="grid grid-cols-12 gap-6 h-full min-h-[600px]">
       {/* Lista de conversaciones */}
       <div className={`${listWidth} bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col`}>
         {list}
       </div>
       
       {/* Área de chat */}
-      <div className={`${detailWidth} bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col`}>
+      <div className={`${detailWidth} bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col min-h-0`}>
         {detail}
       </div>
     </div>

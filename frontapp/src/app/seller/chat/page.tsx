@@ -159,12 +159,14 @@ export default function ChatPage() {
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar bg-gray-50/20">
+            <div className="flex-1 min-h-0 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar bg-gray-50/20">
                 <MessageBubble messages={messages} />
                 <div ref={messagesEndRef} />
             </div>
 
-            <MessageInput onSend={handleSendMessage} />
+            <div className="flex-shrink-0">
+                <MessageInput onSend={handleSendMessage} />
+            </div>
         </>
     );
 
@@ -180,10 +182,12 @@ export default function ChatPage() {
     }
 
     return (
-        <ChatLayout
-            list={listContent}
-            detail={detailContent}
-            listWidth="col-span-4"
-        />
+        <div className="h-[calc(100vh-8rem)] overflow-hidden pb-4">
+            <ChatLayout
+                list={listContent}
+                detail={detailContent}
+                listWidth="col-span-4"
+            />
+        </div>
     );
 }
