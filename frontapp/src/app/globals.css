@@ -5,6 +5,47 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
+    
+    /* Light mode */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-tertiary: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --border-color: #e2e8f0;
+    
+    /* Lyrium brand */
+    --bg-header: #ffffff;
+    --border-header: #e2e8f0;
+    --text-nav: #0f172a;
+    --text-nav-hover: #0ea5e9;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+    /* Deep Black Forest (PHP Legacy) */
+    --bg-primary: #111A15;
+    --bg-secondary: #182420;
+    --bg-tertiary: #1F2E28;
+    --text-primary: #9BAF9F;
+    --text-secondary: #7A8F7F;
+    --border-color: #2A3F33;
+    --foreground: #9BAF9F;
+    
+    /* Body background (PHP: #0A0F0D) */
+    --background: #0A0F0D;
+    
+    /* Lyrium brand dark */
+    --bg-header: #111A15;
+    --border-header: #2A3F33;
+    --text-nav: #9BAF9F;
+    --text-nav-hover: #6BAF7B;
+}
+
+/* Theme transition - smooth color changes */
+:root {
+    --theme-transition: 0ms;
 }
 
 @theme inline {
@@ -45,7 +86,9 @@ body {
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
-    @apply antialiased text-slate-900 bg-slate-50;
+    @apply antialiased;
+    transition: background-color var(--theme-transition, 0ms), 
+                color var(--theme-transition, 0ms);
 }
 
 @layer utilities {

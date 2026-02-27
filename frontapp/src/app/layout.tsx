@@ -4,6 +4,7 @@ import "./globals.css";
 import { NotificationProvider } from '@/context/NotificationContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
+import { ThemeProvider } from '@/hooks/useTheme';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,7 @@ export default function RootLayout ({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" data-theme="light" style={{ colorScheme: 'light' }}>
+    <html lang="es">
       <head>
       </head>
       <body
@@ -38,7 +39,9 @@ export default function RootLayout ({
           <AuthProvider>
             <NotificationProvider>
               <ToastProvider>
-                {children}
+                <ThemeProvider>
+                  {children}
+                </ThemeProvider>
               </ToastProvider>
             </NotificationProvider>
           </AuthProvider>

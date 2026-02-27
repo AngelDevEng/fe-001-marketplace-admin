@@ -22,7 +22,7 @@ export default function SearchBar({ categorias }: SearchBarProps) {
   };
 
   return (
-    <div className="border-t border-gray-100 bg-white/80 backdrop-blur-sm shadow-sm">
+    <div className="border-t border-gray-100 dark:border-[#2A3F33] bg-white/80 dark:bg-[#111A15]/80 backdrop-blur-sm shadow-sm">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <form onSubmit={handleSearch} className="w-full relative">
           <input type="hidden" name="category" value={selectedCategory} />
@@ -35,7 +35,7 @@ export default function SearchBar({ categorias }: SearchBarProps) {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="¿Qué buscas para tu salud?"
-              className="w-full h-12 md:h-14 pl-4 pr-36 md:pl-6 md:pr-56 rounded-full border border-gray-200 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all shadow-inner bg-gray-50/50"
+              className="w-full h-12 md:h-14 pl-4 pr-36 md:pl-6 md:pr-56 rounded-full border border-gray-200 dark:border-[#2A3F33] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all shadow-inner bg-gray-50/50 dark:bg-[#182420]/50 text-gray-800 dark:text-[#E8EDE9] placeholder:text-gray-400 dark:placeholder:text-[#7A9A80]"
               autoComplete="off"
             />
 
@@ -43,7 +43,7 @@ export default function SearchBar({ categorias }: SearchBarProps) {
             <div className="absolute right-1 top-1 bottom-1 flex items-center gap-1 md:gap-2">
               <button
                 type="button"
-                className="h-full w-10 md:w-14 rounded-full bg-sky-500 hover:bg-sky-600 text-white font-semibold flex items-center justify-center transition-all duration-200"
+                className="h-full w-10 md:w-14 rounded-full bg-sky-500 hover:bg-sky-600 dark:bg-[#4A7C59] dark:hover:bg-[#3D6B4A] text-white font-semibold flex items-center justify-center transition-all duration-200"
                 title="Buscar por voz"
               >
                 <Mic className="w-5 h-5" />
@@ -52,7 +52,7 @@ export default function SearchBar({ categorias }: SearchBarProps) {
               <button
                 type="button"
                 onClick={() => setFilterOpen(!filterOpen)}
-                className="flex h-full w-10 md:w-auto md:px-7 rounded-full bg-sky-500 text-white hover:bg-sky-600 font-bold items-center justify-center gap-2 transition-all border border-sky-200"
+                className="flex h-full w-10 md:w-auto md:px-7 rounded-full bg-sky-500 dark:bg-[#4A7C59] text-white hover:bg-sky-600 dark:hover:bg-[#3D6B4A] font-bold items-center justify-center gap-2 transition-all border border-sky-200 dark:border-[#2A3F33]"
               >
                 <Filter className="w-5 h-5" />
                 <span className="hidden md:inline">Filtros</span>
@@ -60,7 +60,7 @@ export default function SearchBar({ categorias }: SearchBarProps) {
 
               <button
                 type="submit"
-                className="h-full w-10 md:w-auto md:px-7 rounded-full bg-sky-500 text-white hover:bg-sky-600 font-bold flex items-center justify-center gap-2 transition-all shadow-md"
+                className="h-full w-10 md:w-auto md:px-7 rounded-full bg-sky-500 hover:bg-sky-600 dark:bg-[#4A7C59] dark:hover:bg-[#3D6B4A] text-white font-bold flex items-center justify-center gap-2 transition-all shadow-md"
               >
                 <Search className="w-5 h-5" />
                 <span className="hidden md:inline">Buscar</span>

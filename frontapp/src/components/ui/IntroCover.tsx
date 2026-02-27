@@ -60,7 +60,7 @@ export default function IntroCover({
 
     return (
         <div 
-            className={`fixed inset-0 w-full h-screen z-[9999] flex items-center justify-center ${isExiting ? 'opacity-0 translate-y-[-100px] scale-95' : ''}`}
+            className={`intro-cover fixed inset-0 w-full h-screen z-[9999] flex items-center justify-center ${isExiting ? 'opacity-0 translate-y-[-100px] scale-95' : ''}`}
             style={introCoverStyle}
         >
             {/* Overlay */}
@@ -113,7 +113,7 @@ export default function IntroCover({
                 
                 <button
                     onClick={handleEnter}
-                    className="inline-flex items-center gap-3 py-5 px-12 bg-white text-sky-500 rounded-full text-lg font-bold cursor-pointer uppercase tracking-wider"
+                    className="intro-cta inline-flex items-center gap-3 py-5 px-12 bg-white text-sky-500 rounded-full text-lg font-bold cursor-pointer uppercase tracking-wider"
                     style={{ 
                         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
                         transition: 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',

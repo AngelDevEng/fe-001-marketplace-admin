@@ -161,6 +161,41 @@ export const megaMenuData: Record<string, MegaCategoryData> = {
             { h: 'DEPORTIVOS', items: ['Pre-workout', 'Creatina', 'Glutamina', 'Carnitina'] },
         ],
     },
+    'Servicios médicos': {
+        icons: [
+            { title: 'Gastroenterología', img: '/img/Servicios/ServiciosMedicos/1.svg', href: '#' },
+            { title: 'Geriatría', img: '/img/Servicios/ServiciosMedicos/2.svg', href: '#' },
+            { title: 'Laboratorio clínico', img: '/img/Servicios/ServiciosMedicos/3.svg', href: '#' },
+            { title: 'Medicina general', img: '/img/Servicios/ServiciosMedicos/4.svg', href: '#' },
+            { title: 'Nutriología', img: '/img/Servicios/ServiciosMedicos/5.svg', href: '#' },
+            { title: 'Pediatría', img: '/img/Servicios/ServiciosMedicos/6.svg', href: '#' },
+            { title: 'Psicología', img: '/img/Servicios/ServiciosMedicos/7.svg', href: '#' },
+        ],
+        cols: [
+            { h: 'ESPECIALIDADES', items: ['Cardiología', 'Radiología', 'Dermatología', 'Medicina General', 'Endocrinología', 'Enfermería'] },
+            { h: 'ESPECIALIDADES', items: ['Geriatría', 'Ginecología', 'Laboratorio Clínico', 'Medicina Física', 'Neumología', 'Neurología'] },
+            { h: 'ESPECIALIDADES', items: ['Odontología', 'Oftalmología', 'Oncología', 'Pediatría', 'Psicología', 'Psiquiatría'] },
+        ],
+    },
+    'Belleza servicios': {
+        icons: [
+            { title: 'Peluquerías', img: '/img/Servicios/Belleza/1.svg', href: '#' },
+            { title: 'Spas', img: '/img/Servicios/Belleza/2.svg', href: '#' },
+        ],
+        cols: [
+            { h: 'TRATAMIENTOS', items: ['Limpieza Facial', 'Anti-Edah', 'Acné'] },
+            { h: 'SERVICIOS', items: ['Depilación', 'Masajes', 'Spa'] },
+        ],
+    },
+    'Deportes servicios': {
+        icons: [
+            { title: 'Gimnasio', img: '/img/Servicios/Deportes/1.png', href: '#' },
+        ],
+        cols: [
+            { h: 'SERVICIOS', items: ['Fisioterapia', 'Rehabilitación'] },
+            { h: 'ENTRENAMIENTO', items: ['Entrenamiento Funcional'] },
+        ],
+    },
 };
 
 export const menuItems: MenuItem[] = [
@@ -185,11 +220,9 @@ export const menuItems: MenuItem[] = [
         href: '/servicios',
         icon: 'headset',
         children: [
-            { label: 'Consultas médicas', href: '/servicios/consultas' },
-            { label: 'Terapias alternativas', href: '/servicios/terapias' },
-            { label: 'Análisis de laboratorio', href: '/servicios/laboratorio' },
-            { label: 'Programas de bienestar', href: '/servicios/bienestar' },
-            { label: 'Asesoría nutricional', href: '/servicios/nutricional' },
+            { label: 'Servicios médicos', href: '/servicios/consultas' },
+            { label: 'Belleza servicios', href: '/servicios/belleza' },
+            { label: 'Deportes servicios', href: '/servicios/deportes' },
         ],
     },
     {

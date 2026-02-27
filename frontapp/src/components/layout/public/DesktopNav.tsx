@@ -29,9 +29,11 @@ export default function DesktopNav({ menuItems, megaMenuData }: DesktopNavProps)
     const [activeCategory, setActiveCategory] = useState<string>('Bebés y recién nacidos');
     const menuRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
 
-    const handleMenuEnter = (label: string) => {
+    const handleMenuEnter = (label: string, children?: MenuItem[]) => {
         setActiveMenu(label);
-        setActiveCategory('Bebés y recién nacidos');
+        
+        const firstCategory = children && children.length > 0 ? children[0].label : 'Bebés y recién nacidos';
+        setActiveCategory(firstCategory);
 
         const trigger = menuRefs.current[label];
         if (trigger) {
@@ -47,8 +49,8 @@ export default function DesktopNav({ menuItems, megaMenuData }: DesktopNavProps)
     };
 
     return (
-        <div className="border-t border-gray-100">
-            <nav className="max-w-7xl mx-auto px-4 py-2 hidden lg:flex items-center justify-center gap-6 text-[13px] font-medium text-gray-800 tracking-tight">
+        <div className="border-t border-gray-200 dark:border-[#2A3F33]">
+            <nav className="max-w-7xl mx-auto px-4 py-2 hidden lg:flex items-center justify-center gap-6 text-[13px] font-medium text-slate-700 dark:text-[#9BAF9F] tracking-tight">
                 {menuItems.map((item) => {
                     const iconName = item.icon ? iconNameMap[item.icon] : null;
 
@@ -58,8 +60,8 @@ export default function DesktopNav({ menuItems, megaMenuData }: DesktopNavProps)
                                 <button
                                     ref={(el) => { menuRefs.current[item.label] = el; }}
                                     type="button"
-                                    onMouseEnter={() => handleMenuEnter(item.label)}
-                                    className={`flex items-center gap-1 hover:text-sky-500 transition whitespace-nowrap ${activeMenu === item.label ? 'text-sky-500' : ''
+                                    onMouseEnter={() => handleMenuEnter(item.label, item.children)}
+                                    className={`flex items-center gap-1 hover:text-sky-500 dark:hover:text-[#6BAF7B] transition whitespace-nowrap ${activeMenu === item.label ? 'text-sky-500 dark:text-[#6BAF7B]' : ''
                                         }`}
                                 >
                                     {iconName && <Icon name={iconName} className="text-[17px]" />}
@@ -69,7 +71,7 @@ export default function DesktopNav({ menuItems, megaMenuData }: DesktopNavProps)
                             ) : (
                                 <Link
                                     href={item.href}
-                                    className="flex items-center gap-1 hover:text-sky-500 transition whitespace-nowrap"
+                                    className="flex items-center gap-1 hover:text-sky-500 dark:hover:text-[#6BAF7B] transition whitespace-nowrap"
                                 >
                                     {iconName && <Icon name={iconName} className="text-[17px]" />}
                                     {item.label}

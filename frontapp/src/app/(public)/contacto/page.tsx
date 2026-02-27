@@ -84,16 +84,16 @@ export default function ContactPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-8 md:py-12 px-4">
+        <div className="min-h-screen bg-gray-50 dark:bg-[#0D1510] py-8 md:py-12 px-4">
             <div className="max-w-6xl mx-auto">
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-8 rounded-[30px] overflow-hidden bg-white dark:bg-[#111A15] shadow-xl dark:shadow-none border border-gray-200 dark:border-[#2A3F33]">
                     {/* Visual Section */}
-                    <div className="bg-gradient-to-br from-sky-500 via-sky-300 to-lime-500 rounded-[30px] p-8 md:p-12 text-white relative overflow-hidden">
+                    <div className="contact-visual bg-gradient-to-br from-sky-500 via-sky-300 to-lime-500 rounded-[30px] md:rounded-r-none p-8 md:p-12 text-white relative overflow-hidden h-full">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
                         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
                         
                         <div className="relative z-10">
-                            <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-6">
+                            <div className="contact-icon w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mb-6 border border-white/20 backdrop-blur-sm">
                                 <Icon name="ChatCircleDots" className="text-4xl" />
                             </div>
                             
@@ -102,28 +102,34 @@ export default function ContactPage() {
                             
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">
-                                    <Icon name="MapPin" className="text-xl" />
+                                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                                        <Icon name="MapPin" className="text-xl" />
+                                    </div>
                                     <span>Perú</span>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <Icon name="EnvelopeSimple" className="text-xl" />
+                                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                                        <Icon name="EnvelopeSimple" className="text-xl" />
+                                    </div>
                                     <span>ventas@lyriumbiomarketplace.com</span>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <Icon name="PhoneCall" className="text-xl" />
+                                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                                        <Icon name="PhoneCall" className="text-xl" />
+                                    </div>
                                     <span>+51 937 093 420</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="absolute bottom-8 right-8 w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                            <Icon name="Headset" className="text-2xl" />
+                        <div className="absolute bottom-8 right-8 w-16 h-16 bg-white/20 rounded-full flex items-center justify-center opacity-50">
+                            <Icon name="Headset" className="text-3xl" />
                         </div>
                     </div>
 
                     {/* Form Section */}
-                    <div className="bg-white rounded-3xl p-8 md:p-10 shadow-lg">
-                        <div className="flex items-start gap-4 mb-8">
+                    <div className="bg-white dark:bg-[#111A15] rounded-3xl md:rounded-l-none p-8 md:p-10 shadow-lg dark:shadow-none h-full flex flex-col justify-center">
+                        <div className="form-header flex items-start gap-4 mb-8">
                             <div className="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center flex-shrink-0">
                                 <Icon name="ChatCircleText" className="text-xl text-sky-600" />
                             </div>
@@ -144,7 +150,7 @@ export default function ContactPage() {
                         )}
 
                         <form onSubmit={handleSubmit} className="space-y-5">
-                            <div>
+                            <div className="form-group">
                                 <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
                                     Nombre y Apellidos <span className="text-red-500">*</span>
                                 </label>
@@ -155,12 +161,12 @@ export default function ContactPage() {
                                     value={formData.name}
                                     onChange={handleInputChange}
                                     placeholder="Escribe tu nombre completo"
-                                    className={`w-full px-4 py-3 rounded-xl border ${errors.name ? 'border-red-500' : 'border-slate-300'} focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all`}
+                                    className={`form-input w-full px-4 py-3 rounded-xl border ${errors.name ? 'border-red-500' : 'border-slate-300'} focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all`}
                                 />
                                 {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                             </div>
 
-                            <div>
+                            <div className="form-group">
                                 <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
                                     Correo Electrónico <span className="text-red-500">*</span>
                                 </label>
@@ -171,12 +177,12 @@ export default function ContactPage() {
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     placeholder="tu@email.com"
-                                    className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500' : 'border-slate-300'} focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all`}
+                                    className={`form-input w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500' : 'border-slate-300'} focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all`}
                                 />
                                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                             </div>
 
-                            <div>
+                            <div className="form-group">
                                 <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-1">
                                     Asunto <span className="text-red-500">*</span>
                                 </label>
@@ -187,12 +193,12 @@ export default function ContactPage() {
                                     value={formData.subject}
                                     onChange={handleInputChange}
                                     placeholder="¿En qué podemos ayudarte?"
-                                    className={`w-full px-4 py-3 rounded-xl border ${errors.subject ? 'border-red-500' : 'border-slate-300'} focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all`}
+                                    className={`form-input w-full px-4 py-3 rounded-xl border ${errors.subject ? 'border-red-500' : 'border-slate-300'} focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all`}
                                 />
                                 {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject}</p>}
                             </div>
 
-                            <div>
+                            <div className="form-group">
                                 <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1">
                                     Mensaje <span className="text-red-500">*</span>
                                 </label>
@@ -204,15 +210,15 @@ export default function ContactPage() {
                                     placeholder="Escribe tu mensaje aquí..."
                                     maxLength={500}
                                     rows={5}
-                                    className={`w-full px-4 py-3 rounded-xl border ${errors.message ? 'border-red-500' : 'border-slate-300'} focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all resize-none`}
+                                    className={`form-textarea w-full px-4 py-3 rounded-xl border ${errors.message ? 'border-red-500' : 'border-slate-300'} focus:border-sky-500 focus:ring-2 focus:ring-sky-200 outline-none transition-all resize-none`}
                                 />
                                 <div className="flex justify-between mt-1">
                                     {errors.message && <p className="text-red-500 text-xs">{errors.message}</p>}
-                                    <p className="text-slate-400 text-xs ml-auto">{charCount} / 500</p>
+                                    <p className="text-slate-400 text-xs ml-auto char-counter">{charCount} / 500</p>
                                 </div>
                             </div>
 
-                            <div>
+                            <div className="form-group">
                                 <div className="flex items-start gap-3">
                                     <input
                                         type="checkbox"
@@ -222,7 +228,7 @@ export default function ContactPage() {
                                         onChange={handleInputChange}
                                         className="mt-1 w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500"
                                     />
-                                    <label htmlFor="privacy" className="text-sm text-slate-600">
+                                    <label htmlFor="privacy" className="form-checkbox-label text-sm text-slate-600">
                                         Acepto la <a href="/politicasdeprivacidad" target="_blank" className="text-sky-500 hover:underline">política de privacidad</a>
                                     </label>
                                 </div>
@@ -232,7 +238,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={submitting}
-                                className="w-full bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="form-submit w-full bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:-translate-y-1"
                             >
                                 {submitting ? (
                                     <>

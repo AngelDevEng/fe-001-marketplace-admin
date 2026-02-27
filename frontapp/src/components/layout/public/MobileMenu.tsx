@@ -104,11 +104,11 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
 
             {/* Drawer */}
             <div
-                className={`fixed top-0 left-0 h-full w-[85vw] max-w-md bg-white z-[101] transform transition-transform duration-300 ease-out shadow-2xl lg:hidden flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed top-0 left-0 h-full w-[85vw] max-w-md bg-white dark:bg-[#111A15] z-[101] transform transition-transform duration-300 ease-out shadow-2xl dark:shadow-none lg:hidden flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
                 {/* ===== 1. HEADER — Logo + Close ===== */}
-                <div className="px-5 py-4 border-b border-gray-200 flex justify-between items-center shrink-0 bg-white z-20">
+                <div className="px-5 py-4 border-b border-gray-200 dark:border-[#2A3F33] flex justify-between items-center shrink-0 bg-white dark:bg-[#111A15] z-20">
                     <div className="flex items-center gap-2">
                         <img
                             src="/img/iconologo.png"
@@ -123,7 +123,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                     </div>
                     <button
                         onClick={onClose}
-                        className="text-gray-500 hover:text-gray-800 text-3xl p-1"
+                        className="text-gray-500 dark:text-[#7A9A80] hover:text-gray-800 dark:hover:text-[#E8EDE9] text-3xl p-1"
                         aria-label="Cerrar menú"
                     >
                         <Icon name="X" />
@@ -132,7 +132,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
 
                 {/* ===== 2. SECONDARY NAV HEADER — Back button (visible on level 1+) ===== */}
                 {menuLevel > 0 && (
-                    <div className="flex items-center px-5 py-3 bg-gray-50 border-b border-gray-100 shrink-0">
+                    <div className="flex items-center px-5 py-3 bg-gray-50 dark:bg-[#182420] border-b border-gray-100 dark:border-[#2A3F33] shrink-0">
                         <button
                             onClick={goBack}
                             className="flex items-center gap-2 text-gray-600 hover:text-green-600 transition-colors group"
@@ -150,7 +150,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                     style={{ color: menuLevel <= 1 ? '#4b5563' : levelColors[menuLevel - 1] }}
                                 />
                             </div>
-                            <span className="font-bold text-base text-gray-700 group-hover:text-green-700">
+                            <span className="font-bold text-base text-gray-700 dark:text-[#E8EDE9] group-hover:text-green-700">
                                 {menuLevel === 2 && activeParent
                                     ? activeParent.label
                                     : 'Menú principal'}
@@ -160,7 +160,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                 )}
 
                 {/* ===== 3. SCROLLABLE CONTENT ===== */}
-                <div className="flex-1 overflow-y-auto relative bg-white">
+                <div className="flex-1 overflow-y-auto relative bg-white dark:bg-[#111A15]">
                     {/* === LEVEL 0: Main Menu === */}
                     <div
                         className="absolute inset-0 transition-all duration-300 ease-out overflow-y-auto"
@@ -175,10 +175,10 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                             <Link
                                 href="/"
                                 onClick={handleLinkClick}
-                                className="flex items-center gap-3 px-5 py-3.5 hover:bg-gray-50 transition group"
+                                className="flex items-center gap-3 px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group"
                             >
-                                <Icon name="Home" className="text-xl text-gray-600 group-hover:scale-110 transition-transform" />
-                                <span className="text-gray-800 text-[15px] font-medium">Inicio</span>
+                                <Icon name="Home" className="text-xl text-gray-600 dark:text-[#7A9A80] group-hover:scale-110 transition-transform" />
+                                <span className="text-gray-800 dark:text-[#E8EDE9] text-[15px] font-medium">Inicio</span>
                             </Link>
 
                             {/* Menu items */}
@@ -191,11 +191,11 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                         <button
                                             key={item.label}
                                             onClick={() => goToSubcategories(item)}
-                                            className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition group"
+                                            className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group"
                                         >
                                             <div className="flex items-center gap-3">
-                                                <Icon name={iconName} className="text-xl text-gray-600 group-hover:scale-110 transition-transform" />
-                                                <span className="text-gray-800 text-[15px] font-medium">{item.label}</span>
+                                                <Icon name={iconName} className="text-xl text-gray-600 dark:text-[#7A9A80] group-hover:scale-110 transition-transform" />
+                                                <span className="text-gray-800 dark:text-[#E8EDE9] text-[15px] font-medium">{item.label}</span>
                                             </div>
                                             <Icon name="ChevronRight" className="text-gray-400 text-sm" />
                                         </button>
@@ -207,13 +207,13 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                         key={item.label}
                                         href={item.href}
                                         onClick={handleLinkClick}
-                                        className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition group"
+                                        className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <Icon name={iconName} className="text-xl text-gray-600 group-hover:scale-110 transition-transform" />
-                                            <span className="text-gray-800 text-[15px] font-medium">{item.label}</span>
+                                            <Icon name={iconName} className="text-xl text-gray-600 dark:text-[#7A9A80] group-hover:scale-110 transition-transform" />
+                                            <span className="text-gray-800 dark:text-[#E8EDE9] text-[15px] font-medium">{item.label}</span>
                                         </div>
-                                        <Icon name="ChevronRight" className="text-gray-400 text-sm" />
+                                        <Icon name="ChevronRight" className="text-gray-400 dark:text-[#7A9A80] text-sm" />
                                     </Link>
                                 );
                             })}
@@ -236,7 +236,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                     className="flex items-center justify-between px-5 py-4 sticky top-0 z-10 shadow-md"
                                     style={{ backgroundColor: levelColors[1] }}
                                 >
-                                    <span className="font-bold text-lg text-gray-800">{activeParent.label}</span>
+                                    <span className="font-bold text-lg text-gray-800 dark:text-[#E8EDE9]">{activeParent.label}</span>
                                     <Link
                                         href={activeParent.href}
                                         onClick={handleLinkClick}
@@ -258,10 +258,10 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                             <button
                                                 key={child.label}
                                                 onClick={() => goToCategoryDetail(child.label)}
-                                                className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition group"
+                                                className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group"
                                             >
-                                                <span className="text-gray-700 text-[14px] font-medium">{child.label}</span>
-                                                <Icon name="ChevronRight" className="text-gray-400 text-sm" />
+                                                <span className="text-gray-700 dark:text-[#E8EDE9] text-[14px] font-medium">{child.label}</span>
+                                                <Icon name="ChevronRight" className="text-gray-400 dark:text-[#7A9A80] text-sm" />
                                             </button>
                                         );
                                     }
@@ -271,9 +271,9 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                             key={child.label}
                                             href={child.href}
                                             onClick={handleLinkClick}
-                                            className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition"
+                                            className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition"
                                         >
-                                            <span className="text-gray-700 text-[14px] font-medium">{child.label}</span>
+                                            <span className="text-gray-700 dark:text-[#E8EDE9] text-[14px] font-medium">{child.label}</span>
                                         </Link>
                                     );
                                 })}
@@ -297,7 +297,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                     className="flex items-center justify-between px-5 py-4 sticky top-0 z-10 shadow-md"
                                     style={{ backgroundColor: levelColors[2] }}
                                 >
-                                    <span className="font-bold text-lg text-gray-800">{activeCategory}</span>
+                                    <span className="font-bold text-lg text-gray-800 dark:text-[#E8EDE9]">{activeCategory}</span>
                                     <Link
                                         href="#"
                                         onClick={handleLinkClick}
@@ -326,7 +326,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                                     className="w-10 h-10 object-contain"
                                                 />
                                             </div>
-                                            <div className="mt-1.5 text-[11px] font-semibold text-gray-700 group-hover:text-sky-600 transition leading-tight">
+                                            <div className="mt-1.5 text-[11px] font-semibold text-gray-700 dark:text-[#E8EDE9] group-hover:text-sky-600 dark:group-hover:text-[#6BAF7B] transition leading-tight">
                                                 {icon.title}
                                             </div>
                                         </Link>
@@ -340,7 +340,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                 <div className="space-y-5">
                                     {categoryData.cols.map((col, i) => (
                                         <div key={i}>
-                                            <div className="text-[12px] font-extrabold tracking-wide text-gray-900 uppercase mb-2">
+                                            <div className="text-[12px] font-extrabold tracking-wide text-gray-900 dark:text-[#E8EDE9] uppercase mb-2">
                                                 {col.h}
                                             </div>
                                             <ul className="space-y-1.5">
@@ -349,7 +349,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                                         <Link
                                                             href="#"
                                                             onClick={handleLinkClick}
-                                                            className="text-[13px] text-gray-600 hover:text-sky-600 transition"
+                                                            className="text-[13px] text-gray-600 dark:text-[#7A9A80] hover:text-sky-600 dark:hover:text-[#6BAF7B] transition"
                                                         >
                                                             {item}
                                                         </Link>
@@ -370,7 +370,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                         <Link
                             href="/login"
                             onClick={handleLinkClick}
-                            className="flex items-center gap-3 text-gray-700 hover:text-sky-600 transition group"
+                            className="flex items-center gap-3 text-gray-700 dark:text-[#E8EDE9] hover:text-sky-600 dark:hover:text-[#6BAF7B] transition group"
                         >
                             <Icon name="UserCircle" className="text-3xl text-sky-600 group-hover:scale-110 transition-transform" />
                             <span className="font-medium text-lg">Mi Cuenta / Registrarse</span>
@@ -378,15 +378,15 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
 
                         <Link
                             href="#"
-                            className="flex items-center gap-3 text-gray-700 hover:text-sky-600 transition group"
+                            className="flex items-center gap-3 text-gray-700 dark:text-[#E8EDE9] hover:text-sky-600 dark:hover:text-[#6BAF7B] transition group"
                         >
                             <div className="relative">
-                                <Icon name="ShoppingCart" className="text-3xl text-sky-600 group-hover:scale-110 transition-transform" />
-                                <span className="absolute -top-1 -right-1 bg-sky-500 text-white text-[11px] rounded-full w-5 h-5 flex items-center justify-center">
+                                <Icon name="ShoppingCart" className="text-3xl text-sky-600 dark:text-[#6BAF7B] group-hover:scale-110 transition-transform" />
+                                <span className="absolute -top-1 -right-1 bg-sky-500 dark:bg-[#4A7C59] text-white text-[11px] rounded-full w-5 h-5 flex items-center justify-center">
                                     0
                                 </span>
                             </div>
-                            <span className="font-medium text-lg">Carrito</span>
+                            <span className="font-medium text-lg dark:text-[#E8EDE9]">Carrito</span>
                         </Link>
                     </div>
                 )}

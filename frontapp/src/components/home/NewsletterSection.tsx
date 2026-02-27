@@ -16,7 +16,7 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="bg-teal-300 text-white px-6 md:px-10 py-8 md:py-10 max-w-7xl mx-auto">
+    <section className="bg-teal-300 dark:bg-[#1A3A32] text-white px-6 md:px-10 py-8 md:py-10 max-w-7xl mx-auto">
       {suscrito ? (
         <div className="text-center py-4">
           <p className="font-semibold text-xl">¡Gracias por suscribirte! 🎉</p>
@@ -39,12 +39,12 @@ export default function NewsletterSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Correo electrónico"
-                className="flex-1 px-4 py-2.5 rounded-full text-gray-800 text-sm border border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="flex-1 px-4 py-2.5 rounded-full text-gray-800 dark:text-[#E8EDE9] text-sm border border-teal-200 dark:border-[#2A4A42] focus:outline-none focus:ring-2 focus:ring-teal-500 dark:bg-[#111A15] dark:placeholder:text-[#7A9A80]"
                 required
               />
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-full bg-sky-500 hover:bg-sky-600 text-sm font-semibold shadow-md transition-colors"
+                className="px-6 py-2.5 rounded-full bg-sky-500 hover:bg-sky-600 dark:bg-[#4A7C59] dark:hover:bg-[#3D6B4A] text-sm font-semibold shadow-md transition-colors"
               >
                 Suscribirme
               </button>

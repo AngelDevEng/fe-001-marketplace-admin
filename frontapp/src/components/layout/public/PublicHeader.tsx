@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import TopBanner from './TopBanner';
 import DesktopNav from './DesktopNav';
 import MobileMenu from './MobileMenu';
@@ -14,7 +15,7 @@ export default function PublicHeader() {
     return (
         <>
             <TopBanner />
-            <header className="bg-white shadow-sm sticky top-0 z-50">
+            <header className="bg-white dark:bg-[#111A15] shadow-md dark:shadow-none sticky top-0 z-50 border-b border-gray-100 dark:border-[#2A3F33]">
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 gap-6">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
@@ -32,7 +33,7 @@ export default function PublicHeader() {
 
                     <div className="flex items-center gap-4">
                         {/* Desktop: Session / Cart */}
-                        <div className="hidden md:flex items-center gap-5 text-xs lg:text-[13px] text-sky-600">
+                        <div className="hidden md:flex items-center gap-5 text-xs lg:text-[13px] text-sky-600 dark:text-[#6BAF7B]">
                             <Link href="/login" className="flex items-center gap-1 hover:underline">
                                 <Icon name="UserCircle" className="text-[18px]" />
                                 <span className="whitespace-nowrap">Iniciar Sesión | Registrarse</span>
@@ -41,14 +42,16 @@ export default function PublicHeader() {
                             <Link href="#" className="flex items-center gap-1 hover:underline">
                                 <Icon name="ShoppingCart" className="text-[18px]" />
                                 <span>Carrito</span>
-                                <span className="bg-sky-500 text-white text-[11px] rounded-full px-2 py-0.5">0</span>
+                                <span className="bg-sky-500 dark:bg-[#4A7C59] text-white dark:text-[#E8EDE9] text-[11px] rounded-full px-2 py-0.5">0</span>
                             </Link>
+
+                            <ThemeToggle />
                         </div>
 
                         {/* Hamburger button (mobile/tablet) */}
                         <button
                             onClick={() => setMobileMenuOpen(true)}
-                            className="lg:hidden text-3xl text-sky-600"
+                            className="lg:hidden text-3xl text-sky-600 dark:text-[#6BAF7B]"
                             aria-label="Menú"
                         >
                             <Icon name="Menu" />
@@ -74,7 +77,7 @@ export default function PublicHeader() {
                 target="_blank"
                 className="fixed bottom-6 right-6 z-50 lg:hidden"
             >
-                <div className="bg-green-500 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-110">
+                <div className="bg-green-500 dark:bg-[#2E7D32] text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-green-600 dark:hover:bg-[#1B5E20] transition-all duration-300 hover:scale-110">
                     <Icon name="MessageCircle" className="text-3xl" />
                 </div>
             </Link>
