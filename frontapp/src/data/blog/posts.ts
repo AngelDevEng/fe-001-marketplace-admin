@@ -1,3 +1,5 @@
+import { BlogCategory, categories } from './categories';
+
 export interface BlogPost {
     id: number;
     title: string;
