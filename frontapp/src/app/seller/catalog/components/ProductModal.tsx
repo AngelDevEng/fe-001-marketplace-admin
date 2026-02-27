@@ -278,11 +278,11 @@ export default function ProductModal({ isOpen, onClose, onSave, productToEdit }:
                                         <td className="px-5 py-2">
                                             <div className="flex flex-wrap gap-2">
                                                 {[
-                                                    { val: null, label: 'Ninguno' },
-                                                    { val: 'nuevo', label: 'Nuevo' },
-                                                    { val: 'oferta', label: 'Oferta' },
-                                                    { val: 'bestseller', label: 'Top' },
-                                                    { val: 'descuento', label: 'Desc %' },
+                                                    { val: null, label: 'Ninguno', color: 'gray' },
+                                                    { val: 'nuevo', label: 'Nuevo', color: 'sky' },
+                                                    { val: 'oferta', label: 'Oferta', color: 'lime' },
+                                                    { val: 'bestseller', label: 'Top', color: 'purple' },
+                                                    { val: 'descuento', label: 'Desc %', color: 'emerald' },
                                                 ].map((opt, idx) => (
                                                     <label key={idx} className="cursor-pointer">
                                                         <input
@@ -291,9 +291,14 @@ export default function ProductModal({ isOpen, onClose, onSave, productToEdit }:
                                                             onChange={() => handleStickerChange(opt.val as ProductSticker)}
                                                             className="sr-only"
                                                         />
-                                                        <div className={`px-3 py-1.5 rounded-xl border text-[8px] font-black uppercase transition-all
-                                                            ${formData.sticker === opt.val
-                                                                ? 'bg-gray-900 text-white border-gray-900 scale-105 shadow-sm'
+                                                        <div className={`px-3 py-1.5 rounded-xl border text-[8px] font-black uppercase transition-all ${
+                                                            formData.sticker === opt.val
+                                                                ? opt.color === 'gray' ? 'bg-gray-900 text-white border-gray-900 scale-105 shadow-sm'
+                                                                : opt.color === 'sky' ? 'bg-sky-500 text-white border-sky-500 scale-105 shadow-sm'
+                                                                : opt.color === 'lime' ? 'bg-lime-400 text-white border-lime-400 scale-105 shadow-sm'
+                                                                : opt.color === 'purple' ? 'bg-purple-500 text-white border-purple-500 scale-105 shadow-sm'
+                                                                : opt.color === 'emerald' ? 'bg-emerald-500 text-white border-emerald-500 scale-105 shadow-sm'
+                                                                : 'bg-gray-900 text-white border-gray-900 scale-105 shadow-sm'
                                                                 : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'}`}>
                                                             {opt.label}
                                                         </div>

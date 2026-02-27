@@ -1,6 +1,7 @@
 import axios from "axios";
-import { Product, ProductCategory, Order, ProductReview, SalesReport, Withdrawal } from "./types";
+import { Product, ProductCategory, Order, ProductReview, SalesReport, Withdrawal } from "./types/wp/wp-types";
 import { Store } from "./types/stores/store";
+import { API_CONFIG } from "./config/api";
 
 export interface ProductUpdateData {
     name?: string;
@@ -24,7 +25,7 @@ export interface CategoryData {
 
 // Cliente para Dokan (Tiendas)
 const dokanClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://lyriumbiomarketplace.com/wp-json/dokan/v1",
+  baseURL: API_CONFIG.dokanApiUrl,
   headers: {
     "Content-Type": "application/json",
   },
@@ -32,7 +33,7 @@ const dokanClient = axios.create({
 
 // Cliente para WooCommerce (Productos) - Usando Basic Auth (más compatible con CORS/WP)
 const wcClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_WC_API_URL || "https://lyriumbiomarketplace.com/wp-json/wc/v3",
+  baseURL: API_CONFIG.wcApiUrl,
   headers: {
     "Content-Type": "application/json",
   },
@@ -255,3 +256,36 @@ export const updateStoreStatus = async (id: number, status: string): Promise<any
   });
   return response.data;
 };
+
+// ============================================
+// NEW API LAYER (Tarea 2)
+// ============================================
+import { WPOrderRepository, WPProductRepository, WPAuthRepository, WPUserRepository } from './api/wp';
+import { LaravelOrderRepository, LaravelProductRepository, LaravelAuthRepository, LaravelUserRepository } from './api/laravel';
+import type { IOrderRepository, IProductRepository, IAuthRepository, IUserRepository } from './api/contracts';
+import { API_BACKEND } from './config/flags';
+
+const wpRepositories = {
+    orders: new WPOrderRepository(),
+    products: new WPProductRepository(),
+    auth: new WPAuthRepository(),
+    users: new WPUserRepository(),
+};
+
+const laravelRepositories = {
+    orders: new LaravelOrderRepository(),
+    products: new LaravelProductRepository(),
+    auth: new LaravelAuthRepository(),
+    users: new LaravelUserRepository(),
+};
+
+const repositories = API_BACKEND === 'laravel' ? laravelRepositories : wpRepositories;
+
+export const orders: IOrderRepository = repositories.orders;
+export const products: IProductRepository = repositories.products;
+export const auth: IAuthRepository = repositories.auth;
+export const users: IUserRepository = repositories.users;
+
+export const api = { orders, products, auth, users };
+
+export type { IOrderRepository, IProductRepository, IAuthRepository, IUserRepository };

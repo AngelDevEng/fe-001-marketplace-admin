@@ -43,13 +43,8 @@ export const ORDER_STATUSES: OrderStatus[] = [
   'failed',
 ];
 
-export function formatCurrency(amount: number, currency = 'PEN'): string {
-  return new Intl.NumberFormat('es-PE', {
-    style: 'currency',
-    currency,
-  }).format(amount);
-}
-
+// formatDate y formatDateTime en order-utils usan formatos específicos para pedidos
+// (mes completo/abreviado) que difieren de formatters.ts
 export function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('es-PE', {
     day: '2-digit',

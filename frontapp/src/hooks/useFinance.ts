@@ -2,7 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getSalesReport, getOrders } from '@/lib/api';
-import { SalesReport, Order } from '@/lib/types';
+import { SalesReport, Order } from '@/lib/types/wp/wp-types';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export interface FinanceData {
     totalRevenue: number;
@@ -23,6 +24,11 @@ export const useFinance = () => {
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['admin', 'finance'],
         queryFn: async () => {
+            if (USE_MOCKS) {
+                // TODO Tarea 3: Implementar mock real para finance
+                return { totalRevenue: 0, growthPercentage: 0, netProfit: 0, commissionRate: 7.5, topBuyers: [], heatmap: [] } as FinanceData;
+            }
+
             const [salesReports, orders] = await Promise.all([
                 getSalesReport('month'),
                 getOrders()

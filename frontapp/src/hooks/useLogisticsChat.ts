@@ -9,6 +9,7 @@ export function useLogisticsChat() {
     const [selectedConversationId, setSelectedConversationId] = useState<string | null>(null);
     const [filters, setFilters] = useState({ search: '' });
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const prevMessagesLengthRef = useRef<number>(0);
 
     const selectedConversation = useMemo(() => {
         return conversations.find(c => c.id === selectedConversationId) || null;
@@ -34,6 +35,7 @@ export function useLogisticsChat() {
     }, [conversations]);
 
     const selectConversation = (conversationId: string) => {
+        prevMessagesLengthRef.current = 0; // Reset para evitar scroll al cambiar de chat
         setSelectedConversationId(conversationId);
         setConversations(prev => prev.map(c => {
             if (c.id === conversationId) {
@@ -43,13 +45,24 @@ export function useLogisticsChat() {
         }));
     };
 
+    useEffect(() => {
+        const currentLength = selectedConversation?.messages.length || 0;
+        // Solo hacer scroll si la cantidad de mensajes AUMENTÓ (nuevo mensaje)
+        if (currentLength > prevMessagesLengthRef.current) {
+            setTimeout(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+        prevMessagesLengthRef.current = currentLength;
+    }, [selectedConversation?.messages.length]);
+
     const sendMessage = (content: string) => {
         if (!selectedConversationId) return;
 
         const newMessage: LogisticsMessage = {
             id: `msg-${Date.now()}`,
             sender: 'operator',
-            senderName: 'Operador Logístico', // TODO: reemplazar por user.name desde AuthContext
+            senderName: 'Operador Logístico',
             content,
             timestamp: new Date().toISOString(),
             read: true,
@@ -66,11 +79,11 @@ export function useLogisticsChat() {
             }
             return c;
         }));
-    };
 
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [selectedConversation?.messages.length]);
+        setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    };
 
     return {
         conversations: filteredConversations,

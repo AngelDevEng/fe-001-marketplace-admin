@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { getProducts, getOrders } from '@/lib/api';
-import { Product } from '@/lib/types';
+import { Product, Order, OrderLineItem } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 
 export default function CatalogPerformanceList() {
@@ -17,8 +17,8 @@ export default function CatalogPerformanceList() {
 
                 // Contar ventas por producto
                 const productSales: { [key: number]: number } = {};
-                orders.forEach(order => {
-                    order.line_items.forEach(item => {
+                orders.forEach((order: Order) => {
+                    order.line_items.forEach((item: OrderLineItem) => {
                         productSales[item.product_id] = (productSales[item.product_id] || 0) + item.quantity;
                     });
                 });

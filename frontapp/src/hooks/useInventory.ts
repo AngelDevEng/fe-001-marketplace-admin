@@ -4,8 +4,10 @@ import { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { InventoryItem, ItemType, ItemStatus } from '@/lib/types/admin/inventory';
 import { getProducts, updateProduct } from '@/lib/api';
-import { Product } from '@/lib/types';
+import { Product } from '@/lib/types/wp/wp-types';
 import { useNotifications } from '@/context/NotificationContext';
+import { USE_MOCKS } from '@/lib/config/flags';
+import { MOCK_INVENTORY_DATA } from '@/lib/mocks/inventoryData';
 
 export const useInventory = () => {
     const queryClient = useQueryClient();
@@ -22,6 +24,10 @@ export const useInventory = () => {
     const { data: items = [], isLoading, error, refetch } = useQuery({
         queryKey: ['admin', 'inventory'],
         queryFn: async () => {
+            if (USE_MOCKS) {
+                return MOCK_INVENTORY_DATA as InventoryItem[];
+            }
+
             const wcProducts = await getProducts();
 
             return wcProducts.map((p: Product) => {

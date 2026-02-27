@@ -3,19 +3,12 @@
 import React from 'react';
 import { Voucher, VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
 import Icon from '@/components/ui/Icon';
+import BaseStatusBadge, { VOUCHER_STATUS_MAPPINGS } from '@/components/ui/BaseStatusBadge';
 
 interface InvoiceTableProps {
     vouchers: Voucher[];
     onViewDetail: (voucher: Voucher) => void;
 }
-
-const statusConfig: Record<VoucherStatus, { label: string; icon: string; class: string }> = {
-    'DRAFT': { label: 'Borrador', icon: 'FileText', class: 'bg-gray-100 text-gray-600' },
-    'SENT_WAIT_CDR': { label: 'Enviado', icon: 'Clock', class: 'bg-amber-100 text-amber-700' },
-    'ACCEPTED': { label: 'Aceptado', icon: 'CheckCircle2', class: 'bg-emerald-100 text-emerald-700' },
-    'OBSERVED': { label: 'Observado', icon: 'AlertTriangle', class: 'bg-orange-100 text-orange-700' },
-    'REJECTED': { label: 'Rechazado', icon: 'XCircle', class: 'bg-red-100 text-red-700' }
-};
 
 const typeConfig: Record<VoucherType, { icon: string; bg: string; text: string }> = {
     'FACTURA': { icon: 'FileText', bg: 'bg-sky-100', text: 'text-sky-600' },
@@ -59,7 +52,6 @@ export default function InvoiceTable({ vouchers, onViewDetail }: InvoiceTablePro
                             </tr>
                         ) : (
                             vouchers.map((v) => {
-                                const status = statusConfig[v.sunat_status] || statusConfig.DRAFT;
                                 const type = typeConfig[v.type] || typeConfig.FACTURA;
 
                                 return (
@@ -89,10 +81,12 @@ export default function InvoiceTable({ vouchers, onViewDetail }: InvoiceTablePro
                                             <p className="text-xs font-bold text-gray-600">{formatDate(v.emission_date)}</p>
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider ${status.class}`}>
-                                                <Icon name={status.icon} className="w-3 h-3" />
-                                                {status.label}
-                                            </span>
+                                            <BaseStatusBadge 
+                                                status={v.sunat_status} 
+                                                mappings={VOUCHER_STATUS_MAPPINGS}
+                                                variant="large"
+                                                customClass="gap-2 rounded-xl font-black"
+                                            />
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button

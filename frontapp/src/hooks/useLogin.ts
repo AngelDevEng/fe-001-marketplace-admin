@@ -46,8 +46,17 @@ export function useLogin(): UseLoginReturn {
         }
 
         try {
-            await authLogin(credentials);
+            const result = await authLogin(credentials);
             
+            if (!result || result.success === false) {
+                const errorMsg = result?.error || 'Credenciales inválidas';
+                setError(errorMsg);
+                return { 
+                    success: false, 
+                    error: errorMsg 
+                };
+            }
+
             return { 
                 success: true, 
                 message: 'Login exitoso. Redirigiendo...' 

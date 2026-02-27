@@ -24,8 +24,8 @@ export default function CardProxPago({ data, formatCurrency }: CardProxPagoProps
                 </div>
 
                 <div className="space-y-1">
-                    <h3 className="text-4xl font-black text-gray-800 tracking-tighter leading-none">Recaudado</h3>
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Próximo Pago</p>
+                    <h3 className="text-2xl font-black text-gray-800 tracking-tighter leading-none">Recaudado</h3>
+                    <p className="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">Próximo Pago</p>
                 </div>
 
                 <div className="relative flex items-center justify-center h-[200px] mt-6">

@@ -336,7 +336,7 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
         actions={
           <BaseButton
             onClick={handleCreateProduct}
-            variant="secondary"
+            variant="action"
             leftIcon="PlusCircle"
             size="md"
             className="!rounded-3xl"

@@ -2,6 +2,7 @@
 
 import { revalidateTag, revalidatePath } from 'next/cache';
 import { ProductFormSchema } from '../schemas/product.schema';
+import { API_CONFIG } from '../config/api';
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
@@ -57,7 +58,7 @@ export async function uploadImageToWordPress(
     }
 
     const auth = Buffer.from(`${key}:${secret}`).toString('base64');
-    const wpUrl = process.env.NEXT_PUBLIC_API_URL || 'https://lyriumbiomarketplace.com';
+    const wpUrl = API_CONFIG.baseUrl;
 
     const response = await fetch(`${wpUrl}/wp-json/wp/v2/media`, {
       method: 'POST',
@@ -156,7 +157,7 @@ export async function createProduct(
     }
 
     const auth = Buffer.from(`${key}:${secret}`).toString('base64');
-    const wcUrl = process.env.NEXT_PUBLIC_WC_API_URL || 'https://lyriumbiomarketplace.com/wp-json/wc/v3';
+    const wcUrl = API_CONFIG.wcApiUrl;
 
     const productPayload: Record<string, unknown> = {
       name,
@@ -279,7 +280,7 @@ export async function updateProduct(
     const key = process.env.NEXT_PUBLIC_WP_CS_KEY;
     const secret = process.env.NEXT_PUBLIC_WP_CS_SECRET;
     const auth = Buffer.from(`${key}:${secret}`).toString('base64');
-    const wcUrl = process.env.NEXT_PUBLIC_WC_API_URL || 'https://lyriumbiomarketplace.com/wp-json/wc/v3';
+    const wcUrl = API_CONFIG.wcApiUrl;
 
     const productPayload: Record<string, unknown> = {
       name,
@@ -327,7 +328,7 @@ async function verifyWordPressNonce(nonce: string, action: string): Promise<bool
   }
   
   try {
-    const wpUrl = process.env.NEXT_PUBLIC_API_URL || 'https://lyriumbiomarketplace.com';
+    const wpUrl = API_CONFIG.baseUrl;
     const response = await fetch(`${wpUrl}/wp-json/custom/v1/verify-nonce`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -48,14 +48,14 @@ export default function OrderDetailModal({ order, isOpen, onClose, onAdvanceStep
                 <p className="text-[10px] font-black text-sky-200 uppercase tracking-widest mb-1 flex items-center gap-1 justify-center sm:justify-start">
                     <Icon name="CheckCircle2" className="text-white w-3 h-3" /> Total a Liquidar
                 </p>
-                <p className="text-4xl font-black text-white tracking-tighter">
+                <p className="text-1xl font-black text-white tracking-tighter">
                     S/ {order.total.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
                 </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                 <BaseButton
                     variant="ghost"
-                    className="flex-1 sm:flex-none !text-gray-300 !border-gray-700 hover:!bg-gray-800"
+                    className="flex-1 sm:flex-none !text-white !border-gray-700 hover:!bg-white hover:!text-gray-900 shadow-lg"
                     leftIcon="Printer"
                 >
                     Imprimir

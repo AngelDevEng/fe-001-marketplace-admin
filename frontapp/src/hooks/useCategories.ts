@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCategories, createCategory, updateCategory, deleteCategory } from '@/lib/api';
-import { ProductCategory } from '@/lib/types';
+import { ProductCategory } from '@/lib/types/wp/wp-types';
 
 export interface CategoryNode extends ProductCategory {
     children: CategoryNode[];

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 import QueryProvider from '@/components/providers/QueryProvider';
 
-export default function RootLayout({
+export default function RootLayout ({
   children,
 }: Readonly<{
   children: React.ReactNode;

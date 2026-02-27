@@ -11,7 +11,7 @@ import { Menu } from 'lucide-react';
 
 export default function SellerHeader({ onOpenMenu }: { onOpenMenu: () => void }) {
     const breadcrumbs = useAutoBreadcrumb();
-    const { status, checkConnection, isHealthy } = useApiConnection();
+    const { status, checkConnection, isHealthy, showLaravel } = useApiConnection();
 
     return (
         <header className="h-16 bg-white border-b border-sky-100 sticky top-0 z-50">
@@ -36,7 +36,7 @@ export default function SellerHeader({ onOpenMenu }: { onOpenMenu: () => void })
                 {/* Right: Connection Status + Quick Stats + Actions */}
                 <div className="flex items-center gap-4">
                     {/* Connection Status */}
-                    <ConnectionStatusPanel status={status} onRefresh={checkConnection} />
+                    <ConnectionStatusPanel status={status} onRefresh={checkConnection} showLaravel={showLaravel} />
                     
                     {/* Connection Health Indicator */}
                     <div className={`hidden lg:flex items-center gap-2 px-2 py-1 rounded-full ${

@@ -4,14 +4,15 @@
 // ============================================
 
 /**
- * Formatea un número como moneda en soles (PEN)
+ * Formatea un número como moneda
  * @param val - Valor numérico a formatear
+ * @param currency - Código de moneda (default: 'PEN')
  * @returns String formateado como "S/ 1,234.56"
  */
-export function formatCurrency(val: number): string {
+export function formatCurrency(val: number, currency: string = 'PEN'): string {
     return new Intl.NumberFormat('es-PE', {
         style: 'currency',
-        currency: 'PEN'
+        currency
     }).format(val);
 }
 

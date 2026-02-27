@@ -1,22 +1,14 @@
 import React from 'react';
 import { Order } from '@/lib/types/seller/sales';
 import Icon from '@/components/ui/Icon';
+import BaseStatusBadge, { ORDER_STATUS_MAPPINGS } from '@/components/ui/BaseStatusBadge';
 
 interface OrderCardProps {
     order: Order;
     onClick: (order: Order) => void;
 }
 
-const statusConfig = {
-    'pagado': { class: 'bg-emerald-100 text-emerald-700', label: 'Confirmado', icon: 'CheckCircle' },
-    'en_proceso': { class: 'bg-blue-100 text-blue-700', label: 'En Proceso', icon: 'Truck' },
-    'entregado': { class: 'bg-indigo-100 text-indigo-700', label: 'Completado', icon: 'Flag' },
-    'pendiente': { class: 'bg-amber-100 text-amber-700', label: 'Pendiente', icon: 'Hourglass' },
-    'cancelado': { class: 'bg-red-100 text-red-700', label: 'Cancelado', icon: 'Ban' }
-};
-
 export default function OrderCard({ order, onClick }: OrderCardProps) {
-    const config = statusConfig[order.estado] || statusConfig.pendiente;
     const progress = (order.currentStep / 5) * 100;
 
     // Format date: dd Mmm, YYYY
@@ -38,10 +30,11 @@ export default function OrderCard({ order, onClick }: OrderCardProps) {
                             {order.cliente}
                         </h3>
                     </div>
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-lg text-[8px] font-extrabold uppercase tracking-wider ${config.class} flex items-center gap-1`}>
-                        <Icon name={config.icon} className="w-3 h-3" />
-                        {config.label}
-                    </span>
+                    <BaseStatusBadge 
+                        status={order.estado} 
+                        mappings={ORDER_STATUS_MAPPINGS}
+                        customClass="flex items-center gap-1"
+                    />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">

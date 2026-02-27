@@ -3,6 +3,7 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { useLogin } from '@/hooks/useLogin';
 import { Loader2, Lock, Mail, User, Phone, Building2, ArrowRight, CheckCircle } from 'lucide-react';
+import IntroCover from '@/components/ui/IntroCover';
 
 interface LoginFormProps {
     onSuccess?: () => void;
@@ -10,8 +11,8 @@ interface LoginFormProps {
 
 export default function LoginForm({ onSuccess }: LoginFormProps) {
     const [showIntro, setShowIntro] = useState(true);
-    const [isIntroExiting, setIsIntroExiting] = useState(false);
     const [isRegisterMode, setIsRegisterMode] = useState(false);
+    const [userType, setUserType] = useState<'vendedor' | 'cliente'>('vendedor');
     const [loginData, setLoginData] = useState({
         username: '',
         password: '',
@@ -30,21 +31,31 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
     const { login, isLoading, error, clearError } = useLogin();
 
     const handleEnterPortal = () => {
-        setIsIntroExiting(true);
-        setTimeout(() => {
-            setShowIntro(false);
-        }, 800);
+        setShowIntro(false);
     };
 
-    useEffect(() => {
-        const handleKeyPress = (e: KeyboardEvent) => {
-            if (e.key === 'Enter' && !showIntro) {
-                handleEnterPortal();
-            }
+    const introConfig = userType === 'vendedor' 
+        ? {
+            title: 'El Marketplace que cuida tu marca',
+            subtitle: 'Únete a la comunidad de vendedores que están transformando el comercio sostenible',
+            icon: 'Building2',
+            backgroundImage: '/img/intro/imagenVendedoresloginTienda.png',
+            iconSize: '112px'
+        }
+        : {
+            title: 'Únete a la evolución del comercio',
+            subtitle: 'Crea tu cuenta en Lyrium y posiciona tu marca en el marketplace que cuida el futuro.',
+            icon: 'Flower2',
+            backgroundImage: '/img/intro/loginIngresar.png',
+            iconSize: '112px'
         };
-        window.addEventListener('keypress', handleKeyPress);
-        return () => window.removeEventListener('keypress', handleKeyPress);
-    }, [showIntro]);
+
+    const handleUserTypeChange = (type: 'vendedor' | 'cliente') => {
+        setUserType(type);
+        setIsRegisterMode(false);
+        setFormError(null);
+        setFormSuccess(null);
+    };
 
     const handleLoginSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -66,17 +77,26 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         setFormError(null);
         setFormSuccess(null);
 
-        if (registerData.ruc.length !== 11) {
-            setFormError('El RUC debe tener exactamente 11 dígitos');
-            return;
+        // Validación según tipo de usuario
+        if (userType === 'vendedor') {
+            if (registerData.ruc.length !== 11) {
+                setFormError('El RUC debe tener exactamente 11 dígitos');
+                return;
+            }
+            if (registerData.phone.length !== 9) {
+                setFormError('El teléfono debe tener exactamente 9 dígitos');
+                return;
+            }
+            setFormSuccess('Registro exitoso. Recibirás un email cuando sea aprobado.');
+        } else {
+            // Cliente: solo necesita email y password básicos
+            if (!registerData.email || !registerData.password) {
+                setFormError('Por favor completa todos los campos');
+                return;
+            }
+            setFormSuccess('¡Cuenta creada exitosamente! Ya puedes comprar en Lyrium.');
         }
-
-        if (registerData.phone.length !== 9) {
-            setFormError('El teléfono debe tener exactamente 9 dígitos');
-            return;
-        }
-
-        setFormSuccess('Registro exitoso. Recibirás un email cuando sea aprobado.');
+        
         setTimeout(() => {
             setRegisterData({
                 storeName: '',
@@ -123,57 +143,16 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
     if (showIntro) {
         return (
-            <div className={`fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-br from-sky-500/95 via-sky-400/90 to-lime-400/85 transition-all duration-700 ${isIntroExiting ? 'opacity-0 translate-y-[-100px] scale-95' : ''}`}>
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&q=80')] bg-cover bg-center opacity-20" />
-                <div className="absolute inset-0 bg-black/30" />
-                
-                {/* Floating particles */}
-                <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                    <div className="absolute top-[10%] left-[10%] w-24 h-24 bg-white/30 rounded-full animate-[floatParticle_20s_ease-in-out_infinite]" />
-                    <div className="absolute top-[60%] right-[15%] w-36 h-36 bg-white/30 rounded-full animate-[floatParticle_20s_ease-in-out_infinite_5s]" />
-                    <div className="absolute bottom-[15%] left-[20%] w-20 h-20 bg-white/30 rounded-full animate-[floatParticle_20s_ease-in-out_infinite_10s]" />
-                </div>
-
-                <div className="relative z-10 text-center max-w-[800px] px-10 animate-[fadeInUp_1s_ease-out]">
-                    <div className="mb-10 animate-[float_3s_ease-in-out_infinite]">
-                        <Building2 className="w-28 h-28 mx-auto text-white drop-shadow-lg" />
-                    </div>
-                    <h1 className="text-[3.5rem] font-black text-white mb-5 leading-tight drop-shadow-lg animate-[fadeInUp_1s_ease-out_0.2s_both]">
-                        El Marketplace que cuida tu marca
-                    </h1>
-                    <p className="text-xl text-white/95 mb-12 leading-relaxed drop-shadow-md animate-[fadeInUp_1s_ease-out_0.4s_both]">
-                        Únete a la comunidad de vendedores que están transformando el comercio sostenible
-                    </p>
-                    <button
-                        onClick={handleEnterPortal}
-                        className="inline-flex items-center gap-3 py-5 px-12 bg-white text-sky-500 rounded-full text-lg font-bold shadow-[0_20px_60px_rgba(0,0,0,0.3)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.4)] hover:-translate-y-1 hover:scale-105 transition-all duration-300 animate-[fadeInUp_1s_ease-out_0.6s_both] animate-[pulse_2s_ease-in-out_2s_infinite] uppercase tracking-wide"
-                    >
-                        <span>Entrar al Portal</span>
-                        <ArrowRight className="w-6 h-6" />
-                    </button>
-                </div>
-
-                <style jsx global>{`
-                    @keyframes fadeInUp {
-                        from { opacity: 0; transform: translateY(30px); }
-                        to { opacity: 1; transform: translateY(0); }
-                    }
-                    @keyframes float {
-                        0%, 100% { transform: translateY(0px); }
-                        50% { transform: translateY(-20px); }
-                    }
-                    @keyframes pulse {
-                        0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }
-                        50% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 10px rgba(255, 255, 255, 0.2); }
-                    }
-                    @keyframes floatParticle {
-                        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-                        25% { transform: translate(30px, -30px) scale(1.1); opacity: 0.5; }
-                        50% { transform: translate(-20px, -50px) scale(0.9); opacity: 0.4; }
-                        75% { transform: translate(40px, -20px) scale(1.05); opacity: 0.6; }
-                    }
-                `}</style>
-            </div>
+            <IntroCover
+                title={introConfig.title}
+                subtitle={introConfig.subtitle}
+                icon={introConfig.icon}
+                buttonText="Entrar"
+                onEnter={handleEnterPortal}
+                autoHideAfter={0}
+                backgroundImage={introConfig.backgroundImage}
+                iconSize={introConfig.iconSize}
+            />
         );
     }
 
@@ -210,34 +189,46 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                         {/* Login Content */}
                         <div className={`transition-all duration-300 ${isRegisterMode ? 'opacity-0 hidden' : 'opacity-100'}`}>
                             <h2 className="text-[2rem] font-black mb-4 leading-tight">
-                                ¡Qué gusto verte de nuevo!
+                                {userType === 'vendedor' ? '¡Qué gusto verte de nuevo!' : '¡Bienvenido de nuevo!'}
                             </h2>
                             <p className="text-white/95 text-center max-w-[300px] mx-auto">
-                                Accede a tu panel para revisar tus ventas de hoy y actualizar tu inventario.
+                                {userType === 'vendedor' 
+                                    ? 'Accede a tu panel para revisar tus ventas de hoy y actualizar tu inventario.' 
+                                    : 'Accede a tu cuenta para realizar tus compras y gestionar tus pedidos.'}
                             </p>
                         </div>
 
                         {/* Register Content */}
                         <div className={`transition-all duration-300 absolute top-0 left-0 w-full px-10 py-10 ${isRegisterMode ? 'opacity-100' : 'opacity-0 hidden'}`}>
                             <h2 className="text-[2rem] font-black mb-4 leading-tight">
-                                Haz crecer tu marca con nosotros.
+                                {userType === 'vendedor' ? 'Haz crecer tu marca con nosotros.' : 'Únete a Lyrium'}
                             </h2>
                             <p className="text-white/95 text-center max-w-[300px] mx-auto">
-                                Únete a la comunidad de vendedores más grande y gestiona tus pedidos en un solo lugar.
+                                {userType === 'vendedor' 
+                                    ? 'Únete a la comunidad de vendedores más grande y gestiona tus pedidos en un solo lugar.' 
+                                    : 'Crea tu cuenta y descubre los mejores productos naturales y saludables.'}
                             </p>
                         </div>
                     </div>
 
                     <div className="relative z-10">
                         <p className="text-sm mb-4 opacity-90">
-                            {isRegisterMode ? '¿Ya tienes cuenta?' : '¿Ya eres parte de Lyrium?'}
+                            {isRegisterMode 
+                                ? '¿Ya tienes cuenta?' 
+                                : userType === 'vendedor' 
+                                    ? '¿Ya eres parte de Lyrium como vendedor?' 
+                                    : '¿Ya tienes una cuenta?'}
                         </p>
                         <button
                             type="button"
                             onClick={toggleMode}
                             className="w-full py-4 px-6 bg-white text-sky-500 rounded-xl font-bold text-sm uppercase tracking-wider shadow-[0_10px_25px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all duration-300"
                         >
-                            {isRegisterMode ? 'Iniciar Sesión' : 'Registrarse como vendedor'}
+                            {isRegisterMode 
+                                ? 'Iniciar Sesión' 
+                                : userType === 'vendedor' 
+                                    ? 'Registrarse como vendedor' 
+                                    : 'Crear cuenta'}
                         </button>
                     </div>
 
@@ -253,16 +244,50 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                         isRegisterMode ? 'right-[40%]' : ''
                     }`}
                 >
+                    {/* Toggle Vendedor/Cliente */}
+                    <div className="flex justify-center mb-6">
+                        <div className="bg-slate-100 p-1 rounded-full flex">
+                            <button
+                                type="button"
+                                onClick={() => handleUserTypeChange('vendedor')}
+                                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                                    userType === 'vendedor' 
+                                        ? 'bg-sky-500 text-white shadow-md' 
+                                        : 'text-slate-600 hover:text-sky-500'
+                                }`}
+                            >
+                                Soy vendedor
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => handleUserTypeChange('cliente')}
+                                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                                    userType === 'cliente' 
+                                        ? 'bg-sky-500 text-white shadow-md' 
+                                        : 'text-slate-600 hover:text-sky-500'
+                                }`}
+                            >
+                                Soy cliente
+                            </button>
+                        </div>
+                    </div>
+
                     {/* Login Form */}
                     <div className={`flex flex-col h-full ${isRegisterMode ? 'opacity-0 hidden' : 'opacity-100'}`}>
                         <div className="flex-1 w-[90%] mx-auto">
                             <div className="flex items-center gap-6 mb-8">
                                 <div className="w-16 h-16 bg-sky-50 rounded-2xl flex items-center justify-center text-sky-500 shadow-[0_10px_20px_rgba(14,165,233,0.1)] flex-shrink-0">
-                                    <User className="w-8 h-8" />
+                                    {userType === 'vendedor' ? <Building2 className="w-8 h-8" /> : <User className="w-8 h-8" />}
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-black text-slate-900">Inicia sesión como vendedor</h3>
-                                    <p className="text-slate-500 text-sm">Ingresa tus credenciales para acceder al panel.</p>
+                                    <h3 className="text-2xl font-black text-slate-900">
+                                        {userType === 'vendedor' ? 'Inicia sesión como vendedor' : 'Inicia sesión como cliente'}
+                                    </h3>
+                                    <p className="text-slate-500 text-sm">
+                                        {userType === 'vendedor' 
+                                            ? 'Ingresa tus credenciales para acceder al panel de vendedor.' 
+                                            : 'Ingresa tus credenciales para acceder a tu cuenta.'}
+                                    </p>
                                 </div>
                             </div>
 
@@ -287,7 +312,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             name="username"
                                             value={loginData.username}
                                             onChange={(e) => handleInputChange(e, 'login')}
-                                            placeholder="Nombre de tu tienda o admin"
+                                            placeholder={userType === 'vendedor' ? 'Nombre de tu tienda o admin' : 'tu@email.com'}
                                             autoComplete="username"
                                             required
                                             aria-required="true"
@@ -361,11 +386,17 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                         <div className="flex-1 w-[90%] mx-auto">
                             <div className="flex items-center gap-6 mb-8">
                                 <div className="w-16 h-16 bg-sky-50 rounded-2xl flex items-center justify-center text-sky-500 shadow-[0_10px_20px_rgba(14,165,233,0.1)] flex-shrink-0">
-                                    <Building2 className="w-8 h-8" />
+                                    {userType === 'vendedor' ? <Building2 className="w-8 h-8" /> : <User className="w-8 h-8" />}
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-black text-slate-900">Crea tu tienda</h3>
-                                    <p className="text-slate-500 text-sm">Ingresa los detalles para configurar tu perfil de vendedor.</p>
+                                    <h3 className="text-2xl font-black text-slate-900">
+                                        {userType === 'vendedor' ? 'Crea tu tienda' : 'Crea tu cuenta'}
+                                    </h3>
+                                    <p className="text-slate-500 text-sm">
+                                        {userType === 'vendedor' 
+                                            ? 'Ingresa los detalles para configurar tu perfil de vendedor.' 
+                                            : 'Ingresa tus datos para registrarte como cliente.'}
+                                    </p>
                                 </div>
                             </div>
 

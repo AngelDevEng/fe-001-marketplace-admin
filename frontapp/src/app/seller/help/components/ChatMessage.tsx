@@ -27,8 +27,8 @@ export default function ChatMessage({ message }: ChatMessageProps) {
 
     return (
         <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} animate-fadeIn`}>
-            <div className={`max-w-[80%] p-4 rounded-2xl shadow-sm border border-transparent transition-all
-                ${isUser ? 'bg-emerald-500 text-white rounded-tr-none' : 'bg-cyan-500 text-white rounded-tl-none'}`}>
+            <div className={`max-w-[75%] p-4 rounded-2xl shadow-sm border border-transparent transition-all
+                ${isUser ? 'bg-emerald-500 text-white rounded-tr-none' : 'bg-sky-500 text-white rounded-tl-none'}`}>
 
                 <div className="text-sm font-medium leading-relaxed">
                     {parseMarkdown(message.texto)}
