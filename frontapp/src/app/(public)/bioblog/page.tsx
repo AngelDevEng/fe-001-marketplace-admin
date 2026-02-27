@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import BioBlogHero from './components/BioBlogHero';
 import HeroCarousel from './components/HeroCarousel';
 import PostGridCarousel from './components/PostGridCarousel';
@@ -15,7 +16,9 @@ export const metadata: Metadata = {
 export default function BioBlogPage() {
     return (
         <div className="min-h-screen bg-gray-50">
-            <BioBlogHero />
+            <Suspense fallback={null}>
+                <BioBlogHero />
+            </Suspense>
             
             {/* Sección de Publicaciones Header */}
             <div className="pt-16 pb-8 text-center max-w-4xl mx-auto px-4">

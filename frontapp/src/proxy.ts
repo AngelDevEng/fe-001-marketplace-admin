@@ -19,7 +19,7 @@ const publicPaths = [
   '/api/webhooks',
 ];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (publicPaths.some(path => pathname.startsWith(path))) {
