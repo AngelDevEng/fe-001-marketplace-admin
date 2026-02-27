@@ -3,6 +3,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Service, Specialist, Appointment } from '@/lib/types/seller/service';
 import { useToast } from '@/context/ToastContext';
+import { api } from '@/lib/api';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export function useSellerServices() {
     const queryClient = useQueryClient();
@@ -12,11 +14,18 @@ export function useSellerServices() {
     const { data: specialists = [], isLoading: loadingSpecialists } = useQuery({
         queryKey: ['seller', 'specialists'],
         queryFn: async () => {
-            await new Promise(r => setTimeout(r, 600));
-            return [
-                { id: 1, nombres: 'Dra. María', apellidos: 'García', especialidad: 'Nutrición Deportiva', avatar_chars: 'MG', color: '#10b981' },
-                { id: 2, nombres: 'Lic. Juan', apellidos: 'Pérez', especialidad: 'Fisioterapia', avatar_chars: 'JP', color: '#f59e0b' }
-            ] as Specialist[];
+            if (USE_MOCKS) {
+                return [
+                    { id: 1, nombres: 'Dra. María', apellidos: 'García', especialidad: 'Nutrición Deportiva', avatar_chars: 'MG', color: '#10b981' },
+                    { id: 2, nombres: 'Lic. Juan', apellidos: 'Pérez', especialidad: 'Fisioterapia', avatar_chars: 'JP', color: '#f59e0b' }
+                ] as Specialist[];
+            }
+            try {
+                return await api.products.getProducts() as unknown as Specialist[];
+            } catch (e) {
+                console.warn('FALLBACK: Specialists pendiente');
+                return [] as Specialist[];
+            }
         },
         staleTime: 5 * 60 * 1000,
     });
@@ -24,8 +33,8 @@ export function useSellerServices() {
     const { data: services = [], isLoading: loadingServices, refetch: refetchServices } = useQuery({
         queryKey: ['seller', 'services'],
         queryFn: async () => {
-            await new Promise(r => setTimeout(r, 800));
-            return [
+            if (USE_MOCKS) {
+                return [
                 {
                     id: 1,
                     nombre: 'Evaluación Nutricional Integral',
@@ -45,6 +54,13 @@ export function useSellerServices() {
                     config: { hora_inicio: '09:00', hora_fin: '17:00', duracion: 60, max_citas: 1, dias: ['Mar', 'Jue'] }
                 }
             ] as Service[];
+            }
+            try {
+                return await api.products.getProducts() as unknown as Service[];
+            } catch (e) {
+                console.warn('FALLBACK: Services pendiente');
+                return [] as Service[];
+            }
         },
         staleTime: 5 * 60 * 1000,
     });
@@ -52,10 +68,19 @@ export function useSellerServices() {
     const { data: appointments = [], isLoading: loadingAppointments } = useQuery({
         queryKey: ['seller', 'appointments'],
         queryFn: async () => {
-            await new Promise(r => setTimeout(r, 700));
-            return [
-                { id: 101, fecha: '2024-03-20', hora: '10:00', duracionMinutos: 45, especialistaId: 1, cliente: 'Carlos Rodríguez', servicio: 'Evaluación Nutricional Integral' }
-            ] as Appointment[];
+            if (USE_MOCKS) {
+                await new Promise(r => setTimeout(r, 300));
+                return [
+                    { id: 101, fecha: '2024-03-20', hora: '10:00', duracionMinutos: 45, especialistaId: 1, cliente: 'Carlos Rodríguez', servicio: 'Evaluación Nutricional Integral' }
+                ] as Appointment[];
+            }
+            try {
+                // TODO Tarea 3: Conectar endpoint real
+                return [] as Appointment[];
+            } catch (e) {
+                console.warn('FALLBACK: Appointments pendiente');
+                return [] as Appointment[];
+            }
         },
         staleTime: 2 * 60 * 1000,
     });

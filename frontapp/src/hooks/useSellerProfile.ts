@@ -3,8 +3,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
-import { getDetailStore, updateStoreStatus } from '@/lib/api'; // Note: updateStoreStatus is for admin, we might need a seller specific update or a mock for now
+import { getDetailStore } from '@/lib/api';
 import { validateRUC, validateDNI, validateBCPAccount, validateCCI } from '@/lib/utils/validation';
+import { USE_MOCKS } from '@/lib/config/flags';
+import { api } from '@/lib/api';
 
 export interface VendorProfileData {
     razon_social: string;
@@ -13,10 +15,7 @@ export interface VendorProfileData {
     rep_legal_nombre: string;
     rep_legal_dni: string;
     experience_years: number;
-    location: {
-        department: string;
-        province: string;
-    };
+    location: { department: string; province: string };
     tax_condition: string;
     admin_nombre: string;
     admin_dni: string;
@@ -27,11 +26,7 @@ export interface VendorProfileData {
     cuenta_bcp: string;
     cci: string;
     bank_secondary: string;
-    rrss: {
-        instagram: string;
-        facebook: string;
-        tiktok: string;
-    };
+    rrss: { instagram: string; facebook: string; tiktok: string };
     rep_legal_photo?: string;
 }
 
@@ -40,7 +35,6 @@ export function useSellerProfile() {
     const { showToast } = useToast();
     const queryClient = useQueryClient();
 
-    // --- Query: Fetch Profile ---
     const { data, isLoading: loading, error } = useQuery({
         queryKey: ['seller', 'profile', user?.id],
         queryFn: async () => {
@@ -55,10 +49,7 @@ export function useSellerProfile() {
                 rep_legal_nombre: `${store.first_name || ""} ${store.last_name || ""}`.trim(),
                 rep_legal_dni: "40000001",
                 experience_years: 2,
-                location: {
-                    department: store.address?.state || "Piura",
-                    province: store.address?.city || "Piura"
-                },
+                location: { department: store.address?.state || "Piura", province: store.address?.city || "Piura" },
                 tax_condition: "Régimen General",
                 admin_nombre: `${store.first_name || ""} ${store.last_name || ""}`.trim(),
                 admin_dni: "40000001",
@@ -69,23 +60,19 @@ export function useSellerProfile() {
                 cuenta_bcp: "19100000000000",
                 cci: "00219100000000000000",
                 bank_secondary: store.bank_name || "",
-                rrss: {
-                    instagram: store.social?.instagram || "",
-                    facebook: store.social?.fb || "",
-                    tiktok: store.social?.threads || ""
-                },
-                rep_legal_photo: store.gravatar || "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=100&auto=format&fit=crop"
+                rrss: { instagram: store.social?.instagram || "", facebook: store.social?.fb || "", tiktok: store.social?.threads || "" },
+                rep_legal_photo: store.gravatar || "https://images.unsplash.com/photo-1560250097-0b93528c311a"
             } as VendorProfileData;
         },
         enabled: !!user?.id,
         staleTime: 10 * 60 * 1000,
     });
 
-    // --- Mutation: Update Profile ---
     const updateMutation = useMutation({
         mutationFn: async (updatedData: VendorProfileData) => {
-            // In a real app we'd call an API like updateStore(user.id, updatedData)
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            if (!USE_MOCKS) {
+                await api.users.updateUser(user!.id, updatedData as any);
+            }
             return updatedData;
         },
         onSuccess: (newData) => {
@@ -98,39 +85,25 @@ export function useSellerProfile() {
     });
 
     const validateForm = (formData: VendorProfileData): boolean => {
-        if (!validateRUC(formData.ruc)) {
-            showToast("El RUC debe tener exactamente 11 dígitos numéricos.", "error");
-            return false;
-        }
-        if (!validateDNI(formData.rep_legal_dni)) {
-            showToast("El DNI del Representante Legal debe tener exactamente 8 dígitos numéricos.", "error");
-            return false;
-        }
-        if (formData.admin_dni && !validateDNI(formData.admin_dni)) {
-            showToast("El DNI del Administrador debe tener exactamente 8 dígitos numéricos.", "error");
-            return false;
-        }
-        if (!validateBCPAccount(formData.cuenta_bcp)) {
-            showToast("La Cuenta BCP debe tener exactamente 14 dígitos numéricos.", "error");
-            return false;
-        }
-        if (!validateCCI(formData.cci)) {
-            showToast("El CCI debe tener exactamente 20 dígitos numéricos.", "error");
-            return false;
-        }
+        if (!validateRUC(formData.ruc)) { showToast("El RUC debe tener exactamente 11 dígitos numéricos.", "error"); return false; }
+        if (!validateDNI(formData.rep_legal_dni)) { showToast("El DNI del Representante Legal debe tener exactamente 8 dígitos numéricos.", "error"); return false; }
+        if (formData.admin_dni && !validateDNI(formData.admin_dni)) { showToast("El DNI del Administrador debe tener exactamente 8 dígitos numéricos.", "error"); return false; }
+        if (!validateBCPAccount(formData.cuenta_bcp)) { showToast("La Cuenta BCP debe tener exactamente 14 dígitos numéricos.", "error"); return false; }
+        if (!validateCCI(formData.cci)) { showToast("El CCI debe tener exactamente 20 dígitos numéricos.", "error"); return false; }
+        if (!formData.direccion_fiscal) { showToast("La dirección fiscal es obligatoria.", "error"); return false; }
         return true;
     };
 
     return {
-        data,
+        data: data || null,
         loading,
-        error: error ? (error as Error).message : null,
         isSaving: updateMutation.isPending,
-        updateProfile: (updatedData: VendorProfileData) => {
-            if (validateForm(updatedData)) {
-                return updateMutation.mutateAsync(updatedData);
+        error,
+        updateProfile: async (formData: VendorProfileData) => {
+            if (validateForm(formData)) {
+                await updateMutation.mutateAsync(formData);
             }
-            return Promise.reject("Validation failed");
-        }
+        },
+        validateForm
     };
 }

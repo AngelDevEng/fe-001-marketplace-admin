@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getWithdrawals } from '@/lib/api';
-import { Withdrawal } from '@/lib/types';
+import { Withdrawal } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 import DataTable, { Column } from '@/components/ui/DataTable';
 import { formatCurrency } from '@/lib/utils/formatters';

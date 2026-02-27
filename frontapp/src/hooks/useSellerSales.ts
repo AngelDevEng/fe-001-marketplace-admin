@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Order, SalesKPI } from '@/lib/types/seller/sales';
 import { MOCK_ORDERS, MOCK_KPIS } from '@/lib/mocks/mockSalesData';
+import { api } from '@/lib/api';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export function useSellerSales() {
     const queryClient = useQueryClient();
@@ -13,36 +15,40 @@ export function useSellerSales() {
         dateEnd: null
     });
 
-    // --- Query: Fetch Orders & KPIs ---
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['seller', 'sales', filters],
         queryFn: async () => {
-            await new Promise(r => setTimeout(r, 1000));
-
-            let filteredOrders = MOCK_ORDERS;
-            if (filters.dateStart || filters.dateEnd) {
-                filteredOrders = MOCK_ORDERS.filter(o => {
-                    const oDate = new Date(o.fecha + 'T00:00:00');
-                    const start = filters.dateStart ? new Date(filters.dateStart + 'T00:00:00') : null;
-                    const end = filters.dateEnd ? new Date(filters.dateEnd + 'T00:00:00') : null;
-                    if (start && oDate < start) return false;
-                    if (end && oDate > end) return false;
-                    return true;
-                });
+            if (USE_MOCKS) {
+                let filteredOrders = MOCK_ORDERS;
+                if (filters.dateStart || filters.dateEnd) {
+                    filteredOrders = MOCK_ORDERS.filter(o => {
+                        const oDate = new Date(o.fecha + 'T00:00:00');
+                        const start = filters.dateStart ? new Date(filters.dateStart + 'T00:00:00') : null;
+                        const end = filters.dateEnd ? new Date(filters.dateEnd + 'T00:00:00') : null;
+                        if (start && oDate < start) return false;
+                        if (end && oDate > end) return false;
+                        return true;
+                    });
+                }
+                return { orders: filteredOrders as Order[], kpis: MOCK_KPIS as SalesKPI[] };
             }
 
-            return {
-                orders: filteredOrders as Order[],
-                kpis: MOCK_KPIS as SalesKPI[]
-            };
+                try {
+                    const orders = await api.orders.getOrders();
+                return { orders, kpis: [] as SalesKPI[] };
+            } catch (error) {
+                console.warn('FALLBACK: WPOrderRepository.getOrders() pendiente de implementar');
+                return { orders: MOCK_ORDERS as Order[], kpis: MOCK_KPIS as SalesKPI[] };
+            }
         },
         staleTime: 5 * 60 * 1000,
     });
 
-    // --- Mutation: Advance Order Status ---
     const advanceStepMutation = useMutation({
         mutationFn: async (orderId: string) => {
-            await new Promise(r => setTimeout(r, 800));
+            if (!USE_MOCKS) {
+                await api.orders.advanceOrderStep(orderId);
+            }
             return orderId;
         },
         onSuccess: (orderId) => {
@@ -58,7 +64,7 @@ export function useSellerSales() {
         }
     });
 
-    const selectedOrder = data?.orders.find(o => o.id === selectedOrderId) || null;
+    const selectedOrder = data?.orders.find((o: Order) => o.id === selectedOrderId) || null;
 
     return {
         orders: data?.orders || [],

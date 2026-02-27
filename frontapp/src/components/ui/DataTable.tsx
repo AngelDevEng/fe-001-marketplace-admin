@@ -3,7 +3,7 @@
 import React from 'react';
 import Icon from './Icon';
 import BaseLoading from './BaseLoading';
-import ErrorState from './ErrorState';
+import BaseErrorState from './BaseErrorState';
 import BaseEmptyState from './BaseEmptyState';
 
 export interface Column<T> {
@@ -53,7 +53,7 @@ export default function DataTable<T>({
 
     if (error) {
         return (
-            <ErrorState
+            <BaseErrorState
                 title={errorTitle}
                 message={error}
                 icon="AlertCircle"

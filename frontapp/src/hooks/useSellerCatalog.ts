@@ -4,6 +4,8 @@ import { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Product } from '@/lib/types/seller/product';
 import { MOCK_CATALOG_DATA } from '@/lib/mocks/mockCatalogData';
+import { api } from '@/lib/api';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export function useSellerCatalog() {
     const queryClient = useQueryClient();
@@ -12,27 +14,37 @@ export function useSellerCatalog() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
-    // --- Query: Fetch Catalog ---
     const { data: products = [], isLoading, error, refetch } = useQuery({
         queryKey: ['seller', 'catalog'],
         queryFn: async () => {
-            // Simulamos delay de red
-            await new Promise(res => setTimeout(res, 800));
-            return MOCK_CATALOG_DATA as Product[];
+            if (USE_MOCKS) {
+                return MOCK_CATALOG_DATA as Product[];
+            }
+
+            try {
+                return await api.products.getProducts();
+            } catch (e) {
+                console.warn('FALLBACK: WPProductRepository.getProducts() pendiente');
+                return MOCK_CATALOG_DATA as Product[];
+            }
         },
         staleTime: 5 * 60 * 1000,
     });
 
-    // --- Mutations ---
     const upsertProductMutation = useMutation({
         mutationFn: async (product: Partial<Product>) => {
-            await new Promise(res => setTimeout(res, 1000));
+            if (!USE_MOCKS) {
+                if (product.id) {
+                    return await api.products.updateProduct(product.id, product);
+                }
+                return await api.products.createProduct(product as any);
+            }
             return product;
         },
         onSuccess: (data, variables) => {
             queryClient.setQueryData(['seller', 'catalog'], (old: Product[] | undefined) => {
                 if (!old) return [data as Product];
-                const exists = old.find(p => p.id === variables.id);
+                const exists = old.find((p: Product) => p.id === variables.id);
                 if (exists) {
                     return old.map(p => p.id === variables.id ? { ...p, ...data } : p);
                 }
@@ -45,7 +57,9 @@ export function useSellerCatalog() {
 
     const deleteProductMutation = useMutation({
         mutationFn: async (productId: string) => {
-            await new Promise(res => setTimeout(res, 800));
+            if (!USE_MOCKS) {
+                await api.products.deleteProduct(productId);
+            }
             return productId;
         },
         onSuccess: (deletedId) => {
@@ -56,7 +70,7 @@ export function useSellerCatalog() {
     });
 
     const filteredProducts = useMemo(() => {
-        return products.filter(p =>
+        return products.filter((p: Product) =>
             p.name.toLowerCase().includes(searchText.toLowerCase()) ||
             p.category.toLowerCase().includes(searchText.toLowerCase())
         );

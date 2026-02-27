@@ -7,8 +7,9 @@ import {
 } from '@/lib/types/admin/sellers';
 import { MOCK_CONTROL_DATA } from '@/lib/mocks/sellersData';
 import { getStores, getProducts, updateStoreStatus, updateProduct } from '@/lib/api';
-import { Product as WCProduct } from '@/lib/types';
+import { Product as WCProduct } from '@/lib/types/wp/wp-types';
 import { Store as DokanStore } from '@/lib/types/stores/store';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export const useControlVendedores = () => {
     const queryClient = useQueryClient();
@@ -23,6 +24,10 @@ export const useControlVendedores = () => {
     const { data: rawData, isLoading, error } = useQuery({
         queryKey: ['admin', 'control-vendedores'],
         queryFn: async () => {
+            if (USE_MOCKS) {
+                return MOCK_CONTROL_DATA as ControlVendedoresData;
+            }
+
             const [dokanStores, wcProducts] = await Promise.all([
                 getStores(),
                 getProducts()

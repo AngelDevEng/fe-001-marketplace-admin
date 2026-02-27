@@ -4,7 +4,6 @@ import "./globals.css";
 import { NotificationProvider } from '@/context/NotificationContext';
 import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
-import { PublicHeader, PublicFooter } from '@/components/layout/public';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +22,7 @@ export const metadata: Metadata = {
 
 import QueryProvider from '@/components/providers/QueryProvider';
 
-export default function RootLayout({
+export default function RootLayout ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -39,13 +38,7 @@ export default function RootLayout({
           <AuthProvider>
             <NotificationProvider>
               <ToastProvider>
-                <div className="bg-gray-50 min-h-screen flex flex-col overflow-x-hidden">
-                  <PublicHeader />
-                  <main className="flex-1">
-                    {children}
-                  </main>
-                  <PublicFooter />
-                </div>
+                {children}
               </ToastProvider>
             </NotificationProvider>
           </AuthProvider>

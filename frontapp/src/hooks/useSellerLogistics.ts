@@ -5,6 +5,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { LogisticsConfig, GlobalLogisticsConfig, CityRate, Agency } from '@/lib/types/seller/logistics';
 import { MOCK_LOGISTICS_CONFIG } from '@/lib/mocks/mockLogisticsData';
 import { useToast } from '@/context/ToastContext';
+import { api } from '@/lib/api';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export function useSellerLogistics() {
     const queryClient = useQueryClient();
@@ -17,8 +19,16 @@ export function useSellerLogistics() {
     const { data: config, isLoading, refetch } = useQuery({
         queryKey: ['seller', 'logistics'],
         queryFn: async () => {
-            await new Promise(r => setTimeout(r, 800));
-            return { ...MOCK_LOGISTICS_CONFIG } as LogisticsConfig;
+            if (USE_MOCKS) {
+                return { ...MOCK_LOGISTICS_CONFIG } as LogisticsConfig;
+            }
+            try {
+                // TODO Tarea 3: Conectar endpoint real
+                return { ...MOCK_LOGISTICS_CONFIG } as LogisticsConfig;
+            } catch (e) {
+                console.warn('FALLBACK: Logistics config pendiente');
+                return { ...MOCK_LOGISTICS_CONFIG } as LogisticsConfig;
+            }
         },
         staleTime: 15 * 60 * 1000,
     });
@@ -26,7 +36,9 @@ export function useSellerLogistics() {
     // --- Mutation: Update Everything ---
     const saveMutation = useMutation({
         mutationFn: async (newConfig: LogisticsConfig) => {
-            await new Promise(r => setTimeout(r, 1200));
+            if (!USE_MOCKS) {
+                // TODO Tarea 3: Conectar endpoint real
+            }
             return newConfig;
         },
         onSuccess: (data) => {

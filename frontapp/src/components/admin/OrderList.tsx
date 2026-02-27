@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getOrders } from '@/lib/api';
-import { Order } from '@/lib/types';
+import { Order } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 import DataTable, { Column } from '@/components/ui/DataTable';
 import { getStatusColor, getStatusLabel, OrderStatus } from '@/lib/utils/order-utils';

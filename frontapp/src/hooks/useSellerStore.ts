@@ -4,12 +4,12 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '@/context/AuthContext';
 import { getDetailStore } from '@/lib/api';
 import { ShopConfig, Branch } from '@/lib/types/seller/shop';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export function useSellerStore() {
     const { user } = useAuth();
     const queryClient = useQueryClient();
 
-    // --- Query: Fetch Shop Data ---
     const { data, isLoading, error, refetch } = useQuery({
         queryKey: ['seller', 'store', user?.id],
         queryFn: async () => {
@@ -28,30 +28,14 @@ export function useSellerStore() {
                 social: {
                     instagram: storeData.social?.instagram || "",
                     facebook: storeData.social?.fb || "",
-                    whatsapp: storeData.phone || ""
+                    tiktok: storeData.social?.threads || "",
+                    youtube: storeData.social?.youtube || "",
+                    website: (storeData.social as any)?.web || ""
                 },
-                policies: {
-                    shippingPdf: "envio_v2.pdf",
-                    returnPdf: "devoluciones.pdf"
-                },
-                visual: {
-                    logo: storeData.gravatar || "https://lyriumbiomarketplace.com/wp-content/uploads/2024/09/ICON.png",
-                    banner1: storeData.banner || "https://lyriumbiomarketplace.com/wp-content/uploads/2024/10/1-BG.webp",
-                    gallery: [
-                        "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800",
-                        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800"
-                    ]
-                },
-                layout: '2',
-                medals: [
-                    {
-                        id: '1',
-                        name: 'Identidad Verificada',
-                        description: 'Otorgada al validar satisfactoriamente los documentos oficiales (RUC y DNI) del titular.',
-                        icon: 'BadgeCheck',
-                        date: '2024-01-15'
-                    }
-                ]
+                policies: { shippingPdf: '', returnPdf: '', privacyPdf: '' },
+                visual: { logo: '', banner1: '', gallery: [] },
+                layout: '1',
+                medals: []
             };
 
             const branches: Branch[] = [
@@ -73,11 +57,11 @@ export function useSellerStore() {
         staleTime: 5 * 60 * 1000,
     });
 
-    // --- Mutation: Update Shop Config ---
     const updateStoreMutation = useMutation({
         mutationFn: async ({ updates, branches }: { updates: Partial<ShopConfig>, branches?: Branch[] }) => {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            if (!USE_MOCKS) {
+                // TODO Tarea 3: Conectar endpoint real de actualización de tienda
+            }
             return { updates, branches };
         },
         onSuccess: (variables) => {
@@ -96,16 +80,11 @@ export function useSellerStore() {
         branches: data?.branches || [],
         loading: isLoading,
         saving: updateStoreMutation.isPending,
-        handleUpdateConfig: (updates: Partial<ShopConfig>) =>
-            updateStoreMutation.mutateAsync({ updates }),
-        updateBranches: (newBranches: Branch[]) =>
-            updateStoreMutation.mutateAsync({ updates: {}, branches: newBranches }),
-        handleSave: async (onSuccess: () => void) => {
-            if (data?.config) {
-                await updateStoreMutation.mutateAsync({ updates: data.config, branches: data.branches });
-                onSuccess();
-            }
+        handleUpdateConfig: (updates: Partial<ShopConfig>) => updateStoreMutation.mutate({ updates, branches: undefined }),
+        handleSave: (callback?: () => void) => {
+            if (callback) callback();
         },
+        updateBranches: (branches: Branch[]) => updateStoreMutation.mutate({ updates: {}, branches }),
         refresh: refetch
     };
 }

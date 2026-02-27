@@ -3,8 +3,8 @@
 import React from 'react';
 import { VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
 import Icon from '@/components/ui/Icon';
-import InputField from '@/components/ui/InputField';
-import SelectField from '@/components/ui/SelectField';
+import BaseInputField from '@/components/ui/BaseInputField';
+import BaseSelectField from '@/components/ui/BaseSelectField';
 
 interface InvoiceFilters {
     search?: string;
@@ -25,7 +25,7 @@ export default function InvoiceFilters({ search, status, type, onFilterChange, o
         <div className="glass-card p-6 border-gray-100 animate-fadeIn">
             <div className="flex flex-col md:flex-row gap-4 items-end">
                 <div className="flex-1 space-y-2 w-full">
-                    <InputField
+                    <BaseInputField
                         label="Búsqueda"
                         value={search}
                         onChange={(value) => onFilterChange({ search: value })}

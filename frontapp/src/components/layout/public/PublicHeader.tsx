@@ -9,7 +9,7 @@ const navItems = [
     { label: 'PRODUCTOS', href: '/productos', icon: 'ShoppingBag' },
     { label: 'SERVICIOS', href: '/servicios', icon: 'Headset' },
     { label: 'NOSOTROS', href: '/nosotros', icon: 'Info' },
-    { label: 'REGISTRA TU TIENDA', href: '/loginTienda', icon: 'Storefront' },
+    { label: 'REGISTRA TU TIENDA', href: '/login', icon: 'Storefront' },
     { label: 'TIENDAS REGISTRADAS', href: '/tiendasregistradas', icon: 'Buildings' },
     { label: 'CONTÁCTANOS', href: '/contactanos', icon: 'PhoneCall' },
     { label: 'BIOBLOG', href: '/bioblog', icon: 'Newspaper' },
@@ -32,7 +32,7 @@ export default function PublicHeader() {
                         <div className="hidden md:flex items-center gap-5 text-xs lg:text-[13px] text-sky-600">
                             <Link href="/login" className="flex items-center gap-1 hover:underline">
                                 <Icon name="UserCircle" className="text-[18px]" />
-                                <span className="whitespace-nowrap">Iniciar Sesión | Registrarse</span>
+                                <span className="whitespace-nowrap">Mi Cuenta</span>
                             </Link>
 
                             <Link href="#" className="flex items-center gap-1 hover:underline">

@@ -5,6 +5,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Ticket, TicketType, TicketStatus } from '@/lib/types/seller/helpDesk';
 import { MOCK_TICKETS } from '@/lib/mocks/mockHelpDeskData';
 import { useToast } from '@/context/ToastContext';
+import { api } from '@/lib/api';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export function useSellerHelp() {
     const queryClient = useQueryClient();
@@ -19,8 +21,16 @@ export function useSellerHelp() {
     const { data: tickets = [], isLoading, refetch } = useQuery({
         queryKey: ['seller', 'help', 'tickets'],
         queryFn: async () => {
-            await new Promise(r => setTimeout(r, 800));
-            return [...MOCK_TICKETS] as Ticket[];
+            if (USE_MOCKS) {
+                return [...MOCK_TICKETS] as Ticket[];
+            }
+            try {
+                // TODO Tarea 3: Conectar endpoint real de tickets
+                return [...MOCK_TICKETS] as Ticket[];
+            } catch (e) {
+                console.warn('FALLBACK: Help tickets pendiente');
+                return [...MOCK_TICKETS] as Ticket[];
+            }
         },
         staleTime: 5 * 60 * 1000,
     });
@@ -28,7 +38,9 @@ export function useSellerHelp() {
     // --- Mutation: Send Message ---
     const sendMessageMutation = useMutation({
         mutationFn: async ({ ticketId, text }: { ticketId: number; text: string }) => {
-            await new Promise(r => setTimeout(r, 600));
+            if (!USE_MOCKS) {
+                // TODO Tarea 3: Conectar endpoint real
+            }
             return { ticketId, text };
         },
         onSuccess: ({ ticketId, text }) => {

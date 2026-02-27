@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { getProducts } from '@/lib/api';
-import { Product } from '@/lib/types';
+import { Product } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 import DataTable, { Column } from '@/components/ui/DataTable';
 import BaseLoading from '@/components/ui/BaseLoading';
-import ErrorState from '@/components/ui/ErrorState';
+import BaseErrorState from '@/components/ui/BaseErrorState';
 import BaseEmptyState from '@/components/ui/BaseEmptyState';
 
 const columns: Column<Product>[] = [
@@ -103,7 +103,7 @@ export default function InventoryList() {
 
     if (error) {
         return (
-            <ErrorState
+            <BaseErrorState
                 title="Error de Inventario"
                 message={error}
                 icon="Package"

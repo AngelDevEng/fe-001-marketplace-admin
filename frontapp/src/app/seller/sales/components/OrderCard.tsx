@@ -1,7 +1,7 @@
 import React from 'react';
 import { Order } from '@/lib/types/seller/sales';
 import Icon from '@/components/ui/Icon';
-import StatusBadge, { ORDER_STATUS_MAPPINGS } from '@/components/ui/StatusBadge';
+import BaseStatusBadge, { ORDER_STATUS_MAPPINGS } from '@/components/ui/BaseStatusBadge';
 
 interface OrderCardProps {
     order: Order;
@@ -30,7 +30,7 @@ export default function OrderCard({ order, onClick }: OrderCardProps) {
                             {order.cliente}
                         </h3>
                     </div>
-                    <StatusBadge 
+                    <BaseStatusBadge 
                         status={order.estado} 
                         mappings={ORDER_STATUS_MAPPINGS}
                         customClass="flex items-center gap-1"

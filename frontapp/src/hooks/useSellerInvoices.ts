@@ -5,6 +5,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Voucher, InvoiceKPIs, VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
 import { MOCK_VOUCHERS, calculateKPIs } from '@/lib/mocks/mockInvoiceData';
 import { useFilteredList, FilterConfig } from './useFilteredList';
+import { api } from '@/lib/api';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export interface EmitInvoicePayload {
     seller_id: string;
@@ -66,8 +68,15 @@ export function useSellerInvoices() {
     const { data: vouchers = [] } = useQuery({
         queryKey: ['seller', 'invoices', 'list'],
         queryFn: async () => {
-            await new Promise(r => setTimeout(r, 800));
-            return [...MOCK_VOUCHERS] as Voucher[];
+            if (USE_MOCKS) {
+                return [...MOCK_VOUCHERS] as Voucher[];
+            }
+            try {
+                return await api.orders.getOrders() as unknown as Voucher[];
+            } catch (e) {
+                console.warn('FALLBACK: Invoices pendiente');
+                return [...MOCK_VOUCHERS] as Voucher[];
+            }
         },
         staleTime: 2 * 60 * 1000,
     });

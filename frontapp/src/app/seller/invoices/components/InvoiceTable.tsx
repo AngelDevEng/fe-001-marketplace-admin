@@ -3,7 +3,7 @@
 import React from 'react';
 import { Voucher, VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
 import Icon from '@/components/ui/Icon';
-import StatusBadge, { VOUCHER_STATUS_MAPPINGS } from '@/components/ui/StatusBadge';
+import BaseStatusBadge, { VOUCHER_STATUS_MAPPINGS } from '@/components/ui/BaseStatusBadge';
 
 interface InvoiceTableProps {
     vouchers: Voucher[];
@@ -81,7 +81,7 @@ export default function InvoiceTable({ vouchers, onViewDetail }: InvoiceTablePro
                                             <p className="text-xs font-bold text-gray-600">{formatDate(v.emission_date)}</p>
                                         </td>
                                         <td className="px-6 py-4 text-center">
-                                            <StatusBadge 
+                                            <BaseStatusBadge 
                                                 status={v.sunat_status} 
                                                 mappings={VOUCHER_STATUS_MAPPINGS}
                                                 variant="large"

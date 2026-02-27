@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { AnalyticsData, AnalyticsTab, AnalyticsFilters } from '@/lib/types/admin/analytics';
 import { MOCK_ANALYTICS_DATA } from '@/lib/mocks/analyticsData';
+import { USE_MOCKS } from '@/lib/config/flags';
 
 export const useAnalytics = () => {
     const [activeTab, setActiveTab] = useState<AnalyticsTab>('vendedores');
@@ -16,18 +17,25 @@ export const useAnalytics = () => {
     const { data: analyticsData, isLoading, error, refetch } = useQuery({
         queryKey: ['admin', 'analytics', filters],
         queryFn: async () => {
-            // Simulamos delay de red proporcional a la complejidad del reporte
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            if (USE_MOCKS) {
+                let filteredSellers = MOCK_ANALYTICS_DATA.vendedoresAnalitica;
+                if (filters.rubro !== 'ALL') {
+                    filteredSellers = filteredSellers.filter(s => s.rubro === filters.rubro);
+                }
 
-            let filteredSellers = MOCK_ANALYTICS_DATA.vendedoresAnalitica;
-            if (filters.rubro !== 'ALL') {
-                filteredSellers = filteredSellers.filter(s => s.rubro === filters.rubro);
+                return {
+                    ...MOCK_ANALYTICS_DATA,
+                    vendedoresAnalitica: filteredSellers
+                } as AnalyticsData;
             }
 
-            return {
-                ...MOCK_ANALYTICS_DATA,
-                vendedoresAnalitica: filteredSellers
-            } as AnalyticsData;
+            try {
+                // TODO Tarea 3: Conectar endpoint real de analytics
+                return MOCK_ANALYTICS_DATA as AnalyticsData;
+            } catch (e) {
+                console.warn('FALLBACK: Analytics pendiente');
+                return MOCK_ANALYTICS_DATA as AnalyticsData;
+            }
         },
         staleTime: 15 * 60 * 1000, // Analytics duran 15 min (Big Data)
     });

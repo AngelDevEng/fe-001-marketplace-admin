@@ -9,7 +9,8 @@ export default function UserMenu() {
 
     if (!user) return null;
 
-    const getInitials = (name: string) => {
+    const getInitials = (name: string | undefined | null) => {
+        if (!name) return '?';
         return name
             .split(' ')
             .map(n => n[0])
@@ -33,12 +34,12 @@ export default function UserMenu() {
                         />
                     ) : (
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white text-sm font-medium">
-                            {getInitials(user.display_name)}
+                            {getInitials(user.display_name || user.username)}
                         </div>
                     )}
                     <div className="hidden md:block text-left">
                         <p className="text-sm font-medium text-gray-900">
-                            {user.display_name}
+                            {user.display_name || user.username}
                         </p>
                         <p className="text-xs text-gray-500 capitalize">
                             {user.role}
