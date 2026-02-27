@@ -164,7 +164,7 @@ export const forumApi = {
           content: post.contenido,
           created: post.creado_en,
           topic_created: post.creado_en,
-          reply_to: post.respuesta_a_id,
+          reply_to: post.respuesta_a_id ?? undefined,
           reply_to_name: post.cita_autor,
           reply_to_content: post.cita_contenido,
           likes_count: post.likes_count,
