@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {
     Heart,
     Leaf,
@@ -68,7 +69,7 @@ export default function AboutPage() {
                             <div className="flex -space-x-3">
                                 {[1, 2, 3, 4].map(i => (
                                     <div key={i} className="w-12 h-12 rounded-full border-4 border-white bg-slate-200 overflow-hidden shadow-lg transform hover:-translate-y-1 transition-transform">
-                                        <img src={`https://i.pravatar.cc/150?u=${i}`} alt="user" className="w-full h-full object-cover" />
+                                        <Image src={`https://i.pravatar.cc/150?u=${i}`} alt="user" width={48} height={48} className="w-full h-full object-cover" />
                                     </div>
                                 ))}
                             </div>
@@ -82,10 +83,12 @@ export default function AboutPage() {
                     <div className="relative group animate-in animate-delay-2">
                         <div className="absolute -inset-4 bg-sky-400/20 rounded-[3rem] blur-2xl group-hover:bg-sky-400/30 transition-all duration-700" />
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white">
-                            <img
+                            <Image
                                 src={`/${aboutData.doctorSection.image}`}
                                 alt="Doctora Lyrium"
-                                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2000ms]"
+                                fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className="object-cover transform group-hover:scale-110 transition-transform duration-[2000ms]"
                             />
                             <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/50">
                                 <p className="text-sky-600 font-black uppercase text-xs tracking-widest mb-1">Especialistas en BioSalud</p>
@@ -99,12 +102,14 @@ export default function AboutPage() {
             {/* 3. NUESTROS VALORES & RELACIÓN (CARDS OVERLAY) */}
             <section className="py-20 px-6 space-y-12">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {aboutData.values.map((val, idx) => (
-                        <div key={idx} className="relative h-[450px] md:h-[550px] rounded-[3rem] overflow-hidden shadow-2xl group border-4 border-white">
-                            <img
+                    {aboutData.values.map((val) => (
+                        <div key={val.title} className="relative h-[450px] md:h-[550px] rounded-[3rem] overflow-hidden shadow-2xl group border-4 border-white">
+                            <Image
                                 src={val.image}
                                 alt={val.title}
-                                className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[1500ms]"
+                                fill
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                className="object-cover transform group-hover:scale-110 transition-transform duration-[1500ms]"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
@@ -117,8 +122,8 @@ export default function AboutPage() {
 
                                     {val.items ? (
                                         <ul className="space-y-4">
-                                            {val.items.map((item, i) => (
-                                                <li key={i} className="flex items-center gap-3 text-white font-bold group/item">
+                                            {val.items.map((item) => (
+                                                <li key={item} className="flex items-center gap-3 text-white font-bold group/item">
                                                     <div className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center group-hover/item:bg-white/40 transition-colors">
                                                         <Check className="w-4 h-4 text-white" />
                                                     </div>
@@ -157,10 +162,10 @@ export default function AboutPage() {
                         <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-sky-200 via-sky-500 to-sky-200 rounded-full hidden md:block" />
 
                         <div className="space-y-20 md:space-y-0 relative">
-                            {aboutData.timeline.items.map((item, idx) => {
+                            {aboutData.timeline.items.map((item) => {
                                 const Icon = [Star, Clock, RotateCcw, Brain, ShieldCheck, Users][idx % 6];
                                 return (
-                                    <div key={idx} className={`flex flex-col md:flex-row items-center justify-center w-full md:mb-12 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+                                    <div key={item.title} className={`flex flex-col md:flex-row items-center justify-center w-full md:mb-12 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
                                         {/* PC Content Card */}
                                         <div className="w-full md:w-5/12 hidden md:block group">
                                             <div className={`p-8 bg-sky-50/50 border-2 border-transparent hover:border-sky-200 hover:bg-white rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500 relative ${idx % 2 === 0 ? 'text-right' : 'text-left'}`}>
@@ -225,17 +230,19 @@ export default function AboutPage() {
 
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16">
-                        {aboutData.premiumIcons.map((icon, idx) => (
-                            <div key={idx} className="flex flex-col items-center text-center group animate-in" style={{ animationDelay: `${idx * 150}ms` }}>
+                        {aboutData.premiumIcons.map((icon) => (
+                            <div key={icon.title} className="flex flex-col items-center text-center group animate-in" style={{ animationDelay: `${idx * 150}ms` }}>
                                 <div className="relative w-32 h-32 md:w-48 md:h-48 mb-8">
                                     {/* Decorative Rings */}
                                     <div className="absolute -inset-4 border-2 border-dashed border-sky-100 rounded-full group-hover:rotate-180 transition-transform duration-[4000ms]" />
                                     <div className="absolute -inset-2 border border-sky-200/50 rounded-full group-hover:-rotate-180 transition-transform duration-[6000ms]" />
 
                                     <div className="relative w-full h-full bg-white rounded-full shadow-2xl flex items-center justify-center p-6 border-2 border-sky-50 group-hover:shadow-[0_20px_50px_rgba(14,165,233,0.15)] transition-all duration-500 transform group-hover:-translate-y-3">
-                                        <img
+                                        <Image
                                             src={`/${icon.image}`}
                                             alt={icon.title}
+                                            width={160}
+                                            height={160}
                                             className="w-4/5 h-4/5 object-contain transform group-hover:scale-110 transition-transform duration-500 drop-shadow-md"
                                         />
                                     </div>

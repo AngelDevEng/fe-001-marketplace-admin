@@ -29,8 +29,8 @@ function BannerSlider({ slides }: BannerSliderProps) {
         {slides.map((slide) => (
           <div key={slide.id} className="min-w-full">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {slide.imagenes.map((img, i) => (
-                <article key={i} className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              {slide.imagenes.map((img) => (
+                <article key={img} className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
                   <Image
                     src={img}
                     alt={`Banner ${slide.id}-${i + 1}`}
@@ -67,9 +67,9 @@ function SmallBannerCarousel({ images }: { images: string[] }) {
   return (
     <div className="overflow-hidden relative p-3 -m-3">
       <div className="flex gap-6">
-        {images.slice(0, 3).map((img, i) => (
+        {images.slice(0, 3).map((img) => (
           <div
-            key={i}
+            key={img}
             className="flex-shrink-0 w-full sm:w-[280px] lg:w-[380px] rounded-[18px] overflow-hidden shadow-[0_10px_25px_rgba(15,23,42,0.12)] cursor-grab hover:scale-[1.02] transition-transform select-none"
           >
             <Image

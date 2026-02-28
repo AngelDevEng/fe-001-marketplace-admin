@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
 import IntroCover from '@/components/ui/IntroCover';
 
@@ -229,7 +230,7 @@ export default function ContactPage() {
                                         className="mt-1 w-4 h-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500"
                                     />
                                     <label htmlFor="privacy" className="form-checkbox-label text-sm text-slate-600">
-                                        Acepto la <a href="/politicasdeprivacidad" target="_blank" className="text-sky-500 hover:underline">política de privacidad</a>
+                                        Acepto la <Link href="/politicasdeprivacidad" target="_blank" className="text-sky-500 hover:underline">política de privacidad</Link>
                                     </label>
                                 </div>
                                 {errors.privacy && <p className="text-red-500 text-xs mt-1">{errors.privacy}</p>}

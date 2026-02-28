@@ -13,33 +13,34 @@ interface ProductSliderProps {
 
 function CategoryCard({ producto }: { producto: Producto }) {
   return (
-    <div className="cat-card flex-shrink-0 w-[210px] bg-white rounded-[14px] p-[14px] text-center shadow-[0_10px_24px_rgba(15,23,42,0.12)] border border-slate-200 mr-5 transition-transform duration-300 hover:-translate-y-[5px] hover:shadow-[0_15px_35px_rgba(15,23,42,0.2)]">
+    <div className="cat-card flex-shrink-0 w-[210px] bg-white dark:bg-[#111A15]/92 rounded-[14px] p-[14px] text-center shadow-[0_10px_24px_rgba(15,23,42,0.12)] dark:shadow-[0_10px_24px_rgba(0,0,0,0.3)] border border-slate-200 dark:border-[#2A3F33]/50 mr-5 transition-transform duration-300 hover:-translate-y-[5px] hover:shadow-[0_15px_35px_rgba(15,23,42,0.2)] dark:hover:shadow-[0_15px_35px_rgba(0,0,0,0.5)]">
       {/* Image wrapper with hover actions */}
-      <div className="relative overflow-hidden w-[120px] h-[120px] mx-auto mb-2 rounded-xl bg-white">
+      <div className="relative overflow-hidden w-[120px] h-[120px] mx-auto mb-2 rounded-xl bg-white dark:bg-[#182420]">
         <Image
           src={producto.imagen}
           alt={producto.titulo}
           fill
+          sizes="120px"
           className="object-contain transition-transform duration-500 hover:scale-[1.08]"
           draggable={false}
         />
 
         {/* Action bar - slides up on hover, always visible on mobile */}
-        <div className="absolute bottom-0 left-0 w-full h-[44px] flex bg-sky-500 translate-y-full transition-transform duration-300 cat-actions md:group-hover:translate-y-0">
+        <div className="absolute bottom-0 left-0 w-full h-[44px] flex bg-sky-500 dark:bg-[#4A7C59] translate-y-full transition-transform duration-300 cat-actions md:group-hover:translate-y-0">
           <button
-            className="flex-1 flex items-center justify-center text-white border-r border-white/20 hover:bg-white/15 transition-colors"
+            className="flex-1 flex items-center justify-center text-white border-r border-white/20 dark:border-white/15 hover:bg-white/15 dark:hover:bg-white/10 transition-colors"
             title="Agregar al carrito"
           >
             <ShoppingCart className="w-[18px] h-[18px]" />
           </button>
           <button
-            className="flex-1 flex items-center justify-center text-white border-r border-white/20 hover:bg-white/15 transition-colors"
+            className="flex-1 flex items-center justify-center text-white border-r border-white/20 dark:border-white/15 hover:bg-white/15 dark:hover:bg-white/10 transition-colors"
             title="Vista rápida"
           >
             <Eye className="w-[18px] h-[18px]" />
           </button>
           <button
-            className="flex-1 flex items-center justify-center text-white hover:bg-white/15 transition-colors"
+            className="flex-1 flex items-center justify-center text-white hover:bg-white/15 dark:hover:bg-white/10 transition-colors"
             title="Ver producto"
           >
             <ExternalLink className="w-[18px] h-[18px]" />
@@ -48,10 +49,10 @@ function CategoryCard({ producto }: { producto: Producto }) {
       </div>
 
       {/* Product info */}
-      <h3 className="text-sm font-semibold text-slate-700 mb-0.5 whitespace-nowrap overflow-hidden text-ellipsis">
+      <h3 className="text-sm font-semibold text-slate-700 dark:text-[#E8EDE9] mb-0.5 whitespace-nowrap overflow-hidden text-ellipsis">
         {producto.titulo}
       </h3>
-      <p className="text-[15px] font-bold text-blue-800">
+      <p className="text-[15px] font-bold text-blue-800 dark:text-[#E8EDE9]">
         S/ {producto.precio.toFixed(2)}
       </p>
       <p className="text-amber-400 text-[13px] mt-1">
@@ -97,7 +98,7 @@ export default function ProductSlider({ productos, titulo, bannerImage }: Produc
 
   return (
     <section className="max-w-7xl mx-auto px-4 !mt-12">
-      <h2 className="text-[1.4rem] font-semibold text-gray-900 mb-5">
+      <h2 className="text-[1.4rem] font-semibold text-gray-900 dark:text-[#E8EDE9] mb-5">
         {titulo}
       </h2>
 

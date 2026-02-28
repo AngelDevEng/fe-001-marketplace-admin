@@ -146,8 +146,8 @@ export default function PrivacyPolicyPage() {
 
                                 {section.subSections && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        {section.subSections.map((sub, idx) => (
-                                            <div key={idx} className="bg-slate-50 p-6 rounded-2xl border border-gray-100 hover:bg-white hover:shadow-lg transition-all duration-300">
+                                        {section.subSections.map((sub) => (
+                                            <div key={sub.title} className="bg-slate-50 p-6 rounded-2xl border border-gray-100 hover:bg-white hover:shadow-lg transition-all duration-300">
                                                 <h4 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
                                                     <div className="w-1.5 h-6 bg-emerald-400 rounded-full"></div>
                                                     {sub.title}
@@ -160,8 +160,8 @@ export default function PrivacyPolicyPage() {
 
                                 {section.list && (
                                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {section.list.map((item, idx) => (
-                                            <li key={idx} className="flex items-center gap-3 text-gray-600 bg-white p-4 rounded-xl border border-gray-50 shadow-sm">
+                                        {section.list.map((item) => (
+                                            <li key={item} className="flex items-center gap-3 text-gray-600 bg-white p-4 rounded-xl border border-gray-50 shadow-sm">
                                                 <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
                                                 {item}
                                             </li>
@@ -196,6 +196,8 @@ export default function PrivacyPolicyPage() {
                 <div
                     className={`absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity duration-500 ${isPopupOpen ? 'opacity-100' : 'opacity-0'}`}
                     onClick={() => setIsPopupOpen(false)}
+                    role="presentation"
+                    aria-hidden="true"
                 />
 
                 {/* Modal */}

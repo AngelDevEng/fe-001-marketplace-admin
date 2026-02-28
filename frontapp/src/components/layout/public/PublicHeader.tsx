@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Icon from '@/components/ui/Icon';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import TopBanner from './TopBanner';
@@ -19,14 +20,18 @@ export default function PublicHeader() {
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 gap-6">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <img
+                        <Image
                             src="/img/iconologo.png"
                             alt="Lyrium Icono"
+                            width={80}
+                            height={80}
                             className="h-16 md:h-20 w-auto object-contain transition-transform duration-700 ease-out group-hover:rotate-[360deg]"
                         />
-                        <img
+                        <Image
                             src="/img/nombrelogo.png"
                             alt="Lyrium Nombre"
+                            width={160}
+                            height={40}
                             className="h-8 md:h-10 w-auto object-contain mt-1"
                         />
                     </Link>

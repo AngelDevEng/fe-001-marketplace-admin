@@ -139,10 +139,10 @@ export default function FAQPage() {
                         </div>
 
                         <div className="p-4 md:p-8 space-y-2">
-                            {category.items.map((item, itemIdx) => {
+                            {category.items.map((item) => {
                                 const isOpen = openItems.includes(`${catIdx}-${itemIdx}`);
                                 return (
-                                    <div key={itemIdx} className="border-b border-gray-50 last:border-0">
+                                    <div key={item.question} className="border-b border-gray-50 last:border-0">
                                         <button
                                             onClick={() => toggleItem(catIdx, itemIdx)}
                                             className="w-full cursor-pointer list-none flex items-start gap-5 px-4 md:px-6 py-6 text-left group"
@@ -178,8 +178,8 @@ export default function FAQPage() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-                    {benefitsData.slice(0, 4).map((benefit, idx) => (
-                        <div key={idx} className="benefit-card group shine-effect rounded-[40px] border-2 border-gray-100 bg-white shadow-xl hover:shadow-2xl p-10 text-center transition-all duration-500 hover:-translate-y-4">
+                    {benefitsData.slice(0, 4).map((benefit) => (
+                        <div key={benefit.title} className="benefit-card group shine-effect rounded-[40px] border-2 border-gray-100 bg-white shadow-xl hover:shadow-2xl p-10 text-center transition-all duration-500 hover:-translate-y-4">
                             <div className={`benefit-icon-wrap mx-auto w-20 h-20 rounded-[28px] bg-slate-50 flex items-center justify-center mb-8 shadow-inner group-hover:bg-white group-hover:rotate-6 transition-all duration-500`}>
                                 {getIconComponent(benefit.icon)}
                             </div>
@@ -192,8 +192,8 @@ export default function FAQPage() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    {benefitsData.slice(4).map((benefit, idx) => (
-                        <div key={idx} className="benefit-card group shine-effect rounded-[40px] border-2 border-gray-100 bg-white shadow-xl hover:shadow-2xl p-10 text-center transition-all duration-500 hover:-translate-y-4">
+                    {benefitsData.slice(4).map((benefit) => (
+                        <div key={benefit.title} className="benefit-card group shine-effect rounded-[40px] border-2 border-gray-100 bg-white shadow-xl hover:shadow-2xl p-10 text-center transition-all duration-500 hover:-translate-y-4">
                             <div className={`benefit-icon-wrap mx-auto w-20 h-20 rounded-[28px] bg-slate-50 flex items-center justify-center mb-8 shadow-inner group-hover:bg-white group-hover:rotate-6 transition-all duration-500`}>
                                 {getIconComponent(benefit.icon)}
                             </div>

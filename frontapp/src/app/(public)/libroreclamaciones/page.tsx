@@ -105,65 +105,65 @@ export default function ComplaintsBookPage() {
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="tipo_persona" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <User className="w-3.5 h-3.5" /> Tipo de persona
                                     </label>
-                                    <select name="tipo_persona" value={formData.tipo_persona} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
+                                    <select id="tipo_persona" name="tipo_persona" value={formData.tipo_persona} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         {complaintsConfig.options.tipo_persona.map(opt => <option key={opt}>{opt}</option>)}
                                     </select>
                                 </div>
 
                                 <div className="md:col-span-2 space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="nombre_razon" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <Building2 className="w-3.5 h-3.5" /> Nombre/Razón Social*
                                     </label>
-                                    <input name="nombre_razon" required type="text" value={formData.nombre_razon} onChange={handleChange} placeholder="Ej: Juan Pérez o Empresa S.A.C" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <input id="nombre_razon" name="nombre_razon" required type="text" value={formData.nombre_razon} onChange={handleChange} placeholder="Ej: Juan Pérez o Empresa S.A.C" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Tipo documento</label>
-                                    <select name="tipo_documento" value={formData.tipo_documento} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
+                                    <label htmlFor="tipo_documento" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Tipo documento</label>
+                                    <select id="tipo_documento" name="tipo_documento" value={formData.tipo_documento} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         {complaintsConfig.options.tipo_documento.map(opt => <option key={opt}>{opt}</option>)}
                                     </select>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">N° Documento*</label>
-                                    <input name="numero_documento" required type="text" value={formData.numero_documento} onChange={handleChange} placeholder="00000000" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <label htmlFor="numero_documento" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">N° Documento*</label>
+                                    <input id="numero_documento" name="numero_documento" required type="text" value={formData.numero_documento} onChange={handleChange} placeholder="00000000" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="correo" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <Mail className="w-3.5 h-3.5" /> Correo electrónico
                                     </label>
-                                    <input name="correo" type="email" value={formData.correo} onChange={handleChange} placeholder="ejemplo@correo.com" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <input id="correo" name="correo" type="email" value={formData.correo} onChange={handleChange} placeholder="ejemplo@correo.com" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="telefono" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <Smartphone className="w-3.5 h-3.5" /> Teléfono
                                     </label>
-                                    <input name="telefono" type="tel" value={formData.telefono} onChange={handleChange} placeholder="999 999 999" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <input id="telefono" name="telefono" type="tel" value={formData.telefono} onChange={handleChange} placeholder="999 999 999" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="md:col-span-2 space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="direccion" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <MapPin className="w-3.5 h-3.5" /> Dirección completa
                                     </label>
-                                    <input name="direccion" type="text" value={formData.direccion} onChange={handleChange} placeholder="Av. Siempre Viva 123, Int 4" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <input id="direccion" name="direccion" type="text" value={formData.direccion} onChange={handleChange} placeholder="Av. Siempre Viva 123, Int 4" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Distrito</label>
-                                    <input name="distrito" type="text" value={formData.distrito} onChange={handleChange} placeholder="Distrito" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <label htmlFor="distrito" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Distrito</label>
+                                    <input id="distrito" name="distrito" type="text" value={formData.distrito} onChange={handleChange} placeholder="Distrito" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Provincia</label>
-                                    <input name="provincia" type="text" value={formData.provincia} onChange={handleChange} placeholder="Provincia" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <label htmlFor="provincia" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Provincia</label>
+                                    <input id="provincia" name="provincia" type="text" value={formData.provincia} onChange={handleChange} placeholder="Provincia" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Departamento</label>
-                                    <input name="departamento" type="text" value={formData.departamento} onChange={handleChange} placeholder="Departamento" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <label htmlFor="departamento" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Departamento</label>
+                                    <input id="departamento" name="departamento" type="text" value={formData.departamento} onChange={handleChange} placeholder="Departamento" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
                             </div>
                         </div>
@@ -177,68 +177,68 @@ export default function ComplaintsBookPage() {
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="tipo_reclamo" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <BadgeHelp className="w-3.5 h-3.5 text-sky-500" /> Tipo de reporte
                                     </label>
-                                    <select name="tipo_reclamo" value={formData.tipo_reclamo} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
+                                    <select id="tipo_reclamo" name="tipo_reclamo" value={formData.tipo_reclamo} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         <option>Reclamo</option>
                                         <option>Queja</option>
                                     </select>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="bien_contratado" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <ShoppingBag className="w-3.5 h-3.5" /> Bien contratado
                                     </label>
-                                    <select name="bien_contratado" value={formData.bien_contratado} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
+                                    <select id="bien_contratado" name="bien_contratado" value={formData.bien_contratado} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         {complaintsConfig.options.bien_contratado.map(opt => <option key={opt}>{opt}</option>)}
                                     </select>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="comprobante_pago" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <Receipt className="w-3.5 h-3.5" /> Comprobante
                                     </label>
-                                    <select name="comprobante_pago" value={formData.comprobante_pago} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
+                                    <select id="comprobante_pago" name="comprobante_pago" value={formData.comprobante_pago} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         {complaintsConfig.options.comprobante_pago.map(opt => <option key={opt}>{opt}</option>)}
                                     </select>
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">N° Comprobante</label>
-                                    <input name="numero_comprobante" type="text" value={formData.numero_comprobante} onChange={handleChange} placeholder="Ej: B001-0001" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <label htmlFor="numero_comprobante" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">N° Comprobante</label>
+                                    <input id="numero_comprobante" name="numero_comprobante" type="text" value={formData.numero_comprobante} onChange={handleChange} placeholder="Ej: B001-0001" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="fecha_incidente" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <Calendar className="w-3.5 h-3.5" /> Fecha del incidente
                                     </label>
-                                    <input name="fecha_incidente" type="date" value={formData.fecha_incidente} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <input id="fecha_incidente" name="fecha_incidente" type="date" value={formData.fecha_incidente} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="tienda_responsable" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <Store className="w-3.5 h-3.5" /> Tienda responsable
                                     </label>
-                                    <select name="tienda_responsable" value={formData.tienda_responsable} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700 border-dashed">
+                                    <select id="tienda_responsable" name="tienda_responsable" value={formData.tienda_responsable} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700 border-dashed">
                                         {complaintsConfig.options.tiendas.map(opt => <option key={opt}>{opt}</option>)}
                                     </select>
                                 </div>
 
                                 <div className="md:col-span-3 space-y-2">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Detalle del producto o servicio</label>
-                                    <input name="detalle_producto" type="text" value={formData.detalle_producto} onChange={handleChange} placeholder="Nombre del producto, modelo o tipo de servicio..." className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <label htmlFor="detalle_producto" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Detalle del producto o servicio</label>
+                                    <input id="detalle_producto" name="detalle_producto" type="text" value={formData.detalle_producto} onChange={handleChange} placeholder="Nombre del producto, modelo o tipo de servicio..." className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="md:col-span-3 space-y-4">
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Detalle del reclamo o queja*</label>
+                                        <label htmlFor="detalle_reclamo" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Detalle del reclamo o queja*</label>
                                         <div className="p-4 bg-sky-50 border-l-4 border-sky-400 rounded-r-xl flex items-start gap-3 transition-all duration-500">
                                             <AlertCircle className="w-5 h-5 text-sky-500 flex-shrink-0 mt-0.5" />
                                             <p className="text-xs md:text-sm text-sky-600 font-medium">{helpInfo.info}</p>
                                         </div>
                                     </div>
-                                    <textarea name="detalle_reclamo" required value={formData.detalle_reclamo} onChange={handleChange} placeholder={helpInfo.placeholder} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-[2rem] px-8 py-6 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700 min-h-[160px] resize-none" />
+                                    <textarea id="detalle_reclamo" name="detalle_reclamo" required value={formData.detalle_reclamo} onChange={handleChange} placeholder={helpInfo.placeholder} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-[2rem] px-8 py-6 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700 min-h-[160px] resize-none" />
                                 </div>
                             </div>
                         </div>
@@ -247,7 +247,7 @@ export default function ComplaintsBookPage() {
                         <div className="space-y-8 pt-6 border-t border-dashed border-gray-100">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-4">
-                                    <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Adjuntar archivo (Opcional)</label>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Adjuntar archivo (Opcional)</p>
                                     <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-3xl p-8 hover:bg-sky-50 hover:border-sky-300 transition-all cursor-pointer group/file">
                                         <Upload className="w-10 h-10 text-gray-300 group-hover/file:text-sky-500 group-hover/file:animate-float" />
                                         <span className="mt-4 text-sm font-bold text-gray-400 group-hover/file:text-sky-600">Subir comprobante o evidencia</span>

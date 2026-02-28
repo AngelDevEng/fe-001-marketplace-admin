@@ -116,8 +116,8 @@ export default function IntroCover({
                     className="intro-cta inline-flex items-center gap-3 py-5 px-12 bg-white text-sky-500 rounded-full text-lg font-bold cursor-pointer uppercase tracking-wider"
                     style={{ 
                         boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                        transition: 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-                        animation: 'fadeInUp 1s ease-out 0.6s both, pulse 2s ease-in-out 2s infinite'
+                        transition: 'box-shadow 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                        animation: 'fadeInUp 1s ease-out 0.6s both, introCoverPulse 2s ease-in-out 2s infinite'
                     }}
                 >
                     <span>{buttonText}</span>
@@ -125,32 +125,6 @@ export default function IntroCover({
                 </button>
             </div>
 
-            <style jsx global>{`
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(30px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-20px); }
-                }
-                @keyframes pulse {
-                    0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }
-                    50% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 10px rgba(255, 255, 255, 0.2); }
-                }
-                @keyframes floatParticle {
-                    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-                    25% { transform: translate(30px, -30px) scale(1.1); opacity: 0.5; }
-                    50% { transform: translate(-20px, -50px) scale(0.9); opacity: 0.4; }
-                    75% { transform: translate(40px, -20px) scale(1.05); opacity: 0.6; }
-                }
-                .animate-float {
-                    animation: float 3s ease-in-out infinite;
-                }
-                .animate-float-particle {
-                    animation: floatParticle 20s ease-in-out infinite;
-                }
-            `}</style>
         </div>
     );
 }

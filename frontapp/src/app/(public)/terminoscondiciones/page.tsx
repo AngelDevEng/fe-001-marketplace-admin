@@ -228,7 +228,7 @@ export default function TermsAndConditionsPage() {
 
             {/* MOBILE POPUP OVERLAY */}
             <div className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ${isPopupOpen ? 'visible' : 'invisible'}`}>
-                <div className={`absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity duration-500 ${isPopupOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsPopupOpen(false)} />
+                <div className={`absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity duration-500 ${isPopupOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsPopupOpen(false)} role="presentation" aria-hidden="true" />
                 <div className={`absolute bottom-0 left-0 w-full bg-white rounded-t-[3rem] shadow-2xl transition-transform duration-500 transform ${isPopupOpen ? 'translate-y-0' : 'translate-y-full'}`}>
                     <div className="p-8 space-y-6">
                         <div className="flex items-center justify-between border-b border-gray-50 pb-4">
@@ -256,7 +256,7 @@ export default function TermsAndConditionsPage() {
 
             {/* ===================== SHARE MODAL ===================== */}
             <div className={`fixed inset-0 z-[100] flex items-center justify-center transition-all duration-500 ${isShareModalOpen ? 'visible' : 'invisible'}`}>
-                <div className={`absolute inset-0 bg-gray-900/40 backdrop-blur-md transition-opacity duration-500 ${isShareModalOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsShareModalOpen(false)} />
+                <div className={`absolute inset-0 bg-gray-900/40 backdrop-blur-md transition-opacity duration-500 ${isShareModalOpen ? 'opacity-100' : 'opacity-0'}`} onClick={() => setIsShareModalOpen(false)} role="presentation" aria-hidden="true" />
                 <div className={`relative bg-white w-[90%] max-w-md rounded-[2rem] shadow-2xl overflow-hidden transition-all duration-500 transform ${isShareModalOpen ? 'scale-100 translate-y-0' : 'scale-95 translate-y-10'}`}>
                     <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
                         <h3 className="font-black text-xl text-gray-900 uppercase tracking-tight">Compartir Términos</h3>
@@ -301,11 +301,6 @@ export default function TermsAndConditionsPage() {
                 </div>
             </div>
 
-            <style jsx global>{`
-        .terms-content p { @apply mb-4; }
-        .terms-content ul { @apply list-disc pl-5 mb-4 space-y-2; }
-        .terms-content .pp-title { @apply font-black text-gray-900 mt-6 mb-2 text-lg; }
-      `}</style>
 
         </main>
     );

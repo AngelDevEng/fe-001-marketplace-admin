@@ -100,6 +100,8 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                 className={`fixed inset-0 bg-black/50 z-[100] transition-opacity duration-300 lg:hidden ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                     }`}
                 onClick={onClose}
+                role="presentation"
+                aria-hidden="true"
             />
 
             {/* Drawer */}
@@ -110,14 +112,18 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                 {/* ===== 1. HEADER — Logo + Close ===== */}
                 <div className="px-5 py-4 border-b border-gray-200 dark:border-[#2A3F33] flex justify-between items-center shrink-0 bg-white dark:bg-[#111A15] z-20">
                     <div className="flex items-center gap-2">
-                        <img
+                        <Image
                             src="/img/iconologo.png"
                             alt="Lyrium Icono"
+                            width={56}
+                            height={56}
                             className="h-14 w-auto object-contain"
                         />
-                        <img
+                        <Image
                             src="/img/nombrelogo.png"
                             alt="Lyrium Nombre"
+                            width={120}
+                            height={32}
                             className="h-8 w-auto object-contain"
                         />
                     </div>
@@ -310,9 +316,9 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
 
                                 {/* Circular icons grid */}
                                 <div className="grid grid-cols-3 gap-3 mb-6 px-4 pt-4">
-                                    {categoryData.icons.map((icon, i) => (
+                                    {categoryData.icons.map((icon) => (
                                         <Link
-                                            key={i}
+                                            key={icon.title}
                                             href={icon.href || '#'}
                                             onClick={handleLinkClick}
                                             className="group text-center"
@@ -338,14 +344,14 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
 
                                 {/* Columns */}
                                 <div className="space-y-5">
-                                    {categoryData.cols.map((col, i) => (
-                                        <div key={i}>
+                                    {categoryData.cols.map((col) => (
+                                        <div key={col.h}>
                                             <div className="text-[12px] font-extrabold tracking-wide text-gray-900 dark:text-[#E8EDE9] uppercase mb-2">
                                                 {col.h}
                                             </div>
                                             <ul className="space-y-1.5">
-                                                {col.items.map((item, j) => (
-                                                    <li key={j}>
+                                                {col.items.map((item) => (
+                                                    <li key={item}>
                                                         <Link
                                                             href="#"
                                                             onClick={handleLinkClick}
