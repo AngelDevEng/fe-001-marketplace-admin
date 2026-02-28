@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Order } from '@/lib/types/seller/sales';
+import { Order } from '@/features/seller/sales/types';
 import OrderStepper from './OrderStepper';
 import OrderItemList from './OrderItemList';
 import BaseButton from '@/components/ui/BaseButton';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAnalytics } from '@/hooks/useAnalytics';
+import { useAnalytics } from '@/features/admin/analytics/hooks/useAnalytics';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import BaseButton from '@/components/ui/BaseButton';
 import { AnalyticsModule } from '@/components/admin/analytics/AnalyticsModule';

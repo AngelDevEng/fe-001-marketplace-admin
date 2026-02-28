@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
-import { GlobalLogisticsConfig } from '@/lib/types/seller/logistics';
+import { GlobalLogisticsConfig } from '@/features/seller/logistics/types';
 import ToggleSwitch from './components/ToggleSwitch';
 import AddCityModal from './components/AddCityModal';
 import AddAgencyModal from './components/AddAgencyModal';
@@ -10,7 +10,7 @@ import Icon from '@/components/ui/Icon';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseLoading from '@/components/ui/BaseLoading';
 
-import { useSellerLogistics } from '@/hooks/useSellerLogistics';
+import { useSellerLogistics } from '@/features/seller/logistics/hooks/useSellerLogistics';
 
 interface LogisticsPageClientProps {
     // TODO Tarea 3: Recibir datos iniciales del Server Component

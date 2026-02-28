@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { Bell, AlertTriangle, ShieldAlert, Activity, Check } from 'lucide-react';
-import { useNotifications } from '@/context/NotificationContext';
+import { useNotifications } from '@/shared/lib/context/NotificationContext';
 import { ProactiveNotification } from '@/lib/types/notifications';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/shared/lib/context/AuthContext';
 
 export default function NotificationBell() {
     const [isOpen, setIsOpen] = useState(false);

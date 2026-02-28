@@ -8,7 +8,7 @@
  */
 
 import { Suspense } from 'react';
-import { getDashboardData, SalesKPIs, RecentOrder } from '@/lib/actions/dashboard';
+import { getDashboardData, SalesKPIs, RecentOrder } from '@/shared/lib/actions/dashboard';
 import DashboardClient from './DashboardClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 

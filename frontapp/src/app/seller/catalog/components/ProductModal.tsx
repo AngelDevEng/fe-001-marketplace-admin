@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Product, ProductAttribute, ProductSticker } from '@/lib/types/seller/product';
+import { Product, ProductAttribute, ProductSticker } from '@/features/seller/catalog/types';
 import BaseModal from '@/components/ui/BaseModal';
 import BaseButton from '@/components/ui/BaseButton';
-import { useToast } from '@/context/ToastContext';
+import { useToast } from '@/shared/lib/context/ToastContext';
 import Icon from '@/components/ui/Icon';
 
 interface ProductModalProps {
@@ -291,14 +291,13 @@ export default function ProductModal({ isOpen, onClose, onSave, productToEdit }:
                                                             onChange={() => handleStickerChange(opt.val as ProductSticker)}
                                                             className="sr-only"
                                                         />
-                                                        <div className={`px-3 py-1.5 rounded-xl border text-[8px] font-black uppercase transition-all ${
-                                                            formData.sticker === opt.val
+                                                        <div className={`px-3 py-1.5 rounded-xl border text-[8px] font-black uppercase transition-all ${formData.sticker === opt.val
                                                                 ? opt.color === 'gray' ? 'bg-gray-900 text-white border-gray-900 scale-105 shadow-sm'
-                                                                : opt.color === 'sky' ? 'bg-sky-500 text-white border-sky-500 scale-105 shadow-sm'
-                                                                : opt.color === 'lime' ? 'bg-lime-400 text-white border-lime-400 scale-105 shadow-sm'
-                                                                : opt.color === 'purple' ? 'bg-purple-500 text-white border-purple-500 scale-105 shadow-sm'
-                                                                : opt.color === 'emerald' ? 'bg-emerald-500 text-white border-emerald-500 scale-105 shadow-sm'
-                                                                : 'bg-gray-900 text-white border-gray-900 scale-105 shadow-sm'
+                                                                    : opt.color === 'sky' ? 'bg-sky-500 text-white border-sky-500 scale-105 shadow-sm'
+                                                                        : opt.color === 'lime' ? 'bg-lime-400 text-white border-lime-400 scale-105 shadow-sm'
+                                                                            : opt.color === 'purple' ? 'bg-purple-500 text-white border-purple-500 scale-105 shadow-sm'
+                                                                                : opt.color === 'emerald' ? 'bg-emerald-500 text-white border-emerald-500 scale-105 shadow-sm'
+                                                                                    : 'bg-gray-900 text-white border-gray-900 scale-105 shadow-sm'
                                                                 : 'bg-white text-gray-400 border-gray-100 hover:border-gray-200'}`}>
                                                             {opt.label}
                                                         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Appointment } from '@/lib/types/seller/service';
+import { Appointment } from '@/features/seller/services/types';
 import BaseModal from '@/components/ui/BaseModal';
 import BaseButton from '@/components/ui/BaseButton';
 

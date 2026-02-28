@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { blogApi } from '@/lib/api/blog';
+import { blogApi } from '@/shared/lib/api/blog';
 
 import 'swiper/css';
 import 'swiper/css/navigation';

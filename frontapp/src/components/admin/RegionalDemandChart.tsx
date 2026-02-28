@@ -11,7 +11,7 @@ import {
     ResponsiveContainer,
     Cell
 } from 'recharts';
-import { getOrders } from '@/lib/api';
+import { getOrders } from '@/shared/lib/api';
 import Icon from '@/components/ui/Icon';
 
 export default function RegionalDemandChart() {

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
+import { VoucherStatus, VoucherType } from '@/features/seller/invoices/types';
 import Icon from '@/components/ui/Icon';
 import BaseInputField from '@/components/ui/BaseInputField';
 import BaseSelectField from '@/components/ui/BaseSelectField';

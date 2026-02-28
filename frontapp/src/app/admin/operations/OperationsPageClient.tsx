@@ -1,6 +1,6 @@
 'use client';
 
-import { useGestionOperativa } from '@/hooks/useGestionOperativa';
+import { useGestionOperativa } from '@/features/admin/operations/hooks/useGestionOperativa';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import BaseButton from '@/components/ui/BaseButton';
 import { GestionOperativaModule } from '@/components/admin/operations/GestionOperativaModule';

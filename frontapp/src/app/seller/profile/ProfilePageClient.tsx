@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
-import { sellerNavigation } from '@/lib/constants/seller-nav';
-import { allowOnlyNumbers } from '@/lib/utils/validation';
+import { sellerNavigation } from '@/shared/lib/constants/seller-nav';
+import { allowOnlyNumbers } from '@/shared/lib/utils/validation';
 
 import BaseLoading from '@/components/ui/BaseLoading';
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';
-import { useSellerProfile, VendorProfileData } from '@/hooks/useSellerProfile';
+import { useSellerProfile, VendorProfileData } from '@/features/seller/profile/hooks/useSellerProfile';
 
 interface ProfilePageClientProps {
     // TODO Tarea 3: Recibir datos iniciales del Server Component

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { AgendaEvent } from '@/lib/types/seller/agenda';
+import { AgendaEvent } from '@/features/seller/agenda/types';
 import BaseDrawer from '@/components/ui/BaseDrawer';
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';

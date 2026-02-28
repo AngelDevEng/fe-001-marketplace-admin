@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Voucher, VoucherStatus, VoucherType } from '@/lib/types/seller/invoices';
+import { Voucher, VoucherStatus, VoucherType } from '@/features/seller/invoices/types';
 import Icon from '@/components/ui/Icon';
 import BaseStatusBadge, { VOUCHER_STATUS_MAPPINGS } from '@/components/ui/BaseStatusBadge';
 

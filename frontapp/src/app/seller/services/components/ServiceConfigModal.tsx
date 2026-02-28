@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Service, Specialist, ServiceSticker } from '@/lib/types/seller/service';
+import { Service, Specialist, ServiceSticker } from '@/features/seller/services/types';
 import BaseModal from '@/components/ui/BaseModal';
 import BaseButton from '@/components/ui/BaseButton';
-import { useToast } from '@/context/ToastContext';
+import { useToast } from '@/shared/lib/context/ToastContext';
 
 interface ServiceConfigModalProps {
     service: Service | null;

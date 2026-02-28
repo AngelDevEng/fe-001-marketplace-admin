@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Ticket, TicketStatus, TicketType } from '@/lib/types/seller/helpDesk';
+import { Ticket, TicketStatus, TicketType } from '@/features/seller/help/types';
 import Icon from '@/components/ui/Icon';
 
 interface TicketItemProps {

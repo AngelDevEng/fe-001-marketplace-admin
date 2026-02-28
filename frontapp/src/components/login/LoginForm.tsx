@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, FormEvent } from 'react';
-import { useLogin } from '@/hooks/useLogin';
+import { useLogin } from '@/shared/hooks/useLogin';
 import { Loader2, Lock, Mail, User, Phone, Building2, ArrowRight, CheckCircle } from 'lucide-react';
 import IntroCover from '@/components/ui/IntroCover';
 
@@ -34,7 +34,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         setShowIntro(false);
     };
 
-    const introConfig = userType === 'vendedor' 
+    const introConfig = userType === 'vendedor'
         ? {
             title: 'El Marketplace que cuida tu marca',
             subtitle: 'Únete a la comunidad de vendedores que están transformando el comercio sostenible',
@@ -96,7 +96,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             }
             setFormSuccess('¡Cuenta creada exitosamente! Ya puedes comprar en Lyrium.');
         }
-        
+
         setTimeout(() => {
             setRegisterData({
                 storeName: '',
@@ -161,9 +161,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
             <div className="relative w-full max-w-[1200px] min-h-[650px] bg-white rounded-[30px] shadow-[0_40px_100px_rgba(0,0,0,0.1)] overflow-hidden flex transition-all duration-700">
                 {/* Panel Lateral */}
                 <div
-                    className={`absolute top-0 left-0 h-full w-[40%] bg-gradient-to-br from-sky-500 via-sky-400 to-lime-400 p-10 flex flex-col justify-between text-white z-20 transition-all duration-700 cubic-bezier(0.68,-0.55,0.265,1.55) rounded-r-[20px] ${
-                        isRegisterMode ? 'left-[60%]' : ''
-                    }`}
+                    className={`absolute top-0 left-0 h-full w-[40%] bg-gradient-to-br from-sky-500 via-sky-400 to-lime-400 p-10 flex flex-col justify-between text-white z-20 transition-all duration-700 cubic-bezier(0.68,-0.55,0.265,1.55) rounded-r-[20px] ${isRegisterMode ? 'left-[60%]' : ''
+                        }`}
                     style={{
                         background: 'linear-gradient(135deg, #0ea5e9 0%, #38bdf8 50%, #84cc16 100%)'
                     }}
@@ -192,8 +191,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                 {userType === 'vendedor' ? '¡Qué gusto verte de nuevo!' : '¡Bienvenido de nuevo!'}
                             </h2>
                             <p className="text-white/95 text-center max-w-[300px] mx-auto">
-                                {userType === 'vendedor' 
-                                    ? 'Accede a tu panel para revisar tus ventas de hoy y actualizar tu inventario.' 
+                                {userType === 'vendedor'
+                                    ? 'Accede a tu panel para revisar tus ventas de hoy y actualizar tu inventario.'
                                     : 'Accede a tu cuenta para realizar tus compras y gestionar tus pedidos.'}
                             </p>
                         </div>
@@ -204,8 +203,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                 {userType === 'vendedor' ? 'Haz crecer tu marca con nosotros.' : 'Únete a Lyrium'}
                             </h2>
                             <p className="text-white/95 text-center max-w-[300px] mx-auto">
-                                {userType === 'vendedor' 
-                                    ? 'Únete a la comunidad de vendedores más grande y gestiona tus pedidos en un solo lugar.' 
+                                {userType === 'vendedor'
+                                    ? 'Únete a la comunidad de vendedores más grande y gestiona tus pedidos en un solo lugar.'
                                     : 'Crea tu cuenta y descubre los mejores productos naturales y saludables.'}
                             </p>
                         </div>
@@ -213,10 +212,10 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
                     <div className="relative z-10">
                         <p className="text-sm mb-4 opacity-90">
-                            {isRegisterMode 
-                                ? '¿Ya tienes cuenta?' 
-                                : userType === 'vendedor' 
-                                    ? '¿Ya eres parte de Lyrium como vendedor?' 
+                            {isRegisterMode
+                                ? '¿Ya tienes cuenta?'
+                                : userType === 'vendedor'
+                                    ? '¿Ya eres parte de Lyrium como vendedor?'
                                     : '¿Ya tienes una cuenta?'}
                         </p>
                         <button
@@ -224,10 +223,10 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                             onClick={toggleMode}
                             className="w-full py-4 px-6 bg-white text-sky-500 rounded-xl font-bold text-sm uppercase tracking-wider shadow-[0_10px_25px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all duration-300"
                         >
-                            {isRegisterMode 
-                                ? 'Iniciar Sesión' 
-                                : userType === 'vendedor' 
-                                    ? 'Registrarse como vendedor' 
+                            {isRegisterMode
+                                ? 'Iniciar Sesión'
+                                : userType === 'vendedor'
+                                    ? 'Registrarse como vendedor'
                                     : 'Crear cuenta'}
                         </button>
                     </div>
@@ -240,9 +239,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
                 {/* Form Section */}
                 <div
-                    className={`absolute top-0 right-0 h-full w-[60%] bg-white p-10 flex flex-col justify-between transition-all duration-700 cubic-bezier(0.68,-0.55,0.265,1.55) z-10 ${
-                        isRegisterMode ? 'right-[40%]' : ''
-                    }`}
+                    className={`absolute top-0 right-0 h-full w-[60%] bg-white p-10 flex flex-col justify-between transition-all duration-700 cubic-bezier(0.68,-0.55,0.265,1.55) z-10 ${isRegisterMode ? 'right-[40%]' : ''
+                        }`}
                 >
                     {/* Toggle Vendedor/Cliente */}
                     <div className="flex justify-center mb-6">
@@ -250,22 +248,20 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                             <button
                                 type="button"
                                 onClick={() => handleUserTypeChange('vendedor')}
-                                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                                    userType === 'vendedor' 
-                                        ? 'bg-sky-500 text-white shadow-md' 
+                                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${userType === 'vendedor'
+                                        ? 'bg-sky-500 text-white shadow-md'
                                         : 'text-slate-600 hover:text-sky-500'
-                                }`}
+                                    }`}
                             >
                                 Soy vendedor
                             </button>
                             <button
                                 type="button"
                                 onClick={() => handleUserTypeChange('cliente')}
-                                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                                    userType === 'cliente' 
-                                        ? 'bg-sky-500 text-white shadow-md' 
+                                className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${userType === 'cliente'
+                                        ? 'bg-sky-500 text-white shadow-md'
                                         : 'text-slate-600 hover:text-sky-500'
-                                }`}
+                                    }`}
                             >
                                 Soy cliente
                             </button>
@@ -284,8 +280,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                         {userType === 'vendedor' ? 'Inicia sesión como vendedor' : 'Inicia sesión como cliente'}
                                     </h3>
                                     <p className="text-slate-500 text-sm">
-                                        {userType === 'vendedor' 
-                                            ? 'Ingresa tus credenciales para acceder al panel de vendedor.' 
+                                        {userType === 'vendedor'
+                                            ? 'Ingresa tus credenciales para acceder al panel de vendedor.'
                                             : 'Ingresa tus credenciales para acceder a tu cuenta.'}
                                     </p>
                                 </div>
@@ -393,8 +389,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                         {userType === 'vendedor' ? 'Crea tu tienda' : 'Crea tu cuenta'}
                                     </h3>
                                     <p className="text-slate-500 text-sm">
-                                        {userType === 'vendedor' 
-                                            ? 'Ingresa los detalles para configurar tu perfil de vendedor.' 
+                                        {userType === 'vendedor'
+                                            ? 'Ingresa los detalles para configurar tu perfil de vendedor.'
                                             : 'Ingresa tus datos para registrarte como cliente.'}
                                     </p>
                                 </div>

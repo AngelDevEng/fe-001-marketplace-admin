@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Ticket, TicketType } from '@/lib/types/seller/helpDesk';
+import { Ticket, TicketType } from '@/features/seller/help/types';
 import TicketItem from './TicketItem';
 import Icon from '@/components/ui/Icon';
 

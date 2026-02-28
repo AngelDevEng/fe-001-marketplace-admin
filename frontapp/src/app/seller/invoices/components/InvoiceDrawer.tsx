@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Icon from '@/components/ui/Icon';
-import { Voucher, VoucherStatus } from '@/lib/types/seller/invoices';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { Voucher, VoucherStatus } from '@/features/seller/invoices/types';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 
 interface InvoiceDrawerProps {
     voucher: Voucher | null;

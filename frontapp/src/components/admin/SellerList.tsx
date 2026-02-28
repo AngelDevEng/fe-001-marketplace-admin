@@ -3,7 +3,7 @@
 import React from 'react';
 import { User, Mail, Phone, Store as StoreIcon, ExternalLink, ShieldCheck, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { Seller } from '@/lib/types/admin/sellers';
+import { Seller } from '@/features/admin/sellers/types';
 import Skeleton, { SkeletonRow } from '@/components/ui/Skeleton';
 
 interface SellerListProps {

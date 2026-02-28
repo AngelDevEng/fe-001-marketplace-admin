@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from '@/components/ui/Icon';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 import FinanceChart from './FinanceChart';
 
 interface CardProxPagoProps {

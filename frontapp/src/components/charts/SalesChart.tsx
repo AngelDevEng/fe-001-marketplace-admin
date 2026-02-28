@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { SalesKPIs } from '@/lib/actions/dashboard';
+import { SalesKPIs } from '@/shared/lib/actions/dashboard';
 import Icon from '@/components/ui/Icon';
 
 interface SalesChartProps {
@@ -68,7 +68,7 @@ export default function SalesChart({ data }: SalesChartProps) {
                   S/{item.sales.toLocaleString()}
                 </div>
                 {/* Bar */}
-                <div 
+                <div
                   className="w-full bg-gradient-to-t from-sky-500 to-sky-400 rounded-t-lg transition-all group-hover:from-emerald-500 group-hover:to-emerald-400"
                   style={{ height: `${height}px` }}
                 />

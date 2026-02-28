@@ -18,8 +18,8 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-import { Order, SalesKPI } from '@/lib/types/seller/sales';
-import { Product } from '@/lib/types/seller/product';
+import { Order, SalesKPI } from '@/features/seller/sales/types';
+import { Product } from '@/features/seller/catalog/types';
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
@@ -99,7 +99,7 @@ export function ProductPrice({ product }: { product: Product }) {
 'use client';
 
 import { useState } from 'react';
-import { useSellerSales } from '@/hooks/useSellerSales';
+import { useSellerSales } from '@/features/seller/sales/hooks/useSellerSales';
 import { OrderCard } from './OrderCard';
 import { SalesKPIs } from './SalesKPIs';
 
@@ -163,7 +163,7 @@ export const useOrderStore = create<OrderStore>((set) => ({
 
 /* 
 // src/app/seller/sales/page.tsx (SERVER COMPONENT)
-import { getOrders, getKPIs } from '@/lib/actions/sales';
+import { getOrders, getKPIs } from '@/shared/lib/actions/sales';
 import { SalesPageClient } from './SalesPageClient';
 
 export default async function SalesPage() {
@@ -184,7 +184,7 @@ export default async function SalesPage() {
 // src/app/seller/sales/SalesPageClient.tsx (CLIENT COMPONENT)
 'use client';
 
-import { useSellerSales } from '@/hooks/useSellerSales';
+import { useSellerSales } from '@/features/seller/sales/hooks/useSellerSales';
 import { OrderCard, SalesKPIs } from './components'; // Server Components
 import { SalesFilters } from './components/SalesFilters'; // Client Component
 

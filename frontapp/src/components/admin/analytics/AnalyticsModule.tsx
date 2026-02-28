@@ -8,7 +8,7 @@ import {
     GeographicMapBars,
     FrequencyBars
 } from './AnalyticsCharts';
-import { AnalyticsKPI } from '@/lib/types/admin/analytics';
+import { AnalyticsKPI } from '@/features/admin/analytics/types';
 import { Store, Users } from 'lucide-react';
 import { SalesHeatmap } from '@/components/admin/finance/FinanceCharts';
 import { MOCK_FINANCE_DATA } from '@/lib/mocks/financeData';

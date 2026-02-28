@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ShopConfig } from '@/lib/types/seller/shop';
+import { ShopConfig } from '@/features/seller/store/types';
 import Icon from '@/components/ui/Icon';
 
 interface PoliciesProps {

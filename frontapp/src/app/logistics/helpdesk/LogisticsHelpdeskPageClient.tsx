@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
-import { useLogisticsHelpdesk } from '@/hooks/useLogisticsHelpdesk';
+import { useLogisticsHelpdesk } from '@/features/logistics/helpdesk/hooks/useLogisticsHelpdesk';
 
 interface LogisticsHelpdeskPageClientProps { /* TODO Tarea 3 */ }
 export function LogisticsHelpdeskPageClient(_props: LogisticsHelpdeskPageClientProps) {

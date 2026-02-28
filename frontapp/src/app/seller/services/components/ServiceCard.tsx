@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Service, Specialist, ServiceSticker } from '@/lib/types/seller/service';
+import { Service, Specialist, ServiceSticker } from '@/features/seller/services/types';
 import Icon from '@/components/ui/Icon';
 
 interface ServiceCardProps {

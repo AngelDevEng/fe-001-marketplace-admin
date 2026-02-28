@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Product } from '@/lib/types/seller/product';
+import { Product } from '@/features/seller/catalog/types';
 import BaseModal from '@/components/ui/BaseModal';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 
 interface ProductDetailModalProps {
     product: Product | null;

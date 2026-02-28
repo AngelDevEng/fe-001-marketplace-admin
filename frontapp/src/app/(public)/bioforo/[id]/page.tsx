@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
-import { forumApi } from '@/lib/api/forum';
+import { forumApi } from '@/shared/lib/api/forum';
 
 const REACTION_EMOJIS: Record<string, string> = {
   up: '👍',
@@ -61,7 +61,7 @@ export default function BioForoTopicPage() {
 
   const handleReply = async () => {
     if (!replyContent.trim()) return;
-    
+
     setSubmitting(true);
     try {
       await forumApi.createPost({
@@ -109,8 +109,8 @@ export default function BioForoTopicPage() {
   return (
     <div className="max-w-4xl mx-auto px-3 md:px-4 py-4 md:py-8">
       {/* Volver */}
-      <Link 
-        href="/bioforo" 
+      <Link
+        href="/bioforo"
         className="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-500 mb-4"
       >
         <Icon name="ArrowLeft" className="w-4 h-4" />
@@ -146,21 +146,21 @@ export default function BioForoTopicPage() {
         </h1>
 
         {/* Contenido */}
-        <div 
+        <div
           className="text-[#00866d] font-semibold leading-relaxed mb-6"
           dangerouslySetInnerHTML={{ __html: topic.topic_content || topic.content || '' }}
         />
 
         {/* Acciones */}
         <div className="flex items-center gap-4 border-t border-slate-100 pt-4">
-          <button 
+          <button
             onClick={() => handleVote(topic.id, 'up')}
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all"
           >
             <span className="text-lg">👍</span>
             <span className="font-medium text-sm">{topic.votes_up || 0}</span>
           </button>
-          <button 
+          <button
             onClick={() => handleVote(topic.id, 'down')}
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all"
           >
@@ -187,13 +187,13 @@ export default function BioForoTopicPage() {
         ) : (
           <div className="space-y-4">
             {posts.map((post, index) => (
-              <div 
+              <div
                 key={post.post_id || post.id || index}
                 className="bg-white border-2 border-slate-200 rounded-xl p-4 md:p-6"
               >
                 {/* Cita si existe */}
                 {post.reply_to && (
-                  <div 
+                  <div
                     className="quote-box-whatsapp bg-gradient-to-r from-blue-50 to-sky-50 border-l-4 border-sky-500 p-3 rounded-r-lg mb-4"
                   >
                     <p className="text-xs font-bold text-sky-700 flex items-center gap-1 mb-1">
@@ -218,20 +218,20 @@ export default function BioForoTopicPage() {
                 </div>
 
                 {/* Contenido */}
-                <div 
+                <div
                   className="text-slate-700 leading-relaxed mb-4"
                   dangerouslySetInnerHTML={{ __html: post.post_content || post.content || '' }}
                 />
 
                 {/* Votos */}
                 <div className="flex items-center gap-3">
-                  <button 
+                  <button
                     onClick={() => handleVote(post.post_id || post.id, 'up')}
                     className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-50 hover:bg-slate-100 text-sm"
                   >
                     👍 {post.votes_up || 0}
                   </button>
-                  <button 
+                  <button
                     onClick={() => handleVote(post.post_id || post.id, 'down')}
                     className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-50 hover:bg-slate-100 text-sm"
                   >
@@ -256,8 +256,8 @@ export default function BioForoTopicPage() {
         <div className="flex items-center justify-between">
           <p className="text-xs text-slate-500">
             Para responder necesitas{' '}
-            <a 
-              href="https://lyriumbiomarketplace.com/community/?wpforo=login" 
+            <a
+              href="https://lyriumbiomarketplace.com/community/?wpforo=login"
               target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-500 hover:underline"

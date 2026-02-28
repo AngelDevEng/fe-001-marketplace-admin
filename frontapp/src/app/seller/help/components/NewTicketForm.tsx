@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { TicketType } from '@/lib/types/seller/helpDesk';
+import { TicketType } from '@/features/seller/help/types';
 
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';

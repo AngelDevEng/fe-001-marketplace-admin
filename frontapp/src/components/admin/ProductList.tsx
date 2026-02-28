@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getProducts } from '@/lib/api';
+import { getProducts } from '@/shared/lib/api';
 import { Product } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 import DataTable, { Column } from '@/components/ui/DataTable';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 
 const columns: Column<Product>[] = [
     {

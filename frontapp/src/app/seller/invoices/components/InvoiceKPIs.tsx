@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { InvoiceKPIs } from '@/lib/types/seller/invoices';
+import { InvoiceKPIs } from '@/features/seller/invoices/types';
 import Icon from '@/components/ui/Icon';
 
 interface InvoiceKPIsProps {

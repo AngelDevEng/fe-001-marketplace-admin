@@ -3,7 +3,7 @@ import ThemeToggle from '@/components/layout/shared/ThemeToggle';
 import NotificationBell from '@/components/layout/shared/NotificationBell';
 import UserMenu from '@/components/layout/shared/UserMenu';
 import Breadcrumb from '@/components/layout/shared/Breadcrumb';
-import { useAutoBreadcrumb } from '@/hooks/useAutoBreadcrumb';
+import { useAutoBreadcrumb } from '@/shared/hooks/useAutoBreadcrumb';
 
 import { Menu } from 'lucide-react';
 

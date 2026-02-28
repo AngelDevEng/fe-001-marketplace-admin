@@ -3,11 +3,11 @@
 import React, { useState, useTransition } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { SalesKPIs, RecentOrder, refreshDashboard } from '@/lib/actions/dashboard';
+import { SalesKPIs, RecentOrder, refreshDashboard } from '@/shared/lib/actions/dashboard';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import Icon from '@/components/ui/Icon';
-import { useToast } from '@/context/ToastContext';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { useToast } from '@/shared/lib/context/ToastContext';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 
 // Carga diferida de gráficos - no pesan el bundle inicial
 const SalesChart = dynamic(() => import('@/components/charts/SalesChart'), {
@@ -26,15 +26,15 @@ interface DashboardClientProps {
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-function KPICard({ 
-  title, 
-  value, 
-  icon, 
+function KPICard({
+  title,
+  value,
+  icon,
   trend,
-  trendValue 
-}: { 
-  title: string; 
-  value: string | number; 
+  trendValue
+}: {
+  title: string;
+  value: string | number;
   icon: string;
   trend?: 'up' | 'down';
   trendValue?: string;
@@ -42,26 +42,23 @@ function KPICard({
   return (
     <div className="glass-card p-6 rounded-3xl bg-white border border-gray-100 shadow-lg hover:shadow-xl transition-shadow">
       <div className="flex items-start justify-between mb-4">
-        <div className={`p-3 rounded-2xl ${
-          title.includes('Ventas') ? 'bg-emerald-50' :
+        <div className={`p-3 rounded-2xl ${title.includes('Ventas') ? 'bg-emerald-50' :
           title.includes('Pedidos') ? 'bg-sky-50' :
-          title.includes('Ticket') ? 'bg-amber-50' :
-          'bg-purple-50'
-        }`}>
-          <Icon 
-            name={icon as any} 
-            className={`w-6 h-6 ${
-              title.includes('Ventas') ? 'text-emerald-500' :
+            title.includes('Ticket') ? 'bg-amber-50' :
+              'bg-purple-50'
+          }`}>
+          <Icon
+            name={icon as any}
+            className={`w-6 h-6 ${title.includes('Ventas') ? 'text-emerald-500' :
               title.includes('Pedidos') ? 'text-sky-500' :
-              title.includes('Ticket') ? 'text-amber-500' :
-              'text-purple-500'
-            }`} 
+                title.includes('Ticket') ? 'text-amber-500' :
+                  'text-purple-500'
+              }`}
           />
         </div>
         {trend && (
-          <div className={`flex items-center gap-1 text-xs font-bold ${
-            trend === 'up' ? 'text-emerald-500' : 'text-red-500'
-          }`}>
+          <div className={`flex items-center gap-1 text-xs font-bold ${trend === 'up' ? 'text-emerald-500' : 'text-red-500'
+            }`}>
             <Icon name={trend === 'up' ? 'TrendingUp' : 'TrendingDown'} className="w-4 h-4" />
             {trendValue}
           </div>

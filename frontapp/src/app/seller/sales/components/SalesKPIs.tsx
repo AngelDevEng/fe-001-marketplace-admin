@@ -1,5 +1,5 @@
 import React from 'react';
-import { SalesKPI } from '@/lib/types/seller/sales';
+import { SalesKPI } from '@/features/seller/sales/types';
 import BaseStatCard from '@/components/ui/BaseStatCard';
 
 interface SalesKPIsProps {

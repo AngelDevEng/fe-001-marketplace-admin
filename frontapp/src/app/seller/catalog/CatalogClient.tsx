@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useTransition, useOptimistic } from 'react';
-import { Product } from '@/lib/types/seller/product';
+import { Product } from '@/features/seller/catalog/types';
 import ProductCard from './components/ProductCard';
 import ProductModal from './components/ProductModal';
 import ProductDetailModal from './components/ProductDetailModal';
@@ -9,8 +9,8 @@ import BaseEmptyState from '@/components/ui/BaseEmptyState';
 import BaseButton from '@/components/ui/BaseButton';
 import BaseLoading from '@/components/ui/BaseLoading';
 import Icon from '@/components/ui/Icon';
-import { useToast } from '@/context/ToastContext';
-import { deleteProduct, saveProduct, updateProductPrice } from '@/lib/actions/catalog';
+import { useToast } from '@/shared/lib/context/ToastContext';
+import { deleteProduct, saveProduct, updateProductPrice } from '@/shared/lib/actions/catalog';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import { useConfirmDialog } from '@/components/ui/confirm-dialog';
 
@@ -47,7 +47,7 @@ function PriceEditInput({ product, onPriceUpdate }: PriceEditInputProps) {
     }
 
     setIsUpdating(true);
-    
+
     // Optimistic update - UI se actualiza inmediatamente
     onPriceUpdate(product.id, newPrice);
     setIsEditing(false);
@@ -113,16 +113,16 @@ interface OptimisticProductCardProps {
   onPriceUpdate: (productId: string, newPrice: number) => void;
 }
 
-function OptimisticProductCard({ 
-  product, 
-  optimisticPrice, 
-  onEdit, 
-  onDelete, 
+function OptimisticProductCard({
+  product,
+  optimisticPrice,
+  onEdit,
+  onDelete,
   onViewInfo,
-  onPriceUpdate 
+  onPriceUpdate
 }: OptimisticProductCardProps) {
   // Usar precio optimístico si está disponible, sino el original
-  const displayProduct = optimisticPrice !== undefined 
+  const displayProduct = optimisticPrice !== undefined
     ? { ...product, price: optimisticPrice }
     : product;
 
@@ -133,8 +133,8 @@ function OptimisticProductCard({
       onDelete={onDelete}
       onViewInfo={onViewInfo}
       renderPrice={() => (
-        <PriceEditInput 
-          product={product} 
+        <PriceEditInput
+          product={product}
           onPriceUpdate={onPriceUpdate}
         />
       )}
@@ -149,7 +149,7 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  
+
   // Transiciones
   const [isPending, startTransition] = useTransition();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -161,8 +161,8 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
   const [optimisticProducts, setOptimisticPrice] = useOptimistic(
     products,
     (state, { productId, newPrice }: { productId: string; newPrice: number }) => {
-      return state.map(p => 
-        p.id === productId 
+      return state.map(p =>
+        p.id === productId
           ? { ...p, price: newPrice }
           : p
       );
@@ -175,7 +175,7 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
   // Productos a mostrar: usar los optimísticos si existen, sino los originales
   const displayedProducts = optimisticProducts.map(p => {
     const optimisticPrice = optimisticPrices[p.id];
-    return optimisticPrice !== undefined 
+    return optimisticPrice !== undefined
       ? { ...p, price: optimisticPrice }
       : p;
   });
@@ -196,11 +196,11 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
     // 2. Llamar al servidor en background
     try {
       const result = await updateProductPrice(productId, newPrice);
-      
+
       if (!result.success) {
         // Error - revertir
         showToast(result.error || 'Error al actualizar precio', 'error');
-        
+
         startTransition(() => {
           setOptimisticPrices(prev => {
             const { [productId]: _, ...rest } = prev;
@@ -210,10 +210,10 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
       } else {
         // Éxito
         showToast('Precio actualizado', 'success');
-        
+
         // Actualizar estado real
         startTransition(() => {
-          setProducts(prev => prev.map(p => 
+          setProducts(prev => prev.map(p =>
             p.id === productId ? { ...p, price: newPrice } : p
           ));
         });
@@ -221,7 +221,7 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
     } catch (err) {
       // Error de red - revertir
       showToast('Error de conexión', 'error');
-      
+
       startTransition(() => {
         setOptimisticPrices(prev => {
           const { [productId]: _, ...rest } = prev;
@@ -259,13 +259,13 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
   const onSave = async (product: ProductFormData) => {
     try {
       const result = await saveProduct(product);
-      
+
       if (result.success && result.data) {
         showToast(
           selectedProduct ? 'Producto actualizado correctamente' : 'Nuevo producto agregado al catálogo',
           'success'
         );
-        
+
         startTransition(() => {
           setProducts(prev => {
             if (selectedProduct) {
@@ -274,7 +274,7 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
             return [result.data!, ...prev];
           });
         });
-        
+
         closeModal();
       } else {
         showToast(result.error || 'Error al procesar el producto', 'error');
@@ -292,13 +292,13 @@ export default function CatalogClient({ initialProducts }: CatalogClientProps) {
     if (!confirmed) return;
 
     setIsDeleting(true);
-    
+
     try {
       const result = await deleteProduct(productId);
-      
+
       if (result.success) {
         showToast('Producto eliminado exitosamente', 'info');
-        
+
         startTransition(() => {
           setProducts(prev => prev.filter(p => p.id !== productId));
         });

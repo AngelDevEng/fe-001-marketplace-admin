@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
 import HeroPill from '@/components/layout/public/HeroPill';
-import { forumApi } from '@/lib/api/forum';
+import { forumApi } from '@/shared/lib/api/forum';
 
 const REACTION_EMOJIS: Record<string, string> = {
   like: '👍',
@@ -347,7 +347,7 @@ export default function BioForoPage() {
 
               {/* Título y Contenido - Exactamente como el CSS */}
               <div className="mb-4 md:mb-6">
-                <h3 
+                <h3
                   className="text-black font-bold text-lg md:text-xl underline decoration-dashed decoration-[#8db701] decoration-3 underline-offset-[9px]"
                   style={{ textUnderlinePosition: 'from-word' }}
                 >
@@ -365,9 +365,8 @@ export default function BioForoPage() {
                 <div className="relative group">
                   <button
                     onClick={(e) => toggleReactionPopup(topic.id, e)}
-                    className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all reaction-btn-tema ${
-                      userReactions[`topic_${topic.id}`] ? `reaction-${userReactions[`topic_${topic.id}`]}` : ''
-                    }`}
+                    className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all reaction-btn-tema ${userReactions[`topic_${topic.id}`] ? `reaction-${userReactions[`topic_${topic.id}`]}` : ''
+                      }`}
                     style={userReactions[`topic_${topic.id}`] ? { color: REACTION_COLORS[userReactions[`topic_${topic.id}`]] } : {}}
                   >
                     <span className="text-base md:text-lg">

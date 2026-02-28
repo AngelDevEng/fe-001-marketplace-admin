@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getProducts, getOrders } from '@/lib/api';
+import { getProducts, getOrders } from '@/shared/lib/api';
 import { Product, Order, OrderLineItem } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 

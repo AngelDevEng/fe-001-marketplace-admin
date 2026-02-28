@@ -1,5 +1,5 @@
 import React from 'react';
-import { OrderItem } from '@/lib/types/seller/sales';
+import { OrderItem } from '@/features/seller/sales/types';
 
 interface OrderItemListProps {
     items: OrderItem[];

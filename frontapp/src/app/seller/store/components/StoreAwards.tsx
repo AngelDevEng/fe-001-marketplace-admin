@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ShopConfig } from '@/lib/types/seller/shop';
+import { ShopConfig } from '@/features/seller/store/types';
 import Icon from '@/components/ui/Icon';
 
 interface StoreAwardsProps {

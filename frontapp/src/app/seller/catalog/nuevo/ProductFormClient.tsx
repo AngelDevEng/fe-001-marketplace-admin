@@ -2,11 +2,11 @@
 
 import React, { useState, useTransition, useCallback, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
-import { createProduct, uploadImageToWordPress, ProductActionResult } from '@/lib/actions/product-form';
-import { ProductFormSchema, ProductFormData } from '@/lib/schemas/product.schema';
+import { createProduct, uploadImageToWordPress, ProductActionResult } from '@/shared/lib/actions/product-form';
+import { ProductFormSchema, ProductFormData } from '@/shared/lib/schemas/product.schema';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import Icon from '@/components/ui/Icon';
-import { useToast } from '@/context/ToastContext';
+import { useToast } from '@/shared/lib/context/ToastContext';
 import { useRouter } from 'next/navigation';
 
 interface UploadedImage {
@@ -25,7 +25,7 @@ const initialState: ProductActionResult = { success: false, error: '' };
  */
 function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
   const { pending } = useFormStatus();
-  
+
   return (
     <button
       type="submit"
@@ -52,12 +52,12 @@ function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
  * IMAGE UPLOAD COMPONENT
  * ═══════════════════════════════════════════════════════════════════════════
  */
-function ImageUploader({ 
-  images, 
-  onUpload, 
+function ImageUploader({
+  images,
+  onUpload,
   onRemove,
-  onSetPrimary 
-}: { 
+  onSetPrimary
+}: {
   images: UploadedImage[];
   onUpload: (file: File) => Promise<void>;
   onRemove: (id: string) => void;
@@ -69,17 +69,17 @@ function ImageUploader({
 
   const handleFiles = useCallback(async (files: FileList) => {
     if (images.length >= 5) return;
-    
+
     setIsUploading(true);
-    
+
     for (const file of Array.from(files)) {
       if (images.length >= 5) break;
-      
+
       // Validar tipo
       if (!['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(file.type)) {
         continue;
       }
-      
+
       // Validar tamaño
       if (file.size > 5 * 1024 * 1024) {
         continue;
@@ -88,16 +88,16 @@ function ImageUploader({
       // Preview local
       const previewUrl = URL.createObjectURL(file);
       const tempId = `temp-${Date.now()}-${Math.random()}`;
-      
+
       onUpload(file);
-      
+
       // Subir a WP en background (no bloquea UI)
       const formData = new FormData();
       formData.append('file', file);
-      
+
       try {
         const result = await uploadImageToWordPress(formData);
-        
+
         if (result.success && result.imageId) {
           onUpload(file); // Actualiza con el ID real
         }
@@ -105,7 +105,7 @@ function ImageUploader({
         console.error('Upload failed:', error);
       }
     }
-    
+
     setIsUploading(false);
   }, [images.length, onUpload]);
 
@@ -120,18 +120,17 @@ function ImageUploader({
       <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider">
         Imágenes del Producto
       </label>
-      
+
       {/* Drop Zone */}
       <div
         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all ${
-          isDragging 
-            ? 'border-sky-500 bg-sky-50' 
-            : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-        }`}
+        className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all ${isDragging
+          ? 'border-sky-500 bg-sky-50'
+          : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+          }`}
       >
         <input
           ref={fileInputRef}
@@ -141,7 +140,7 @@ function ImageUploader({
           className="hidden"
           onChange={(e) => e.target.files && handleFiles(e.target.files)}
         />
-        
+
         <div className="space-y-2">
           <Icon name="Upload" className="w-8 h-8 text-gray-400 mx-auto" />
           <p className="text-sm text-gray-500">
@@ -155,16 +154,16 @@ function ImageUploader({
       {images.length > 0 && (
         <div className="grid grid-cols-4 gap-3">
           {images.map((img) => (
-            <div 
-              key={img.id} 
+            <div
+              key={img.id}
               className="relative aspect-square rounded-xl overflow-hidden border-2 border-gray-100 group"
             >
-              <img 
-                src={img.url} 
+              <img
+                src={img.url}
                 alt="Product image"
                 className="w-full h-full object-cover"
               />
-              
+
               {/* Overlay */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                 <button
@@ -184,7 +183,7 @@ function ImageUploader({
                   <Icon name="Trash2" className="w-4 h-4" />
                 </button>
               </div>
-              
+
               {img.isUploading && (
                 <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                   <Icon name="Loader2" className="w-6 h-6 text-white animate-spin" />
@@ -194,7 +193,7 @@ function ImageUploader({
           ))}
         </div>
       )}
-      
+
       {isUploading && (
         <p className="text-xs text-gray-500 flex items-center gap-2">
           <Icon name="Loader2" className="w-4 h-4 animate-spin" />
@@ -213,24 +212,24 @@ function ImageUploader({
 export default function ProductFormClient() {
   const router = useRouter();
   const { showToast } = useToast();
-  
+
   // useFormState para Server Actions en Next.js
   // El primer argumento es la Server Action
   // El segundo es el estado inicial
   const [state, formAction] = useFormState(createProduct, initialState);
-  
+
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [featuredImage, setFeaturedImage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
-  
+
   // Nonce - en producción obtener de window.wpApiSettings
   const [nonce] = useState(() => `wp_nonce_${Date.now()}`);
 
   // Validación en tiempo real
   const validateField = useCallback((name: string, value: string) => {
-    const testData = { 
-      name: name === 'name' ? value : '', 
+    const testData = {
+      name: name === 'name' ? value : '',
       price: name === 'price' ? value : '0',
       stock: name === 'stock' ? value : '0',
       category: name === 'category' ? value : '',
@@ -241,9 +240,9 @@ export default function ProductFormClient() {
       regularPrice: null,
       sku: '',
     };
-    
+
     const result = ProductFormSchema.safeParse(testData);
-    
+
     if (!result.success) {
       const errors = result.error.flatten().fieldErrors;
       setFieldErrors(prev => ({
@@ -262,28 +261,28 @@ export default function ProductFormClient() {
   const handleImageUpload = useCallback(async (file: File) => {
     const tempId = `temp-${Date.now()}`;
     const previewUrl = URL.createObjectURL(file);
-    
+
     // Agregar con preview local inmediatamente (no espera al servidor)
-    setImages(prev => [...prev, { 
-      id: tempId, 
-      url: previewUrl, 
+    setImages(prev => [...prev, {
+      id: tempId,
+      url: previewUrl,
       file,
-      isUploading: true 
+      isUploading: true
     }]);
 
     // Subir a WP
     const formData = new FormData();
     formData.append('file', file);
-    
+
     const result = await uploadImageToWordPress(formData);
-    
+
     if (result.success && result.imageId) {
-      setImages(prev => prev.map(img => 
-        img.id === tempId 
+      setImages(prev => prev.map(img =>
+        img.id === tempId
           ? { ...img, id: result.imageId!, url: result.imageUrl!, isUploading: false }
           : img
       ));
-      
+
       // Si es la primera, establecer como principal
       if (images.length === 0 && result.imageId) {
         setFeaturedImage(result.imageId);
@@ -338,7 +337,7 @@ export default function ProductFormClient() {
         {/* Basic Info */}
         <div className="glass-card p-8 rounded-3xl bg-white border border-gray-100 shadow-xl">
           <h3 className="text-sm font-black text-gray-800 uppercase mb-6">Información Básica</h3>
-          
+
           <div className="space-y-6">
             {/* Nombre */}
             <div>
@@ -349,11 +348,10 @@ export default function ProductFormClient() {
                 type="text"
                 name="name"
                 onBlur={(e) => validateField('name', e.target.value)}
-                className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-xl font-bold text-gray-700 focus:outline-none focus:ring-2 transition-all ${
-                  fieldErrors.name?.length 
-                    ? 'border-red-300 focus:ring-red-100' 
-                    : 'border-gray-100 focus:border-sky-500 focus:ring-sky-100'
-                }`}
+                className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-xl font-bold text-gray-700 focus:outline-none focus:ring-2 transition-all ${fieldErrors.name?.length
+                  ? 'border-red-300 focus:ring-red-100'
+                  : 'border-gray-100 focus:border-sky-500 focus:ring-sky-100'
+                  }`}
                 placeholder="Ej: Vitamina C 1000mg"
               />
               {fieldErrors.name?.[0] && (
@@ -379,7 +377,7 @@ export default function ProductFormClient() {
         {/* Pricing */}
         <div className="glass-card p-8 rounded-3xl bg-white border border-gray-100 shadow-xl">
           <h3 className="text-sm font-black text-gray-800 uppercase mb-6">Precios y Stock</h3>
-          
+
           <div className="grid grid-cols-2 gap-6">
             {/* Precio */}
             <div>
@@ -393,11 +391,10 @@ export default function ProductFormClient() {
                   name="price"
                   step="0.01"
                   onBlur={(e) => validateField('price', e.target.value)}
-                  className={`w-full pl-10 pr-4 py-3 bg-gray-50 border-2 rounded-xl font-bold text-gray-700 focus:outline-none focus:ring-2 ${
-                    fieldErrors.price?.length 
-                      ? 'border-red-300 focus:ring-red-100' 
-                      : 'border-gray-100 focus:border-sky-500 focus:ring-sky-100'
-                  }`}
+                  className={`w-full pl-10 pr-4 py-3 bg-gray-50 border-2 rounded-xl font-bold text-gray-700 focus:outline-none focus:ring-2 ${fieldErrors.price?.length
+                    ? 'border-red-300 focus:ring-red-100'
+                    : 'border-gray-100 focus:border-sky-500 focus:ring-sky-100'
+                    }`}
                   placeholder="0.00"
                 />
               </div>
@@ -432,11 +429,10 @@ export default function ProductFormClient() {
                 type="number"
                 name="stock"
                 onBlur={(e) => validateField('stock', e.target.value)}
-                className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-xl font-bold text-gray-700 focus:outline-none focus:ring-2 ${
-                  fieldErrors.stock?.length 
-                    ? 'border-red-300 focus:ring-red-100' 
-                    : 'border-gray-100 focus:border-sky-500 focus:ring-sky-100'
-                }`}
+                className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-xl font-bold text-gray-700 focus:outline-none focus:ring-2 ${fieldErrors.stock?.length
+                  ? 'border-red-300 focus:ring-red-100'
+                  : 'border-gray-100 focus:border-sky-500 focus:ring-sky-100'
+                  }`}
                 placeholder="0"
               />
               {fieldErrors.stock?.[0] && (

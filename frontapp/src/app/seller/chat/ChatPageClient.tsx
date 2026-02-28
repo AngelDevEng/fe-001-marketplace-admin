@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { useSellerChat } from '@/hooks/useSellerChat';
+import { useSellerChat } from '@/features/seller/chat/hooks/useSellerChat';
 import Icon from '@/components/ui/Icon';
 import ChatOptionsMenu from './components/ChatOptionsMenu';
 import BaseLoading from '@/components/ui/BaseLoading';

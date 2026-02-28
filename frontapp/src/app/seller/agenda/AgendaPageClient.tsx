@@ -5,7 +5,7 @@ import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import DayActivityModal from './components/DayActivityModal';
 import Icon from '@/components/ui/Icon';
 import BaseLoading from '@/components/ui/BaseLoading';
-import { useAgenda, generateCalendarDays } from '@/hooks/useAgenda';
+import { useAgenda, generateCalendarDays } from '@/features/seller/agenda/hooks/useAgenda';
 
 interface AgendaPageClientProps {
     // TODO Tarea 3: Recibir datos iniciales del Server Component

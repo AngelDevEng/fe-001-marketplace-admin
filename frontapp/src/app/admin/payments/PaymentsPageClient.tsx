@@ -1,6 +1,6 @@
 'use client';
 
-import { useTreasury } from '@/hooks/useTreasury';
+import { useTreasury } from '@/features/admin/treasury/hooks/useTreasury';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import { TreasuryModule } from '@/components/admin/treasury/TreasuryModule';
 import { PaymentModal } from '@/components/admin/treasury/TreasuryModals';

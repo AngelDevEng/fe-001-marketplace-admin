@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { peruCoverage } from '@/lib/data/coverageData';
-import { CityRate } from '@/lib/types/seller/logistics';
+import { peruCoverage } from '@/shared/lib/data/coverageData';
+import { CityRate } from '@/features/seller/logistics/types';
 import BaseModal from '@/components/ui/BaseModal';
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';

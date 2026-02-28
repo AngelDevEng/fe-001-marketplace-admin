@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Branch } from '@/lib/types/seller/shop';
+import { Branch } from '@/features/seller/store/types';
 import BranchCard from './BranchCard';
 import BranchModal from './BranchModal';
 import { Plus, Store } from 'lucide-react';

@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
 import HeroPill from '@/components/layout/public/HeroPill';
-import { blogApi } from '@/lib/api/blog';
+import { blogApi } from '@/shared/lib/api/blog';
 
 interface Comment {
     id: number;
@@ -40,7 +40,7 @@ export default function BlogPostPage() {
                 blogApi.getPostBySlug(slug),
                 post ? blogApi.getComments(post.id) : Promise.resolve([]),
             ]);
-            
+
             setPost(postData);
             if (postData) {
                 const comms = await blogApi.getComments(postData.id);
@@ -108,8 +108,8 @@ export default function BlogPostPage() {
     return (
         <div className="max-w-4xl mx-auto px-3 md:px-4 py-6 md:py-10">
             {/* Volver */}
-            <Link 
-                href="/bioblog" 
+            <Link
+                href="/bioblog"
                 className="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-500 mb-4"
             >
                 <Icon name="ArrowLeft" className="w-4 h-4" />
@@ -126,7 +126,7 @@ export default function BlogPostPage() {
                     <h1 className="text-2xl md:text-4xl font-bold text-slate-800 mb-4">
                         {post.title}
                     </h1>
-                    
+
                     <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500">
                         <div className="flex items-center gap-2">
                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-100 to-sky-100 flex items-center justify-center text-emerald-600 font-bold">
@@ -156,7 +156,7 @@ export default function BlogPostPage() {
                 )}
 
                 {/* Contenido */}
-                <div 
+                <div
                     className="prose prose-lg max-w-none text-slate-700"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                 />
@@ -164,7 +164,7 @@ export default function BlogPostPage() {
                 {/* Tags */}
                 <div className="mt-8 pt-6 border-t border-slate-200">
                     <span className="text-sm text-slate-500">
-                        Etiquetas: 
+                        Etiquetas:
                         <span className="ml-2 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">
                             {post.category_name}
                         </span>
@@ -210,7 +210,7 @@ export default function BlogPostPage() {
                 {/* Formulario de comentario */}
                 <div className="bg-white rounded-2xl p-6 md:p-8 border border-slate-200">
                     <h3 className="text-lg font-semibold text-slate-800 mb-4">Deja tu comentario</h3>
-                    
+
                     {commentSuccess && (
                         <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl mb-4 flex items-center gap-2">
                             <Icon name="CheckCircle" className="w-5 h-5" />

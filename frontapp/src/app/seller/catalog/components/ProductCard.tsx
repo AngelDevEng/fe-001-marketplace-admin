@@ -1,8 +1,8 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import { Product } from '@/lib/types/seller/product';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { Product } from '@/features/seller/catalog/types';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 import Icon from '@/components/ui/Icon';
 
 interface ProductCardProps {

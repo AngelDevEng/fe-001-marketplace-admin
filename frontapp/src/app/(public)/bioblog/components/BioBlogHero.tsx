@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Icon from '@/components/ui/Icon';
 import HeroPill from '@/components/layout/public/HeroPill';
-import { blogApi } from '@/lib/api/blog';
+import { blogApi } from '@/shared/lib/api/blog';
 
 interface Category {
     id: number;

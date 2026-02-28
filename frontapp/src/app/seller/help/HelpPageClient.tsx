@@ -7,7 +7,7 @@ import TicketChatView from './components/TicketChatView';
 import NewTicketForm from './components/NewTicketForm';
 import RegisteredStoreInfo from './components/RegisteredStoreInfo';
 import BaseLoading from '@/components/ui/BaseLoading';
-import { useSellerHelp } from '@/hooks/useSellerHelp';
+import { useSellerHelp } from '@/features/seller/help/hooks/useSellerHelp';
 
 interface HelpPageClientProps {
     // TODO Tarea 3: Recibir datos iniciales del Server Component
@@ -80,36 +80,36 @@ export function HelpPageClient(_props: HelpPageClientProps) {
                         <div className="grid grid-cols-12 gap-8 h-full">
                             {/* Sidebar (List) */}
                             <div className="col-span-12 md:col-span-5 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col min-h-[500px]">
-                            <TicketSidebar
-                                tickets={tickets}
-                                activeTicketId={activeTicketId}
-                                filters={filters}
-                                onSetFilters={setFilters}
-                                onSetActiveTicket={setActiveTicketId}
-                                onNewTicket={() => handleCreateTicket({ subject: '', description: '', priority: 'normal', category: 'general' })}
-                            />
+                                <TicketSidebar
+                                    tickets={tickets}
+                                    activeTicketId={activeTicketId}
+                                    filters={filters}
+                                    onSetFilters={setFilters}
+                                    onSetActiveTicket={setActiveTicketId}
+                                    onNewTicket={() => handleCreateTicket({ subject: '', description: '', priority: 'normal', category: 'general' })}
+                                />
                             </div>
 
                             {/* Detail Area */}
-                        <div className="col-span-12 md:col-span-7 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col min-h-[600px]">
-                            {activeTicketId ? (
-                                <TicketChatView
-                                    ticket={activeTicket!}
-                                    isSending={isSending}
-                                    isClosing={isClosing}
-                                    onSendMessage={({ text }) => handleSendMessage(text)}
-                                    onCloseTicket={handleCloseTicket}
-                                    onSubmitSurvey={({ rating, comment }) => handleSubmitSurvey(rating, comment)}
-                                />
-                            ) : (
-                                <div className="flex-1 flex items-center justify-center">
-                                    <NewTicketForm
-                                        onCreateTicket={handleCreateTicket}
-                                        onCancel={() => { }}
+                            <div className="col-span-12 md:col-span-7 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col min-h-[600px]">
+                                {activeTicketId ? (
+                                    <TicketChatView
+                                        ticket={activeTicket!}
+                                        isSending={isSending}
+                                        isClosing={isClosing}
+                                        onSendMessage={({ text }) => handleSendMessage(text)}
+                                        onCloseTicket={handleCloseTicket}
+                                        onSubmitSurvey={({ rating, comment }) => handleSubmitSurvey(rating, comment)}
                                     />
-                                </div>
-                            )}
-                        </div>
+                                ) : (
+                                    <div className="flex-1 flex items-center justify-center">
+                                        <NewTicketForm
+                                            onCreateTicket={handleCreateTicket}
+                                            onCancel={() => { }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 ) : (

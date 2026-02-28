@@ -10,7 +10,7 @@ import {
     Tooltip,
     ResponsiveContainer
 } from 'recharts';
-import { getSalesReport } from '@/lib/api';
+import { getSalesReport } from '@/shared/lib/api';
 
 export default function SalesChart() {
     const [data, setData] = useState<any[]>([]);

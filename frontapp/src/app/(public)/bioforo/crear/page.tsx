@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
 import HeroPill from '@/components/layout/public/HeroPill';
-import { forumApi } from '@/lib/api/forum';
+import { forumApi } from '@/shared/lib/api/forum';
 
 export default function CrearTemaPage() {
   const router = useRouter();
@@ -112,8 +112,8 @@ export default function CrearTemaPage() {
   return (
     <div className="max-w-4xl mx-auto px-3 md:px-4 py-4 md:py-8">
       {/* Volver */}
-      <Link 
-        href="/bioforo" 
+      <Link
+        href="/bioforo"
         className="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-500 mb-4"
       >
         <Icon name="ArrowLeft" className="w-4 h-4" />

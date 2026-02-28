@@ -4,12 +4,12 @@ import React from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import FinanceChart from './components/FinanceChart';
 import CardProxPago from './components/CardProxPago';
-import { useToast } from '@/context/ToastContext';
+import { useToast } from '@/shared/lib/context/ToastContext';
 import BaseLoading from '@/components/ui/BaseLoading';
 import BaseStatCard from '@/components/ui/BaseStatCard';
 import Icon from '@/components/ui/Icon';
-import { useSellerFinance } from '@/hooks/useSellerFinance';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { useSellerFinance } from '@/features/seller/finance/hooks/useSellerFinance';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 
 interface FinancePageClientProps {
     // TODO Tarea 3: Recibir datos iniciales del Server Component

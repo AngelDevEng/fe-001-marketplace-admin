@@ -6,18 +6,18 @@ import SalesKPIs from './components/SalesKPIs';
 import SalesFilters from './components/SalesFilters';
 import OrderCard from './components/OrderCard';
 import OrderDetailModal from './components/OrderDetailModal';
-import { Order, SalesKPI } from '@/lib/types/seller/sales';
-import { useToast } from '@/context/ToastContext';
+import { Order, SalesKPI } from '@/features/seller/sales/types';
+import { useToast } from '@/shared/lib/context/ToastContext';
 import BaseLoading from '@/components/ui/BaseLoading';
 import BaseEmptyState from '@/components/ui/BaseEmptyState';
-import { useSellerSales } from '@/hooks/useSellerSales';
+import { useSellerSales } from '@/features/seller/sales/hooks/useSellerSales';
 
 interface SalesPageClientProps {
     // TODO Tarea 3: Estos datos vendrán del Server Component
     // Cuando se implemente la API real y el flag USE_MOCKS=false,
     // el hook useSellerSales recibirá estos datos como initialData
-    initialOrders?: Awaited<ReturnType<typeof import('@/lib/actions/dashboard').getRecentOrders>>;
-    initialKPIs?: Awaited<ReturnType<typeof import('@/lib/actions/dashboard').getSalesKPIs>>;
+    initialOrders?: Awaited<ReturnType<typeof import('@/shared/lib/actions/dashboard').getRecentOrders>>;
+    initialKPIs?: Awaited<ReturnType<typeof import('@/shared/lib/actions/dashboard').getSalesKPIs>>;
 }
 
 export function SalesPageClient(props: SalesPageClientProps) {

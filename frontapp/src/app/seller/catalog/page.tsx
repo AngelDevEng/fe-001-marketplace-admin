@@ -10,7 +10,7 @@
  */
 
 import { Suspense } from 'react';
-import { getProducts } from '@/lib/actions/catalog';
+import { getProducts } from '@/shared/lib/actions/catalog';
 import CatalogClient from './CatalogClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 

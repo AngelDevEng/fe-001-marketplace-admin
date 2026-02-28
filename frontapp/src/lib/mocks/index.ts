@@ -11,7 +11,7 @@
  * PARA MIGRACIÓN:
  * ============
  * 1. En lugar de importar desde '@/lib/mocks/*'
- * 2. Usar Server Actions desde '@/lib/actions/*'
+ * 2. Usar Server Actions desde '@/shared/lib/actions/*'
  * 3. Los tipos están disponibles en '@/lib/types/entities'
  * 
  * Esta carpeta existe solo para backwards compatibility.

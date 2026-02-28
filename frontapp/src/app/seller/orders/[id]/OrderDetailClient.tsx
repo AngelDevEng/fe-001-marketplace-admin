@@ -2,12 +2,12 @@
 
 import React, { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { OrderDetails, updateOrderStatus, OrderStatus, addOrderNote } from '@/lib/actions/orders';
-import { getStatusLabel, getStatusColor, formatDateTime, ORDER_STATUSES } from '@/lib/utils/order-utils';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { OrderDetails, updateOrderStatus, OrderStatus, addOrderNote } from '@/shared/lib/actions/orders';
+import { getStatusLabel, getStatusColor, formatDateTime, ORDER_STATUSES } from '@/shared/lib/utils/order-utils';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import Icon from '@/components/ui/Icon';
-import { useToast } from '@/context/ToastContext';
+import { useToast } from '@/shared/lib/context/ToastContext';
 
 interface OrderDetailClientProps {
   order: OrderDetails;
@@ -25,24 +25,24 @@ export default function OrderDetailClient({ order: initialOrder }: OrderDetailCl
   const handleStatusChange = async (newStatus: OrderStatus) => {
     startTransition(async () => {
       const result = await updateOrderStatus(order.id, newStatus);
-      
+
       if (result.success) {
         setOrder(prev => ({ ...prev, status: newStatus }));
         showToast(result.message || 'Estado actualizado', 'success');
       } else {
         showToast(result.error || 'Error al actualizar', 'error');
       }
-      
+
       setShowStatusSelect(false);
     });
   };
 
   const handleAddNote = async () => {
     if (!note.trim()) return;
-    
+
     setIsAddingNote(true);
     const result = await addOrderNote(order.id, note);
-    
+
     if (result.success) {
       showToast('Nota agregada', 'success');
       setNote('');
@@ -101,9 +101,8 @@ export default function OrderDetailClient({ order: initialOrder }: OrderDetailCl
                   <button
                     key={status}
                     onClick={() => handleStatusChange(status)}
-                    className={`w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors ${
-                      order.status === status ? 'bg-gray-50 font-bold' : ''
-                    }`}
+                    className={`w-full text-left px-4 py-2 hover:bg-gray-50 transition-colors ${order.status === status ? 'bg-gray-50 font-bold' : ''
+                      }`}
                   >
                     {getStatusLabel(status)}
                   </button>

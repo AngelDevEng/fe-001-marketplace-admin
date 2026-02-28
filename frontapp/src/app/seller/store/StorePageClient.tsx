@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useToast } from '@/context/ToastContext';
+import { useToast } from '@/shared/lib/context/ToastContext';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import Icon from '@/components/ui/Icon';
 import BaseButton from '@/components/ui/BaseButton';
@@ -15,7 +15,7 @@ import Policies from './components/Policies';
 import VisualIdentity from './components/VisualIdentity';
 import StoreAwards from './components/StoreAwards';
 import LayoutSelector from './components/LayoutSelector';
-import { useSellerStore } from '@/hooks/useSellerStore';
+import { useSellerStore } from '@/features/seller/store/hooks/useSellerStore';
 
 interface StorePageClientProps {
     // TODO Tarea 3: Recibir datos iniciales del Server Component

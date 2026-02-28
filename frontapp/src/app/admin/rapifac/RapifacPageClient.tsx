@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
-import { useAdminInvoices } from '@/hooks/useAdminInvoices';
+import { useAdminInvoices } from '@/features/admin/invoices/hooks/useAdminInvoices';
 import { Receipt, Search, RefreshCw, Download, CheckCircle, Clock, XCircle, AlertCircle, User, TrendingUp, FileText } from 'lucide-react';
 import BaseButton from '@/components/ui/BaseButton';
 import Skeleton, { SkeletonRow } from '@/components/ui/Skeleton';
@@ -63,7 +63,7 @@ export function RapifacPageClient(_props: RapifacPageClientProps) {
             <ModuleHeader title="Trazabilidad Rapifac" subtitle="Registro centralizado de comprobantes electrónicos nacionales" icon="Receipt" />
             {error && <div className="bg-rose-50 border border-rose-200 p-6 rounded-[2rem] flex items-center gap-4 text-rose-700 font-bold shadow-sm"><AlertCircle className="w-6 h-6" /><div><p className="text-xs uppercase tracking-widest text-rose-500 mb-1">Error de Sincronización</p><p>{error}</p></div></div>}
             {isLoading ? (
-                <div className="space-y-8"><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">{[1,2,3,4].map(i => <Skeleton key={i} className="h-28 rounded-[2rem]" />)}</div></div>
+                <div className="space-y-8"><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">{[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-28 rounded-[2rem]" />)}</div></div>
             ) : (
                 <>
                     <div className="flex justify-end items-center gap-3">

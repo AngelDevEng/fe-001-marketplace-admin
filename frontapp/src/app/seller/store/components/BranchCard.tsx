@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Branch } from '@/lib/types/seller/shop';
+import { Branch } from '@/features/seller/store/types';
 import Icon from '@/components/ui/Icon';
 
 interface BranchCardProps {

@@ -4,7 +4,7 @@ import React from 'react';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import SurveyArea from './SurveyArea';
-import { Ticket } from '@/lib/types/seller/helpDesk';
+import { Ticket } from '@/features/seller/help/types';
 import Icon from '@/components/ui/Icon';
 
 interface TicketChatViewProps {

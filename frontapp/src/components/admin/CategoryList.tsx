@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getCategories } from '@/lib/api';
+import { getCategories } from '@/shared/lib/api';
 import { ProductCategory } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 import DataTable, { Column } from '@/components/ui/DataTable';

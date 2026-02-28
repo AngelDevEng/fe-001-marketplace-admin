@@ -1,6 +1,6 @@
 'use client';
 
-import { TicketMessage } from '@/lib/types/seller/helpDesk';
+import { TicketMessage } from '@/features/seller/help/types';
 import Icon from '@/components/ui/Icon';
 
 interface ChatMessageProps {

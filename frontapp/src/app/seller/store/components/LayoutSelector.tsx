@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShopConfig } from '@/lib/types/seller/shop';
+import { ShopConfig } from '@/features/seller/store/types';
 import StorePreviewModal from './StorePreviewModal';
 import Icon from '@/components/ui/Icon';
 

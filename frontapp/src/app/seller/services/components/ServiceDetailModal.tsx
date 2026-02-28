@@ -1,5 +1,5 @@
 import React from 'react';
-import { Service, Specialist, Appointment } from '@/lib/types/seller/service';
+import { Service, Specialist, Appointment } from '@/features/seller/services/types';
 import BaseDrawer from '@/components/ui/BaseDrawer';
 import Icon from '@/components/ui/Icon';
 import BaseButton from '@/components/ui/BaseButton';

@@ -6,7 +6,7 @@ import BaseButton from '@/components/ui/BaseButton';
 import Skeleton from '@/components/ui/Skeleton';
 import Icon from '@/components/ui/Icon';
 import ModalsPortal from '@/components/layout/shared/ModalsPortal';
-import { useInventory } from '@/hooks/useInventory';
+import { useInventory } from '@/features/admin/inventory/hooks/useInventory';
 import { InventoryTable } from '@/components/admin/inventory/InventoryTable';
 import { Search, Package, Activity, AlertCircle, ShoppingBag, X, Eye, Download, RefreshCw } from 'lucide-react';
 import { InventoryItem } from '@/lib/types/admin/inventory';

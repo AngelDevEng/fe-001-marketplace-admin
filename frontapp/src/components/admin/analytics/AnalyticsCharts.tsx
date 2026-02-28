@@ -1,5 +1,5 @@
 import React from 'react';
-import { SellerAnalytics, CatalogProduct, GeographicZone, AnalyticsKPI } from '@/lib/types/admin/analytics';
+import { SellerAnalytics, CatalogProduct, GeographicZone, AnalyticsKPI } from '@/features/admin/analytics/types';
 import {
     ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip as RTooltip, ResponsiveContainer, Cell,
     AreaChart, Area

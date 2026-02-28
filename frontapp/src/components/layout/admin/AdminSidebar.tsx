@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SmartSidebar from '@/components/layout/shared/SmartSidebar';
-import { adminNavigation } from '@/lib/constants/admin-nav';
+import { adminNavigation } from '@/shared/lib/constants/admin-nav';
 
 interface AdminSidebarProps {
     isMobileOpen: boolean;

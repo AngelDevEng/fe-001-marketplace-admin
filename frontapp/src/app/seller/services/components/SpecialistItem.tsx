@@ -1,5 +1,5 @@
 import React from 'react';
-import { Specialist } from '@/lib/types/seller/service';
+import { Specialist } from '@/features/seller/services/types';
 import Icon from '@/components/ui/Icon';
 
 interface SpecialistItemProps {

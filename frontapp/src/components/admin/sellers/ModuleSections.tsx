@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Seller, Product, Notification, AuditEntry, ProductStatus } from '@/lib/types/admin/sellers';
+import { Seller, Product, Notification, AuditEntry, ProductStatus } from '@/features/admin/sellers/types';
 import { CVStatusBadge, CVCard } from './SharedCVUI';
 import BaseButton from '@/components/ui/BaseButton';
 import { User, Mail, Phone, ShieldAlert, ShieldCheck, Clock, Bell, Info, Sliders, Package, Store, Eye, CheckCircle, XCircle, Terminal } from 'lucide-react';

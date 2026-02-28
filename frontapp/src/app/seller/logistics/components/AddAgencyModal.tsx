@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Agency } from '@/lib/types/seller/logistics';
+import { Agency } from '@/features/seller/logistics/types';
 import BaseModal from '@/components/ui/BaseModal';
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';

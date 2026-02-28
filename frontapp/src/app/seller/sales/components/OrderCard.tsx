@@ -1,5 +1,5 @@
 import React from 'react';
-import { Order } from '@/lib/types/seller/sales';
+import { Order } from '@/features/seller/sales/types';
 import Icon from '@/components/ui/Icon';
 import BaseStatusBadge, { ORDER_STATUS_MAPPINGS } from '@/components/ui/BaseStatusBadge';
 

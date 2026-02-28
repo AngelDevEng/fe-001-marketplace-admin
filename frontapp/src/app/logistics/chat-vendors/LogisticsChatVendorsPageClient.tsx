@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import Icon from '@/components/ui/Icon';
-import { useLogisticsChat } from '@/hooks/useLogisticsChat';
+import { useLogisticsChat } from '@/features/logistics/chat/hooks/useLogisticsChat';
 import ChatLayout from '@/components/shared/chat/ChatLayout';
 import MessageBubble from '@/components/shared/chat/MessageBubble';
 import MessageInput from '@/components/shared/chat/MessageInput';

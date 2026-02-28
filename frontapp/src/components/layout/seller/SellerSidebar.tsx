@@ -2,8 +2,8 @@
 
 import React from 'react';
 import SmartSidebar from '@/components/layout/shared/SmartSidebar';
-import { sellerNavigation } from '@/lib/constants/seller-nav';
-import { useAuth } from '@/context/AuthContext';
+import { sellerNavigation } from '@/shared/lib/constants/seller-nav';
+import { useAuth } from '@/shared/lib/context/AuthContext';
 
 interface SellerSidebarProps {
     isMobileOpen: boolean;

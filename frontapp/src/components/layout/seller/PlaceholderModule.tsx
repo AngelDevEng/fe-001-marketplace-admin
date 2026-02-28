@@ -1,7 +1,7 @@
 'use client';
 
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
-import { sellerNavigation } from '@/lib/constants/seller-nav';
+import { sellerNavigation } from '@/shared/lib/constants/seller-nav';
 
 interface PlaceholderModuleProps {
     moduleId: string;

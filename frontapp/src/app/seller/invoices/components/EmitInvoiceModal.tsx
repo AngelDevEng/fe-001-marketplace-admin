@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { VoucherType } from '@/lib/types/seller/invoices';
-import { EmitInvoicePayload } from '@/hooks/useSellerInvoices';
+import { VoucherType } from '@/features/seller/invoices/types';
+import { EmitInvoicePayload } from '@/features/seller/invoices/hooks/useSellerInvoices';
 import BaseModal from '@/components/ui/BaseModal';
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';
@@ -170,11 +170,10 @@ export default function EmitInvoiceModal({ isOpen, onClose, onEmit }: EmitInvoic
                                 key={opt.value}
                                 type="button"
                                 onClick={() => setForm(p => ({ ...p, type: opt.value }))}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-[1.5rem] border-2 transition-all text-center ${
-                                    form.type === opt.value
+                                className={`flex flex-col items-center gap-2 p-4 rounded-[1.5rem] border-2 transition-all text-center ${form.type === opt.value
                                         ? 'border-emerald-400 bg-emerald-50 text-emerald-700 shadow-lg shadow-emerald-100'
                                         : 'border-gray-100 bg-white text-gray-400 hover:border-gray-200'
-                                }`}
+                                    }`}
                             >
                                 <Icon name={opt.icon} className="w-5 h-5" />
                                 <span className="text-xs font-black uppercase tracking-wider">{opt.label}</span>

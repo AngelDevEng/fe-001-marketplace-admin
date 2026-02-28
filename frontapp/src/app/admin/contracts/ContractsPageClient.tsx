@@ -1,6 +1,6 @@
 'use client';
 
-import { useContratos } from '@/hooks/useContratos';
+import { useContratos } from '@/features/admin/contracts/hooks/useContratos';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import BaseButton from '@/components/ui/BaseButton';
 import { ContratosModule } from '@/components/admin/contracts/ContractsModule';

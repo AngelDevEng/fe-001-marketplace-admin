@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Branch } from '@/lib/types/seller/shop';
+import { Branch } from '@/features/seller/store/types';
 import BaseModal from '@/components/ui/BaseModal';
 import BaseButton from '@/components/ui/BaseButton';
 import Icon from '@/components/ui/Icon';

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getSalesReport, getStores, getOrders } from '@/lib/api';
+import { getSalesReport, getStores, getOrders } from '@/shared/lib/api';
 import BaseStatCard from '@/components/ui/BaseStatCard';
 
 export default function StatsDashboard() {

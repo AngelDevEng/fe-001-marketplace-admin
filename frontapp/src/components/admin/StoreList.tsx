@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getStores } from '@/lib/api';
+import { getStores } from '@/shared/lib/api';
 import { Store } from '@/lib/types/stores/store';
 import Icon from '@/components/ui/Icon';
 import DataTable, { Column } from '@/components/ui/DataTable';

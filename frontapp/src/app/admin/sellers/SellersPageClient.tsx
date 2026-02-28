@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import BaseButton from '@/components/ui/BaseButton';
-import { useControlVendedores } from '@/hooks/useControlVendedores';
+import { useControlVendedores } from '@/features/admin/sellers/hooks/useControlVendedores';
 import { StatsOverview, ProductModeration, AuditLog } from '@/components/admin/sellers/ModuleSections';
 import SellerList from '@/components/admin/SellerList';
 import { Users, CheckCircle, ShieldCheck, Search, ShieldAlert, Sliders, X } from 'lucide-react';
-import { SellerStatus, ProductStatus } from '@/lib/types/admin/sellers';
+import { SellerStatus, ProductStatus } from '@/features/admin/sellers/types';
 import Skeleton, { SkeletonRow } from '@/components/ui/Skeleton';
-import { exportToCSV } from '@/lib/utils/export';
+import { exportToCSV } from '@/shared/lib/utils/export';
 import ModalsPortal from '@/components/layout/shared/ModalsPortal';
 
 interface TabButtonProps {
