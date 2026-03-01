@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { InvoicesPageClient } from './InvoicesPageClient';
+import { InvoicesPageClient } from '@/features/seller/invoices/InvoicesPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function InvoicesPage() {

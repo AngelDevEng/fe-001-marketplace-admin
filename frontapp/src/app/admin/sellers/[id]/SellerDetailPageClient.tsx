@@ -7,7 +7,8 @@ import { getDetailStore } from '@/shared/lib/api';
 import { Store } from '@/lib/types/stores/store';
 import { ArrowLeft } from 'lucide-react';
 
-interface SellerDetailPageClientProps { /* TODO Tarea 3 */ }
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface SellerDetailPageClientProps { }
 export function SellerDetailPageClient(_props: SellerDetailPageClientProps) {
     const params = useParams();
     const router = useRouter();

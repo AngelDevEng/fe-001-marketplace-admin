@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Play, Plus } from 'lucide-react';
 import { videoCategories, videos } from '../data/blogData';
 
@@ -36,7 +37,7 @@ export default function VideoGallery() {
                 <div className="max-w-7xl mx-auto px-4">
                     {/* Filtros de Categoría */}
                     <div className="flex flex-wrap justify-center gap-3 mb-12">
-                        {videoCategories.map((cat, index) => (
+                        {videoCategories.map((cat) => (
                             <button
                                 key={cat.id}
                                 onClick={() => {
@@ -64,10 +65,12 @@ export default function VideoGallery() {
                                 <div className="relative rounded-[2rem] overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100 bg-white">
                                     {/* Miniatura */}
                                     <div className="aspect-video relative overflow-hidden">
-                                        <img
+                                        <Image
                                             src={`https://i.ytimg.com/vi/${video.videoId}/maxresdefault.jpg`}
-                                            className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
                                             alt={video.title}
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                            className="object-cover transform transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
 

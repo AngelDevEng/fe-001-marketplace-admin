@@ -8,7 +8,8 @@ import ChatLayout from '@/components/shared/chat/ChatLayout';
 import MessageBubble from '@/components/shared/chat/MessageBubble';
 import MessageInput from '@/components/shared/chat/MessageInput';
 
-interface LogisticsChatVendorsPageClientProps { /* TODO Tarea 3 */ }
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface LogisticsChatVendorsPageClientProps { }
 export function LogisticsChatVendorsPageClient(_props: LogisticsChatVendorsPageClientProps) {
     const { conversations, selectedConversation, setSelectedConversation, sendMessage } = useLogisticsChat();
     const messagesEndRef = useRef<HTMLDivElement>(null);

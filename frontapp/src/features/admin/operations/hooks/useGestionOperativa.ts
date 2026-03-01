@@ -23,7 +23,7 @@ export const useGestionOperativa = () => {
 
             setData(MOCK_OPERATIONS_DATA);
             setError(null);
-        } catch (err: any) {
+        } catch (err: unknown) {
             setError('Error de conexión al endpoint de Gestión Operativa');
         } finally {
             setLoading(false);
@@ -150,8 +150,8 @@ export const useGestionOperativa = () => {
             }
             setData(newData);
             setSelectedProvider(null);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Error al procesar proveedor');
         } finally {
             setLoading(false);
         }

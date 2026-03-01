@@ -7,9 +7,15 @@ import Icon from '@/components/ui/Icon';
 import HeroPill from '@/components/layout/public/HeroPill';
 import { forumApi } from '@/shared/lib/api/forum';
 
+interface ForumCategory {
+  id: number;
+  name: string;
+  slug?: string;
+}
+
 export default function CrearTemaPage() {
   const router = useRouter();
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<ForumCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -76,8 +82,8 @@ export default function CrearTemaPage() {
           router.push('/bioforo');
         }, 2000);
       }
-    } catch (err: any) {
-      setError(err.message || 'Error al crear el tema');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Error al crear el tema');
     } finally {
       setSubmitting(false);
     }

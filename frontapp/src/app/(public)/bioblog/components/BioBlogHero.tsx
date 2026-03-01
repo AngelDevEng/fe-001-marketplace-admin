@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Icon from '@/components/ui/Icon';
 import HeroPill from '@/components/layout/public/HeroPill';
 import { blogApi } from '@/shared/lib/api/blog';
 
@@ -13,7 +13,7 @@ interface Category {
     slug: string;
 }
 
-export default function BioBlogHero() {
+function BioBlogHeroInner() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [searchQuery, setSearchQuery] = useState('');
@@ -43,10 +43,12 @@ export default function BioBlogHero() {
                 <div className="relative z-10 flex-1 flex flex-col justify-center p-6 md:p-16 lg:p-24 space-y-8 bg-gradient-to-br from-[#CEEDFA] to-transparent">
                     {/* Logo/Icono */}
                     <div className="w-20 h-20 md:w-32 md:h-32 transition-transform duration-500 hover:scale-110">
-                        <img
+                        <Image
                             src="/img/bioblog/ICON.png"
-                            className="w-full h-full object-contain drop-shadow-xl"
                             alt="Lyrium Logo"
+                            fill
+                            sizes="(max-width: 768px) 80px, 128px"
+                            className="object-contain drop-shadow-xl"
                         />
                     </div>
 
@@ -130,5 +132,27 @@ export default function BioBlogHero() {
                 </div>
             </div>
         </div>
+    );
+}
+
+function BioBlogHeroFallback() {
+    return (
+        <div className="relative w-full flex flex-col md:flex-row min-h-[500px] md:min-h-[600px] overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] animate-pulse">
+            <div className="flex-1 p-16 space-y-8">
+                <div className="w-32 h-32 bg-gray-200 rounded-full" />
+                <div className="space-y-4">
+                    <div className="h-12 bg-gray-200 rounded w-3/4" />
+                    <div className="h-8 bg-gray-200 rounded w-1/2" />
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default function BioBlogHero() {
+    return (
+        <Suspense fallback={<BioBlogHeroFallback />}>
+            <BioBlogHeroInner />
+        </Suspense>
     );
 }

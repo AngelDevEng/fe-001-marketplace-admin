@@ -37,7 +37,7 @@ export function useSellerCatalog() {
                 if (product.id) {
                     return await api.products.updateProduct(product.id, product);
                 }
-                return await api.products.createProduct(product as any);
+                return await api.products.createProduct(product as Partial<Product>);
             }
             return product;
         },

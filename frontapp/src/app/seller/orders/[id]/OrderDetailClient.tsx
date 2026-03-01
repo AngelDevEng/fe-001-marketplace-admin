@@ -2,6 +2,7 @@
 
 import React, { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { OrderDetails, updateOrderStatus, OrderStatus, addOrderNote } from '@/shared/lib/actions/orders';
 import { getStatusLabel, getStatusColor, formatDateTime, ORDER_STATUSES } from '@/shared/lib/utils/order-utils';
 import { formatCurrency } from '@/shared/lib/utils/formatters';
@@ -123,7 +124,7 @@ export default function OrderDetailClient({ order: initialOrder }: OrderDetailCl
                 <div key={item.id} className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
                   <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
                     {item.image ? (
-                      <img src={item.image} alt={item.name} className="w-full h-full object-cover rounded-lg" />
+                      <Image src={item.image} alt={item.name} width={64} height={64} className="object-cover rounded-lg" />
                     ) : (
                       <Icon name="Package" className="w-8 h-8 text-gray-300" />
                     )}
@@ -243,21 +244,6 @@ export default function OrderDetailClient({ order: initialOrder }: OrderDetailCl
           </div>
         </div>
       </div>
-
-      {/* Print Styles */}
-      <style jsx global>{`
-        @media print {
-          .print-container {
-            padding: 0 !important;
-          }
-          .print-container > *:not(.print-only) {
-            display: none !important;
-          }
-          body {
-            background: white !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

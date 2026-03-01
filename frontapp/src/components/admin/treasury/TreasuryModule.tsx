@@ -1,12 +1,30 @@
 import React from 'react';
-import { TreasuryKPI } from '@/lib/types/admin/treasury';
+import { TreasuryKPI } from '@/features/admin/treasury/types';
 import { BalanceTab, CashInTab, CashOutTab } from './TreasuryTabs';
 import { TrendingUp, Clock, ArrowLeftRight, AlertCircle, Search } from 'lucide-react';
 import Skeleton from '@/components/ui/Skeleton';
 
+const MapIcon = (iconName: string) => {
+    switch (iconName) {
+        case 'ChartLineUp': return <TrendingUp className="w-8 h-8" />;
+        case 'Clock': return <Clock className="w-8 h-8" />;
+        case 'ArrowsLeftRight': return <ArrowLeftRight className="w-8 h-8" />;
+        case 'WarningCircle': return <AlertCircle className="w-8 h-8" />;
+        default: return <TrendingUp className="w-8 h-8" />;
+    }
+}
+
 interface TreasuryModuleProps {
-    state: any;
-    actions: any;
+    state: {
+        data: unknown;
+        loading: boolean;
+        activeTab: string;
+        kpis: TreasuryKPI[];
+        filteredCashIn: unknown[];
+        filteredCashOut: unknown[];
+        filters: Record<string, unknown>;
+    };
+    actions: Record<string, unknown>;
 }
 
 export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }) => {
@@ -17,8 +35,8 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
             <div className="space-y-6 pb-20 font-industrial">
                 {/* KPI SKELETONS */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {[1, 2, 3, 4].map(idx => (
-                        <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
+                    {[1, 2, 3, 4].map((idx) => (
+                        <div key={`treasury-skel-kpi-${idx}`} className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
                             <div className="flex justify-between items-center">
                                 <Skeleton className="h-12 w-12 rounded-xl" />
                                 <Skeleton className="h-8 w-20 rounded-md" />
@@ -30,8 +48,8 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
 
                 {/* TABS SKELETON */}
                 <div className="flex flex-wrap gap-2 pt-6 border-t border-gray-100">
-                    {[1, 2, 3].map(idx => (
-                        <Skeleton key={idx} className="h-10 w-48 rounded-[1.2rem]" />
+                    {[1, 2, 3].map((i) => (
+                        <Skeleton key={`treasury-tab-${i}`} className="h-10 w-48 rounded-[1.2rem]" />
                     ))}
                 </div>
 
@@ -41,8 +59,8 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
                         <Skeleton className="h-48 w-1/3 rounded-[2rem]" />
                         <Skeleton className="h-48 w-2/3 rounded-[2rem]" />
                     </div>
-                    {[1, 2, 3, 4].map(idx => (
-                        <div key={idx} className="flex gap-4 py-4 border-b border-gray-50 last:border-0 px-2">
+                    {[1, 2, 3, 4].map((i) => (
+                        <div key={`treasury-row-${i}`} className="flex gap-4 py-4 border-b border-gray-50 last:border-0 px-2">
                             <Skeleton className="h-12 w-32 rounded-lg" />
                             <Skeleton className="flex-1 h-12 rounded-lg" />
                             <Skeleton className="h-12 w-24 rounded-lg" />
@@ -53,23 +71,13 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
         );
     }
 
-    const MapIcon = (iconName: string) => {
-        switch (iconName) {
-            case 'ChartLineUp': return <TrendingUp className="w-8 h-8" />;
-            case 'Clock': return <Clock className="w-8 h-8" />;
-            case 'ArrowsLeftRight': return <ArrowLeftRight className="w-8 h-8" />;
-            case 'WarningCircle': return <AlertCircle className="w-8 h-8" />;
-            default: return <TrendingUp className="w-8 h-8" />;
-        }
-    }
-
     return (
         <div className="space-y-6 pb-20 font-industrial">
 
             {/* KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {kpis.map((kpi: TreasuryKPI, idx: number) => (
-                    <div key={idx} className={`bg-white p-6 border-l-4 border-${kpi.color}-500 transition-all hover:scale-[1.02] rounded-2xl shadow-sm`}>
+                {kpis.map((kpi: TreasuryKPI) => (
+                    <div key={kpi.label} className={`bg-white p-6 border-l-4 border-${kpi.color}-500 transition-all hover:scale-[1.02] rounded-2xl shadow-sm`}>
                         <div className="flex items-center justify-between mb-2">
                             <div className={`p-3 bg-${kpi.color}-50 text-${kpi.color}-600 rounded-2xl`}>
                                 {MapIcon(kpi.icon)}
@@ -92,7 +100,7 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
                     return (
                         <button
                             key={tab.id}
-                            onClick={() => actions.setActiveTab(tab.id as any)}
+                            onClick={() => actions.setActiveTab(tab.id)}
                             className={`px-6 py-3 rounded-[1.2rem] font-black text-[11px] uppercase transition-all flex items-center gap-2 font-industrial ${activeTab === tab.id ? 'bg-sky-500 text-white shadow-xl' : 'text-gray-400 hover:bg-gray-50'
                                 }`}
                         >
@@ -106,10 +114,11 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
             {activeTab !== 'balance' && (
                 <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col md:flex-row gap-4 items-end animate-fadeIn">
                     <div className="flex-1 space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Buscador de UUID / Ref</label>
+                        <label htmlFor="treasury-search" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Buscador de UUID / Ref</label>
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                             <input
+                                id="treasury-search"
                                 type="text"
                                 placeholder="Buscar por ID, Cliente o Empresa..."
                                 value={filters.search}
@@ -119,8 +128,9 @@ export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }
                         </div>
                     </div>
                     <div className="w-full md:w-60 space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado Lógico</label>
+                        <label htmlFor="treasury-status" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado Lógico</label>
                         <select
+                            id="treasury-status"
                             value={filters.status}
                             onChange={(e) => actions.setFilters({ ...filters, status: e.target.value })}
                             className="w-full p-2.5 bg-gray-50 border-none rounded-xl text-xs font-black text-gray-700 uppercase cursor-pointer tracking-widest"

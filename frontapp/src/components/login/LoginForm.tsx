@@ -533,35 +533,6 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                     </div>
                 </div>
             </div>
-
-            <style jsx global>{`
-                @keyframes gridMove {
-                    0% { transform: translate(0, 0); }
-                    100% { transform: translate(20px, 20px); }
-                }
-                .error-message {
-                    background-color: #fee;
-                    color: #c00;
-                    border: 1px solid #fcc;
-                    padding: 12px 16px;
-                    border-radius: 8px;
-                    margin-bottom: 20px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    display: none;
-                }
-                .success-message {
-                    background-color: #efe;
-                    color: #060;
-                    border: 1px solid #cfc;
-                    padding: 12px 16px;
-                    border-radius: 8px;
-                    margin-bottom: 20px;
-                    font-size: 14px;
-                    font-weight: 500;
-                    display: none;
-                }
-            `}</style>
         </div>
     );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Icon from '@/components/ui/Icon';
 
 export default function PublicFooter() {
@@ -19,7 +20,7 @@ export default function PublicFooter() {
             <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 text-base">
                 <div className="footer-section space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
                     <div className="flex items-center gap-2">
-                        <img src="/img/logo_lyrium_blanco_01-scaled.webp" alt="Lyrium" className="h-10 md:h-12" />
+                        <Image src="/img/logo_lyrium_blanco_01-scaled.webp" alt="Lyrium" width={120} height={48} className="h-10 md:h-12" />
                     </div>
                     <p className="text-sm text-sky-100 max-w-xs">Biomarketplace de productos y servicios especializados.</p>
                     <div className="flex items-center gap-4 mt-2">

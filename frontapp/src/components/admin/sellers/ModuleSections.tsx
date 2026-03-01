@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Seller, Product, Notification, AuditEntry, ProductStatus } from '@/features/admin/sellers/types';
 import { CVStatusBadge, CVCard } from './SharedCVUI';
 import BaseButton from '@/components/ui/BaseButton';
@@ -17,8 +18,8 @@ export const StatsOverview: React.FC<{ stats: { totalSellers: number, activeSell
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {cards.map((c, i) => (
-                <CVCard key={i} className="p-7 border-l-4 shadow-sm hover:shadow-md transition-all" border={c.border}>
+            {cards.map((c) => (
+                <CVCard key={c.label} className="p-7 border-l-4 shadow-sm hover:shadow-md transition-all" border={c.border}>
                     <div className="flex items-center justify-between mb-5">
                         <div className={`p-3 bg-gray-50 rounded-xl text-${c.color}-600`}>
                             {c.icon}
@@ -115,7 +116,7 @@ export const ProductModeration: React.FC<{
                     <CVCard key={p.id} className="group border-gray-100 hover:border-blue-400 transition-all shadow-sm hover:shadow-2xl overflow-hidden">
                         <div className="h-64 bg-gray-50 flex items-center justify-center relative bg-gradient-to-b from-gray-50 to-white">
                             {p.imageUrl ? (
-                                <img src={p.imageUrl} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <Image src={p.imageUrl} alt={p.name} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
                             ) : (
                                 <Package className="w-16 h-16 text-gray-200 group-hover:scale-110 transition-transform duration-500" />
                             )}
@@ -234,7 +235,7 @@ export const AuditLog: React.FC<{ entries: AuditEntry[] }> = ({ entries }) => {
                                 <td className="px-8 py-6">
                                     <div className="relative group/note max-w-xs">
                                         <p className="text-xs text-gray-600 leading-relaxed italic font-medium truncate">
-                                            "{a.metadata?.motivo || 'N/A'}"
+                                            {a.metadata?.motivo || 'N/A'}
                                         </p>
                                         <div className="absolute bottom-full left-0 mb-2 invisible group-hover/note:visible bg-gray-900 text-white p-3 rounded-xl text-[10px] w-64 shadow-2xl z-10 transition-all">
                                             {a.metadata?.motivo}

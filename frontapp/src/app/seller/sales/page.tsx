@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { SalesPageClient } from './SalesPageClient';
+import { SalesPageClient } from '@/features/seller/sales/SalesPageClient';
 import { getRecentOrders, getSalesKPIs } from '@/shared/lib/actions/dashboard';
 import BaseLoading from '@/components/ui/BaseLoading';
 

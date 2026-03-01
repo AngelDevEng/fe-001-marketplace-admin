@@ -5,6 +5,7 @@ import Icon from './Icon';
 
 export interface InputFieldProps {
     label?: string;
+    name: string;
     value: string | number;
     onChange: (value: string) => void;
     type?: 'text' | 'number' | 'email' | 'date' | 'password' | 'tel' | 'url';
@@ -24,6 +25,7 @@ export interface InputFieldProps {
 
 export default function BaseInputField({
     label,
+    name,
     value,
     onChange,
     type = 'text',
@@ -51,10 +53,12 @@ export default function BaseInputField({
     const inputPaddingLeft = iconLeft ? 'pl-12' : 'pl-4';
     const inputPaddingRight = iconRight ? 'pr-12' : 'pr-4';
 
+    const inputId = name || `input-${Math.random().toString(36).substr(2, 9)}`;
+
     return (
         <div className={`space-y-2 ${className}`}>
             {label && (
-                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
+                <label htmlFor={inputId} className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
                     {label}
                     {required && <span className="text-red-500 ml-1">*</span>}
                 </label>
@@ -66,6 +70,7 @@ export default function BaseInputField({
                     </div>
                 )}
                 <input
+                    id={inputId}
                     type={type}
                     value={value}
                     onChange={handleChange}

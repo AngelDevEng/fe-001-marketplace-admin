@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { getCategories } from '@/shared/lib/api';
 import { ProductCategory } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
@@ -14,7 +15,7 @@ const columns: Column<ProductCategory>[] = [
             <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 overflow-hidden border border-gray-200 group-hover:border-brand-sky/30 transition-all">
                     {category.image?.src ? (
-                        <img src={category.image.src} alt={category.name} className="w-full h-full object-cover" />
+                        <Image src={category.image.src} alt={category.name} width={40} height={40} className="w-full h-full object-cover" />
                     ) : (
                         <Icon name="FolderTree" className="w-5 h-5 opacity-30" />
                     )}

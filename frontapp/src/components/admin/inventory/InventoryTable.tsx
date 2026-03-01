@@ -11,7 +11,7 @@ const colorMap: Record<string, string> = {
 };
 
 const StatusBadge: React.FC<{ status: ItemStatus }> = ({ status }) => {
-    const config: Record<ItemStatus, { label: string, color: string, icon: any }> = {
+    const config: Record<ItemStatus, { label: string, color: string, icon: React.ReactNode }> = {
         'IN_STOCK': { label: 'En Stock', color: 'emerald', icon: <CheckCircle2 className="w-3 h-3" /> },
         'LOW_STOCK': { label: 'Bajo Stock', color: 'amber', icon: <AlertTriangle className="w-3 h-3" /> },
         'OUT_OF_STOCK': { label: 'Agotado', color: 'rose', icon: <XCircle className="w-3 h-3" /> },

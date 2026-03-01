@@ -140,8 +140,8 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         // Efecto de sonido (opcional pero recomendado para admin panels)
         try {
             const audio = new Audio('/sounds/notification.mp3');
-            audio.play().catch(() => { }); // Ignorar si el navegador bloquea el auto-play
-        } catch (e) { }
+            audio.play().catch(() => { /* Ignorar si el navegador bloquea el auto-play o archivo no existe */ });
+        } catch (e) { /* Silencioso si el archivo no existe */ }
     }, []);
 
     // Simulación de Polling Real (Cada 30 segundos)

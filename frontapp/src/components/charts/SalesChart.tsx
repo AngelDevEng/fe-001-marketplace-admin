@@ -52,17 +52,17 @@ export default function SalesChart({ data }: SalesChartProps) {
       <div className="relative h-56">
         {/* Grid Lines */}
         <div className="absolute inset-0 flex flex-col justify-between">
-          {[0, 1, 2, 3, 4].map((_, i) => (
-            <div key={i} className="border-b border-gray-100 w-full" />
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div key={`grid-line-${i}`} className="border-b border-gray-100 w-full" />
           ))}
         </div>
 
         {/* Bars */}
         <div className="absolute inset-0 flex items-end justify-between gap-2 px-2 pb-6">
-          {chartData.map((item, idx) => {
+          {chartData.map((item) => {
             const height = (item.sales / maxSales) * chartHeight;
             return (
-              <div key={idx} className="flex-1 flex flex-col items-center gap-2 group">
+              <div key={item.day} className="flex-1 flex flex-col items-center gap-2 group">
                 {/* Tooltip */}
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-8 bg-gray-900 text-white text-[10px] font-bold px-2 py-1 rounded whitespace-nowrap z-10">
                   S/{item.sales.toLocaleString()}

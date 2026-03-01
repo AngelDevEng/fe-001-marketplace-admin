@@ -1,21 +1,58 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { SellerAnalytics, CatalogProduct, GeographicZone, AnalyticsKPI } from '@/features/admin/analytics/types';
-import {
-    ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip as RTooltip, ResponsiveContainer, Cell,
-    AreaChart, Area
-} from 'recharts';
 import { TrendingUp, Magnet, Filter as Funnel, Store as Storefront, Star, Skull, BarChart3, TrendingDown } from 'lucide-react';
 
-export const KpiCard: React.FC<{ kpi: AnalyticsKPI }> = ({ kpi }) => {
-    const MapIcon = (iconName: string) => {
-        switch (iconName) {
-            case 'ChartLineUp': return <TrendingUp className="w-8 h-8" />;
-            case 'Magnet': return <Magnet className="w-8 h-8" />;
-            case 'Funnel': return <Funnel className="w-8 h-8" />;
-            case 'Storefront': return <Storefront className="w-8 h-8" />;
-            default: return <BarChart3 className="w-8 h-8" />;
-        }
+interface TooltipPayload {
+    payload?: {
+        nombre: string;
+        conversion: number;
+        roi: number;
+        crecimiento: number;
+    };
+}
+
+interface CustomTooltipProps {
+    active?: boolean;
+    payload?: TooltipPayload[];
+}
+
+const ScatterChart = dynamic(() => import('recharts').then(mod => mod.ScatterChart), { ssr: false });
+const Scatter = dynamic(() => import('recharts').then(mod => mod.Scatter), { ssr: false });
+const XAxis = dynamic(() => import('recharts').then(mod => mod.XAxis), { ssr: false });
+const YAxis = dynamic(() => import('recharts').then(mod => mod.YAxis), { ssr: false });
+const CartesianGrid = dynamic(() => import('recharts').then(mod => mod.CartesianGrid), { ssr: false });
+const RTooltip = dynamic(() => import('recharts').then(mod => mod.Tooltip), { ssr: false });
+const ResponsiveContainer = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), { ssr: false });
+const Cell = dynamic(() => import('recharts').then(mod => mod.Cell), { ssr: false });
+const AreaChart = dynamic(() => import('recharts').then(mod => mod.AreaChart), { ssr: false });
+const Area = dynamic(() => import('recharts').then(mod => mod.Area), { ssr: false });
+
+const MapIcon = (iconName: string) => {
+    switch (iconName) {
+        case 'ChartLineUp': return <TrendingUp className="w-8 h-8" />;
+        case 'Magnet': return <Magnet className="w-8 h-8" />;
+        case 'Funnel': return <Funnel className="w-8 h-8" />;
+        case 'Storefront': return <Storefront className="w-8 h-8" />;
+        default: return <BarChart3 className="w-8 h-8" />;
     }
+}
+
+const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
+    if (active && payload && payload.length) {
+        const data = payload[0].payload;
+        return (
+            <div className="bg-gray-900 text-white p-3 rounded-xl text-xs font-industrial">
+                <p className="font-bold mb-1 uppercase tracking-widest text-[#0ea5e9]">{data.nombre}</p>
+                <p>Conv: {data.conversion}% | ROI: {data.roi}%</p>
+                <p className={data.crecimiento > 0 ? 'text-emerald-400' : 'text-red-400'}>Crecimiento: {data.crecimiento}%</p>
+            </div>
+        );
+    }
+    return null;
+};
+
+export const KpiCard: React.FC<{ kpi: AnalyticsKPI }> = ({ kpi }) => {
 
     return (
         <div className="bg-white p-6 border-l-4 border-indigo-500 transition-all hover:-translate-y-1 rounded-2xl shadow-sm font-industrial">
@@ -32,20 +69,6 @@ export const KpiCard: React.FC<{ kpi: AnalyticsKPI }> = ({ kpi }) => {
 
 // Scatter Chart: ROI vs Conversion (RF-10) using Recharts
 export const ScatterPerformanceChart: React.FC<{ sellers: SellerAnalytics[] }> = ({ sellers }) => {
-
-    const CustomTooltip = ({ active, payload }: any) => {
-        if (active && payload && payload.length) {
-            const data = payload[0].payload;
-            return (
-                <div className="bg-gray-900 text-white p-3 rounded-xl text-xs font-industrial">
-                    <p className="font-bold mb-1 uppercase tracking-widest text-[#0ea5e9]">{data.nombre}</p>
-                    <p>Conv: {data.conversion}% | ROI: {data.roi}%</p>
-                    <p className={data.crecimiento > 0 ? 'text-emerald-400' : 'text-red-400'}>Crecimiento: {data.crecimiento}%</p>
-                </div>
-            );
-        }
-        return null;
-    };
 
     return (
         <ResponsiveContainer width="100%" height="100%">
@@ -71,8 +94,8 @@ export const ScatterPerformanceChart: React.FC<{ sellers: SellerAnalytics[] }> =
                 />
                 <RTooltip content={<CustomTooltip />} cursor={{ strokeDasharray: '3 3' }} />
                 <Scatter name="Vendedores" data={sellers}>
-                    {sellers.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.crecimiento > 0 ? '#0ea5e9' : '#ef4444'} />
+                    {sellers.map((entry) => (
+                        <Cell key={entry.id} fill={entry.crecimiento > 0 ? '#0ea5e9' : '#ef4444'} />
                     ))}
                 </Scatter>
             </ScatterChart>
@@ -106,7 +129,7 @@ export const RetentionLineChart: React.FC<{ retentionData: { mes: string; retenc
                 <RTooltip
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}
                     itemStyle={{ fontWeight: 'bold', color: '#6366f1' }}
-                    formatter={(val: any) => [`${val}%`, 'Retención'] as any}
+                    formatter={(val: number) => [`${val}%`, 'Retención']}
                 />
                 <Area type="monotone" dataKey="retencion" stroke="#6366f1" strokeWidth={3} fillOpacity={1} fill="url(#colorRetencion)" />
             </AreaChart>

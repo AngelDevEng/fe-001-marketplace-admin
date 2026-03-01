@@ -5,7 +5,8 @@ import ModuleHeader from '@/components/layout/shared/ModuleHeader';
 import BaseButton from '@/components/ui/BaseButton';
 import { Receipt, TrendingDown, DollarSign, Plus } from 'lucide-react';
 
-interface ExpensesPageClientProps { /* TODO Tarea 3 */ }
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface ExpensesPageClientProps { }
 export function ExpensesPageClient(_props: ExpensesPageClientProps) {
     const expenses = [
         { id: 1, label: 'Hosting & Server (AWS)', amount: 450, category: 'Infraestructura', status: 'Pagado', trend: '+2%' },

@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Icon from '@/components/ui/Icon';
+import Image from 'next/image';
 import HeroPill from '@/components/layout/public/HeroPill';
-import { forumApi } from '@/shared/lib/api/forum';
+import { forumApi, ForumTopic } from '@/shared/lib/api/forum';
 
 const REACTION_EMOJIS: Record<string, string> = {
   like: '👍',
@@ -34,8 +34,8 @@ const REACTION_COLORS: Record<string, string> = {
 };
 
 export default function BioForoPage() {
-  const [forums, setForums] = useState<any[]>([]);
-  const [topics, setTopics] = useState<any[]>([]);
+  const [forums, setForums] = useState<ForumTopic[]>([]);
+  const [topics, setTopics] = useState<ForumTopic[]>([]);
   const [selectedForum, setSelectedForum] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -137,19 +137,23 @@ export default function BioForoPage() {
       {/* Intro Section */}
       <section className="grid md:grid-cols-2 gap-4 md:gap-8 items-center bg-white rounded-xl md:rounded-3xl p-4 md:p-8 shadow-sm border border-slate-100">
         <div className="rounded-lg md:rounded-2xl overflow-hidden shadow-md md:shadow-lg aspect-[4/3] relative group order-2 md:order-1">
-          <img
+          <Image
             src="https://lyriumbiomarketplace.com/wp-content/uploads/2025/10/Fondos_BioBlog-4.png"
             alt="BioForo Intro"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
         </div>
         <div className="flex flex-col gap-3 md:gap-6 order-1 md:order-2">
           <div className="flex items-start gap-3 md:gap-4">
             <div className="flex-shrink-0 w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-2xl bg-slate-50 border border-slate-200 grid place-items-center shadow-sm">
-              <img
+              <Image
                 src="https://lyriumbiomarketplace.com/wp-content/uploads/2025/10/Fondos_BioBlog-4.png"
                 alt="Icon"
+                width={40}
+                height={40}
                 className="w-6 h-6 md:w-10 md:h-10 object-contain"
               />
             </div>

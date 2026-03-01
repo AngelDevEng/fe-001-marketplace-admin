@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { blogApi } from '@/shared/lib/api/blog';
 
 import 'swiper/css';
@@ -82,10 +83,12 @@ export default function FeaturedCarousel() {
                         <SwiperSlide key={post.id} className="h-auto">
                             <div className="relative w-full h-[450px] rounded-[2rem] overflow-hidden group cursor-pointer shadow-xl bg-slate-900 border border-white/10 transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl">
                                 {/* Background Image */}
-                                <img
+                                <Image
                                     src={post.featured_image}
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60"
                                     alt={post.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-60"
                                 />
                                 {/* Dark Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30" />

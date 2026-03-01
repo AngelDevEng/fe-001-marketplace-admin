@@ -53,17 +53,17 @@ export function useSellerHelp() {
                 hora
             };
 
-            queryClient.setQueryData(['seller', 'help', 'tickets'], (old: any) => {
+            queryClient.setQueryData(['seller', 'help', 'tickets'], (old: Ticket[] | undefined) => {
                 if (!old) return old;
                 return old.map((t: Ticket) =>
-                    t.id === ticketId ? { ...t, mensajes: [...t.mensajes, newMessage as any], mensajes_count: t.mensajes_count + 1 } : t
+                    t.id === ticketId ? { ...t, mensajes: [...t.mensajes, newMessage], mensajes_count: t.mensajes_count + 1 } : t
                 );
             });
         }
     });
 
     const createTicketMutation = useMutation({
-        mutationFn: async (formData: any) => {
+        mutationFn: async (formData: { asunto: string; mensaje: string; tipo_ticket: TicketType; criticidad: string }) => {
             await new Promise(r => setTimeout(r, 1000));
             return {
                 id: Date.now(),
@@ -81,7 +81,7 @@ export function useSellerHelp() {
             } as Ticket;
         },
         onSuccess: (newTicket) => {
-            queryClient.setQueryData(['seller', 'help', 'tickets'], (old: any) => [newTicket, ...(old || [])]);
+            queryClient.setQueryData(['seller', 'help', 'tickets'], (old: Ticket[] | undefined) => [newTicket, ...(old || [])]);
             setActiveTicketId(newTicket.id);
             showToast("Ticket generado con éxito. Un especialista lo revisará pronto.", "success");
         }
@@ -93,7 +93,7 @@ export function useSellerHelp() {
             return ticketId;
         },
         onSuccess: (ticketId) => {
-            queryClient.setQueryData(['seller', 'help', 'tickets'], (old: any) =>
+            queryClient.setQueryData(['seller', 'help', 'tickets'], (old: Ticket[] | undefined) =>
                 old.map((t: Ticket) => t.id === ticketId ? { ...t, status: 'cerrado' as TicketStatus, survey_required: true } : t)
             );
             showToast("Ticket finalizado. Por favor completa la encuesta de satisfacción.", "info");
@@ -106,7 +106,7 @@ export function useSellerHelp() {
             return { ticketId, rating, comment };
         },
         onSuccess: ({ ticketId, rating, comment }) => {
-            queryClient.setQueryData(['seller', 'help', 'tickets'], (old: any) =>
+            queryClient.setQueryData(['seller', 'help', 'tickets'], (old: Ticket[] | undefined) =>
                 old.map((t: Ticket) => t.id === ticketId ? { ...t, survey_required: false, satisfaction_rating: rating, satisfaction_comment: comment } : t)
             );
             showToast("Gracias por tu feedback. Nos ayuda a mejorar.", "success");
@@ -134,9 +134,9 @@ export function useSellerHelp() {
         isClosing: closeTicketMutation.isPending,
         isCreating: createTicketMutation.isPending,
         filters,
-        setFilters: (newFilters: any) => setFiltersState(prev => ({ ...prev, ...newFilters })),
+        setFilters: (newFilters: Record<string, unknown>) => setFiltersState(prev => ({ ...prev, ...newFilters })),
         handleSendMessage: (text: string) => { if (activeTicketId) sendMessageMutation.mutate({ ticketId: activeTicketId, text }); },
-        handleCreateTicket: (formData: any) => createTicketMutation.mutate(formData),
+        handleCreateTicket: (formData: { asunto: string; mensaje: string; tipo_ticket: TicketType; criticidad: string }) => createTicketMutation.mutate(formData),
         handleCloseTicket: () => { if (activeTicketId) closeTicketMutation.mutate(activeTicketId); },
         handleSubmitSurvey: (rating: number, comment: string) => { if (activeTicketId) submitSurveyMutation.mutate({ ticketId: activeTicketId, rating, comment }); },
         refresh: refetch

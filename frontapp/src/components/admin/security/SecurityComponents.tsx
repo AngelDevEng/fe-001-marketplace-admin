@@ -114,19 +114,19 @@ export const SecurityAlertsCenter: React.FC = () => {
 
                         {/* Toggles enfocados en RFs */}
                         <div className="space-y-4 pt-4">
-                            <label className="flex items-center justify-between cursor-pointer group">
+                            <label htmlFor="toggle-rf03" className="flex items-center justify-between cursor-pointer group">
                                 <span className="text-[10px] font-black uppercase tracking-widest text-gray-300 group-hover:text-white transition-colors">Alertar Subidas Masivas (RF-03)</span>
                                 <div className="w-10 h-6 bg-emerald-500 rounded-full relative p-1 transition-all">
                                     <div className="w-4 h-4 bg-white rounded-full translate-x-4"></div>
                                 </div>
                             </label>
-                            <label className="flex items-center justify-between cursor-pointer group">
+                            <label htmlFor="toggle-rf04" className="flex items-center justify-between cursor-pointer group">
                                 <span className="text-[10px] font-black uppercase tracking-widest text-gray-300 group-hover:text-white transition-colors">Detección de Intentos Fallidos (RF-04)</span>
                                 <div className="w-10 h-6 bg-indigo-500 rounded-full relative p-1 transition-all">
                                     <div className="w-4 h-4 bg-white rounded-full translate-x-4"></div>
                                 </div>
                             </label>
-                            <label className="flex items-center justify-between cursor-pointer group">
+                            <label htmlFor="toggle-inactivity" className="flex items-center justify-between cursor-pointer group">
                                 <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors">Notificar Inactividad de Vendedores</span>
                                 <div className="w-10 h-6 bg-gray-700 rounded-full relative p-1 transition-all">
                                     <div className="w-4 h-4 bg-white rounded-full"></div>
@@ -243,7 +243,7 @@ export const ImmutableAuditLog: React.FC = () => {
                                 </td>
                                 <td className="px-8 py-5 max-w-xs">
                                     <p className="text-[10px] font-medium text-gray-500 italic leading-relaxed">
-                                        "{entry.reason}"
+                                        {entry.reason}
                                     </p>
                                 </td>
                                 <td className="px-8 py-5 text-right">
@@ -277,8 +277,8 @@ export const DynamicRolesManager: React.FC = () => {
                             { role: 'Super Admin', permissions: 'Acceso Total + Revocación RT', color: 'bg-rose-500' },
                             { role: 'Moderador (Proveedor)', permissions: 'RF-03 + Categorización', color: 'bg-indigo-500' },
                             { role: 'Auditor Financiero', permissions: 'Tesorería + RF-14/15', color: 'bg-emerald-500' },
-                        ].map((r, i) => (
-                            <div key={i} className="flex items-center gap-6 p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                        ].map((r) => (
+                            <div key={r.role} className="flex items-center gap-6 p-6 bg-gray-50 rounded-3xl border border-gray-100">
                                 <div className={`w-3 h-12 ${r.color} rounded-full`}></div>
                                 <div className="flex-1">
                                     <p className="text-lg font-black text-gray-900 tracking-tight uppercase leading-none mb-1">{r.role}</p>

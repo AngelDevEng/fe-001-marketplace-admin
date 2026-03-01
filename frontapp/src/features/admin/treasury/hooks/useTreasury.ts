@@ -22,8 +22,8 @@ export const useTreasury = () => {
                 setData(MOCK_TREASURY_DATA);
             }
             setError(null);
-        } catch (err: any) {
-            setError(err.message || 'Error cargando información de Tesorería');
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Error cargando información de Tesorería');
         } finally {
             setLoading(false);
         }
@@ -80,8 +80,8 @@ export const useTreasury = () => {
                 setData(newData);
                 setSelectedPayment(null);
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Error al procesar Cash-In');
         } finally {
             setLoading(false);
         }
@@ -105,8 +105,8 @@ export const useTreasury = () => {
                 setData(newData);
                 setSelectedPayment(null);
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Error al procesar Cash-Out');
         } finally {
             setLoading(false);
         }

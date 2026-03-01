@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ProfilePageClient } from './ProfilePageClient';
+import { ProfilePageClient } from '@/features/seller/profile/ProfilePageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function ProfilePage() {

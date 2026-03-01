@@ -1,21 +1,27 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import {
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
-    Cell
-} from 'recharts';
+import dynamic from 'next/dynamic';
 import { getOrders } from '@/shared/lib/api';
+import { Order } from '@/shared/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 
+const BarChart = dynamic(() => import('recharts').then(mod => mod.BarChart), { ssr: false });
+const Bar = dynamic(() => import('recharts').then(mod => mod.Bar), { ssr: false });
+const XAxis = dynamic(() => import('recharts').then(mod => mod.XAxis), { ssr: false });
+const YAxis = dynamic(() => import('recharts').then(mod => mod.YAxis), { ssr: false });
+const CartesianGrid = dynamic(() => import('recharts').then(mod => mod.CartesianGrid), { ssr: false });
+const Tooltip = dynamic(() => import('recharts').then(mod => mod.Tooltip), { ssr: false });
+const ResponsiveContainer = dynamic(() => import('recharts').then(mod => mod.ResponsiveContainer), { ssr: false });
+const Cell = dynamic(() => import('recharts').then(mod => mod.Cell), { ssr: false });
+
+interface RegionalData {
+    name: string;
+    value: number;
+}
+
 export default function RegionalDemandChart() {
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<RegionalData[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -94,7 +100,7 @@ export default function RegionalDemandChart() {
                         />
                         <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
                             {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                <Cell key={entry.region || index} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Bar>
                     </BarChart>

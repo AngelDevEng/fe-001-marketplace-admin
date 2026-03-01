@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { StorePageClient } from './StorePageClient';
+import { StorePageClient } from '@/features/seller/store/StorePageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function StorePage() {

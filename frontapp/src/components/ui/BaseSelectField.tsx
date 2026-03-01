@@ -11,6 +11,7 @@ export interface SelectOption {
 
 export interface SelectFieldProps {
     label?: string;
+    name: string;
     value: string;
     onChange: (value: string) => void;
     options: SelectOption[];
@@ -23,6 +24,7 @@ export interface SelectFieldProps {
 
 export default function BaseSelectField({
     label,
+    name,
     value,
     onChange,
     options,
@@ -36,16 +38,19 @@ export default function BaseSelectField({
         onChange(e.target.value);
     };
 
+    const selectId = name || `select-${Math.random().toString(36).substr(2, 9)}`;
+
     return (
         <div className={`space-y-2 ${className}`}>
             {label && (
-                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
+                <label htmlFor={selectId} className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 block">
                     {label}
                     {required && <span className="text-red-500 ml-1">*</span>}
                 </label>
             )}
             <div className="relative">
                 <select
+                    id={selectId}
                     value={value}
                     onChange={handleChange}
                     disabled={disabled}

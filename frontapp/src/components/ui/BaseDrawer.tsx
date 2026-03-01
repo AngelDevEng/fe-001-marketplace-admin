@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ModalPortal from '@/components/ModalPortal';
 import Icon from '@/components/ui/Icon';
 
@@ -11,9 +11,9 @@ interface BaseDrawerProps {
     subtitle?: string;
     children: React.ReactNode;
     footer?: React.ReactNode;
-    width?: string; // e.g., 'w-[600px]'
-    accentColor?: string; // e.g., 'from-emerald-500/10 via-sky-500/5'
-    badge?: string; // Texto superior pequeño
+    width?: string;
+    accentColor?: string;
+    badge?: string;
 }
 
 export default function BaseDrawer({
@@ -27,32 +27,20 @@ export default function BaseDrawer({
     accentColor = 'from-sky-500/10 via-indigo-500/5',
     badge
 }: BaseDrawerProps) {
-    const [shouldRender, setShouldRender] = useState(isOpen);
-
-    useEffect(() => {
-        if (isOpen) {
-            setShouldRender(true);
-            const prevOverflow = document.body.style.overflow;
-            document.body.style.overflow = 'hidden';
-            return () => { document.body.style.overflow = prevOverflow; };
-        } else {
-            const timer = setTimeout(() => {
-                setShouldRender(false);
-            }, 500);
-            return () => clearTimeout(timer);
-        }
-    }, [isOpen]);
-
-    if (!shouldRender) return null;
+    if (!isOpen) return null;
 
     return (
         <ModalPortal>
             <div className="fixed inset-0 z-[99999] flex justify-end overflow-hidden">
                 {/* Backdrop */}
                 <div
-                    className={`absolute inset-0 bg-gray-900/60 backdrop-blur-md transition-opacity duration-500 ease-in-out
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Cerrar drawer"
+                    className={`absolute inset-0 bg-gray-900/60 backdrop-blur-md transition-opacity duration-500 ease-in-out cursor-default
                         ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                     onClick={onClose}
+                    onKeyDown={(e) => e.key === 'Escape' && onClose()}
                 ></div>
 
                 {/* Drawer Content */}

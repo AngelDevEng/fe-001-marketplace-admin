@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { PaymentsPageClient } from './PaymentsPageClient';
+import { PaymentsPageClient } from '@/features/admin/payments/PaymentsPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function TreasuryPage() {

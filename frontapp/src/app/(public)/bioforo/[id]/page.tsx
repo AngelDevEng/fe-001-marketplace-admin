@@ -1,29 +1,25 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
-import { forumApi } from '@/shared/lib/api/forum';
-
-const REACTION_EMOJIS: Record<string, string> = {
-  up: '👍',
-  down: '👎',
-};
+import { forumApi, ForumTopicApi, ForumPostApi } from '@/shared/lib/api/forum';
+import { sanitizeHtml } from '@/shared/lib/sanitize';
 
 export default function BioForoTopicPage() {
   const params = useParams();
-  const router = useRouter();
   const topicId = parseInt(params.id as string);
 
-  const [topic, setTopic] = useState<any>(null);
-  const [posts, setPosts] = useState<any[]>([]);
+  const [topic, setTopic] = useState<ForumTopicApi | null>(null);
+  const [posts, setPosts] = useState<ForumPostApi[]>([]);
   const [loading, setLoading] = useState(true);
   const [replyContent, setReplyContent] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     loadTopic();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicId]);
 
   const loadTopic = async () => {
@@ -148,7 +144,7 @@ export default function BioForoTopicPage() {
         {/* Contenido */}
         <div
           className="text-[#00866d] font-semibold leading-relaxed mb-6"
-          dangerouslySetInnerHTML={{ __html: topic.topic_content || topic.content || '' }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(topic.topic_content || topic.content || '') }}
         />
 
         {/* Acciones */}
@@ -220,7 +216,7 @@ export default function BioForoTopicPage() {
                 {/* Contenido */}
                 <div
                   className="text-slate-700 leading-relaxed mb-4"
-                  dangerouslySetInnerHTML={{ __html: post.post_content || post.content || '' }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.post_content || post.content || '') }}
                 />
 
                 {/* Votos */}

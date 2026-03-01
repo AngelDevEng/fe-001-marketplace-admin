@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import Icon from '@/components/ui/Icon';
 import HeroPill from '@/components/layout/public/HeroPill';
-import { blogApi } from '@/shared/lib/api/blog';
+import { blogApi, BlogPostApi } from '@/shared/lib/api/blog';
+import { sanitizeHtml } from '@/shared/lib/sanitize';
 
 interface Comment {
     id: number;
@@ -18,7 +20,7 @@ export default function BlogPostPage() {
     const params = useParams();
     const slug = params.slug as string;
 
-    const [post, setPost] = useState<any>(null);
+    const [post, setPost] = useState<BlogPostApi | null>(null);
     const [comments, setComments] = useState<Comment[]>([]);
     const [loading, setLoading] = useState(true);
     const [commentForm, setCommentForm] = useState({
@@ -31,15 +33,13 @@ export default function BlogPostPage() {
 
     useEffect(() => {
         loadPost();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [slug]);
 
     const loadPost = async () => {
         setLoading(true);
         try {
-            const [postData, commentsData] = await Promise.all([
-                blogApi.getPostBySlug(slug),
-                post ? blogApi.getComments(post.id) : Promise.resolve([]),
-            ]);
+            const postData = await blogApi.getPostBySlug(slug);
 
             setPost(postData);
             if (postData) {
@@ -147,9 +147,11 @@ export default function BlogPostPage() {
                 {/* Imagen destacada */}
                 {post.featured_image && (
                     <div className="mb-6 md:mb-8 rounded-2xl overflow-hidden">
-                        <img
+                        <Image
                             src={post.featured_image}
                             alt={post.title}
+                            width={800}
+                            height={400}
                             className="w-full h-auto max-h-[400px] object-cover"
                         />
                     </div>
@@ -158,7 +160,7 @@ export default function BlogPostPage() {
                 {/* Contenido */}
                 <div
                     className="prose prose-lg max-w-none text-slate-700"
-                    dangerouslySetInnerHTML={{ __html: post.content }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }}
                 />
 
                 {/* Tags */}

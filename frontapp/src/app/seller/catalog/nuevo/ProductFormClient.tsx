@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useTransition, useCallback, useRef } from 'react';
+import Image from 'next/image';
 import { useFormState, useFormStatus } from 'react-dom';
 import { createProduct, uploadImageToWordPress, ProductActionResult } from '@/shared/lib/actions/product-form';
 import { ProductFormSchema, ProductFormData } from '@/shared/lib/schemas/product.schema';
@@ -117,16 +118,20 @@ function ImageUploader({
 
   return (
     <div className="space-y-4">
-      <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider">
+      <label htmlFor="product-images" className="block text-sm font-bold text-gray-700 uppercase tracking-wider">
         Imágenes del Producto
       </label>
 
       {/* Drop Zone */}
       <div
+        id="product-images"
+        role="button"
+        tabIndex={0}
         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInputRef.current?.click(); }}
         className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all ${isDragging
           ? 'border-sky-500 bg-sky-50'
           : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
@@ -158,10 +163,12 @@ function ImageUploader({
               key={img.id}
               className="relative aspect-square rounded-xl overflow-hidden border-2 border-gray-100 group"
             >
-              <img
+              <Image
                 src={img.url}
                 alt="Product image"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 25vw, 20vw"
+                className="object-cover"
               />
 
               {/* Overlay */}
@@ -341,10 +348,11 @@ export default function ProductFormClient() {
           <div className="space-y-6">
             {/* Nombre */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
+              <label htmlFor="product-name" className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
                 Nombre del Producto *
               </label>
               <input
+                id="product-name"
                 type="text"
                 name="name"
                 onBlur={(e) => validateField('name', e.target.value)}
@@ -361,10 +369,11 @@ export default function ProductFormClient() {
 
             {/* Descripción */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
+              <label htmlFor="product-description" className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
                 Descripción
               </label>
               <textarea
+                id="product-description"
                 name="description"
                 rows={4}
                 className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-100"
@@ -381,12 +390,13 @@ export default function ProductFormClient() {
           <div className="grid grid-cols-2 gap-6">
             {/* Precio */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
+              <label htmlFor="product-price" className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
                 Precio de Venta *
               </label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">S/</span>
                 <input
+                  id="product-price"
                   type="number"
                   name="price"
                   step="0.01"
@@ -405,12 +415,13 @@ export default function ProductFormClient() {
 
             {/* Precio regular */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
+              <label htmlFor="product-regular-price" className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
                 Precio Regular
               </label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">S/</span>
                 <input
+                  id="product-regular-price"
                   type="number"
                   name="regularPrice"
                   step="0.01"
@@ -422,10 +433,11 @@ export default function ProductFormClient() {
 
             {/* Stock */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
+              <label htmlFor="product-stock" className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
                 Stock *
               </label>
               <input
+                id="product-stock"
                 type="number"
                 name="stock"
                 onBlur={(e) => validateField('stock', e.target.value)}
@@ -442,10 +454,11 @@ export default function ProductFormClient() {
 
             {/* SKU */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
+              <label htmlFor="product-sku" className="block text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">
                 SKU
               </label>
               <input
+                id="product-sku"
                 type="text"
                 name="sku"
                 className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl font-bold text-gray-700 focus:outline-none focus:ring-2 focus:border-sky-500 focus:ring-sky-100"

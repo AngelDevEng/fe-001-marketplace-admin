@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { getProducts } from '@/shared/lib/api';
 import { Product } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
@@ -27,7 +28,7 @@ const columns: Column<Product>[] = [
             <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-400 overflow-hidden border border-gray-200">
                     {product.images?.[0]?.src ? (
-                        <img src={product.images[0].src} alt={product.name} className="w-full h-full object-cover" />
+                        <Image src={product.images[0].src} alt={product.name} width={40} height={40} className="w-full h-full object-cover" />
                     ) : (
                         <Icon name="Image" className="w-6 h-6 opacity-30" />
                     )}

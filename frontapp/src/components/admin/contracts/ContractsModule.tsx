@@ -1,12 +1,19 @@
 import React from 'react';
 import { StatusBadge, ModalityBadge, KpiCard, ExpiryTrafficLight } from './ContractsUIComponents';
 import { Contract } from '@/lib/types/admin/contracts';
+import { ContractKPI } from '@/features/admin/contracts/types';
 import { Search, Plus, ArrowRight, ChevronRight } from 'lucide-react';
 import Skeleton from '@/components/ui/Skeleton';
 
 interface ContratosModuleProps {
-    state: any;
-    actions: any;
+    state: {
+        contracts: Contract[];
+        kpis: ContractKPI[];
+        loading: boolean;
+        error: unknown;
+        filters: Record<string, unknown>;
+    };
+    actions: Record<string, unknown>;
 }
 
 export const ContratosModule: React.FC<ContratosModuleProps> = ({ state, actions }) => {
@@ -17,12 +24,22 @@ export const ContratosModule: React.FC<ContratosModuleProps> = ({ state, actions
             <div className="space-y-6 animate-fadeIn pb-20 text-left font-industrial">
                 {/* KPI SKELETONS */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    {[1, 2, 3, 4].map(idx => (
-                        <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
-                            <Skeleton className="h-4 w-24 rounded" />
-                            <Skeleton className="h-8 w-16 rounded-md" />
-                        </div>
-                    ))}
+                    <div key="contracts-kpi-skel-1" className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
+                        <Skeleton className="h-4 w-24 rounded" />
+                        <Skeleton className="h-8 w-16 rounded-md" />
+                    </div>
+                    <div key="contracts-kpi-skel-2" className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
+                        <Skeleton className="h-4 w-24 rounded" />
+                        <Skeleton className="h-8 w-16 rounded-md" />
+                    </div>
+                    <div key="contracts-kpi-skel-3" className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
+                        <Skeleton className="h-4 w-24 rounded" />
+                        <Skeleton className="h-8 w-16 rounded-md" />
+                    </div>
+                    <div key="contracts-kpi-skel-4" className="bg-white p-6 rounded-2xl shadow-sm space-y-4">
+                        <Skeleton className="h-4 w-24 rounded" />
+                        <Skeleton className="h-8 w-16 rounded-md" />
+                    </div>
                 </div>
 
                 {/* FILTROS SKELETON */}
@@ -31,8 +48,8 @@ export const ContratosModule: React.FC<ContratosModuleProps> = ({ state, actions
                 {/* TABLA SKELETON */}
                 <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden p-6">
                     <div className="space-y-4">
-                        {[1, 2, 3, 4, 5, 6].map(idx => (
-                            <div key={idx} className="flex gap-4 py-4 border-b border-gray-50 last:border-0 items-center">
+                        {[1, 2, 3, 4, 5, 6].map((i) => (
+                            <div key={`row-skel-${i}`} className="flex gap-4 py-4 border-b border-gray-50 last:border-0 items-center">
                                 <Skeleton className="h-8 w-16 rounded" />
                                 <div className="flex-1 space-y-2">
                                     <Skeleton className="h-4 w-1/3 rounded" />
@@ -54,17 +71,18 @@ export const ContratosModule: React.FC<ContratosModuleProps> = ({ state, actions
 
             {/* KPI Summary */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                {kpis.map((kpi: any, idx: number) => <KpiCard key={idx} kpi={kpi} />)}
+                {kpis.map((kpi) => <KpiCard key={kpi.label} kpi={kpi} />)}
             </div>
 
             {/* FILTROS */}
             <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm mb-6">
                 <div className="flex flex-col md:flex-row gap-4 items-end">
                     <div className="flex-1 space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Búsqueda</label>
+                        <label htmlFor="contract-search" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Búsqueda</label>
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                             <input
+                                id="contract-search"
                                 type="text"
                                 placeholder="Empresa, RUC o Representante..."
                                 value={filters.query}
@@ -75,10 +93,11 @@ export const ContratosModule: React.FC<ContratosModuleProps> = ({ state, actions
                     </div>
 
                     <div className="w-full md:w-40 space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Modalidad</label>
+                        <label htmlFor="contract-modality" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Modalidad</label>
                         <select
+                            id="contract-modality"
                             value={filters.modality}
-                            onChange={(e) => actions.setFilters({ ...filters, modality: e.target.value as any })}
+                            onChange={(e) => actions.setFilters({ ...filters, modality: e.target.value })}
                             className="w-full p-2.5 bg-gray-50 border-none rounded-xl text-xs font-bold text-gray-700 font-industrial uppercase cursor-pointer"
                         >
                             <option value="ALL">Todas</option>
@@ -88,10 +107,11 @@ export const ContratosModule: React.FC<ContratosModuleProps> = ({ state, actions
                     </div>
 
                     <div className="w-full md:w-40 space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado Legal</label>
+                        <label htmlFor="contract-status" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado Legal</label>
                         <select
+                            id="contract-status"
                             value={filters.status}
-                            onChange={(e) => actions.setFilters({ ...filters, status: e.target.value as any })}
+                            onChange={(e) => actions.setFilters({ ...filters, status: e.target.value })}
                             className="w-full p-2.5 bg-gray-50 border-none rounded-xl text-xs font-bold text-gray-700 font-industrial uppercase cursor-pointer"
                         >
                             <option value="ALL">Todos</option>

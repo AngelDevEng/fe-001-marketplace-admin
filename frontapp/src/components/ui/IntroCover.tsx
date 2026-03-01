@@ -124,33 +124,6 @@ export default function IntroCover({
                     <Icon name={buttonIcon} className="w-6 h-6" />
                 </button>
             </div>
-
-            <style jsx global>{`
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(30px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-20px); }
-                }
-                @keyframes pulse {
-                    0%, 100% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); }
-                    50% { box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 10px rgba(255, 255, 255, 0.2); }
-                }
-                @keyframes floatParticle {
-                    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-                    25% { transform: translate(30px, -30px) scale(1.1); opacity: 0.5; }
-                    50% { transform: translate(-20px, -50px) scale(0.9); opacity: 0.4; }
-                    75% { transform: translate(40px, -20px) scale(1.05); opacity: 0.6; }
-                }
-                .animate-float {
-                    animation: float 3s ease-in-out infinite;
-                }
-                .animate-float-particle {
-                    animation: floatParticle 20s ease-in-out infinite;
-                }
-            `}</style>
         </div>
     );
 }

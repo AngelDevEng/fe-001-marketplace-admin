@@ -52,7 +52,7 @@ export function useSellerSales() {
             return orderId;
         },
         onSuccess: (orderId) => {
-            queryClient.setQueryData(['seller', 'sales', filters], (old: any) => {
+            queryClient.setQueryData(['seller', 'sales', filters], (old: { orders: Order[]; kpis: SalesKPI[] } | undefined) => {
                 if (!old) return old;
                 return {
                     ...old,

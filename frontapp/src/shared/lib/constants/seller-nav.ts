@@ -9,6 +9,13 @@ export interface SellerModule {
 
 export const sellerNavigation: SellerModule[] = [
     {
+        id: 'planes',
+        label: 'Mi Plan',
+        description: 'Gestiona tu suscripción y plan de servicios',
+        icon: 'CreditCard',
+        href: '/seller/planes'
+    },
+    {
         id: 'mis-datos',
         label: 'Mis Datos',
         description: 'Información de la cuenta y configuración del perfil',
