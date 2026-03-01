@@ -139,7 +139,7 @@ export default function FAQPage() {
                         </div>
 
                         <div className="p-4 md:p-8 space-y-2">
-                            {category.items.map((item) => {
+                            {category.items.map((item, itemIdx) => {
                                 const isOpen = openItems.includes(`${catIdx}-${itemIdx}`);
                                 return (
                                     <div key={item.question} className="border-b border-gray-50 last:border-0">

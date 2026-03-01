@@ -230,7 +230,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
                                 return (
                                     <Link
                                         key={item.label}
-                                        href={item.href}
+                                        href={item.href || '#'}
                                         onClick={handleLinkClick}
                                         className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group border-b border-gray-100 dark:border-[#1E3028]"
                                     >
@@ -263,7 +263,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
                                 >
                                     <span className="font-bold text-lg text-gray-800 dark:text-[#E8EDE9]">{activeParent.label}</span>
                                     <Link
-                                        href={activeParent.href}
+                                        href={activeParent.href || '#'}
                                         onClick={handleLinkClick}
                                         className="text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wide whitespace-nowrap hover:brightness-95 transform hover:scale-105 transition shadow-sm"
                                         style={{ backgroundColor: 'rgba(255,255,255,0.9)', color: '#000000' }}
@@ -294,7 +294,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
                                     return (
                                         <Link
                                             key={child.label}
-                                            href={child.href}
+                                            href={child.href || '#'}
                                             onClick={handleLinkClick}
                                             className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition border-b border-gray-100 dark:border-[#1E3028]"
                                         >
@@ -353,7 +353,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
                                     return (
                                         <Link
                                             key={child.label}
-                                            href={child.href}
+                                            href={child.href || '#'}
                                             onClick={handleLinkClick}
                                             className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition border-b border-gray-100 dark:border-[#1E3028]"
                                         >
@@ -412,7 +412,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuPro
                                     return (
                                         <Link
                                             key={child.label}
-                                            href={child.href}
+                                            href={child.href || '#'}
                                             onClick={handleLinkClick}
                                             className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition border-b border-gray-100 dark:border-[#1E3028]"
                                         >
