@@ -73,7 +73,6 @@ export default function PublicHeader() {
                 isOpen={mobileMenuOpen}
                 onClose={() => setMobileMenuOpen(false)}
                 menuItems={menuItems}
-                megaMenuData={megaMenuData}
             />
 
             {/* WhatsApp floating button (mobile only) */}

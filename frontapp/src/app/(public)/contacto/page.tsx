@@ -89,7 +89,7 @@ export default function ContactPage() {
             <div className="max-w-6xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-8 rounded-[30px] overflow-hidden bg-white dark:bg-[#111A15] shadow-xl dark:shadow-none border border-gray-200 dark:border-[#2A3F33]">
                     {/* Visual Section */}
-                    <div className="contact-visual bg-gradient-to-br from-sky-500 via-sky-300 to-lime-500 rounded-[30px] md:rounded-r-none p-8 md:p-12 text-white relative overflow-hidden h-full">
+                    <div className="contact-visual bg-linear-to-br from-sky-500 via-sky-300 to-lime-500 rounded-[30px] md:rounded-r-none p-8 md:p-12 text-white relative overflow-hidden h-full">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
                         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
                         

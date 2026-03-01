@@ -4,13 +4,19 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Icon from '@/components/ui/Icon';
-import { MenuItem, MegaCategoryData } from '@/data/menuData';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface MobileMenuProps {
     isOpen: boolean;
     onClose: () => void;
     menuItems: MenuItem[];
-    megaMenuData: Record<string, MegaCategoryData>;
+}
+
+interface MenuItem {
+    label: string;
+    href?: string;
+    icon?: string;
+    children?: MenuItem[];
 }
 
 // Icon name mapping for Lucide icons
@@ -23,13 +29,15 @@ const iconNameMap: Record<string, string> = {
     'storefront': 'Store',
     'buildings': 'Building2',
     'phone-call': 'PhoneCall',
+    'house': 'Home',
 };
 
-export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }: MobileMenuProps) {
-    // Navigation state: 0 = main, 1 = subcategories, 2 = category detail
+export default function MobileMenu({ isOpen, onClose, menuItems }: MobileMenuProps) {
+    // Navigation state: 0 = main, 1 = categories, 2 = subcategories, 3 = items
     const [menuLevel, setMenuLevel] = useState(0);
     const [activeParent, setActiveParent] = useState<MenuItem | null>(null);
-    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const [secondParent, setSecondParent] = useState<MenuItem | null>(null);
+    const [thirdParent, setThirdParent] = useState<MenuItem | null>(null);
 
     // PHP brand identity colors per drill-down level
     const levelColors: Record<number, string> = {
@@ -57,32 +65,41 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
             const timer = setTimeout(() => {
                 setMenuLevel(0);
                 setActiveParent(null);
-                setActiveCategory(null);
+                setSecondParent(null);
+                setThirdParent(null);
             }, 300);
             return () => clearTimeout(timer);
         }
     }, [isOpen]);
 
-    // Navigate to subcategories (level 1)
+    // Navigate to subcategories (advance one level)
     const goToSubcategories = useCallback((item: MenuItem) => {
-        setActiveParent(item);
-        setMenuLevel(1);
-    }, []);
-
-    // Navigate to category detail (level 2)
-    const goToCategoryDetail = useCallback((categoryName: string) => {
-        setActiveCategory(categoryName);
-        setMenuLevel(2);
-    }, []);
+        if (menuLevel === 0) {
+            setActiveParent(item);
+            setMenuLevel(1);
+        } else if (menuLevel === 1) {
+            setSecondParent(item);
+            setMenuLevel(2);
+        } else if (menuLevel === 2) {
+            setThirdParent(item);
+            setMenuLevel(3);
+        }
+    }, [menuLevel]);
 
     // Go back
     const goBack = useCallback(() => {
-        if (menuLevel === 2) {
+        if (menuLevel === 3) {
+            setMenuLevel(2);
+            setThirdParent(null);
+        } else if (menuLevel === 2) {
             setMenuLevel(1);
-            setActiveCategory(null);
+            setSecondParent(null);
+            setThirdParent(null);
         } else if (menuLevel === 1) {
             setMenuLevel(0);
             setActiveParent(null);
+            setSecondParent(null);
+            setThirdParent(null);
         }
     }, [menuLevel]);
 
@@ -90,8 +107,6 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
     const handleLinkClick = useCallback(() => {
         setTimeout(onClose, 200);
     }, [onClose]);
-
-    const categoryData = activeCategory ? megaMenuData[activeCategory] : null;
 
     return (
         <>
@@ -157,8 +172,12 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                 />
                             </div>
                             <span className="font-bold text-base text-gray-700 dark:text-[#E8EDE9] group-hover:text-green-700">
-                                {menuLevel === 2 && activeParent
-                                    ? activeParent.label
+                                {menuLevel === 1
+                                    ? 'Menú'
+                                    : menuLevel === 2 && secondParent
+                                    ? activeParent?.label
+                                    : menuLevel === 3 && thirdParent
+                                    ? secondParent?.label
                                     : 'Menú principal'}
                             </span>
                         </button>
@@ -181,9 +200,9 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                             <Link
                                 href="/"
                                 onClick={handleLinkClick}
-                                className="flex items-center gap-3 px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group"
+                                className="flex items-center gap-3 px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group border-b border-gray-100 dark:border-[#1E3028]"
                             >
-                                <Icon name="Home" className="text-xl text-gray-600 dark:text-[#7A9A80] group-hover:scale-110 transition-transform" />
+                                <Icon name="Home" className="text-xl text-[#16a34a] dark:text-[#6BAF7B] group-hover:scale-110 transition-transform" />
                                 <span className="text-gray-800 dark:text-[#E8EDE9] text-[15px] font-medium">Inicio</span>
                             </Link>
 
@@ -197,10 +216,10 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                         <button
                                             key={item.label}
                                             onClick={() => goToSubcategories(item)}
-                                            className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group"
+                                            className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group border-b border-gray-100 dark:border-[#1E3028]"
                                         >
                                             <div className="flex items-center gap-3">
-                                                <Icon name={iconName} className="text-xl text-gray-600 dark:text-[#7A9A80] group-hover:scale-110 transition-transform" />
+                                                <Icon name={iconName} className="text-xl text-[#16a34a] dark:text-[#6BAF7B] group-hover:scale-110 transition-transform" />
                                                 <span className="text-gray-800 dark:text-[#E8EDE9] text-[15px] font-medium">{item.label}</span>
                                             </div>
                                             <Icon name="ChevronRight" className="text-gray-400 text-sm" />
@@ -213,10 +232,10 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                         key={item.label}
                                         href={item.href}
                                         onClick={handleLinkClick}
-                                        className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group"
+                                        className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group border-b border-gray-100 dark:border-[#1E3028]"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <Icon name={iconName} className="text-xl text-gray-600 dark:text-[#7A9A80] group-hover:scale-110 transition-transform" />
+                                            <Icon name={iconName} className="text-xl text-[#16a34a] dark:text-[#6BAF7B] group-hover:scale-110 transition-transform" />
                                             <span className="text-gray-800 dark:text-[#E8EDE9] text-[15px] font-medium">{item.label}</span>
                                         </div>
                                         <Icon name="ChevronRight" className="text-gray-400 dark:text-[#7A9A80] text-sm" />
@@ -257,14 +276,14 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
 
                                 {/* Subcategory items */}
                                 {activeParent.children?.map((child) => {
-                                    const hasMegaData = megaMenuData[child.label] !== undefined;
+                                    const hasChildren = child.children && child.children.length > 0;
 
-                                    if (hasMegaData) {
+                                    if (hasChildren) {
                                         return (
                                             <button
                                                 key={child.label}
-                                                onClick={() => goToCategoryDetail(child.label)}
-                                                className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group"
+                                                onClick={() => goToSubcategories(child)}
+                                                className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group border-b border-gray-100 dark:border-[#1E3028]"
                                             >
                                                 <span className="text-gray-700 dark:text-[#E8EDE9] text-[14px] font-medium">{child.label}</span>
                                                 <Icon name="ChevronRight" className="text-gray-400 dark:text-[#7A9A80] text-sm" />
@@ -277,7 +296,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                             key={child.label}
                                             href={child.href}
                                             onClick={handleLinkClick}
-                                            className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition"
+                                            className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition border-b border-gray-100 dark:border-[#1E3028]"
                                         >
                                             <span className="text-gray-700 dark:text-[#E8EDE9] text-[14px] font-medium">{child.label}</span>
                                         </Link>
@@ -287,7 +306,7 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                         )}
                     </div>
 
-                    {/* === LEVEL 2: Category Detail (icons + columns) === */}
+                    {/* LEVEL 2: Subcategories (Verde Menta) */}
                     <div
                         className="absolute inset-0 transition-all duration-300 ease-out overflow-y-auto"
                         style={{
@@ -296,16 +315,16 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                             pointerEvents: menuLevel === 2 ? 'auto' : 'none',
                         }}
                     >
-                        {categoryData && activeCategory && (
-                            <div className="py-0 px-0">
-                                {/* Category title — colored banner (Level 2 = Verde Menta) */}
+                        {secondParent && menuLevel === 2 && (
+                            <div className="py-0">
+                                {/* Section header */}
                                 <div
                                     className="flex items-center justify-between px-5 py-4 sticky top-0 z-10 shadow-md"
                                     style={{ backgroundColor: levelColors[2] }}
                                 >
-                                    <span className="font-bold text-lg text-gray-800 dark:text-[#E8EDE9]">{activeCategory}</span>
+                                    <span className="font-bold text-lg text-gray-800 dark:text-[#E8EDE9]">{secondParent.label}</span>
                                     <Link
-                                        href="#"
+                                        href={secondParent.href || '#'}
                                         onClick={handleLinkClick}
                                         className="text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wide whitespace-nowrap hover:brightness-95 transform hover:scale-105 transition shadow-sm"
                                         style={{ backgroundColor: 'rgba(255,255,255,0.9)', color: '#000000' }}
@@ -314,57 +333,93 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                                     </Link>
                                 </div>
 
-                                {/* Circular icons grid */}
-                                <div className="grid grid-cols-3 gap-3 mb-6 px-4 pt-4">
-                                    {categoryData.icons.map((icon) => (
+                                {/* Sub-subcategory items */}
+                                {secondParent.children?.map((child) => {
+                                    const hasChildren = child.children && child.children.length > 0;
+
+                                    if (hasChildren) {
+                                        return (
+                                            <button
+                                                key={child.label}
+                                                onClick={() => goToSubcategories(child)}
+                                                className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group border-b border-gray-100 dark:border-[#1E3028]"
+                                            >
+                                                <span className="text-gray-700 dark:text-[#E8EDE9] text-[14px] font-medium">{child.label}</span>
+                                                <Icon name="ChevronRight" className="text-gray-400 dark:text-[#7A9A80] text-sm" />
+                                            </button>
+                                        );
+                                    }
+
+                                    return (
                                         <Link
-                                            key={icon.title}
-                                            href={icon.href || '#'}
+                                            key={child.label}
+                                            href={child.href}
                                             onClick={handleLinkClick}
-                                            className="group text-center"
+                                            className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition border-b border-gray-100 dark:border-[#1E3028]"
                                         >
-                                            <div className="mx-auto w-[72px] h-[72px] rounded-full bg-lime-500/20 border border-lime-200 flex items-center justify-center shadow-sm group-hover:shadow-md group-hover:scale-[1.04] transition">
-                                                <Image
-                                                    src={icon.img}
-                                                    alt={icon.title}
-                                                    width={48}
-                                                    height={48}
-                                                    className="w-10 h-10 object-contain"
-                                                />
-                                            </div>
-                                            <div className="mt-1.5 text-[11px] font-semibold text-gray-700 dark:text-[#E8EDE9] group-hover:text-sky-600 dark:group-hover:text-[#6BAF7B] transition leading-tight">
-                                                {icon.title}
-                                            </div>
+                                            <span className="text-gray-700 dark:text-[#E8EDE9] text-[14px] font-medium">{child.label}</span>
                                         </Link>
-                                    ))}
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* LEVEL 3: Final items list (Azul) */}
+                    <div
+                        className="absolute inset-0 transition-all duration-300 ease-out overflow-y-auto"
+                        style={{
+                            transform: `translateX(${menuLevel === 3 ? '0%' : '100%'})`,
+                            opacity: menuLevel === 3 ? 1 : 0,
+                            pointerEvents: menuLevel === 3 ? 'auto' : 'none',
+                        }}
+                    >
+                        {thirdParent && menuLevel === 3 && (
+                            <div className="py-0">
+                                {/* Section header */}
+                                <div
+                                    className="flex items-center justify-between px-5 py-4 sticky top-0 z-10 shadow-md"
+                                    style={{ backgroundColor: levelColors[3] }}
+                                >
+                                    <span className="font-bold text-lg text-gray-800 dark:text-[#E8EDE9]">{thirdParent.label}</span>
+                                    <Link
+                                        href={thirdParent.href || '#'}
+                                        onClick={handleLinkClick}
+                                        className="text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wide whitespace-nowrap hover:brightness-95 transform hover:scale-105 transition shadow-sm"
+                                        style={{ backgroundColor: 'rgba(255,255,255,0.9)', color: '#000000' }}
+                                    >
+                                        Ver todo
+                                    </Link>
                                 </div>
 
-                                {/* Divider */}
-                                <div className="h-px bg-lime-400/60 mb-4" />
+                                {/* Final items list - simple list like PHP */}
+                                {thirdParent.children?.map((child) => {
+                                    const hasChildren = child.children && child.children.length > 0;
 
-                                {/* Columns */}
-                                <div className="space-y-5">
-                                    {categoryData.cols.map((col) => (
-                                        <div key={col.h}>
-                                            <div className="text-[12px] font-extrabold tracking-wide text-gray-900 dark:text-[#E8EDE9] uppercase mb-2">
-                                                {col.h}
-                                            </div>
-                                            <ul className="space-y-1.5">
-                                                {col.items.map((item) => (
-                                                    <li key={item}>
-                                                        <Link
-                                                            href="#"
-                                                            onClick={handleLinkClick}
-                                                            className="text-[13px] text-gray-600 dark:text-[#7A9A80] hover:text-sky-600 dark:hover:text-[#6BAF7B] transition"
-                                                        >
-                                                            {item}
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    ))}
-                                </div>
+                                    if (hasChildren) {
+                                        return (
+                                            <button
+                                                key={child.label}
+                                                onClick={() => goToSubcategories(child)}
+                                                className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition group border-b border-gray-100 dark:border-[#1E3028]"
+                                            >
+                                                <span className="text-gray-700 dark:text-[#E8EDE9] text-[14px] font-medium">{child.label}</span>
+                                                <Icon name="ChevronRight" className="text-gray-400 dark:text-[#7A9A80] text-sm" />
+                                            </button>
+                                        );
+                                    }
+
+                                    return (
+                                        <Link
+                                            key={child.label}
+                                            href={child.href}
+                                            onClick={handleLinkClick}
+                                            className="flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 dark:hover:bg-[#182420] transition border-b border-gray-100 dark:border-[#1E3028]"
+                                        >
+                                            <span className="text-gray-700 dark:text-[#E8EDE9] text-[14px] font-medium">{child.label}</span>
+                                        </Link>
+                                    );
+                                })}
                             </div>
                         )}
                     </div>
@@ -372,13 +427,13 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
 
                 {/* ===== 4. FOOTER — Account / Cart / Theme (visible on level 0) ===== */}
                 {menuLevel === 0 && (
-                    <div className="p-5 border-t border-gray-200 bg-gray-50 space-y-4 shrink-0">
+                    <div className="p-5 border-t border-gray-200 dark:border-[#2A3F33] bg-gray-50 dark:bg-[#111A15] space-y-4 shrink-0">
                         <Link
                             href="/login"
                             onClick={handleLinkClick}
                             className="flex items-center gap-3 text-gray-700 dark:text-[#E8EDE9] hover:text-sky-600 dark:hover:text-[#6BAF7B] transition group"
                         >
-                            <Icon name="UserCircle" className="text-3xl text-sky-600 group-hover:scale-110 transition-transform" />
+                            <Icon name="UserCircle" className="text-3xl text-sky-600 dark:text-[#6BAF7B] group-hover:scale-110 transition-transform" />
                             <span className="font-medium text-lg">Mi Cuenta / Registrarse</span>
                         </Link>
 
@@ -394,6 +449,12 @@ export default function MobileMenu({ isOpen, onClose, menuItems, megaMenuData }:
                             </div>
                             <span className="font-medium text-lg dark:text-[#E8EDE9]">Carrito</span>
                         </Link>
+
+                        {/* Theme Toggle Mobile */}
+                        <div className="flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1F2E28] rounded-xl border border-gray-200 dark:border-[#2A3F33] shadow-sm">
+                            <ThemeToggle />
+                            <span className="font-medium text-base text-gray-700 dark:text-[#E8EDE9]">Modo oscuro</span>
+                        </div>
                     </div>
                 )}
             </div>

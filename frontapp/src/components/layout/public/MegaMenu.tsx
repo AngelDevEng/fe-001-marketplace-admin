@@ -94,14 +94,14 @@ export default function MegaMenu({
 
                     {/* COLUMNAS */}
                     <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 text-sm">
-                        {megaData.cols.map((col) => (
-                            <div key={col.h}>
+                        {megaData.cols.map((col, colIdx) => (
+                            <div key={`${col.h}-${colIdx}`}>
                                 <div className="text-[13px] font-extrabold tracking-wide text-slate-800 dark:text-[#E8EDE9] uppercase mb-2">
                                     {col.h}
                                 </div>
                                 <ul className="space-y-1.5">
-                                    {col.items.map((it) => (
-                                        <li key={it}>
+                                    {col.items.map((it, itemIdx) => (
+                                        <li key={`${it}-${colIdx}-${itemIdx}`}>
                                             <Link
                                                 href="#"
                                                 className="text-[12px] text-slate-500 dark:text-[#7A9A80] hover:text-sky-600 dark:hover:text-[#6BAF7B] transition"

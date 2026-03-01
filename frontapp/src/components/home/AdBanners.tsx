@@ -33,7 +33,7 @@ function BannerSlider({ slides }: BannerSliderProps) {
                 <article key={img} className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow">
                   <Image
                     src={img}
-                    alt={`Banner ${slide.id}-${i + 1}`}
+                    alt={`Banner ${slide.id}`}
                     width={600}
                     height={300}
                     className="w-full h-auto object-cover"
@@ -74,7 +74,7 @@ function SmallBannerCarousel({ images }: { images: string[] }) {
           >
             <Image
               src={img}
-              alt={`Banner pequeño ${i + 1}`}
+              alt="Banner publicitario"
               width={380}
               height={250}
               className="w-full h-full object-cover block select-none pointer-events-none"

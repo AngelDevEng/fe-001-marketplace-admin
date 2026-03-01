@@ -102,7 +102,7 @@ export default function AboutPage() {
             {/* 3. NUESTROS VALORES & RELACIÓN (CARDS OVERLAY) */}
             <section className="py-20 px-6 space-y-12">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {aboutData.values.map((val) => (
+                    {aboutData.values.map((val, index) => (
                         <div key={val.title} className="relative h-[450px] md:h-[550px] rounded-[3rem] overflow-hidden shadow-2xl group border-4 border-white">
                             <Image
                                 src={val.image}
@@ -113,7 +113,7 @@ export default function AboutPage() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                            <div className={`absolute bottom-8 ${idx === 0 ? 'right-8' : 'left-8'} z-10 max-w-[85%] md:max-w-[70%]`}>
+                            <div className={`absolute bottom-8 ${index === 0 ? 'right-8' : 'left-8'} z-10 max-w-[85%] md:max-w-[70%]`}>
                                 <div className="bg-sky-500/80 backdrop-blur-xl p-8 md:p-10 rounded-[2.5rem] border border-white/30 shadow-2xl transform group-hover:-translate-y-4 transition-transform duration-500">
                                     <h3 className="text-2xl md:text-3xl font-black text-white mb-6 uppercase leading-tight tracking-tight">
                                         {val.title}
@@ -162,7 +162,7 @@ export default function AboutPage() {
                         <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-sky-200 via-sky-500 to-sky-200 rounded-full hidden md:block" />
 
                         <div className="space-y-20 md:space-y-0 relative">
-                            {aboutData.timeline.items.map((item) => {
+                            {aboutData.timeline.items.map((item, idx) => {
                                 const Icon = [Star, Clock, RotateCcw, Brain, ShieldCheck, Users][idx % 6];
                                 return (
                                     <div key={item.title} className={`flex flex-col md:flex-row items-center justify-center w-full md:mb-12 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
@@ -230,7 +230,7 @@ export default function AboutPage() {
 
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16">
-                        {aboutData.premiumIcons.map((icon) => (
+                        {aboutData.premiumIcons.map((icon, idx) => (
                             <div key={icon.title} className="flex flex-col items-center text-center group animate-in" style={{ animationDelay: `${idx * 150}ms` }}>
                                 <div className="relative w-32 h-32 md:w-48 md:h-48 mb-8">
                                     {/* Decorative Rings */}
