@@ -86,7 +86,7 @@ export function HelpPageClient(_props: HelpPageClientProps) {
                                     filters={filters}
                                     onSetFilters={setFilters}
                                     onSetActiveTicket={setActiveTicketId}
-                                    onNewTicket={() => handleCreateTicket({ subject: '', description: '', priority: 'normal', category: 'general' })}
+                                    onNewTicket={() => handleCreateTicket({ asunto: '', mensaje: '', tipo_ticket: 'info', criticidad: 'normal' })}
                                 />
                             </div>
 
@@ -104,7 +104,7 @@ export function HelpPageClient(_props: HelpPageClientProps) {
                                 ) : (
                                     <div className="flex-1 flex items-center justify-center">
                                         <NewTicketForm
-                                            onCreateTicket={handleCreateTicket}
+                                            onCreateTicket={handleCreateTicket as any}
                                             onCancel={() => { }}
                                         />
                                     </div>

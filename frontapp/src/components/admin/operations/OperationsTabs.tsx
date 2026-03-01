@@ -43,7 +43,7 @@ export const ProvidersTab: React.FC<{
                         <select
                             id="provider-type"
                             value={filters.type}
-                            onChange={(e) => onFilterChange({ ...filters, type: e.target.value })}
+                            onChange={(e) => onFilterChange({ ...filters, type: e.target.value as any })}
                             className="w-full p-3 bg-gray-50 border-none rounded-2xl text-xs font-bold text-gray-700 cursor-pointer"
                         >
                             <option value="ALL">Todas las especialidades</option>
@@ -57,7 +57,7 @@ export const ProvidersTab: React.FC<{
                         <select
                             id="provider-status"
                             value={filters.status}
-                            onChange={(e) => onFilterChange({ ...filters, status: e.target.value })}
+                            onChange={(e) => onFilterChange({ ...filters, status: e.target.value as any })}
                             className="w-full p-3 bg-gray-50 border-none rounded-2xl text-xs font-bold text-gray-700 cursor-pointer"
                         >
                             <option value="ALL">Todos</option>

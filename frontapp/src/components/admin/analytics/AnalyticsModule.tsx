@@ -16,12 +16,12 @@ import Skeleton from '@/components/ui/Skeleton';
 
 interface AnalyticsModuleProps {
     state: {
-        data: unknown;
+        data: any;
         loading: boolean;
-        filters: Record<string, unknown>;
+        filters: Record<string, any>;
         activeTab: string;
         kpis: AnalyticsKPI[];
-        topSellers: unknown[];
+        topSellers: any[];
     };
     actions: Record<string, unknown>;
 }
@@ -80,8 +80,8 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
                         </label>
                         <select
                             id="analytics-period"
-                            value={filters.period}
-                            onChange={(e) => actions.setFilters({ ...filters, period: e.target.value })}
+                            value={filters.period as string}
+                            onChange={(e) => (actions.setFilters as Function)({ ...filters, period: e.target.value })}
                             className="w-full p-4 bg-gray-50 border-none rounded-2xl text-xs font-black text-gray-700 uppercase cursor-pointer"
                         >
                             <option value="TODAY">Día Actual (Today)</option>
@@ -98,8 +98,8 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
                         </label>
                         <select
                             id="analytics-rubro"
-                            value={filters.rubro}
-                            onChange={(e) => actions.setFilters({ ...filters, rubro: e.target.value })}
+                            value={filters.rubro as string}
+                            onChange={(e) => (actions.setFilters as Function)({ ...filters, rubro: e.target.value })}
                             className="w-full p-4 bg-gray-50 border-none rounded-2xl text-xs font-black text-gray-700 uppercase cursor-pointer"
                         >
                             <option value="ALL">Totalidad del Mercado (Global)</option>
@@ -120,14 +120,14 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
                 <button
                     className={`px-10 py-3.5 rounded-[1.7rem] text-xs font-black transition-all flex items-center gap-2 ${activeTab === 'vendedores' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-400 hover:bg-white/50'
                         }`}
-                    onClick={() => actions.setActiveTab('vendedores')}
+                    onClick={() => (actions.setActiveTab as Function)('vendedores')}
                 >
                     <Store className="w-4 h-4" /> Rendimiento Oferta (Vendedores)
                 </button>
                 <button
                     className={`px-10 py-3.5 rounded-[1.7rem] text-xs font-black transition-all flex items-center gap-2 ${activeTab === 'clientes' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-400 hover:bg-white/50'
                         }`}
-                    onClick={() => actions.setActiveTab('clientes')}
+                    onClick={() => (actions.setActiveTab as Function)('clientes')}
                 >
                     <Users className="w-4 h-4" /> Comportamiento Demanda (Clientes)
                 </button>
@@ -153,7 +153,7 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
                                 </span>
                             </div>
                             <div className="relative h-[350px]">
-                                <ScatterPerformanceChart sellers={data.vendedoresAnalitica} />
+                                <ScatterPerformanceChart sellers={data.vendedoresAnalitica as any} />
                             </div>
                         </div>
 

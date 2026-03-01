@@ -102,7 +102,7 @@ export const ProviderModal: React.FC<{
                 <select
                     id="provider-estado"
                     value={formData.estado || 'Activo'}
-                    onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, estado: e.target.value as any })}
                     className="w-full p-4 bg-gray-50 border-none rounded-2xl text-xs font-black"
                 >
                     <option value="Activo">Activo</option>

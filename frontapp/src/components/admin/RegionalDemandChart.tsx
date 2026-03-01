@@ -18,6 +18,7 @@ const Cell = dynamic(() => import('recharts').then(mod => mod.Cell), { ssr: fals
 interface RegionalData {
     name: string;
     value: number;
+    region?: string;
 }
 
 export default function RegionalDemandChart() {

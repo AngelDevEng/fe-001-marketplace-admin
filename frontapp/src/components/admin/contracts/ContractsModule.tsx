@@ -11,9 +11,9 @@ interface ContratosModuleProps {
         kpis: ContractKPI[];
         loading: boolean;
         error: unknown;
-        filters: Record<string, unknown>;
+        filters: Record<string, any>;
     };
-    actions: Record<string, unknown>;
+    actions: Record<string, any>;
 }
 
 export const ContratosModule: React.FC<ContratosModuleProps> = ({ state, actions }) => {

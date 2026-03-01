@@ -6,6 +6,7 @@ import { Product } from '../types';
 import { MOCK_CATALOG_DATA } from '../mock';
 import { api } from '@/shared/lib/api';
 import { USE_MOCKS } from '@/shared/lib/config/flags';
+import { CreateProductInput } from '@/shared/lib/api/contracts';
 
 export function useSellerCatalog() {
     const queryClient = useQueryClient();
@@ -37,7 +38,7 @@ export function useSellerCatalog() {
                 if (product.id) {
                     return await api.products.updateProduct(product.id, product);
                 }
-                return await api.products.createProduct(product as Partial<Product>);
+                return await api.products.createProduct(product as CreateProductInput);
             }
             return product;
         },

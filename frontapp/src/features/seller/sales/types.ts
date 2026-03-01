@@ -1,6 +1,7 @@
 export type OrderStatus = 'pendiente' | 'pagado' | 'en_proceso' | 'entregado' | 'cancelado';
 
 export interface OrderItem {
+    id?: string;
     name: string;
     qty: number;
     price: number;

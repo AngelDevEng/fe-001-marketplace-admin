@@ -16,15 +16,15 @@ const MapIcon = (iconName: string) => {
 
 interface TreasuryModuleProps {
     state: {
-        data: unknown;
+        data: any;
         loading: boolean;
         activeTab: string;
         kpis: TreasuryKPI[];
-        filteredCashIn: unknown[];
-        filteredCashOut: unknown[];
-        filters: Record<string, unknown>;
+        filteredCashIn: any[];
+        filteredCashOut: any[];
+        filters: Record<string, any>;
     };
-    actions: Record<string, unknown>;
+    actions: Record<string, any>;
 }
 
 export const TreasuryModule: React.FC<TreasuryModuleProps> = ({ state, actions }) => {

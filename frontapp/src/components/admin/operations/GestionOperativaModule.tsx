@@ -2,7 +2,7 @@ import React from 'react';
 import { ProvidersTab, ExpensesTab, CredentialsTab, AuditTab } from './OperationsTabs';
 import { Provider } from '@/lib/types/admin/operations';
 import Skeleton from '@/components/ui/Skeleton';
-import { OperationalKPI } from '@/features/admin/operations/types';
+import { OperationalKPI, ProviderFilters, Expense } from '@/features/admin/operations/types';
 
 import { Users, TrendingUp, ShieldCheck, Terminal } from 'lucide-react';
 
@@ -18,19 +18,19 @@ const MapIcon = (iconName: string) => {
 
 interface GestionOperativaModuleProps {
     state: {
-        data: unknown;
+        data: any;
         loading: boolean;
         activeTab: string;
         kpis: OperationalKPI[];
         filteredProviders: Provider[];
-        filteredExpenses: unknown[];
+        filteredExpenses: Expense[];
         totalInvestment: number;
-        providerFilters: Record<string, unknown>;
+        providerFilters: ProviderFilters;
     };
     actions: {
-        setActiveTab: (tab: string) => void;
-        setSelectedProvider: (provider: Provider) => void;
-        setProviderFilters: (filters: Record<string, unknown>) => void;
+        setActiveTab: (tab: any) => void;
+        setSelectedProvider: (provider: any) => void;
+        setProviderFilters: (filters: any) => void;
     };
 }
 

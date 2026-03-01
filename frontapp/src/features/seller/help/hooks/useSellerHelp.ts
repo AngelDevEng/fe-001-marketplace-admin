@@ -94,7 +94,7 @@ export function useSellerHelp() {
         },
         onSuccess: (ticketId) => {
             queryClient.setQueryData(['seller', 'help', 'tickets'], (old: Ticket[] | undefined) =>
-                old.map((t: Ticket) => t.id === ticketId ? { ...t, status: 'cerrado' as TicketStatus, survey_required: true } : t)
+                old?.map((t: Ticket) => t.id === ticketId ? { ...t, status: 'cerrado' as TicketStatus, survey_required: true } : t) || []
             );
             showToast("Ticket finalizado. Por favor completa la encuesta de satisfacción.", "info");
         }
@@ -107,7 +107,7 @@ export function useSellerHelp() {
         },
         onSuccess: ({ ticketId, rating, comment }) => {
             queryClient.setQueryData(['seller', 'help', 'tickets'], (old: Ticket[] | undefined) =>
-                old.map((t: Ticket) => t.id === ticketId ? { ...t, survey_required: false, satisfaction_rating: rating, satisfaction_comment: comment } : t)
+                old?.map((t: Ticket) => t.id === ticketId ? { ...t, survey_required: false, satisfaction_rating: rating, satisfaction_comment: comment } : t) || []
             );
             showToast("Gracias por tu feedback. Nos ayuda a mejorar.", "success");
         }
