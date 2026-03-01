@@ -6,7 +6,7 @@ import { Product, Order, OrderLineItem } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 
 export default function CatalogPerformanceList() {
-    const [performance, setPerformance] = useState<{ stars: unknown[], bones: unknown[] }>({ stars: [], bones: [] });
+    const [performance, setPerformance] = useState<{ stars: any[], bones: any[] }>({ stars: [], bones: [] });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

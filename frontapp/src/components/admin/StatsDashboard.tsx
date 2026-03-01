@@ -10,6 +10,9 @@ interface DashboardStats {
     totalOrders: number;
     totalStores: number;
     pendingOrders: number;
+    orderCount?: number;
+    storeCount?: number;
+    netSales?: string;
 }
 
 export default function StatsDashboard() {
@@ -34,7 +37,9 @@ export default function StatsDashboard() {
                     orderCount: mainReport?.total_orders || orders.length || 0,
                     storeCount: stores.length || 0,
                     totalOrders: orders.length || 0,
-                    netSales: mainReport?.net_sales || '0.00'
+                    netSales: mainReport?.net_sales || '0.00',
+                    totalStores: stores.length || 0,
+                    pendingOrders: 0
                 });
             } catch (error) {
                 console.error('Error fetching dashboard stats:', error);

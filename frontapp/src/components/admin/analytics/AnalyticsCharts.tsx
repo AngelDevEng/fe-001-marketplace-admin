@@ -41,6 +41,7 @@ const MapIcon = (iconName: string) => {
 const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
     if (active && payload && payload.length) {
         const data = payload[0].payload;
+        if (!data) return null;
         return (
             <div className="bg-gray-900 text-white p-3 rounded-xl text-xs font-industrial">
                 <p className="font-bold mb-1 uppercase tracking-widest text-[#0ea5e9]">{data.nombre}</p>
@@ -129,7 +130,7 @@ export const RetentionLineChart: React.FC<{ retentionData: { mes: string; retenc
                 <RTooltip
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}
                     itemStyle={{ fontWeight: 'bold', color: '#6366f1' }}
-                    formatter={(val: number) => [`${val}%`, 'Retención']}
+                    formatter={(val: any) => [`${val ?? 0}%`, 'Retención']}
                 />
                 <Area type="monotone" dataKey="retencion" stroke="#6366f1" strokeWidth={3} fillOpacity={1} fill="url(#colorRetencion)" />
             </AreaChart>

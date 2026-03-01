@@ -39,6 +39,8 @@ export interface ForumTopic {
   views?: number;
   user_reaction?: string | null;
   slug?: string;
+  votes_up?: number;
+  votes_down?: number;
 }
 
 export interface ForumPost {

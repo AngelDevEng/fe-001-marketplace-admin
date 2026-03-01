@@ -83,7 +83,7 @@ export default function BioForoPage() {
     }
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | undefined) => {
     if (!dateString) return '';
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
@@ -95,7 +95,7 @@ export default function BioForoPage() {
     return `${day} ${month} ${year} ${hours}:${minutes}`;
   };
 
-  const getInitial = (name: string) => {
+  const getInitial = (name: string | undefined) => {
     if (!name) return '?';
     return name.charAt(0).toUpperCase();
   };
@@ -248,7 +248,7 @@ export default function BioForoPage() {
                     className={`w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2 ${selectedForum === forum.id ? 'bg-emerald-50 text-emerald-700 font-medium' : ''}`}
                   >
                     <i className="ph ph-folder" />
-                    <span>{forum.title?.rendered || forum.name}</span>
+                    <span>{forum.title?.rendered || forum.forum_name}</span>
                   </button>
                 ))}
               </div>
@@ -260,7 +260,7 @@ export default function BioForoPage() {
               <div className="flex items-center gap-2">
                 <i className="ph ph-check" />
                 <span className="truncate">
-                  {forums.find((f) => f.id === selectedForum)?.title?.rendered || 'Categoría'}
+                  {forums.find((f) => f.id === selectedForum)?.title?.rendered || forums.find((f) => f.id === selectedForum)?.forum_name || 'Categoría'}
                 </span>
               </div>
               <button onClick={() => setSelectedForum(null)} className="text-emerald-500 hover:text-emerald-700">

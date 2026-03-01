@@ -154,7 +154,7 @@ export default function CrearTemaPage() {
               <option value="">Selecciona una categoría</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
-                  {cat.nombre}
+                  {cat.name}
                 </option>
               ))}
             </select>

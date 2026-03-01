@@ -4,15 +4,15 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
-import { forumApi, ForumTopicApi, ForumPostApi } from '@/shared/lib/api/forum';
+import { forumApi, ForumTopic, ForumPost } from '@/shared/lib/api/forum';
 import { sanitizeHtml } from '@/shared/lib/sanitize';
 
 export default function BioForoTopicPage() {
   const params = useParams();
   const topicId = parseInt(params.id as string);
 
-  const [topic, setTopic] = useState<ForumTopicApi | null>(null);
-  const [posts, setPosts] = useState<ForumPostApi[]>([]);
+  const [topic, setTopic] = useState<ForumTopic | null>(null);
+  const [posts, setPosts] = useState<ForumPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [replyContent, setReplyContent] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -38,7 +38,7 @@ export default function BioForoTopicPage() {
     }
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | undefined) => {
     if (!dateString) return '';
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
@@ -50,7 +50,7 @@ export default function BioForoTopicPage() {
     return `${day} ${month} ${year} ${hours}:${minutes}`;
   };
 
-  const getInitial = (name: string) => {
+  const getInitial = (name: string | undefined) => {
     if (!name) return '?';
     return name.charAt(0).toUpperCase();
   };
@@ -154,7 +154,7 @@ export default function BioForoTopicPage() {
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all"
           >
             <span className="text-lg">👍</span>
-            <span className="font-medium text-sm">{topic.votes_up || 0}</span>
+            <span className="font-medium text-sm">{topic.votes_count || 0}</span>
           </button>
           <button
             onClick={() => handleVote(topic.id, 'down')}
@@ -209,7 +209,7 @@ export default function BioForoTopicPage() {
                   </div>
                   <div>
                     <p className="font-bold text-slate-800">{post.author_name || 'Anónimo'}</p>
-                    <p className="text-xs text-slate-500">{formatDate(post.post_created)}</p>
+                    <p className="text-xs text-slate-500">{formatDate(post.created)}</p>
                   </div>
                 </div>
 

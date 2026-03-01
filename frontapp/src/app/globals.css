@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import "https://unpkg.com/@phosphor-icons/web@2.1.1/src/style.css";
-
 
 :root {
     --background: #ffffff;
