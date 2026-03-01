@@ -41,9 +41,9 @@ export default function BaseStatsGrid({ stats, columns = 4, isLoading = false, c
     if (isLoading) {
         return (
             <div className={`grid ${gridClass} gap-6 ${customClass}`}>
-                {stats.map((stat, index) => (
+                {stats.map((stat) => (
                     <BaseStatCard
-                        key={index}
+                        key={stat.label}
                         label={stat.label}
                         value={stat.value}
                         icon={stat.icon || 'BarChart3'}
@@ -61,9 +61,9 @@ export default function BaseStatsGrid({ stats, columns = 4, isLoading = false, c
 
     return (
         <div className={`grid ${gridClass} gap-6 ${customClass}`}>
-            {stats.map((stat, index) => (
+            {stats.map((stat) => (
                 <BaseStatCard
-                    key={index}
+                    key={stat.label}
                     label={stat.label}
                     value={stat.value}
                     icon={stat.icon || 'BarChart3'}

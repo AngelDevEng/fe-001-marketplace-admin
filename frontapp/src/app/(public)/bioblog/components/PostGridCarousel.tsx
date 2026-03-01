@@ -5,7 +5,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { blogApi } from '@/lib/api/blog';
+import Image from 'next/image';
+import { blogApi } from '@/shared/lib/api/blog';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -85,10 +86,12 @@ export default function PostGridCarousel() {
                             <div className="flex flex-col h-[450px] group bg-white border border-slate-100 rounded-[2rem] p-5 shadow-sm hover:shadow-2xl hover:scale-[1.03] transition-all duration-500">
                                 {/* Imagen: Rectangular */}
                                 <div className="relative w-full aspect-[16/10] overflow-hidden rounded-xl mb-5">
-                                    <img
+                                    <Image
                                         src={post.featured_image}
-                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                                         alt={post.title}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 33vw"
+                                        className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                                     />
                                 </div>
 

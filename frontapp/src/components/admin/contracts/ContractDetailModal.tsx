@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StatusBadge, AuditTimeline } from './ContractsUIComponents';
 import { Contract } from '@/lib/types/admin/contracts';
 import { FileText, FolderOpen, CheckCircle, XCircle } from 'lucide-react';
@@ -12,13 +12,11 @@ interface ContractDetailModalProps {
 }
 
 export const ContractDetailModal: React.FC<ContractDetailModalProps> = ({ contract, onClose, onValidate, onInvalidate }) => {
-    const [formState, setFormState] = useState<Partial<Contract>>({});
+    const [formState, setFormState] = useState<Partial<Contract>>(() => ({ ...contract }));
 
-    useEffect(() => {
-        if (contract) {
-            setFormState({ ...contract });
-        }
-    }, [contract]);
+    const handleChange = (field: string, value: string) => {
+        setFormState(prev => ({ ...prev, [field]: value }));
+    };
 
     return (
         <div className="bg-white w-full max-w-2xl rounded-[3rem] shadow-2xl relative overflow-hidden flex flex-col font-industrial animate-scaleUp">
@@ -43,31 +41,34 @@ export const ContractDetailModal: React.FC<ContractDetailModalProps> = ({ contra
 
                     <div className="space-y-4">
                         <div className="space-y-1.5">
-                            <label className="text-[9px] font-black text-gray-400 uppercase ml-1">Razón Social</label>
+                            <label htmlFor="contract-company" className="text-[9px] font-black text-gray-400 uppercase ml-1">Razón Social</label>
                             <input
+                                id="contract-company"
                                 type="text"
                                 value={formState.company || ''}
-                                onChange={(e) => setFormState(p => ({ ...p, company: e.target.value }))}
+                                onChange={(e) => handleChange('company', e.target.value)}
                                 className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial"
                             />
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1.5">
-                                <label className="text-[9px] font-black text-gray-400 uppercase ml-1">RUC Fiscal</label>
+                                <label htmlFor="contract-ruc" className="text-[9px] font-black text-gray-400 uppercase ml-1">RUC Fiscal</label>
                                 <input
+                                    id="contract-ruc"
                                     type="text"
                                     value={formState.ruc || ''}
-                                    onChange={(e) => setFormState(p => ({ ...p, ruc: e.target.value }))}
+                                    onChange={(e) => handleChange('ruc', e.target.value)}
                                     className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial"
                                 />
                             </div>
                             <div className="space-y-1.5">
-                                <label className="text-[9px] font-black text-gray-400 uppercase ml-1">Representante</label>
+                                <label htmlFor="contract-rep" className="text-[9px] font-black text-gray-400 uppercase ml-1">Representante</label>
                                 <input
+                                    id="contract-rep"
                                     type="text"
                                     value={formState.rep || ''}
-                                    onChange={(e) => setFormState(p => ({ ...p, rep: e.target.value }))}
+                                    onChange={(e) => handleChange('rep', e.target.value)}
                                     className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial"
                                 />
                             </div>
@@ -75,20 +76,22 @@ export const ContractDetailModal: React.FC<ContractDetailModalProps> = ({ contra
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1.5">
-                                <label className="text-[9px] font-black text-gray-400 uppercase ml-1">Fecha de Firma</label>
+                                <label htmlFor="contract-start" className="text-[9px] font-black text-gray-400 uppercase ml-1">Fecha de Firma</label>
                                 <input
+                                    id="contract-start"
                                     type="date"
                                     value={formState.start || ''}
-                                    onChange={(e) => setFormState(p => ({ ...p, start: e.target.value }))}
+                                    onChange={(e) => handleChange('start', e.target.value)}
                                     className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial uppercase"
                                 />
                             </div>
                             <div className="space-y-1.5">
-                                <label className="text-[9px] font-black text-gray-400 uppercase ml-1">Vencimiento</label>
+                                <label htmlFor="contract-end" className="text-[9px] font-black text-gray-400 uppercase ml-1">Vencimiento</label>
                                 <input
+                                    id="contract-end"
                                     type="date"
                                     value={formState.end || ''}
-                                    onChange={(e) => setFormState(p => ({ ...p, end: e.target.value }))}
+                                    onChange={(e) => handleChange('end', e.target.value)}
                                     className="w-full bg-gray-50 border-none rounded-xl px-4 py-3 text-xs font-black text-gray-800 focus:ring-2 focus:ring-indigo-500/10 transition-all font-industrial uppercase"
                                 />
                             </div>

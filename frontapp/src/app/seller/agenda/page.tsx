@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { AgendaPageClient } from './AgendaPageClient';
+import { AgendaPageClient } from '@/features/seller/agenda/AgendaPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function AgendaPage() {

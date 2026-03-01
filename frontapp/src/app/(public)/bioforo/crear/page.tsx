@@ -5,11 +5,17 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
 import HeroPill from '@/components/layout/public/HeroPill';
-import { forumApi } from '@/lib/api/forum';
+import { forumApi } from '@/shared/lib/api/forum';
+
+interface ForumCategory {
+  id: number;
+  name: string;
+  slug?: string;
+}
 
 export default function CrearTemaPage() {
   const router = useRouter();
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<ForumCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -76,8 +82,8 @@ export default function CrearTemaPage() {
           router.push('/bioforo');
         }, 2000);
       }
-    } catch (err: any) {
-      setError(err.message || 'Error al crear el tema');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Error al crear el tema');
     } finally {
       setSubmitting(false);
     }
@@ -112,8 +118,8 @@ export default function CrearTemaPage() {
   return (
     <div className="max-w-4xl mx-auto px-3 md:px-4 py-4 md:py-8">
       {/* Volver */}
-      <Link 
-        href="/bioforo" 
+      <Link
+        href="/bioforo"
         className="inline-flex items-center gap-2 text-slate-600 hover:text-emerald-500 mb-4"
       >
         <Icon name="ArrowLeft" className="w-4 h-4" />

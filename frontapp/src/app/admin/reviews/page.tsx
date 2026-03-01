@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ReviewsPageClient } from './ReviewsPageClient';
+import { ReviewsPageClient } from '@/features/admin/reviews/ReviewsPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function ReviewsPage() {

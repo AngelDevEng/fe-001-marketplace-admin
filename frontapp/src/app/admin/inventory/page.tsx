@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { InventoryPageClient } from './InventoryPageClient';
+import { InventoryPageClient } from '@/features/admin/inventory/InventoryPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function InventoryPage() {

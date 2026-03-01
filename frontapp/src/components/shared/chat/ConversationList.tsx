@@ -68,7 +68,7 @@ export default function ConversationList({
     return (
       <div className="flex-1 overflow-y-auto p-4 space-y-2">
         {[1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="p-4 animate-pulse">
+          <div key={`conv-skel-${i}`} className="p-4 animate-pulse">
             <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
             <div className="h-3 bg-gray-200 rounded w-1/2"></div>
           </div>

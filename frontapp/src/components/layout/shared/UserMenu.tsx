@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useAuth } from '@/shared/lib/context/AuthContext';
 
 export default function UserMenu() {
     const { user, logout } = useAuth();
@@ -27,9 +29,11 @@ export default function UserMenu() {
             >
                 <div className="flex items-center gap-3">
                     {user.avatar ? (
-                        <img
+                        <Image
                             src={user.avatar}
                             alt={user.display_name}
+                            width={32}
+                            height={32}
                             className="w-8 h-8 rounded-full object-cover"
                         />
                     ) : (
@@ -59,8 +63,12 @@ export default function UserMenu() {
             {isOpen && (
                 <>
                     <div
-                        className="fixed inset-0 z-10"
+                        role="button"
+                        tabIndex={0}
+                        aria-label="Cerrar menú"
+                        className="fixed inset-0 z-10 cursor-default"
                         onClick={() => setIsOpen(false)}
+                        onKeyDown={(e) => e.key === 'Escape' && setIsOpen(false)}
                     />
                     <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-20">
                         <div className="p-3 border-b border-gray-200">
@@ -72,7 +80,7 @@ export default function UserMenu() {
                             </p>
                         </div>
                         <div className="py-2">
-                            <a
+                            <Link
                                 href="/profile"
                                 className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             >
@@ -80,8 +88,8 @@ export default function UserMenu() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
                                 Mi Perfil
-                            </a>
-                            <a
+                            </Link>
+                            <Link
                                 href="/settings"
                                 className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             >
@@ -90,8 +98,8 @@ export default function UserMenu() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                                 Configuración
-                            </a>
-                            <a
+                            </Link>
+                            <Link
                                 href="/help"
                                 className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             >
@@ -99,7 +107,7 @@ export default function UserMenu() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 Ayuda
-                            </a>
+                            </Link>
                         </div>
                         <div className="border-t border-gray-200 py-2">
                             <button

@@ -10,8 +10,8 @@
  */
 
 import { Suspense } from 'react';
-import { getProducts } from '@/lib/actions/catalog';
-import CatalogClient from './CatalogClient';
+import { getProducts } from '@/shared/lib/actions/catalog';
+import CatalogClient from '@/features/seller/catalog/CatalogPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function CatalogPage() {

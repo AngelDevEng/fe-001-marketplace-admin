@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SmartSidebar from '@/components/layout/shared/SmartSidebar';
-import { logisticsNavigation } from '@/lib/constants/logistics-nav';
+import { logisticsNavigation } from '@/shared/lib/constants/logistics-nav';
 
 interface LogisticsSidebarProps {
     isMobileOpen?: boolean;

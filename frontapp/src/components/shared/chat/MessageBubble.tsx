@@ -4,6 +4,7 @@ import React from 'react';
 import Icon from '@/components/ui/Icon';
 
 export interface Message {
+  id?: string;
   sender: string;
   content: string;
   timestamp: string;
@@ -24,11 +25,11 @@ const isSentByMe = (message: Message, currentUserId?: string): boolean => {
 export default function MessageBubble({ messages, currentUserId }: MessageBubbleProps) {
   return (
     <div className="space-y-6">
-      {messages.map((msg, idx) => {
+      {messages.map((msg) => {
         const isSent = isSentByMe(msg, currentUserId);
         
         return (
-          <div key={idx} className={`flex ${isSent ? 'justify-end' : 'justify-start'} animate-fadeIn`}>
+          <div key={msg.id || msg.timestamp} className={`flex ${isSent ? 'justify-end' : 'justify-start'} animate-fadeIn`}>
             <div className={`max-w-[75%] p-5 rounded-[2rem] shadow-sm transform transition-all hover:scale-[1.01] ${
               isSent
                 ? 'bg-emerald-500 text-white rounded-tr-none shadow-emerald-100'

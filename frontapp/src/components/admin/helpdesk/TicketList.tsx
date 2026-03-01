@@ -61,7 +61,10 @@ export const TicketList: React.FC<TicketListProps> = ({
                 {tickets.map((t) => (
                         <div
                             key={t.id}
+                            role="button"
+                            tabIndex={0}
                             onClick={() => onSelect(t.id)}
+                            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelect(t.id); }}
                             className={`bg-white p-6 rounded-[2rem] border transition-all cursor-pointer relative group ${selectedId === t.id ? 'border-sky-500/30 bg-sky-50/50' : 'border-gray-100 hover:border-sky-500/20 hover:shadow-xl'
                                 }`}
                         >

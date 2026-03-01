@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { Bell, AlertTriangle, ShieldAlert, Activity, Check } from 'lucide-react';
-import { useNotifications } from '@/context/NotificationContext';
+import { useNotifications } from '@/shared/lib/context/NotificationContext';
 import { ProactiveNotification } from '@/lib/types/notifications';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '@/shared/lib/context/AuthContext';
 
 export default function NotificationBell() {
     const [isOpen, setIsOpen] = useState(false);
@@ -55,8 +55,12 @@ export default function NotificationBell() {
             {isOpen && (
                 <>
                     <div
-                        className="fixed inset-0 z-40"
+                        role="button"
+                        tabIndex={0}
+                        aria-label="Cerrar notificaciones"
+                        className="fixed inset-0 z-40 cursor-default"
                         onClick={() => setIsOpen(false)}
+                        onKeyDown={(e) => e.key === 'Escape' && setIsOpen(false)}
                     />
                     <div className="absolute right-0 mt-3 w-[400px] bg-white rounded-[2rem] shadow-2xl border border-gray-100 z-50 overflow-hidden animate-fadeIn">
                         <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/80 flex justify-between items-center">

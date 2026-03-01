@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Icon from '@/components/ui/Icon';
 import TopBanner from './TopBanner';
 
@@ -25,7 +26,7 @@ export default function PublicHeader() {
             <header className="bg-white shadow-sm sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 gap-6">
                     <Link href="/" className="flex items-center gap-3">
-                        <img src="/img/logo.png" alt="Logo" className="h-16 md:h-20 w-auto" />
+                        <Image src="/img/logo.png" alt="Logo" width={80} height={64} className="h-16 md:h-20 w-auto" />
                     </Link>
 
                     <div className="flex items-center gap-4">
@@ -69,8 +70,12 @@ export default function PublicHeader() {
             </header>
 
             <div
-                className={`fixed inset-0 bg-black bg-opacity-50 z-[100] transition-opacity duration-300 lg:hidden ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                role="button"
+                tabIndex={0}
+                aria-label="Cerrar menú"
+                className={`fixed inset-0 bg-black bg-opacity-50 z-[100] transition-opacity duration-300 lg:hidden cursor-default ${mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                 onClick={() => setMobileMenuOpen(false)}
+                onKeyDown={(e) => e.key === 'Escape' && setMobileMenuOpen(false)}
             />
 
             <div
@@ -78,7 +83,7 @@ export default function PublicHeader() {
             >
                 <div className="p-4 border-b border-gray-100">
                     <div className="flex items-center justify-between">
-                        <img src="/img/logo.png" alt="Lyrium Logo" className="h-12 w-auto" />
+                        <Image src="/img/logo.png" alt="Lyrium Logo" width={60} height={48} className="h-12 w-auto" />
                         <button
                             onClick={() => setMobileMenuOpen(false)}
                             className="text-gray-600 hover:text-gray-800 text-2xl"

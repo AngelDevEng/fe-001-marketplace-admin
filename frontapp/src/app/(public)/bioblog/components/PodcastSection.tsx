@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Icon from '@/components/ui/Icon';
+import Image from 'next/image';
 
 const podcastAnimations = [
     { emoji: '🎙️', text: 'Cada semana con un nuevo invitado.' },
@@ -29,7 +29,7 @@ function AnimatedText({ animations }: { animations: { emoji: string; text: strin
         <div className="w-full h-24 md:h-14 overflow-hidden relative">
             {animations.map((item, index) => (
                 <div
-                    key={index}
+                    key={`podcast-anim-${index}`}
                     className="absolute top-0 left-0 w-full flex items-center space-x-3 text-sm md:text-2xl !text-white/90 transition-all duration-1000"
                     style={{
                         opacity: index === currentIndex ? 1 : 0,
@@ -75,10 +75,12 @@ export default function PodcastSection() {
                     />
 
                     <div className="relative overflow-hidden rounded-3xl md:rounded-[3rem] p-6 md:p-20 shadow-2xl group">
-                        <img
+                        <Image
                             src="/img/bioblog/entrevista_doctora-scaled.webp"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                             alt="Podcast Background"
+                            fill
+                            sizes="100vw"
+                            className="object-cover transition-transform duration-1000 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/70 transition-colors duration-1000" />
 
@@ -110,10 +112,12 @@ export default function PodcastSection() {
                     />
 
                     <div className="relative overflow-hidden rounded-3xl md:rounded-[3rem] p-6 md:p-20 shadow-2xl group">
-                        <img
+                        <Image
                             src="/img/bioblog/Familia-en-picnic-scaled.webp"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                             alt="Historias Background"
+                            fill
+                            sizes="100vw"
+                            className="object-cover transition-transform duration-1000 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/50 transition-colors duration-1000" />
 

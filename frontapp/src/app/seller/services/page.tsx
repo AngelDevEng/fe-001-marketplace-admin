@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ServicesPageClient } from './ServicesPageClient';
+import { ServicesPageClient } from '@/features/seller/services/ServicesPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function ServicesPage() {

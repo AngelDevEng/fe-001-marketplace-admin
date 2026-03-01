@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { NotificationProvider } from '@/context/NotificationContext';
-import { AuthProvider } from '@/context/AuthContext';
-import { ToastProvider } from '@/context/ToastContext';
+import { NotificationProvider } from '@/shared/lib/context/NotificationContext';
+import { AuthProvider } from '@/shared/lib/context/AuthContext';
+import { ToastProvider } from '@/shared/lib/context/ToastContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 import QueryProvider from '@/components/providers/QueryProvider';
 
-export default function RootLayout ({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

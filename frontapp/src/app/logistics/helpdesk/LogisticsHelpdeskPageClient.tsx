@@ -2,9 +2,10 @@
 
 import React from 'react';
 import ModuleHeader from '@/components/layout/shared/ModuleHeader';
-import { useLogisticsHelpdesk } from '@/hooks/useLogisticsHelpdesk';
+import { useLogisticsHelpdesk } from '@/features/logistics/helpdesk/hooks/useLogisticsHelpdesk';
 
-interface LogisticsHelpdeskPageClientProps { /* TODO Tarea 3 */ }
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface LogisticsHelpdeskPageClientProps { }
 export function LogisticsHelpdeskPageClient(_props: LogisticsHelpdeskPageClientProps) {
     const { tickets, selectedTicket, setSelectedTicket } = useLogisticsHelpdesk();
 

@@ -8,8 +8,8 @@
  */
 
 import { Suspense } from 'react';
-import { getDashboardData, SalesKPIs, RecentOrder } from '@/lib/actions/dashboard';
-import DashboardClient from './DashboardClient';
+import { getDashboardData, SalesKPIs, RecentOrder } from '@/shared/lib/actions/dashboard';
+import DashboardClient from '@/features/seller/dashboard/DashboardClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function DashboardPage() {

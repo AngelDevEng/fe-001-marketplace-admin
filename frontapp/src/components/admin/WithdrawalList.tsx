@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getWithdrawals } from '@/lib/api';
+import { getWithdrawals } from '@/shared/lib/api';
 import { Withdrawal } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 import DataTable, { Column } from '@/components/ui/DataTable';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 
 const getStatusStyles = (status: number) => {
     switch (status) {

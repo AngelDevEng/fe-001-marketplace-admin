@@ -158,9 +158,9 @@ export const ChatView: React.FC<ChatViewProps> = ({
                     </button>
                     {showQuickReplies && (
                         <div className="flex flex-wrap gap-1">
-                            {quickReplies.map((qr, i) => (
+                            {quickReplies.map((qr) => (
                                 <button
-                                    key={i}
+                                    key={qr}
                                     type="button"
                                     onClick={() => handleQuickReply(qr)}
                                     className="px-2 py-1 bg-gray-100 hover:bg-sky-100 text-[9px] font-bold text-gray-500 rounded-lg transition-all"

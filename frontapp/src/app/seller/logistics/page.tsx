@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { LogisticsPageClient } from './LogisticsPageClient';
+import { LogisticsPageClient } from '@/features/seller/logistics/LogisticsPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function LogisticsPage() {

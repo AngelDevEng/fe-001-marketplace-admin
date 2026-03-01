@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import { SalesPageClient } from './SalesPageClient';
-import { getRecentOrders, getSalesKPIs } from '@/lib/actions/dashboard';
+import { SalesPageClient } from '@/features/seller/sales/SalesPageClient';
+import { getRecentOrders, getSalesKPIs } from '@/shared/lib/actions/dashboard';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function SalesPage() {

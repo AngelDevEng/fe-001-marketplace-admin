@@ -4,9 +4,25 @@ import React from 'react';
 import { TicketList } from './TicketList';
 import { ChatView } from './ChatView';
 import { FAQView, AuditTable } from './HelpDeskSections';
-import { Ticket, Priority, TicketStatus, ActionType, MesaAyudaData } from '@/lib/types/admin/helpdesk';
+import { Ticket, Priority, TicketStatus, ActionType, MesaAyudaData, AuditEntry } from '@/lib/types/admin/helpdesk';
 import { MessageSquare, LayoutGrid, BookOpen, ShieldCheck } from 'lucide-react';
 import Skeleton from '@/components/ui/Skeleton';
+
+const TabButton: React.FC<{
+    id: 'todos' | 'asignados' | 'faq' | 'auditoria';
+    label: string;
+    icon: React.ReactNode;
+    isActive: boolean;
+    onClick: () => void;
+}> = ({ id, label, icon, isActive, onClick }) => (
+    <button
+        onClick={onClick}
+        className={`px-8 py-3.5 rounded-[1.7rem] text-[10px] font-black transition-all flex items-center gap-2 font-industrial uppercase tracking-wider ${isActive ? 'bg-white shadow-md text-sky-600' : 'text-gray-400 hover:bg-white/50'
+            }`}
+    >
+        {icon} {label}
+    </button>
+);
 
 interface HelpDeskModuleProps {
     data: MesaAyudaData | null;
@@ -15,7 +31,7 @@ interface HelpDeskModuleProps {
     setCurrentTab: (tab: 'todos' | 'asignados' | 'faq' | 'auditoria') => void;
     selectedTicket: Ticket | null;
     filteredTickets: Ticket[];
-    filteredAudit: any[];
+    filteredAudit: AuditEntry[];
     filters: {
         search: string;
         status: TicketStatus | '';
@@ -24,7 +40,7 @@ interface HelpDeskModuleProps {
         auditDate: string;
         auditType: ActionType | '';
     };
-    setFilters: React.Dispatch<React.SetStateAction<any>>;
+    setFilters: React.Dispatch<React.SetStateAction<Record<string, unknown>>>;
     actions: {
         selectTicket: (id: number) => void;
         sendReply: (text: string) => void;
@@ -44,26 +60,13 @@ export const HelpDeskModule: React.FC<HelpDeskModuleProps> = ({
     onEscalate, onCloseTicket, onFAQCreate, onFAQDetail
 }) => {
 
-    const renderTabButton = (id: 'todos' | 'asignados' | 'faq' | 'auditoria', label: string, icon: React.ReactNode) => {
-        const isActive = currentTab === id;
-        return (
-            <button
-                onClick={() => setCurrentTab(id)}
-                className={`px-8 py-3.5 rounded-[1.7rem] text-[10px] font-black transition-all flex items-center gap-2 font-industrial uppercase tracking-wider ${isActive ? 'bg-white shadow-md text-sky-600' : 'text-gray-400 hover:bg-white/50'
-                    }`}
-            >
-                {icon} {label}
-            </button>
-        );
-    };
-
     if (loading || !data) {
         return (
             <div className="relative h-[calc(100vh-8rem)]">
                 {/* Tab Navigation Skeleton */}
                 <div className="flex bg-gray-100/80 backdrop-blur-md p-1.5 rounded-[2rem] gap-1 shadow-inner border border-white/50 w-fit mx-auto mb-4">
-                    {[1, 2, 3, 4].map(i => (
-                        <Skeleton key={i} className="h-10 w-32 rounded-[1.7rem]" />
+                    {[1, 2, 3, 4].map((i) => (
+                        <Skeleton key={`helpdesk-tab-${i}`} className="h-10 w-32 rounded-[1.7rem]" />
                     ))}
                 </div>
 
@@ -84,10 +87,10 @@ export const HelpDeskModule: React.FC<HelpDeskModuleProps> = ({
         <div className="relative h-[calc(100vh-8rem)]">
             {/* Tab Navigation */}
             <div className="flex bg-gray-100/80 backdrop-blur-md p-1.5 rounded-[2rem] gap-1 shadow-inner border border-white/50 w-fit mx-auto mb-4">
-                {renderTabButton('todos', 'Todos los Casos', <LayoutGrid className="w-4 h-4" />)}
-                {renderTabButton('asignados', 'Mis Asignados', <MessageSquare className="w-4 h-4" />)}
-                {renderTabButton('faq', 'Base de Conocimiento', <BookOpen className="w-4 h-4" />)}
-                {renderTabButton('auditoria', 'Auditoría Forense', <ShieldCheck className="w-4 h-4" />)}
+                <TabButton id="todos" label="Todos los Casos" icon={<LayoutGrid className="w-4 h-4" />} isActive={currentTab === 'todos'} onClick={() => setCurrentTab('todos')} />
+                <TabButton id="asignados" label="Mis Asignados" icon={<MessageSquare className="w-4 h-4" />} isActive={currentTab === 'asignados'} onClick={() => setCurrentTab('asignados')} />
+                <TabButton id="faq" label="Base de Conocimiento" icon={<BookOpen className="w-4 h-4" />} isActive={currentTab === 'faq'} onClick={() => setCurrentTab('faq')} />
+                <TabButton id="auditoria" label="Auditoría Forense" icon={<ShieldCheck className="w-4 h-4" />} isActive={currentTab === 'auditoria'} onClick={() => setCurrentTab('auditoria')} />
             </div>
 
             {/* Main Content Areas */}
@@ -106,7 +109,7 @@ export const HelpDeskModule: React.FC<HelpDeskModuleProps> = ({
                         date: filters.auditDate,
                         type: filters.auditType as ActionType
                     }}
-                    onFilterChange={(f) => setFilters((prev: any) => ({ ...prev, ...f }))}
+                    onFilterChange={(f) => setFilters(prev => ({ ...prev, ...f }))}
                 />
             ) : (
                 <div className="flex gap-6 animate-fadeIn h-full">
@@ -119,7 +122,7 @@ export const HelpDeskModule: React.FC<HelpDeskModuleProps> = ({
                             status: filters.status as TicketStatus,
                             priority: filters.priority as Priority
                         }}
-                        onFilterChange={(f) => setFilters((prev: any) => ({ ...prev, ...f }))}
+                    onFilterChange={(f) => setFilters((prev) => ({ ...prev, ...f }))}
                     />
                     {selectedTicket ? (
                         <ChatView

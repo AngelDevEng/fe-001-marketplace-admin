@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { FinancePageClient } from './FinancePageClient';
+import { FinancePageClient } from '@/features/seller/finance/FinancePageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function FinancePage() {

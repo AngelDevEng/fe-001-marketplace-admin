@@ -4,7 +4,7 @@
  * ═══════════════════════════════════════════════════════════════════════════
  */
 
-import { getOrderById } from '@/lib/actions/orders';
+import { getOrderById } from '@/shared/lib/actions/orders';
 import OrderDetailClient from './OrderDetailClient';
 
 interface PageProps {

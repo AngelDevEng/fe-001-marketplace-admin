@@ -88,8 +88,9 @@ export const AuditTable: React.FC<AuditTableProps> = ({ entries, filters, onFilt
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-2 block font-industrial">Tienda / Responsable</label>
+                        <label htmlFor="helpdesk-search" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-2 block font-industrial">Tienda / Responsable</label>
                         <input
+                            id="helpdesk-search"
                             type="text"
                             value={filters.search}
                             onChange={(e) => onFilterChange({ search: e.target.value })}
@@ -98,8 +99,9 @@ export const AuditTable: React.FC<AuditTableProps> = ({ entries, filters, onFilt
                         />
                     </div>
                     <div>
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-2 block font-industrial">Fecha</label>
+                        <label htmlFor="helpdesk-date" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-2 block font-industrial">Fecha</label>
                         <input
+                            id="helpdesk-date"
                             type="date"
                             value={filters.date}
                             onChange={(e) => onFilterChange({ date: e.target.value })}
@@ -107,8 +109,9 @@ export const AuditTable: React.FC<AuditTableProps> = ({ entries, filters, onFilt
                         />
                     </div>
                     <div>
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-2 block font-industrial">Tipo de Acción</label>
+                        <label htmlFor="helpdesk-type" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-2 block font-industrial">Tipo de Acción</label>
                         <select
+                            id="helpdesk-type"
                             value={filters.type}
                             onChange={(e) => onFilterChange({ type: e.target.value as ActionType | '' })}
                             className="w-full px-4 py-3 bg-gray-50 border-none rounded-xl text-xs font-bold font-industrial"
@@ -146,7 +149,7 @@ export const AuditTable: React.FC<AuditTableProps> = ({ entries, filters, onFilt
                                         </span>
                                     </td>
                                     <td className="p-5 text-xs font-bold text-gray-400">{a.responsable}</td>
-                                    <td className="p-5 text-xs font-medium text-gray-600 italic">"{a.detalles}"</td>
+                                    <td className="p-5 text-xs font-medium text-gray-600 italic">{a.detalles}</td>
                                 </tr>
                             ))}
                             {entries.length === 0 && (

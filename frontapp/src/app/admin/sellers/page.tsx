@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { SellersPageClient } from './SellersPageClient';
+import { SellersPageClient } from '@/features/admin/sellers/SellersPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function SellersPage() {

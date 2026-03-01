@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getProducts, getOrders } from '@/lib/api';
+import { getProducts, getOrders } from '@/shared/lib/api';
 import { Product, Order, OrderLineItem } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 
 export default function CatalogPerformanceList() {
-    const [performance, setPerformance] = useState<{ stars: any[], bones: any[] }>({ stars: [], bones: [] });
+    const [performance, setPerformance] = useState<{ stars: unknown[], bones: unknown[] }>({ stars: [], bones: [] });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -47,7 +47,7 @@ export default function CatalogPerformanceList() {
     if (loading) {
         return (
             <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm flex flex-col gap-4 animate-pulse">
-                {[1, 2, 3, 4].map(i => <div key={i} className="h-12 bg-gray-50 rounded-2xl w-full"></div>)}
+                {[1, 2, 3, 4].map((i) => <div key={`catalog-skel-${i}`} className="h-12 bg-gray-50 rounded-2xl w-full"></div>)}
             </div>
         );
     }

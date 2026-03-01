@@ -33,8 +33,8 @@ export const BalanceTab: React.FC<{ resume: FinanceSummary; monthly: MonthlyLiqu
             <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8">
                 <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6">Consolidado Mensual de Tesorería</h3>
                 <div className="space-y-4">
-                    {monthly.map((m, idx) => (
-                        <div key={idx} className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-indigo-50/50 hover:border-indigo-100 border border-transparent transition-all">
+                    {monthly.map((m) => (
+                        <div key={m.mes} className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-indigo-50/50 hover:border-indigo-100 border border-transparent transition-all">
                             <div className="w-16 h-16 bg-white rounded-xl shadow-sm text-center flex flex-col items-center justify-center">
                                 <span className="text-xs font-black text-gray-800 uppercase leading-none">{m.mes}</span>
                             </div>

@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getOrders } from '@/lib/api';
+import { getOrders } from '@/shared/lib/api';
 import { Order } from '@/lib/types/wp/wp-types';
 import Icon from '@/components/ui/Icon';
 import DataTable, { Column } from '@/components/ui/DataTable';
-import { getStatusColor, getStatusLabel, OrderStatus } from '@/lib/utils/order-utils';
-import { formatCurrency } from '@/lib/utils/formatters';
+import { getStatusColor, getStatusLabel, OrderStatus } from '@/shared/lib/utils/order-utils';
+import { formatCurrency } from '@/shared/lib/utils/formatters';
 
 const columns: Column<Order>[] = [
     {

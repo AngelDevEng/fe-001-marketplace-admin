@@ -4,8 +4,8 @@ import ThemeToggle from '@/components/layout/shared/ThemeToggle';
 import NotificationBell from '@/components/layout/shared/NotificationBell';
 import UserMenu from '@/components/layout/shared/UserMenu';
 import Breadcrumb from '@/components/layout/shared/Breadcrumb';
-import { useAutoBreadcrumb } from '@/hooks/useAutoBreadcrumb';
-import { useApiConnection, ConnectionStatusPanel } from '@/hooks/useApiConnection';
+import { useAutoBreadcrumb } from '@/shared/hooks/useAutoBreadcrumb';
+import { useApiConnection, ConnectionStatusPanel } from '@/shared/hooks/useApiConnection';
 
 import { Menu } from 'lucide-react';
 
@@ -37,21 +37,19 @@ export default function SellerHeader({ onOpenMenu }: { onOpenMenu: () => void })
                 <div className="flex items-center gap-4">
                     {/* Connection Status */}
                     <ConnectionStatusPanel status={status} onRefresh={checkConnection} showLaravel={showLaravel} />
-                    
+
                     {/* Connection Health Indicator */}
-                    <div className={`hidden lg:flex items-center gap-2 px-2 py-1 rounded-full ${
-                        isHealthy ? 'bg-emerald-50' : 'bg-red-50'
-                    }`}>
-                        <div className={`w-2 h-2 rounded-full ${isHealthy ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`} />
-                        <span className={`text-[10px] font-bold uppercase ${
-                            isHealthy ? 'text-emerald-600' : 'text-red-600'
+                    <div className={`hidden lg:flex items-center gap-2 px-2 py-1 rounded-full ${isHealthy ? 'bg-emerald-50' : 'bg-red-50'
                         }`}>
+                        <div className={`w-2 h-2 rounded-full ${isHealthy ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`} />
+                        <span className={`text-[10px] font-bold uppercase ${isHealthy ? 'text-emerald-600' : 'text-red-600'
+                            }`}>
                             {isHealthy ? 'API Activa' : 'API Offline'}
                         </span>
                     </div>
 
                     <div className="h-6 w-px bg-gray-200" />
-                    
+
                     <div className="hidden lg:flex items-center gap-6">
                         <div className="text-sm">
                             <span className="text-gray-400 font-bold uppercase text-[10px] tracking-widest">Ventas del Mes: </span>

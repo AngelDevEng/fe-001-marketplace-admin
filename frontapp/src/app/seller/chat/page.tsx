@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ChatPageClient } from './ChatPageClient';
+import { ChatPageClient } from '@/features/seller/chat/ChatPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function ChatPage() {

@@ -1,11 +1,19 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getSalesReport, getStores, getOrders } from '@/lib/api';
+import { getSalesReport, getStores, getOrders } from '@/shared/lib/api';
+import { Order } from '@/shared/types/wp/wp-types';
 import BaseStatCard from '@/components/ui/BaseStatCard';
 
+interface DashboardStats {
+    totalSales: string;
+    totalOrders: number;
+    totalStores: number;
+    pendingOrders: number;
+}
+
 export default function StatsDashboard() {
-    const [stats, setStats] = useState<any>(null);
+    const [stats, setStats] = useState<DashboardStats | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

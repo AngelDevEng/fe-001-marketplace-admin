@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ModalPortal from '@/components/ModalPortal';
 import Icon from '@/components/ui/Icon';
 
@@ -12,7 +12,7 @@ interface BaseModalProps {
     children: React.ReactNode;
     size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl' | 'full';
     showCloseButton?: boolean;
-    accentColor?: string; // e.g., 'from-sky-500 to-indigo-500'
+    accentColor?: string;
 }
 
 const sizeClasses = {
@@ -35,32 +35,20 @@ export default function BaseModal({
     showCloseButton = true,
     accentColor = 'from-sky-400 to-indigo-400'
 }: BaseModalProps) {
-    const [shouldRender, setShouldRender] = useState(isOpen);
-
-    useEffect(() => {
-        if (isOpen) {
-            setShouldRender(true);
-            const prevOverflow = document.body.style.overflow;
-            document.body.style.overflow = 'hidden';
-            return () => { document.body.style.overflow = prevOverflow; };
-        } else {
-            const timer = setTimeout(() => {
-                setShouldRender(false);
-            }, 300);
-            return () => clearTimeout(timer);
-        }
-    }, [isOpen]);
-
-    if (!shouldRender) return null;
+    if (!isOpen) return null;
 
     return (
         <ModalPortal>
             <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4">
                 {/* Backdrop */}
                 <div
-                    className={`absolute inset-0 bg-gray-900/60 backdrop-blur-md transition-opacity duration-300 ease-out
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Cerrar modal"
+                    className={`absolute inset-0 bg-gray-900/60 backdrop-blur-md transition-opacity duration-300 ease-out cursor-default
                         ${isOpen ? 'opacity-100' : 'opacity-0'}`}
                     onClick={onClose}
+                    onKeyDown={(e) => e.key === 'Escape' && onClose()}
                 ></div>
 
                 {/* Content Card */}

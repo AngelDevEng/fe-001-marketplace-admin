@@ -58,8 +58,8 @@ export const AuditTimeline: React.FC<{ events?: AuditEvent[] }> = ({ events }) =
 
     return (
         <div className="space-y-6 relative before:absolute before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-100 font-industrial">
-            {[...events].map((event, idx) => (
-                <div key={idx} className="relative pl-10">
+            {[...events].map((event) => (
+                <div key={event.timestamp + event.action} className="relative pl-10">
                     <div className="absolute left-2.5 top-1 w-3 h-3 bg-indigo-500 rounded-full border-4 border-white shadow-sm -ml-0.5"></div>
                     <div>
                         <p className="text-[10px] font-black text-gray-800 leading-none mb-1 uppercase tracking-tight">{event.action}</p>

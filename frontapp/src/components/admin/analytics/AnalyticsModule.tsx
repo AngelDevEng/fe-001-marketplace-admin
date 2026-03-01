@@ -8,15 +8,22 @@ import {
     GeographicMapBars,
     FrequencyBars
 } from './AnalyticsCharts';
-import { AnalyticsKPI } from '@/lib/types/admin/analytics';
+import { AnalyticsKPI } from '@/features/admin/analytics/types';
 import { Store, Users } from 'lucide-react';
 import { SalesHeatmap } from '@/components/admin/finance/FinanceCharts';
 import { MOCK_FINANCE_DATA } from '@/lib/mocks/financeData';
 import Skeleton from '@/components/ui/Skeleton';
 
 interface AnalyticsModuleProps {
-    state: any;
-    actions: any;
+    state: {
+        data: unknown;
+        loading: boolean;
+        filters: Record<string, unknown>;
+        activeTab: string;
+        kpis: AnalyticsKPI[];
+        topSellers: unknown[];
+    };
+    actions: Record<string, unknown>;
 }
 
 export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions }) => {
@@ -30,8 +37,8 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
 
                 {/* KPI SKELETONS */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {[1, 2, 3, 4].map(idx => (
-                        <div key={idx} className="bg-white p-7 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4">
+                    {[1, 2, 3, 4].map((i) => (
+                        <div key={`analytics-skel-${i}`} className="bg-white p-7 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4">
                             <div className="flex justify-between items-center">
                                 <Skeleton className="h-10 w-10 rounded-xl" />
                                 <Skeleton className="h-8 w-16 rounded-md" />
@@ -68,12 +75,13 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
                 <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/50 rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-indigo-100/50 transition-all duration-700"></div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end relative z-10">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">
+                        <label htmlFor="analytics-period" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">
                             Periodo de Análisis Lógico
                         </label>
                         <select
+                            id="analytics-period"
                             value={filters.period}
-                            onChange={(e) => actions.setFilters({ ...filters, period: e.target.value as any })}
+                            onChange={(e) => actions.setFilters({ ...filters, period: e.target.value })}
                             className="w-full p-4 bg-gray-50 border-none rounded-2xl text-xs font-black text-gray-700 uppercase cursor-pointer"
                         >
                             <option value="TODAY">Día Actual (Today)</option>
@@ -85,10 +93,11 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">
+                        <label htmlFor="analytics-rubro" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">
                             Aislar Sector Corporativo
                         </label>
                         <select
+                            id="analytics-rubro"
                             value={filters.rubro}
                             onChange={(e) => actions.setFilters({ ...filters, rubro: e.target.value })}
                             className="w-full p-4 bg-gray-50 border-none rounded-2xl text-xs font-black text-gray-700 uppercase cursor-pointer"
@@ -103,7 +112,7 @@ export const AnalyticsModule: React.FC<AnalyticsModuleProps> = ({ state, actions
 
             {/* KEY INTELLIGENCE METRICS (RF-11) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {kpis.map((kpi: AnalyticsKPI, idx: number) => <KpiCard key={idx} kpi={kpi} />)}
+                {kpis.map((kpi: AnalyticsKPI) => <KpiCard key={kpi.label} kpi={kpi} />)}
             </div>
 
             {/* TABS DE ANALÍTICA PROFUNDA */}

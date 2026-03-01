@@ -5,7 +5,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { blogApi } from '@/lib/api/blog';
+import Image from 'next/image';
+import { blogApi } from '@/shared/lib/api/blog';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -97,10 +98,12 @@ export default function HeroCarousel() {
                         >
                             <div className="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl group cursor-pointer">
                                 {/* Background Image with Zoom Effect */}
-                                <img
+                                <Image
                                     src={post.featured_image}
-                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                                     alt={post.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 70vw"
+                                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                 />
 
                                 {/* Gradient Overlay */}

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { blogApi } from '@/lib/api/blog';
+import { blogApi } from '@/shared/lib/api/blog';
 
 export async function GET() {
     try {

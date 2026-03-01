@@ -20,9 +20,9 @@
  */
 
 import { NextResponse } from 'next/server';
-import { emitRapifacInvoice } from '@/lib/rapifac/client';
-import { invoiceStore, StoredInvoice } from '@/lib/rapifac/invoiceStore';
-import { VoucherStatus } from '@/lib/types/seller/invoices';
+import { emitRapifacInvoice } from '@/integrations/rapifac/client';
+import { invoiceStore, StoredInvoice } from '@/integrations/rapifac/invoiceStore';
+import { VoucherStatus } from '@/features/seller/invoices/types';
 
 export async function POST(request: Request) {
     let body: Record<string, unknown>;

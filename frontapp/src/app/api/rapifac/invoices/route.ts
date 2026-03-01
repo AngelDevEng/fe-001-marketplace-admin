@@ -10,7 +10,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { invoiceStore } from '@/lib/rapifac/invoiceStore';
+import { invoiceStore } from '@/integrations/rapifac/invoiceStore';
 
 export async function GET(request: Request) {
     // TODO: implementar autenticación real antes de producción

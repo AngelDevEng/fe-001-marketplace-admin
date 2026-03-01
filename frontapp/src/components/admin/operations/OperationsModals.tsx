@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Provider, ProviderType } from '@/lib/types/admin/operations';
 import { UserPlus, ShieldCheck } from 'lucide-react';
 
@@ -7,15 +7,9 @@ export const ProviderModal: React.FC<{
     onClose: () => void;
     onSave: (provider: Partial<Provider>) => void;
 }> = ({ provider, onClose, onSave }) => {
-    const [formData, setFormData] = useState<Partial<Provider>>({});
-
-    useEffect(() => {
-        if (provider) {
-            setFormData({ ...provider });
-        } else {
-            setFormData({ tipo: 'Economista', estado: 'Activo', proyectos: [], certificaciones: [], total_recibos: 0, total_gastado: 0 });
-        }
-    }, [provider]);
+    const [formData, setFormData] = useState<Partial<Provider>>(
+        provider || { tipo: 'Economista', estado: 'Activo', proyectos: [], certificaciones: [], total_recibos: 0, total_gastado: 0 }
+    );
 
     const getDynamicFields = (type: ProviderType) => {
         const fields = {
@@ -45,8 +39,9 @@ export const ProviderModal: React.FC<{
     return (
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-8 font-industrial">
             <div className="col-span-2 space-y-2">
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Nombre Completo del Proveedor</label>
+                <label htmlFor="provider-nombre" className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Nombre Completo del Proveedor</label>
                 <input
+                    id="provider-nombre"
                     type="text"
                     value={formData.nombre || ''}
                     onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
@@ -57,8 +52,9 @@ export const ProviderModal: React.FC<{
             </div>
 
             <div className="space-y-2">
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">RUC / DNI (Legal)</label>
+                <label htmlFor="provider-ruc" className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">RUC / DNI (Legal)</label>
                 <input
+                    id="provider-ruc"
                     type="text"
                     value={formData.ruc || ''}
                     onChange={(e) => setFormData({ ...formData, ruc: e.target.value })}
@@ -69,8 +65,9 @@ export const ProviderModal: React.FC<{
             </div>
 
             <div className="space-y-2">
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Perfil Operativo</label>
+                <label htmlFor="provider-tipo" className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Perfil Operativo</label>
                 <select
+                    id="provider-tipo"
                     value={formData.tipo || 'Economista'}
                     onChange={(e) => setFormData({ ...formData, tipo: e.target.value as ProviderType })}
                     className="w-full p-4 bg-gray-50 border-none rounded-2xl text-xs font-black"
@@ -84,10 +81,11 @@ export const ProviderModal: React.FC<{
             <div className="col-span-2 p-6 bg-blue-50/50 rounded-[2rem] border border-blue-100/50 space-y-6">
                 <p className="text-[9px] font-black text-blue-600 uppercase tracking-widest text-center">Campos Dinámicos por Especialidad</p>
                 <div className="grid grid-cols-2 gap-6">
-                    {getDynamicFields(formData.tipo || 'Economista').map((field, idx) => (
-                        <div key={idx} className="space-y-1">
-                            <label className="text-[9px] font-black text-gray-400 uppercase">{field.label}</label>
+                    {getDynamicFields(formData.tipo || 'Economista').map((field) => (
+                        <div key={field.key} className="space-y-1">
+                            <label htmlFor={`provider-${field.key}`} className="text-[9px] font-black text-gray-400 uppercase">{field.label}</label>
                             <input
+                                id={`provider-${field.key}`}
                                 type="text"
                                 value={formData[field.key as keyof Provider]?.toString() || ''}
                                 onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value.split(',').map(x => x.trim()) })}
@@ -100,10 +98,11 @@ export const ProviderModal: React.FC<{
             </div>
 
             <div className="space-y-2">
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado de Vínculo</label>
+                <label htmlFor="provider-estado" className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado de Vínculo</label>
                 <select
+                    id="provider-estado"
                     value={formData.estado || 'Activo'}
-                    onChange={(e) => setFormData({ ...formData, estado: e.target.value as any })}
+                    onChange={(e) => setFormData({ ...formData, estado: e.target.value })}
                     className="w-full p-4 bg-gray-50 border-none rounded-2xl text-xs font-black"
                 >
                     <option value="Activo">Activo</option>
@@ -113,8 +112,9 @@ export const ProviderModal: React.FC<{
             </div>
 
             <div className="space-y-2">
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Fecha de Renovación</label>
+                <label htmlFor="provider-renovacion" className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Fecha de Renovación</label>
                 <input
+                    id="provider-renovacion"
                     type="date"
                     value={formData.fecha_renovacion || ''}
                     onChange={(e) => setFormData({ ...formData, fecha_renovacion: e.target.value })}

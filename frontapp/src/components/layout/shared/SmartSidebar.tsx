@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Icon from '@/components/ui/Icon';
 import { NavItem, NavSection } from '@/lib/types/navigation';
@@ -122,10 +123,12 @@ export default function SmartSidebar({
                     <div className="flex items-center space-x-3 w-full">
                         <div className="relative flex-shrink-0">
                             {user?.avatar ? (
-                                <img
+                                <Image
                                     src={user.avatar}
                                     alt="User Profile"
-                                    className={`rounded-xl border-2 ${colors.border} shadow-sm object-cover transition-all duration-500 ${(isExpanded || isMobileOpen) ? 'w-11 h-11' : 'w-10 h-10'}`}
+                                    width={44}
+                                    height={44}
+                                    className={`rounded-xl border-2 ${colors.border} shadow-sm transition-all duration-500 ${(isExpanded || isMobileOpen) ? 'w-11 h-11' : 'w-10 h-10'}`}
                                 />
                             ) : (
                                 <div className={`rounded-xl border-2 ${colors.border} shadow-sm transition-all duration-500 bg-brand-gradient flex items-center justify-center text-white font-black ${(isExpanded || isMobileOpen) ? 'w-11 h-11 text-base' : 'w-10 h-10 text-sm'}`}>
@@ -180,11 +183,11 @@ export default function SmartSidebar({
                                     </div>
                                 )}
 
-                                {section.items.map((module: NavItem, idx: number) => {
+                                {section.items.map((module: NavItem) => {
                                     const active = isActive(module.href);
                                     return (
                                         <Link
-                                            key={idx}
+                                            key={module.href}
                                             href={module.href}
                                             className={`
                                                 relative group block transition-all duration-500 overflow-hidden rounded-2xl mb-2
@@ -241,8 +244,12 @@ export default function SmartSidebar({
             {/* Backdrop for Mobile */}
             {isMobileOpen && (
                 <div
-                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[55] lg:hidden animate-fadeIn"
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Cerrar menú"
+                    className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[55] lg:hidden animate-fadeIn cursor-default"
                     onClick={onClose}
+                    onKeyDown={(e) => e.key === 'Escape' && onClose?.()}
                 />
             )}
         </>

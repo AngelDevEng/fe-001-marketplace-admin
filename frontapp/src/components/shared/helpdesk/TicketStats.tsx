@@ -59,7 +59,7 @@ export default function TicketStats({
     return (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4 animate-pulse">
+          <div key={`ticket-stat-skel-${i}`} className="bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-4 animate-pulse">
             <div className="flex justify-between items-center">
               <div className="h-10 w-10 bg-gray-200 rounded-xl"></div>
               <div className="h-8 w-10 bg-gray-200 rounded"></div>
@@ -73,17 +73,17 @@ export default function TicketStats({
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-      {statsConfig.map((stat, i) => {
+      {statsConfig.map((stat) => {
         const colors = badgeColorMap[stat.colorKey];
         
         return (
           <div 
-            key={i} 
+            key={stat.label} 
             className="bg-white p-7 rounded-[2.5rem] border border-gray-100 shadow-sm group hover:shadow-md transition-all"
           >
             <div className="flex items-center justify-between mb-4">
               <div className={`p-4 ${colors.light} ${colors.text} rounded-2xl flex items-center justify-center`}>
-                <Icon name={stat.icon as any} className="w-5 h-5" />
+                <Icon name={stat.icon as string} className="w-5 h-5" />
               </div>
               <span className="text-2xl font-black text-gray-900 tracking-tighter">
                 {stat.value}

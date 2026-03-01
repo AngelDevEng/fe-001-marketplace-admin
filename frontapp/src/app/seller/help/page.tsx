@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { HelpPageClient } from './HelpPageClient';
+import { HelpPageClient } from '@/features/seller/help/HelpPageClient';
 import BaseLoading from '@/components/ui/BaseLoading';
 
 export default async function HelpPage() {

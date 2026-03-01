@@ -25,10 +25,11 @@ export const ProvidersTab: React.FC<{
             <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                     <div className="md:col-span-2 space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Buscador Inteligente</label>
+                        <label htmlFor="provider-search" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Buscador Inteligente</label>
                         <div className="relative">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                             <input
+                                id="provider-search"
                                 type="text"
                                 placeholder="Buscar por nombre, RUC o email..."
                                 value={filters.query}
@@ -38,10 +39,11 @@ export const ProvidersTab: React.FC<{
                         </div>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Perfil Profesional</label>
+                        <label htmlFor="provider-type" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Perfil Profesional</label>
                         <select
+                            id="provider-type"
                             value={filters.type}
-                            onChange={(e) => onFilterChange({ ...filters, type: e.target.value as any })}
+                            onChange={(e) => onFilterChange({ ...filters, type: e.target.value })}
                             className="w-full p-3 bg-gray-50 border-none rounded-2xl text-xs font-bold text-gray-700 cursor-pointer"
                         >
                             <option value="ALL">Todas las especialidades</option>
@@ -51,10 +53,11 @@ export const ProvidersTab: React.FC<{
                         </select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado Vínculo</label>
+                        <label htmlFor="provider-status" className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Estado Vínculo</label>
                         <select
+                            id="provider-status"
                             value={filters.status}
-                            onChange={(e) => onFilterChange({ ...filters, status: e.target.value as any })}
+                            onChange={(e) => onFilterChange({ ...filters, status: e.target.value })}
                             className="w-full p-3 bg-gray-50 border-none rounded-2xl text-xs font-bold text-gray-700 cursor-pointer"
                         >
                             <option value="ALL">Todos</option>
@@ -213,8 +216,8 @@ export const CredentialsTab: React.FC<{
                                     </td>
                                     <td className="px-6 py-5">
                                         <div className="flex flex-wrap gap-2">
-                                            {cred.modulos.map((mod: string, idx: number) => (
-                                                <span key={idx} className="px-2 py-1 bg-indigo-50 text-indigo-600 text-[9px] font-bold rounded-md border border-indigo-100 font-industrial uppercase">
+                                            {cred.modulos.map((mod: string) => (
+                                                <span key={mod} className="px-2 py-1 bg-indigo-50 text-indigo-600 text-[9px] font-bold rounded-md border border-indigo-100 font-industrial uppercase">
                                                     {mod}
                                                 </span>
                                             ))}
@@ -290,8 +293,8 @@ export const AuditTab: React.FC<{ logs: AuditLog[]; }> = ({ logs }) => {
                 <p className="text-[10px] text-sky-200 uppercase font-bold tracking-widest mt-1 font-industrial">Cumplimiento Estándar de Auditoría (RF-13)</p>
             </div>
             <div className="p-6 space-y-4 max-h-[600px] overflow-y-auto custom-scrollbar">
-                {logs.map((log, idx) => (
-                    <div key={idx} className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                {logs.map((log) => (
+                    <div key={log.timestamp + log.action} className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">
                         <div className="w-10 h-10 bg-sky-500 text-white rounded-xl flex items-center justify-center flex-shrink-0">
                             <Fingerprint className="w-6 h-6" />
                         </div>
@@ -300,7 +303,7 @@ export const AuditTab: React.FC<{ logs: AuditLog[]; }> = ({ logs }) => {
                                 <p className="text-xs font-black text-gray-900 uppercase tracking-tighter font-industrial">{log.action} <span className="text-gray-300 mx-2">●</span> {log.user}</p>
                                 <span className="text-[9px] font-bold text-gray-400 font-industrial">{log.timestamp}</span>
                             </div>
-                            <p className="text-[10px] text-gray-500 font-medium leading-relaxed font-industrial">Entidad: <span className="text-gray-900 font-bold">{log.entity}</span>. <br /> Motivación: "{log.reason}"</p>
+                            <p className="text-[10px] text-gray-500 font-medium leading-relaxed font-industrial">Entidad: <span className="text-gray-900 font-bold">{log.entity}</span>. <br /> Motivación: {log.reason}</p>
                         </div>
                         {log.action.includes('SUCCESS') && <CheckCircle className="w-6 h-6 text-emerald-500" />}
                     </div>
