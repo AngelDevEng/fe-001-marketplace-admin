@@ -50,13 +50,13 @@ function SectionHeader({ title, description }: { title: string; description: str
         <div className="pt-8 pb-12 text-center max-w-7xl mx-auto px-4">
             <div className="flex items-center justify-center space-x-3 mb-4">
                 <span className="h-px w-12 bg-lime-500" />
-                <span className="text-lime-600 font-bold tracking-widest text-sm uppercase">Lyrium</span>
+                <span className="text-lime-600 dark:text-lime-400 font-bold tracking-widest text-sm uppercase">Lyrium</span>
                 <span className="h-px w-12 bg-lime-500" />
             </div>
-            <h3 className="text-3xl md:text-5xl font-black text-slate-800 mb-6 drop-shadow-sm uppercase">
+            <h3 className="text-3xl md:text-5xl font-black text-slate-800 dark:text-[#E8EDE9] mb-6 drop-shadow-sm uppercase">
                 {title}
             </h3>
-            <p className="text-slate-600 text-base md:text-lg leading-relaxed font-light text-center max-w-5xl mx-auto">
+            <p className="text-slate-600 dark:text-[#9BAF9F] text-base md:text-lg leading-relaxed font-light text-center max-w-5xl mx-auto">
                 {description}
             </p>
         </div>
@@ -67,7 +67,7 @@ export default function PodcastSection() {
     return (
         <>
             {/* Podcast - Audios */}
-            <div className="w-full py-16 bg-slate-50">
+            <div className="w-full py-16 bg-slate-50 dark:bg-[#0A0F0D]">
                 <div className="max-w-7xl mx-auto px-4">
                     <SectionHeader
                         title="PODCAST - AUDIOS"
@@ -104,7 +104,7 @@ export default function PodcastSection() {
             </div>
 
             {/* Podcast - Videos */}
-            <div className="w-full py-16 bg-white">
+            <div className="w-full py-16 bg-white dark:bg-[#111A15]">
                 <div className="max-w-7xl mx-auto px-4">
                     <SectionHeader
                         title="PODCAST - VIDEOS"

@@ -157,8 +157,8 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
     }
 
     return (
-        <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center p-4">
-            <div className="relative w-full max-w-[1200px] min-h-[650px] bg-white rounded-[30px] shadow-[0_40px_100px_rgba(0,0,0,0.1)] overflow-hidden flex transition-all duration-700">
+        <div className="min-h-screen bg-[#F8F9FA] dark:bg-[#0A0F0D] flex items-center justify-center p-4">
+            <div className="relative w-full max-w-[1200px] min-h-[650px] bg-white dark:bg-[#111A15] rounded-[30px] shadow-[0_40px_100px_rgba(0,0,0,0.1)] overflow-hidden flex transition-all duration-700">
                 {/* Panel Lateral */}
                 <div
                     className={`absolute top-0 left-0 h-full w-[40%] bg-gradient-to-br from-sky-500 via-sky-400 to-lime-400 p-10 flex flex-col justify-between text-white z-20 transition-all duration-700 cubic-bezier(0.68,-0.55,0.265,1.55) rounded-r-[20px] ${isRegisterMode ? 'left-[60%]' : ''
@@ -239,18 +239,18 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
                 {/* Form Section */}
                 <div
-                    className={`absolute top-0 right-0 h-full w-[60%] bg-white p-10 flex flex-col justify-between transition-all duration-700 cubic-bezier(0.68,-0.55,0.265,1.55) z-10 ${isRegisterMode ? 'right-[40%]' : ''
+                    className={`absolute top-0 right-0 h-full w-[60%] bg-white dark:bg-[#111A15] p-10 flex flex-col justify-between transition-all duration-700 cubic-bezier(0.68,-0.55,0.265,1.55) z-10 ${isRegisterMode ? 'right-[40%]' : ''
                         }`}
                 >
                     {/* Toggle Vendedor/Cliente */}
                     <div className="flex justify-center mb-6">
-                        <div className="bg-slate-100 p-1 rounded-full flex">
+                        <div className="bg-slate-100 dark:bg-[#0A0F0D] p-1 rounded-full flex">
                             <button
                                 type="button"
                                 onClick={() => handleUserTypeChange('vendedor')}
                                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${userType === 'vendedor'
                                         ? 'bg-sky-500 text-white shadow-md'
-                                        : 'text-slate-600 hover:text-sky-500'
+                                        : 'text-slate-600 dark:text-[#9BAF9F] hover:text-sky-500'
                                     }`}
                             >
                                 Soy vendedor
@@ -260,7 +260,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                 onClick={() => handleUserTypeChange('cliente')}
                                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${userType === 'cliente'
                                         ? 'bg-sky-500 text-white shadow-md'
-                                        : 'text-slate-600 hover:text-sky-500'
+                                        : 'text-slate-600 dark:text-[#9BAF9F] hover:text-sky-500'
                                     }`}
                             >
                                 Soy cliente
@@ -268,18 +268,18 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                         </div>
                     </div>
 
-                    {/* Login Form */}
+                            {/* Login Form */}
                     <div className={`flex flex-col h-full ${isRegisterMode ? 'opacity-0 hidden' : 'opacity-100'}`}>
                         <div className="flex-1 w-[90%] mx-auto">
                             <div className="flex items-center gap-6 mb-8">
-                                <div className="w-16 h-16 bg-sky-50 rounded-2xl flex items-center justify-center text-sky-500 shadow-[0_10px_20px_rgba(14,165,233,0.1)] flex-shrink-0">
+                                <div className="w-16 h-16 bg-sky-50 dark:bg-[#0A0F0D] rounded-2xl flex items-center justify-center text-sky-500 shadow-[0_10px_20px_rgba(14,165,233,0.1)] flex-shrink-0">
                                     {userType === 'vendedor' ? <Building2 className="w-8 h-8" /> : <User className="w-8 h-8" />}
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-black text-slate-900">
+                                    <h3 className="text-2xl font-black text-slate-900 dark:text-[#E8EDE9]">
                                         {userType === 'vendedor' ? 'Inicia sesión como vendedor' : 'Inicia sesión como cliente'}
                                     </h3>
-                                    <p className="text-slate-500 text-sm">
+                                    <p className="text-slate-500 dark:text-[#9BAF9F] text-sm">
                                         {userType === 'vendedor'
                                             ? 'Ingresa tus credenciales para acceder al panel de vendedor.'
                                             : 'Ingresa tus credenciales para acceder a tu cuenta.'}
@@ -297,7 +297,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
                             <form onSubmit={handleLoginSubmit} className="space-y-5" noValidate>
                                 <div>
-                                    <label htmlFor="login-email" className="block text-sm font-semibold text-slate-700 mb-2">
+                                    <label htmlFor="login-email" className="block text-sm font-semibold text-slate-700 dark:text-[#E8EDE9] mb-2">
                                         Usuario / Nombre de Tienda <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
@@ -312,13 +312,13 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             autoComplete="username"
                                             required
                                             aria-required="true"
-                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 rounded-xl text-sm text-slate-700 bg-slate-50 focus:outline-none focus:border-sky-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
+                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl text-sm text-slate-700 dark:text-[#E8EDE9] bg-slate-50 dark:bg-[#0A0F0D] focus:outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label htmlFor="login-password" className="block text-sm font-semibold text-slate-700 mb-2">
+                                    <label htmlFor="login-password" className="block text-sm font-semibold text-slate-700 dark:text-[#E8EDE9] mb-2">
                                         Contraseña <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
@@ -333,7 +333,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             autoComplete="current-password"
                                             required
                                             aria-required="true"
-                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 rounded-xl text-sm text-slate-700 bg-slate-50 focus:outline-none focus:border-sky-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
+                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl text-sm text-slate-700 dark:text-[#E8EDE9] bg-slate-50 dark:bg-[#0A0F0D] focus:outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
                                         />
                                     </div>
                                 </div>
@@ -347,7 +347,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             onChange={(e) => handleInputChange(e, 'login')}
                                             className="w-4 h-4 accent-sky-500 cursor-pointer"
                                         />
-                                        <span className="text-sm text-slate-600 select-none">Recordarme</span>
+                                        <span className="text-sm text-slate-600 dark:text-[#9BAF9F] select-none">Recordarme</span>
                                     </label>
                                     <a href="#" className="text-sm text-sky-500 hover:text-sky-700 font-medium transition-colors">
                                         ¿Olvidaste tu contraseña?
@@ -381,14 +381,14 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                     <div className={`flex flex-col h-full ${isRegisterMode ? 'opacity-100' : 'opacity-0 hidden'}`}>
                         <div className="flex-1 w-[90%] mx-auto">
                             <div className="flex items-center gap-6 mb-8">
-                                <div className="w-16 h-16 bg-sky-50 rounded-2xl flex items-center justify-center text-sky-500 shadow-[0_10px_20px_rgba(14,165,233,0.1)] flex-shrink-0">
+                                <div className="w-16 h-16 bg-sky-50 dark:bg-[#0A0F0D] rounded-2xl flex items-center justify-center text-sky-500 shadow-[0_10px_20px_rgba(14,165,233,0.1)] flex-shrink-0">
                                     {userType === 'vendedor' ? <Building2 className="w-8 h-8" /> : <User className="w-8 h-8" />}
                                 </div>
                                 <div>
-                                    <h3 className="text-2xl font-black text-slate-900">
+                                    <h3 className="text-2xl font-black text-slate-900 dark:text-[#E8EDE9]">
                                         {userType === 'vendedor' ? 'Crea tu tienda' : 'Crea tu cuenta'}
                                     </h3>
-                                    <p className="text-slate-500 text-sm">
+                                    <p className="text-slate-500 dark:text-[#9BAF9F] text-sm">
                                         {userType === 'vendedor'
                                             ? 'Ingresa los detalles para configurar tu perfil de vendedor.'
                                             : 'Ingresa tus datos para registrarte como cliente.'}
@@ -406,7 +406,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
 
                             <form onSubmit={handleRegisterSubmit} className="grid grid-cols-2 gap-5" noValidate>
                                 <div className="col-span-2">
-                                    <label htmlFor="store-name" className="block text-sm font-semibold text-slate-700 mb-2">
+                                    <label htmlFor="store-name" className="block text-sm font-semibold text-slate-700 dark:text-[#E8EDE9] mb-2">
                                         Nombre Comercial <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
@@ -420,13 +420,13 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             placeholder="Ej: Mi Dulce Hogar"
                                             autoComplete="organization"
                                             required
-                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 rounded-xl text-sm text-slate-700 bg-slate-50 focus:outline-none focus:border-sky-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
+                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl text-sm text-slate-700 dark:text-[#E8EDE9] bg-slate-50 dark:bg-[#0A0F0D] focus:outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label htmlFor="reg-email" className="block text-sm font-semibold text-slate-700 mb-2">
+                                    <label htmlFor="reg-email" className="block text-sm font-semibold text-slate-700 dark:text-[#E8EDE9] mb-2">
                                         Email <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
@@ -440,13 +440,13 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             placeholder="email@tienda.com"
                                             autoComplete="email"
                                             required
-                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 rounded-xl text-sm text-slate-700 bg-slate-50 focus:outline-none focus:border-sky-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
+                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl text-sm text-slate-700 dark:text-[#E8EDE9] bg-slate-50 dark:bg-[#0A0F0D] focus:outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label htmlFor="reg-phone" className="block text-sm font-semibold text-slate-700 mb-2">
+                                    <label htmlFor="reg-phone" className="block text-sm font-semibold text-slate-700 dark:text-[#E8EDE9] mb-2">
                                         Teléfono <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
@@ -461,13 +461,13 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             maxLength={9}
                                             inputMode="numeric"
                                             required
-                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 rounded-xl text-sm text-slate-700 bg-slate-50 focus:outline-none focus:border-sky-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
+                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl text-sm text-slate-700 dark:text-[#E8EDE9] bg-slate-50 dark:bg-[#0A0F0D] focus:outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label htmlFor="reg-password" className="block text-sm font-semibold text-slate-700 mb-2">
+                                    <label htmlFor="reg-password" className="block text-sm font-semibold text-slate-700 dark:text-[#E8EDE9] mb-2">
                                         Contraseña <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
@@ -481,13 +481,13 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             placeholder="••••••••"
                                             autoComplete="new-password"
                                             required
-                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 rounded-xl text-sm text-slate-700 bg-slate-50 focus:outline-none focus:border-sky-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
+                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl text-sm text-slate-700 dark:text-[#E8EDE9] bg-slate-50 dark:bg-[#0A0F0D] focus:outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label htmlFor="reg-ruc" className="block text-sm font-semibold text-slate-700 mb-2">
+                                    <label htmlFor="reg-ruc" className="block text-sm font-semibold text-slate-700 dark:text-[#E8EDE9] mb-2">
                                         RUC <span className="text-red-500">*</span>
                                     </label>
                                     <div className="relative">
@@ -502,7 +502,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
                                             maxLength={11}
                                             inputMode="numeric"
                                             required
-                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 rounded-xl text-sm text-slate-700 bg-slate-50 focus:outline-none focus:border-sky-500 focus:bg-white focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
+                                            className="w-full py-3.5 pl-12 pr-4 border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl text-sm text-slate-700 dark:text-[#E8EDE9] bg-slate-50 dark:bg-[#0A0F0D] focus:outline-none focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] focus:shadow-[0_0_0_4px_rgba(66,153,225,0.1)] transition-all duration-300"
                                         />
                                     </div>
                                 </div>

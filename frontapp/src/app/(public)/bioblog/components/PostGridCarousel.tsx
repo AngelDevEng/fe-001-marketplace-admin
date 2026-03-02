@@ -35,18 +35,18 @@ export default function PostGridCarousel() {
     };
 
     return (
-        <div className="w-full py-16 px-4 max-w-[1600px] mx-auto">
+        <div className="w-full py-16 px-4 max-w-[1600px] mx-auto bg-gray-50 dark:bg-[#0A0F0D]">
             <div className="relative md:px-12">
                 {/* Custom Navigation Arrows */}
                 <button
                     id="alter-prev-btn"
-                    className="hidden md:block absolute md:left-0 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors cursor-pointer z-50 p-2"
+                    className="hidden md:block absolute md:left-0 top-1/2 -translate-y-1/2 text-slate-400 dark:text-[#9BAF9F] hover:text-sky-500 transition-colors cursor-pointer z-50 p-2"
                 >
                     <ChevronLeft className="w-8 h-8 md:w-10 md:h-10 transform rotate-180" />
                 </button>
                 <button
                     id="alter-next-btn"
-                    className="hidden md:block absolute md:right-0 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors cursor-pointer z-50 p-2"
+                    className="hidden md:block absolute md:right-0 top-1/2 -translate-y-1/2 text-slate-400 dark:text-[#9BAF9F] hover:text-sky-500 transition-colors cursor-pointer z-50 p-2"
                 >
                     <ChevronRight className="w-8 h-8 md:w-10 md:h-10" />
                 </button>
@@ -83,7 +83,7 @@ export default function PostGridCarousel() {
                 >
                     {posts.map((post) => (
                         <SwiperSlide key={post.id} className="h-auto">
-                            <div className="flex flex-col h-[450px] group bg-white border border-slate-100 rounded-[2rem] p-5 shadow-sm hover:shadow-2xl hover:scale-[1.03] transition-all duration-500">
+                            <div className="flex flex-col h-[450px] group bg-white dark:bg-[#111A15] border border-slate-100 dark:border-[#2A3F33] rounded-[2rem] p-5 shadow-sm hover:shadow-2xl hover:scale-[1.03] transition-all duration-500">
                                 {/* Imagen: Rectangular */}
                                 <div className="relative w-full aspect-[16/10] overflow-hidden rounded-xl mb-5">
                                     <Image
@@ -105,17 +105,17 @@ export default function PostGridCarousel() {
                                     </div>
 
                                     {/* Título */}
-                                    <h3 className="text-xl md:text-2xl font-bold text-slate-800 leading-tight mb-3 group-hover:text-sky-600 transition-colors">
+                                    <h3 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-[#E8EDE9] leading-tight mb-3 group-hover:text-sky-600 transition-colors line-clamp-2">
                                         <Link href={`/bioblog/${post.slug}`}>{post.title}</Link>
                                     </h3>
 
                                     {/* Extracto */}
-                                    <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-3 font-medium text-justify">
+                                    <p className="text-slate-500 dark:text-[#9BAF9F] text-sm leading-relaxed mb-4 line-clamp-3 font-medium text-justify">
                                         {post.excerpt}
                                     </p>
 
                                     {/* Footer */}
-                                    <div className="mt-auto text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1">
+                                    <div className="mt-auto text-[10px] font-bold text-slate-400 dark:text-[#9BAF9F] uppercase tracking-widest flex items-center gap-1">
                                         LYRIUM <span className="text-slate-300">|</span> {formatDate(post.published_at)}
                                     </div>
                                 </div>

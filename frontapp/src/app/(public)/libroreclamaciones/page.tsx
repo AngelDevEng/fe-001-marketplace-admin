@@ -49,8 +49,8 @@ export default function ComplaintsBookPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[#f7fbff] py-12 md:py-20 px-4 relative overflow-hidden">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[300px] bg-sky-100/50 rounded-full blur-[100px] -z-10" />
+        <main className="min-h-screen bg-[#f7fbff] dark:bg-[#0A0F0D] py-12 md:py-20 px-4 relative overflow-hidden">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[300px] bg-sky-100/50 dark:bg-sky-900/20 rounded-full blur-[100px] -z-10" />
 
             <div className="max-w-5xl mx-auto space-y-12">
 
@@ -62,7 +62,7 @@ export default function ComplaintsBookPage() {
                         <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tight">{complaintsConfig.header.title}</h1>
                     </div>
 
-                    <div className="bg-white/70 backdrop-blur-md border border-sky-100 p-6 md:p-8 rounded-[2rem] shadow-xl max-w-3xl animate-in animate-delay-1 text-gray-600 leading-relaxed text-sm md:text-base">
+                    <div className="bg-white/70 dark:bg-[#111A15]/70 backdrop-blur-md border border-sky-100 dark:border-[#2A3F33] p-6 md:p-8 rounded-[2rem] shadow-xl max-w-3xl animate-in animate-delay-1 text-gray-600 dark:text-[#9BAF9F] leading-relaxed text-sm md:text-base">
                         {complaintsConfig.header.intro}<br />
                         <div className="mt-4 flex flex-col md:flex-row gap-4 md:gap-8 justify-center">
                             <span><strong className="text-sky-500">{complaintsConfig.helpTexts.queja.title}:</strong> Disconformidad por la atención recibida.</span>
@@ -71,7 +71,7 @@ export default function ComplaintsBookPage() {
                     </div>
                 </div>
 
-                <div className="bg-white/90 backdrop-blur-md border border-gray-100 rounded-[3rem] shadow-2xl relative overflow-hidden animate-in animate-delay-2 group">
+                <div className="bg-white/90 dark:bg-[#111A15]/90 backdrop-blur-md border border-gray-100 dark:border-[#2A3F33] rounded-[3rem] shadow-2xl relative overflow-hidden animate-in animate-delay-2 group">
                     <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-sky-400 via-sky-500 to-sky-400 bg-[length:200%_100%] animate-shimmer-line"></div>
 
                     <form onSubmit={handleSubmit} className="p-8 md:p-12 space-y-10">
@@ -79,15 +79,15 @@ export default function ComplaintsBookPage() {
                         <div className="space-y-8">
                             <div className="flex items-center gap-3">
                                 <div className="w-2 h-8 bg-sky-500 rounded-full"></div>
-                                <h3 className="text-xl font-black text-gray-900 uppercase tracking-tighter">1. Identificación del Consumidor</h3>
+                                <h3 className="text-xl font-black text-gray-900 dark:text-[#E8EDE9] uppercase tracking-tighter">1. Identificación del Consumidor</h3>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
-                                    <label htmlFor="tipo_persona" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                    <label htmlFor="tipo_persona" className="text-xs font-bold text-gray-400 dark:text-[#7A8F7F] uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <Icon name="User" className="w-3.5 h-3.5" /> Tipo de persona
                                     </label>
-                                    <select id="tipo_persona" name="tipo_persona" value={formData.tipo_persona} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
+                                    <select id="tipo_persona" name="tipo_persona" value={formData.tipo_persona} onChange={handleChange} className="w-full bg-gray-50/50 dark:bg-[#0A0F0D] border-2 border-gray-100 dark:border-[#2A3F33] rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] outline-none transition-all font-semibold text-gray-700 dark:text-[#E8EDE9]">
                                         {complaintsConfig.options.tipo_persona.map(opt => <option key={opt}>{opt}</option>)}
                                     </select>
                                 </div>
@@ -96,7 +96,7 @@ export default function ComplaintsBookPage() {
                                     <label htmlFor="nombre_razon" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
                                         <Icon name="Building2" className="w-3.5 h-3.5" /> Nombre/Razón Social*
                                     </label>
-                                    <input id="nombre_razon" name="nombre_razon" required type="text" value={formData.nombre_razon} onChange={handleChange} placeholder="Ej: Juan Pérez o Empresa S.A.C" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
+                                    <input id="nombre_razon" name="nombre_razon" required type="text" value={formData.nombre_razon} onChange={handleChange} placeholder="Ej: Juan Pérez o Empresa S.A.C" className="w-full bg-gray-50/50 dark:bg-[#0A0F0D] border-2 border-gray-100 dark:border-[#2A3F33] rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] outline-none transition-all font-semibold text-gray-700 dark:text-[#E8EDE9]" />
                                 </div>
 
                                 <div className="space-y-2">
@@ -147,10 +147,10 @@ export default function ComplaintsBookPage() {
                             </div>
                         </div>
 
-                        <div className="space-y-8 pt-6 border-t border-dashed border-gray-100">
+                        <div className="space-y-8 pt-6 border-t border-dashed border-gray-100 dark:border-[#2A3F33]">
                             <div className="flex items-center gap-3">
                                 <div className="w-2 h-8 bg-sky-500 rounded-full"></div>
-                                <h3 className="text-xl font-black text-gray-900 uppercase tracking-tighter">2. Detalles del incidente</h3>
+                                <h3 className="text-xl font-black text-gray-900 dark:text-[#E8EDE9] uppercase tracking-tighter">2. Detalles del incidente</h3>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

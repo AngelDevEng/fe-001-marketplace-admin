@@ -114,17 +114,17 @@ export default function BioForoTopicPage() {
       </Link>
 
       {/* Tema Principal */}
-      <div className="bg-white border-[3px] border-[#009a6279] rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm mb-6">
+      <div className="bg-white dark:bg-[#111A15] border-[3px] border-[#009a6279] rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm mb-6">
         {/* Autor */}
         <div className="flex items-start gap-3 mb-4">
           <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-blue-100 to-emerald-100 flex items-center justify-center text-blue-700 font-bold text-lg md:text-xl flex-shrink-0">
             {getInitial(topic.topic_author_name || topic.author_name)}
           </div>
           <div className="flex-1">
-            <h4 className="font-bold text-slate-800 text-lg">
+            <h4 className="font-bold text-slate-800 dark:text-slate-900 text-lg">
               {topic.topic_author_name || topic.author_name || 'Anónimo'}
             </h4>
-            <div className="flex items-center gap-2 text-sm text-slate-500">
+            <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-600">
               <span className="flex items-center gap-1">
                 <Icon name="Clock" className="w-3 h-3" />
                 {formatDate(topic.topic_created || topic.created)}
@@ -137,33 +137,33 @@ export default function BioForoTopicPage() {
         </div>
 
         {/* Título */}
-        <h1 className="text-black font-bold text-xl md:text-2xl underline decoration-dashed decoration-[#8db701] decoration-3 underline-offset-[9px] mb-4">
+        <h1 className="text-black dark:text-black font-bold text-xl md:text-2xl underline decoration-dashed decoration-[#8db701] decoration-3 underline-offset-[9px] mb-4">
           {topic.topic_subject || topic.title?.rendered}
         </h1>
 
         {/* Contenido */}
         <div
-          className="text-[#00866d] font-semibold leading-relaxed mb-6"
+          className="text-[#00866d] dark:text-[#006655] font-semibold leading-relaxed mb-6"
           dangerouslySetInnerHTML={{ __html: sanitizeHtml(topic.topic_content || topic.content || '') }}
         />
 
         {/* Acciones */}
-        <div className="flex items-center gap-4 border-t border-slate-100 pt-4">
+        <div className="flex items-center gap-4 border-t border-slate-100 dark:border-slate-200 pt-4">
           <button
             onClick={() => handleVote(topic.id, 'up')}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 dark:bg-slate-100 text-slate-700 dark:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-200 transition-all"
           >
             <span className="text-lg">👍</span>
             <span className="font-medium text-sm">{topic.votes_count || 0}</span>
           </button>
           <button
             onClick={() => handleVote(topic.id, 'down')}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 dark:bg-slate-100 text-slate-700 dark:text-slate-800 hover:bg-slate-100 dark:hover:bg-slate-200 transition-all"
           >
             <span className="text-lg">👎</span>
             <span className="font-medium text-sm">{topic.votes_down || 0}</span>
           </button>
-          <span className="text-sm text-slate-500">
+          <span className="text-sm text-slate-500 dark:text-slate-600">
             {topic.views || 0} vistas
           </span>
         </div>
@@ -171,32 +171,32 @@ export default function BioForoTopicPage() {
 
       {/* Respuestas */}
       <div className="mb-6">
-        <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+        <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 mb-4 flex items-center gap-2">
           <Icon name="ChatsCircle" className="text-emerald-600" />
           Respuestas ({posts.length})
         </h3>
 
         {posts.length === 0 ? (
-          <div className="bg-white rounded-xl p-8 text-center border border-slate-200">
-            <p className="text-slate-500">No hay respuestas aún. ¡Sé el primero en responder!</p>
+          <div className="bg-white dark:bg-[#111A15] rounded-xl p-8 text-center border border-slate-200 dark:border-[#2A3F33]">
+            <p className="text-slate-500 dark:text-[#9BAF9F]">No hay respuestas aún. ¡Sé el primero en responder!</p>
           </div>
         ) : (
           <div className="space-y-4">
             {posts.map((post, index) => (
               <div
                 key={post.post_id || post.id || index}
-                className="bg-white border-2 border-slate-200 rounded-xl p-4 md:p-6"
+                className="bg-white dark:bg-[#111A15] border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl p-4 md:p-6"
               >
                 {/* Cita si existe */}
                 {post.reply_to && (
                   <div
-                    className="quote-box-whatsapp bg-gradient-to-r from-blue-50 to-sky-50 border-l-4 border-sky-500 p-3 rounded-r-lg mb-4"
+                    className="quote-box-whatsapp bg-gradient-to-r from-blue-50 to-sky-50 dark:from-blue-100 dark:to-sky-100 border-l-4 border-sky-500 p-3 rounded-r-lg mb-4"
                   >
-                    <p className="text-xs font-bold text-sky-700 flex items-center gap-1 mb-1">
+                    <p className="text-xs font-bold text-sky-700 dark:text-sky-800 flex items-center gap-1 mb-1">
                       <Icon name="Quote" className="w-3 h-3" />
                       {post.reply_to_name || 'Cita'}
                     </p>
-                    <p className="text-sm text-slate-600 line-clamp-2">
+                    <p className="text-sm text-slate-600 dark:text-slate-700 line-clamp-2">
                       {post.reply_to_content}
                     </p>
                   </div>
@@ -208,14 +208,14 @@ export default function BioForoTopicPage() {
                     {getInitial(post.author_name)}
                   </div>
                   <div>
-                    <p className="font-bold text-slate-800">{post.author_name || 'Anónimo'}</p>
-                    <p className="text-xs text-slate-500">{formatDate(post.created)}</p>
+                    <p className="font-bold text-slate-800 dark:text-slate-900">{post.author_name || 'Anónimo'}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-600">{formatDate(post.created)}</p>
                   </div>
                 </div>
 
                 {/* Contenido */}
                 <div
-                  className="text-slate-700 leading-relaxed mb-4"
+                  className="text-slate-700 dark:text-slate-800 leading-relaxed mb-4"
                   dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.post_content || post.content || '') }}
                 />
 
@@ -223,13 +223,13 @@ export default function BioForoTopicPage() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => handleVote(post.post_id || post.id, 'up')}
-                    className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-50 hover:bg-slate-100 text-sm"
+                    className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-100 hover:bg-slate-100 dark:hover:bg-slate-200 text-sm"
                   >
                     👍 {post.votes_up || 0}
                   </button>
                   <button
                     onClick={() => handleVote(post.post_id || post.id, 'down')}
-                    className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-50 hover:bg-slate-100 text-sm"
+                    className="flex items-center gap-1 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-100 hover:bg-slate-100 dark:hover:bg-slate-200 text-sm"
                   >
                     👎 {post.votes_down || 0}
                   </button>
@@ -241,16 +241,16 @@ export default function BioForoTopicPage() {
       </div>
 
       {/* Formulario de respuesta */}
-      <div className="bg-white border-2 border-slate-200 rounded-xl p-4 md:p-6">
-        <h4 className="font-bold text-slate-800 mb-4">Responder al tema</h4>
+      <div className="bg-white dark:bg-[#111A15] border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl p-4 md:p-6">
+        <h4 className="font-bold text-slate-800 dark:text-[#E8EDE9] mb-4">Responder al tema</h4>
         <textarea
           value={replyContent}
           onChange={(e) => setReplyContent(e.target.value)}
           placeholder="Escribe tu respuesta..."
-          className="w-full p-4 border-2 border-slate-200 rounded-xl focus:border-emerald-500 focus:outline-none min-h-[120px] mb-4"
+          className="w-full p-4 border-2 border-slate-200 dark:border-[#2A3F33] rounded-xl focus:border-emerald-500 focus:outline-none min-h-[120px] mb-4 bg-white dark:bg-[#0A0F0D] text-slate-800 dark:text-[#E8EDE9]"
         />
         <div className="flex items-center justify-between">
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-[#9BAF9F]">
             Para responder necesitas{' '}
             <a
               href="https://lyriumbiomarketplace.com/community/?wpforo=login"

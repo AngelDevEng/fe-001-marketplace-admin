@@ -11,31 +11,31 @@ export default function CommentsSection() {
         <div className="w-full pb-20 px-4 max-w-7xl mx-auto">
             {/* Cabecera de Comentarios Premium */}
             <div className="flex flex-col items-center text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-sky-100 text-sky-700 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
                     <MessageCircle className="text-lg" />
                     Comunidad Lyrium
                 </div>
-                <h2 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">
+                <h2 className="text-4xl md:text-5xl font-black text-slate-800 dark:text-[#E8EDE9] tracking-tight">
                     Comparte tu <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-sky-600">Opinión</span>
                 </h2>
                 <div className="w-24 h-1.5 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full mt-6" />
             </div>
 
             {/* Sección de Comentarios */}
-            <div className="w-full bg-white/60 backdrop-blur-md border border-white/50 rounded-[2.5rem] p-6 md:p-12 shadow-xl mt-12 mb-20 relative overflow-hidden">
+            <div className="w-full bg-white/60 dark:bg-[#111A15]/60 backdrop-blur-md border border-white/50 dark:border-[#2A3F33] rounded-[2.5rem] p-6 md:p-12 shadow-xl mt-12 mb-20 relative overflow-hidden">
                 {/* Decoración de Fondo */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-sky-100/50 to-transparent rounded-bl-[100%] z-0 pointer-events-none" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-sky-100/50 dark:from-sky-900/20 to-transparent rounded-bl-[100%] z-0 pointer-events-none" />
 
                 {/* Header: Título y Acciones */}
-                <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mb-10 gap-6 border-b border-slate-200/60 pb-6">
+                <div className="relative z-10 flex flex-col md:flex-row justify-between items-end mb-10 gap-6 border-b border-slate-200/60 dark:border-[#2A3F33] pb-6">
                     <div>
-                        <h3 className="text-3xl font-black text-slate-800 tracking-tight flex items-center gap-3">
+                        <h3 className="text-3xl font-black text-slate-800 dark:text-[#E8EDE9] tracking-tight flex items-center gap-3">
                             <span className="text-sky-500">
                                 <MessageCircle className="w-8 h-8" />
                             </span>
                             Comentarios
                         </h3>
-                        <p className="text-slate-500 text-sm font-medium mt-2 ml-1">
+                        <p className="text-slate-500 dark:text-[#9BAF9F] text-sm font-medium mt-2 ml-1">
                             Tu opinión es importante para nuestra comunidad.
                         </p>
                     </div>
@@ -66,7 +66,7 @@ export default function CommentsSection() {
                     <div className="flex gap-4 md:gap-6 items-start">
                         {/* Avatar Artificial */}
                         <div className="flex-shrink-0 hidden md:block">
-                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 border-2 border-white shadow-md flex items-center justify-center text-slate-400">
+                            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-100 dark:from-[#2A3F33] to-slate-200 dark:to-[#111A15] border-2 border-white dark:border-[#2A3F33] shadow-md flex items-center justify-center text-slate-400 dark:text-[#9BAF9F]">
                                 <User className="text-xl" />
                             </div>
                         </div>
@@ -76,32 +76,32 @@ export default function CommentsSection() {
                             {/* Glow Effect focus */}
                             <div className="absolute -inset-0.5 bg-gradient-to-r from-sky-400 to-emerald-400 rounded-2xl opacity-0 group-focus-within:opacity-20 transition duration-500 blur-sm" />
 
-                            <div className="relative bg-white rounded-2xl shadow-sm border border-slate-200 hover:border-sky-300 transition-colors duration-300 overflow-hidden group-focus-within:shadow-md group-focus-within:border-sky-400">
+                            <div className="relative bg-white dark:bg-[#0A0F0D] rounded-2xl shadow-sm border border-slate-200 dark:border-[#2A3F33] hover:border-sky-300 transition-colors duration-300 overflow-hidden group-focus-within:shadow-md group-focus-within:border-sky-400">
                                 <textarea
                                     name="wc_comment"
                                     id="wc_comment"
-                                    className="w-full h-40 p-5 border-none focus:ring-0 text-slate-700 placeholder:text-slate-400/80 text-base leading-relaxed bg-transparent resize-y min-h-[160px]"
+                                    className="w-full h-40 p-5 border-none focus:ring-0 text-slate-700 dark:text-[#E8EDE9] placeholder:text-slate-400/80 dark:placeholder:text-[#9BAF9F] text-base leading-relaxed bg-transparent resize-y min-h-[160px]"
                                     placeholder="Comparte tu experiencia, dudas o sugerencias..."
                                 />
 
                                 {/* Simulated Toolbar */}
-                                <div className="bg-slate-50/50 px-4 py-3 border-t border-slate-100 flex items-center gap-4 text-slate-400 text-sm">
+                                <div className="bg-slate-50/50 dark:bg-[#111A15]/50 px-4 py-3 border-t border-slate-100 dark:border-[#2A3F33] flex items-center gap-4 text-slate-400 dark:text-[#9BAF9F] text-sm">
                                     <div className="flex gap-2">
-                                        <button type="button" className="p-1.5 hover:bg-white hover:text-sky-600 rounded transition-colors" title="Negrita">
+                                        <button type="button" className="p-1.5 hover:bg-white dark:hover:bg-[#2A3F33] hover:text-sky-600 rounded transition-colors" title="Negrita">
                                             <Bold className="w-4 h-4" />
                                         </button>
-                                        <button type="button" className="p-1.5 hover:bg-white hover:text-sky-600 rounded transition-colors" title="Cursiva">
+                                        <button type="button" className="p-1.5 hover:bg-white dark:hover:bg-[#2A3F33] hover:text-sky-600 rounded transition-colors" title="Cursiva">
                                             <Italic className="w-4 h-4" />
                                         </button>
-                                        <button type="button" className="p-1.5 hover:bg-white hover:text-sky-600 rounded transition-colors" title="Subrayado">
+                                        <button type="button" className="p-1.5 hover:bg-white dark:hover:bg-[#2A3F33] hover:text-sky-600 rounded transition-colors" title="Subrayado">
                                             <Underline className="w-4 h-4" />
                                         </button>
                                     </div>
-                                    <div className="w-px h-4 bg-slate-200" />
+                                    <div className="w-px h-4 bg-slate-200 dark:bg-[#2A3F33]" />
                                     <div>
                                         <button
                                             type="button"
-                                            className="flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 hover:border-sky-300 text-xs font-bold text-slate-500 hover:text-sky-600 rounded-lg transition-all shadow-sm"
+                                            className="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-[#111A15] border border-slate-200 dark:border-[#2A3F33] hover:border-sky-300 text-xs font-bold text-slate-500 dark:text-[#9BAF9F] hover:text-sky-600 rounded-lg transition-all shadow-sm"
                                         >
                                             <Image className="w-4 h-4" />
                                             <span className="hidden sm:inline">Adjuntar Foto</span>
@@ -116,7 +116,7 @@ export default function CommentsSection() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {/* Nombre */}
                         <div className="relative group">
-                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors z-10">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-[#9BAF9F] group-focus-within:text-sky-500 transition-colors z-10">
                                 <User className="text-sm" />
                             </div>
                             <input
@@ -124,13 +124,13 @@ export default function CommentsSection() {
                                 name="wc_name"
                                 placeholder="Tu Nombre *"
                                 required
-                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 hover:bg-white border border-slate-200 rounded-xl text-slate-700 text-sm font-medium focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 shadow-sm transition-all duration-300 placeholder:text-slate-400"
+                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 dark:bg-[#0A0F0D] hover:bg-white dark:hover:bg-[#111A15] border border-slate-200 dark:border-[#2A3F33] rounded-xl text-slate-700 dark:text-[#E8EDE9] text-sm font-medium focus:bg-white dark:focus:bg-[#111A15] focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 shadow-sm transition-all duration-300 placeholder:text-slate-400 dark:placeholder:text-[#9BAF9F]"
                             />
                         </div>
 
                         {/* Email */}
                         <div className="relative group">
-                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors z-10">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-[#9BAF9F] group-focus-within:text-sky-500 transition-colors z-10">
                                 <Mail className="text-sm" />
                             </div>
                             <input
@@ -138,28 +138,28 @@ export default function CommentsSection() {
                                 name="wc_email"
                                 placeholder="Tu Email *"
                                 required
-                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 hover:bg-white border border-slate-200 rounded-xl text-slate-700 text-sm font-medium focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 shadow-sm transition-all duration-300 placeholder:text-slate-400"
+                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 dark:bg-[#0A0F0D] hover:bg-white dark:hover:bg-[#111A15] border border-slate-200 dark:border-[#2A3F33] rounded-xl text-slate-700 dark:text-[#E8EDE9] text-sm font-medium focus:bg-white dark:focus:bg-[#111A15] focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 shadow-sm transition-all duration-300 placeholder:text-slate-400 dark:placeholder:text-[#9BAF9F]"
                             />
                         </div>
 
                         {/* Website */}
                         <div className="relative group">
-                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors z-10">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-[#9BAF9F] group-focus-within:text-sky-500 transition-colors z-10">
                                 <LinkIcon className="text-sm" />
                             </div>
                             <input
                                 type="url"
                                 name="wc_website"
                                 placeholder="Sitio Web (Opcional)"
-                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 hover:bg-white border border-slate-200 rounded-xl text-slate-700 text-sm font-medium focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 shadow-sm transition-all duration-300 placeholder:text-slate-400"
+                                className="w-full pl-11 pr-4 py-3.5 bg-slate-50 dark:bg-[#0A0F0D] hover:bg-white dark:hover:bg-[#111A15] border border-slate-200 dark:border-[#2A3F33] rounded-xl text-slate-700 dark:text-[#E8EDE9] text-sm font-medium focus:bg-white dark:focus:bg-[#111A15] focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 shadow-sm transition-all duration-300 placeholder:text-slate-400 dark:placeholder:text-[#9BAF9F]"
                             />
                         </div>
                     </div>
 
                     {/* Footer del Formulario */}
-                    <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-6 pt-4 border-t border-slate-100">
+                    <div className="flex flex-col-reverse md:flex-row justify-between items-center gap-6 pt-4 border-t border-slate-100 dark:border-[#2A3F33]">
                         {/* Checkbox Notificaciones */}
-                        <label className="group flex items-center space-x-3 cursor-pointer select-none px-2 py-1 rounded-lg hover:bg-slate-50 transition-colors">
+                        <label className="group flex items-center space-x-3 cursor-pointer select-none px-2 py-1 rounded-lg hover:bg-slate-50 dark:hover:bg-[#111A15] transition-colors">
                             <div className="relative flex items-center">
                                 <input
                                     type="checkbox"
@@ -167,11 +167,11 @@ export default function CommentsSection() {
                                     value="comment"
                                     checked={notify}
                                     onChange={(e) => setNotify(e.target.checked)}
-                                    className="peer w-5 h-5 cursor-pointer appearance-none rounded-md border-2 border-slate-300 checked:border-sky-500 checked:bg-sky-500 transition-all duration-200 bg-white"
+                                    className="peer w-5 h-5 cursor-pointer appearance-none rounded-md border-2 border-slate-300 dark:border-[#2A3F33] checked:border-sky-500 checked:bg-sky-500 transition-all duration-200 bg-white dark:bg-[#0A0F0D]"
                                 />
                                 <Check className="text-white text-[10px] absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 peer-checked:opacity-100 transition-opacity w-3 h-3" />
                             </div>
-                            <span className="text-sm font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">
+                            <span className="text-sm font-semibold text-slate-500 dark:text-[#9BAF9F] group-hover:text-slate-700 dark:group-hover:text-[#E8EDE9] transition-colors">
                                 Notificarme nuevas respuestas
                             </span>
                         </label>

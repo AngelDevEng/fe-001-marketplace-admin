@@ -36,7 +36,7 @@ export default function HeroCarousel() {
     };
 
     return (
-        <div className="w-full pb-16 px-4 max-w-[1920px] mx-auto overflow-hidden">
+        <div className="w-full pb-16 px-4 max-w-[1920px] mx-auto overflow-hidden bg-gray-50 dark:bg-[#0A0F0D]">
             <div className="relative px-0 md:px-12">
                 {/* Custom Navigation Arrows */}
                 <button
@@ -119,7 +119,7 @@ export default function HeroCarousel() {
                                     </div>
 
                                     {/* Title */}
-                                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6 drop-shadow-lg">
+                                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6 drop-shadow-lg line-clamp-2">
                                         <Link
                                             href={`/bioblog/${post.slug}`}
                                             className="hover:text-sky-400 transition-colors duration-300"

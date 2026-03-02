@@ -1,22 +1,37 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useTheme } from 'next-themes';
 import Icon from '@/components/ui/Icon';
+import { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
-    // Forzar modo claro siempre — eliminar cualquier vestigio de dark mode
+    const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
     useEffect(() => {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
+        setMounted(true);
     }, []);
+
+    if (!mounted) {
+        return (
+            <div className="p-2.5 rounded-xl">
+                <Icon name="Sun" className="w-5 h-5 text-amber-500" />
+            </div>
+        );
+    }
 
     return (
         <button
-            className="p-2.5 rounded-xl hover:bg-gray-100 transition-colors"
-            aria-label="Tema claro activo"
-            title="Modo claro (forzado)"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+            title={theme === 'dark' ? 'Modo oscuro' : 'Modo claro'}
         >
-            <Icon name="Sun" className="w-5 h-5 text-amber-500" />
+            {theme === 'dark' ? (
+                <Icon name="Moon" className="w-5 h-5 text-sky-400" />
+            ) : (
+                <Icon name="Sun" className="w-5 h-5 text-amber-500" />
+            )}
         </button>
     );
 }
