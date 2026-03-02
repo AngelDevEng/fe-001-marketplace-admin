@@ -36,18 +36,18 @@ export default function FeaturedCarousel() {
     };
 
     return (
-        <div className="w-full py-16 px-4 max-w-[1600px] mx-auto bg-slate-50">
+        <div className="w-full py-16 px-4 max-w-[1600px] mx-auto bg-slate-50 dark:bg-[#0A0F0D]">
             <div className="relative md:px-12">
                 {/* Navigation */}
                 <button
                     id="ramble-prev-btn"
-                    className="hidden md:block absolute md:left-0 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors cursor-pointer z-50 p-2"
+                    className="hidden md:block absolute md:left-0 top-1/2 -translate-y-1/2 text-slate-400 dark:text-[#9BAF9F] hover:text-sky-500 transition-colors cursor-pointer z-50 p-2"
                 >
                     <ChevronLeft className="w-8 h-8 md:w-10 md:h-10 transform rotate-180" />
                 </button>
                 <button
                     id="ramble-next-btn"
-                    className="hidden md:block absolute md:right-0 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors cursor-pointer z-50 p-2"
+                    className="hidden md:block absolute md:right-0 top-1/2 -translate-y-1/2 text-slate-400 dark:text-[#9BAF9F] hover:text-sky-500 transition-colors cursor-pointer z-50 p-2"
                 >
                     <ChevronRight className="w-8 h-8 md:w-10 md:h-10" />
                 </button>
@@ -93,9 +93,15 @@ export default function FeaturedCarousel() {
                                 {/* Dark Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30" />
 
-                                {/* Top Left: Green Circle & Metadata */}
+                                {/* Top Left: Logo & Metadata */}
                                 <div className="absolute top-8 left-8 flex flex-col items-start gap-2">
-                                    <div className="w-10 h-10 rounded-full bg-green-500 shadow-lg mb-1" />
+                                    <Image
+                                        src="/img/bioblog/ICON.png"
+                                        alt="Lyrium"
+                                        width={40}
+                                        height={40}
+                                        className="rounded-full shadow-lg"
+                                    />
                                     <div className="flex flex-col">
                                         <span className="text-[10px] font-bold text-white uppercase tracking-widest leading-tight">
                                             LYRIUM
@@ -108,7 +114,7 @@ export default function FeaturedCarousel() {
 
                                 {/* Bottom Content */}
                                 <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end">
-                                    <h3 className="text-3xl font-bold text-white leading-tight mb-3 drop-shadow-md">
+                                    <h3 className="text-3xl font-bold text-white leading-tight mb-3 drop-shadow-md line-clamp-2">
                                         {post.title}
                                     </h3>
 

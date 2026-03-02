@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function BioBlogPage() {
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 dark:bg-[#0A0F0D]">
             <Suspense fallback={null}>
                 <BioBlogHero />
             </Suspense>
@@ -24,12 +24,12 @@ export default function BioBlogPage() {
             <div className="pt-16 pb-8 text-center max-w-4xl mx-auto px-4">
                 <div className="flex items-center justify-center space-x-3 mb-4">
                     <span className="h-px w-12 bg-lime-500" />
-                    <span className="text-lime-600 font-bold tracking-widest text-sm uppercase">Novedades</span>
+                    <span className="text-lime-600 dark:text-lime-400 font-bold tracking-widest text-sm uppercase">Novedades</span>
                     <span className="h-px w-12 bg-lime-500" />
                 </div>
-                <h3 className="text-3xl md:text-5xl font-black text-slate-800 mb-6 drop-shadow-sm uppercase">
+                <h3 className="text-3xl md:text-5xl font-black text-slate-800 dark:text-[#E8EDE9] mb-6 drop-shadow-sm uppercase">
                     PUBLICACIONES</h3>
-                <p className="text-slate-600 text-base md:text-lg leading-relaxed font-light text-center max-w-5xl mx-auto">
+                <p className="text-slate-600 dark:text-[#7A8F7F] text-base md:text-lg leading-relaxed font-light text-center max-w-5xl mx-auto">
                     Explora nuestro blog y mantente al día con artículos sobre vida saludable,
                     sostenibilidad, alimentación ecológica y consejos para aprovechar al máximo
                     los productos bio disponibles en nuestro marketplace.

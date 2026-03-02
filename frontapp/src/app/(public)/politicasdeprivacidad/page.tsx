@@ -59,14 +59,14 @@ export default function PrivacyPolicyPage() {
     };
 
     return (
-        <main className="max-w-7xl mx-auto px-4 py-8 md:py-16 flex-1 space-y-10 relative">
+        <main className="max-w-7xl mx-auto px-4 py-8 md:py-16 flex-1 space-y-10 relative bg-[#f7fbff] dark:bg-[#0A0F0D]">
 
             <section className="text-center space-y-6 animate-in">
                 <div className="inline-flex items-center gap-4 bg-emerald-500 px-6 py-3 rounded-full shadow-lg text-white mb-4">
                     <Icon name="ShieldCheck" className="w-8 h-8 animate-float" />
                     <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tight">Políticas de privacidad</h1>
                 </div>
-                <p className="text-gray-500 max-w-3xl mx-auto text-lg leading-relaxed">
+                <p className="text-gray-500 dark:text-[#9BAF9F] max-w-3xl mx-auto text-lg leading-relaxed">
                     Esta Política de Privacidad explica cómo recopilamos, usamos y protegemos tu información cuando utilizas
                     <strong className="text-emerald-600"> LYRIUM BIO MARKETPLACE</strong>.
                 </p>
@@ -74,10 +74,10 @@ export default function PrivacyPolicyPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10 items-start">
 
-                <aside className="hidden lg:block sticky top-28 bg-white/90 backdrop-blur-md border border-gray-100 rounded-3xl p-6 shadow-xl space-y-6">
-                    <div className="flex items-center gap-3 border-b border-gray-50 pb-4">
+                <aside className="hidden lg:block sticky top-28 bg-white/90 dark:bg-[#111A15]/90 backdrop-blur-md border border-gray-100 dark:border-[#2A3F33] rounded-3xl p-6 shadow-xl space-y-6">
+                    <div className="flex items-center gap-3 border-b border-gray-50 dark:border-[#2A3F33] pb-4">
                         <Icon name="List" className="w-5 h-5 text-emerald-500" />
-                        <h4 className="font-black text-xs uppercase tracking-widest text-gray-900">Contenido</h4>
+                        <h4 className="font-black text-xs uppercase tracking-widest text-gray-900 dark:text-[#E8EDE9]">Contenido</h4>
                     </div>
                     <nav className="space-y-1">
                         {privacyData.map((section) => (
@@ -98,12 +98,12 @@ export default function PrivacyPolicyPage() {
                     </nav>
                 </aside>
 
-                <section className="bg-white/90 backdrop-blur-md border border-gray-100 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
+                <section className="bg-white/90 dark:bg-[#111A15]/90 backdrop-blur-md border border-gray-100 dark:border-[#2A3F33] rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-400 bg-[length:200%_100%] animate-shimmer-line"></div>
 
                     <div className="p-8 md:p-12 space-y-12">
                         <div className="text-center space-y-2">
-                            <h2 className="text-2xl font-black text-gray-800 uppercase tracking-tighter">Política de Privacidad y Protección de Datos</h2>
+                            <h2 className="text-2xl font-black text-gray-800 dark:text-[#E8EDE9] uppercase tracking-tighter">Política de Privacidad y Protección de Datos</h2>
                             <div className="text-emerald-500 font-bold text-sm tracking-widest">- LYRIUM BIOMARKETPLACE -</div>
                         </div>
 
@@ -112,10 +112,10 @@ export default function PrivacyPolicyPage() {
                                 key={section.id}
                                 id={section.id}
                                 ref={el => { sectionRefs.current[section.id] = el }}
-                                className="space-y-6 pt-10 border-t border-dashed border-gray-100 first:border-0 first:pt-0 group/section"
+                                className="space-y-6 pt-10 border-t border-dashed border-gray-100 dark:border-[#2A3F33] first:border-0 first:pt-0 group/section"
                             >
                                 <div className="flex items-center gap-4">
-                                    <h3 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight group-hover/section:text-emerald-600 transition-colors">
+                                    <h3 className="text-2xl md:text-3xl font-black text-gray-900 dark:text-[#E8EDE9] tracking-tight group-hover/section:text-emerald-600 transition-colors">
                                         {section.title}
                                     </h3>
                                     {section.badge && (
@@ -127,7 +127,7 @@ export default function PrivacyPolicyPage() {
                                 </div>
 
                                 {section.content && (
-                                    <p className="text-gray-600 text-lg leading-relaxed">
+                                    <p className="text-gray-600 dark:text-[#9BAF9F] text-lg leading-relaxed">
                                         {section.content}
                                     </p>
                                 )}
@@ -135,12 +135,12 @@ export default function PrivacyPolicyPage() {
                                 {section.subSections && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {section.subSections.map((sub) => (
-                                            <div key={sub.title} className="bg-slate-50 p-6 rounded-2xl border border-gray-100 hover:bg-white hover:shadow-lg transition-all duration-300">
-                                                <h4 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                            <div key={sub.title} className="bg-slate-50 dark:bg-[#0A0F0D] p-6 rounded-2xl border border-gray-100 dark:border-[#2A3F33] hover:bg-white dark:hover:bg-[#111A15] hover:shadow-lg transition-all duration-300">
+                                                <h4 className="font-bold text-gray-900 dark:text-[#E8EDE9] mb-2 flex items-center gap-2">
                                                     <div className="w-1.5 h-6 bg-emerald-400 rounded-full"></div>
                                                     {sub.title}
                                                 </h4>
-                                                <p className="text-gray-500 text-sm leading-relaxed">{sub.text}</p>
+                                                <p className="text-gray-500 dark:text-[#9BAF9F] text-sm leading-relaxed">{sub.text}</p>
                                             </div>
                                         ))}
                                     </div>

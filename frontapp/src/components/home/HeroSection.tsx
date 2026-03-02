@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import Icon from '@/components/ui/Icon';
-import type { Banner } from '../types';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Banner } from '@/types/public';
 
 interface HeroSectionProps {
   banners: Banner[];
@@ -37,9 +37,12 @@ export default function HeroSection({ banners }: HeroSectionProps) {
 
   return (
     <section className="relative w-full !mt-0 overflow-hidden leading-[0]">
+      {/* Banner Superior — slide-in desde arriba */}
       <div
         className={`hidden md:block w-full -mb-px overflow-hidden transition-all duration-[800ms] ease-out ${
-          revealed ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+          revealed
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0'
         }`}
       >
         <Image
@@ -53,9 +56,12 @@ export default function HeroSection({ banners }: HeroSectionProps) {
         />
       </div>
 
+      {/* Carrusel de Banners — scale-in */}
       <div
         className={`relative transition-all duration-[800ms] ease-out delay-100 ${
-          revealed ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-8 md:translate-y-0 md:scale-[0.97] opacity-0'
+          revealed
+            ? 'translate-y-0 scale-100 opacity-100'
+            : 'translate-y-8 md:translate-y-0 md:scale-[0.97] opacity-0'
         }`}
       >
         <div
@@ -65,7 +71,10 @@ export default function HeroSection({ banners }: HeroSectionProps) {
           {banners.map((banner) => (
             <div key={banner.id} className="min-w-full overflow-hidden">
               <picture>
-                <source srcSet={banner.imagenMobile} media="(max-width: 767px)" />
+                <source
+                  srcSet={banner.imagenMobile}
+                  media="(max-width: 767px)"
+                />
                 <Image
                   src={banner.imagen}
                   alt={banner.titulo}
@@ -80,28 +89,36 @@ export default function HeroSection({ banners }: HeroSectionProps) {
           ))}
         </div>
 
+        {/* Botones de navegación */}
         <button
           onClick={prev}
-          className={`absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${revealed ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 dark:bg-white/20 dark:hover:bg-white/30 text-white dark:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+            revealed ? 'opacity-100' : 'opacity-0'
+          }`}
           aria-label="Anterior"
         >
-          <Icon name="ChevronLeft" className="w-5 h-5" />
+          <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={next}
-          className={`absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${revealed ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 dark:bg-white/20 dark:hover:bg-white/30 text-white dark:text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+            revealed ? 'opacity-100' : 'opacity-0'
+          }`}
           aria-label="Siguiente"
         >
-          <Icon name="ChevronRight" className="w-5 h-5" />
+          <ChevronRight className="w-5 h-5" />
         </button>
 
+        {/* Indicadores */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
           {banners.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrent(i)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                i === current ? 'bg-sky-500 scale-110' : 'bg-white/60 hover:bg-white/80'
+                i === current
+                  ? 'bg-sky-500 scale-110'
+                  : 'bg-white/60 hover:bg-white/80 dark:bg-white/40 dark:hover:bg-white/60'
               }`}
               aria-label={`Ir a slide ${i + 1}`}
             />
@@ -109,9 +126,12 @@ export default function HeroSection({ banners }: HeroSectionProps) {
         </div>
       </div>
 
+      {/* Banner Inferior — slide-in desde abajo */}
       <div
         className={`hidden md:block w-full -mt-px transition-all duration-[800ms] ease-out ${
-          revealed ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+          revealed
+            ? 'translate-y-0 opacity-100'
+            : 'translate-y-full opacity-0'
         }`}
       >
         <Image

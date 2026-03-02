@@ -38,11 +38,11 @@ function BioBlogHeroInner() {
             {/* Hero Section */}
             <HeroPill icon="Newspaper" text="BioBlog" />
 
-            <div className="relative w-full flex flex-col md:flex-row min-h-[500px] md:min-h-[600px] overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9]">
+            <div className="relative w-full flex flex-col md:flex-row min-h-[500px] md:min-h-[600px] overflow-hidden rounded-3xl shadow-2xl bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] dark:bg-gradient-to-br dark:from-[#111A15] dark:to-[#0A0F0D]">
                 {/* Contenido Izquierdo */}
-                <div className="relative z-10 flex-1 flex flex-col justify-center p-6 md:p-16 lg:p-24 space-y-8 bg-gradient-to-br from-[#CEEDFA] to-transparent">
+                <div className="relative z-10 flex-1 flex flex-col justify-center p-6 md:p-16 lg:p-24 space-y-8 bg-gradient-to-br from-[#CEEDFA] to-transparent dark:from-[#111A15] dark:to-transparent">
                     {/* Logo/Icono */}
-                    <div className="w-20 h-20 md:w-32 md:h-32 transition-transform duration-500 hover:scale-110">
+                    <div className="relative w-20 h-20 md:w-32 md:h-32 transition-transform duration-500 hover:scale-110">
                         <Image
                             src="/img/bioblog/ICON.png"
                             alt="Lyrium Logo"
@@ -54,8 +54,8 @@ function BioBlogHeroInner() {
 
                     {/* Título Dual */}
                     <div className="space-y-4">
-                        <h2 className="text-2xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-800 leading-tight">
-                            <span className="block text-slate-500 font-medium text-lg md:text-3xl mb-1">Bienvenidos</span>
+                        <h2 className="text-2xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-800 dark:text-[#E8EDE9] leading-tight">
+                            <span className="block text-slate-500 dark:text-[#9BAF9F] font-medium text-lg md:text-3xl mb-1">Bienvenidos</span>
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-lime-600 to-emerald-600">
                                 Lyrium BioBlog
                             </span>
@@ -64,7 +64,7 @@ function BioBlogHeroInner() {
 
                     {/* Descripción */}
                     <div className="max-w-xl">
-                        <p className="text-base md:text-xl text-slate-600 leading-relaxed font-light text-justify">
+                        <p className="text-base md:text-xl text-slate-600 dark:text-[#9BAF9F] leading-relaxed font-light text-justify">
                             En este espacio encontrarás información confiable, práctica y
                             actualizada para mejorar tu salud, bienestar y calidad de vida.
                             Somos un equipo comprometido con el cuidado integral, donde el
@@ -75,7 +75,7 @@ function BioBlogHeroInner() {
 
                 {/* Imagen Derecha Decorativa */}
                 <div className="relative flex-1 hidden md:block">
-                    <div className="absolute inset-0 bg-gradient-to-l from-transparent to-[#f8fafc]/50 z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-l from-transparent to-[#f8fafc]/50 dark:to-[#0A0F0D]/50 z-10" />
                     <div
                         className="w-full h-full bg-cover bg-center transition-transform duration-700 hover:scale-105"
                         style={{ backgroundImage: "url('/img/bioblog/Fondos_BioBlog-6.webp')" }}
@@ -85,7 +85,7 @@ function BioBlogHeroInner() {
 
             {/* Sección de Búsqueda y Filtros */}
             <div className="w-full max-w-5xl mx-auto px-2 md:px-4 -mt-8 md:-mt-12 relative z-20">
-                <div className="bg-white/90 backdrop-blur-xl p-4 md:p-8 rounded-[2rem] shadow-2xl border border-white/20">
+                <div className="bg-white/90 dark:bg-[#111A15] backdrop-blur-xl p-4 md:p-8 rounded-[2rem] shadow-2xl border border-white/20 dark:border-[#2A3F33]">
                     {/* Barra de Búsqueda */}
                     <form onSubmit={handleSearch} className="relative group">
                         <div className="relative flex items-center">
@@ -95,7 +95,7 @@ function BioBlogHeroInner() {
                                 placeholder="¿Qué deseas buscar para mejorar tu salud?"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-12 pr-24 md:pl-16 md:pr-32 py-4 md:py-5 bg-slate-100/50 border-none rounded-2xl text-slate-700 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 transition-all duration-300 text-sm md:text-lg shadow-inner"
+                                className="w-full pl-12 pr-24 md:pl-16 md:pr-32 py-4 md:py-5 bg-slate-100/50 dark:bg-[#0A0F0D] border-none rounded-2xl text-slate-700 dark:text-[#E8EDE9] placeholder:text-slate-400 dark:placeholder:text-[#9BAF9F] focus:ring-2 focus:ring-sky-500 transition-all duration-300 text-sm md:text-lg shadow-inner"
                             />
                             <button
                                 type="submit"
@@ -121,7 +121,7 @@ function BioBlogHeroInner() {
                                     <Link
                                         key={category.id}
                                         href={`/bioblog?category=${category.slug}`}
-                                        className="flex-none px-6 py-2.5 bg-white text-slate-600 border border-slate-200 rounded-full font-medium hover:border-sky-500 hover:text-sky-500 transition-all"
+                                        className="flex-none px-6 py-2.5 bg-white dark:bg-[#111A15] text-slate-600 dark:text-[#9BAF9F] border border-slate-200 dark:border-[#2A3F33] rounded-full font-medium hover:border-sky-500 hover:text-sky-500 transition-all"
                                     >
                                         {category.name}
                                     </Link>

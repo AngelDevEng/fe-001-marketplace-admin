@@ -56,13 +56,13 @@ export interface HomeData {
   categoriasProductos: Categoria[];
   productos: Producto[];
   marcas: Marca[];
-  ofertasServicios: Categoria[];
+  beneficios: Beneficio[];
+  ofertasServicios: Producto[];
   ofertasProductos: Producto[];
   productosNuevos: Producto[];
-  bannersPub: BannersPub;
   productosDigestion: Producto[];
   productosBelleza: Producto[];
   productosServicios: Producto[];
   productosMedicina: Producto[];
-  beneficios: Beneficio[];
+  bannersPub: BannersPub;
 }

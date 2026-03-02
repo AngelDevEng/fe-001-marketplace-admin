@@ -96,14 +96,14 @@ export default function TermsContent() {
     };
 
     return (
-        <main className="max-w-7xl mx-auto px-4 py-8 md:py-16 space-y-12 relative animate-in">
+        <main className="max-w-7xl mx-auto px-4 py-8 md:py-16 space-y-12 relative animate-in bg-[#f7fbff] dark:bg-[#0A0F0D]">
 
             <section className="text-center space-y-6">
                 <div className="inline-flex items-center gap-4 bg-sky-500 px-6 py-3 rounded-full shadow-lg text-white mb-4">
                     <Icon name="FileText" className="w-8 h-8 animate-float" />
                     <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tight">Términos y condiciones</h1>
                 </div>
-                <p className="text-gray-500 max-w-3xl mx-auto text-lg">
+                <p className="text-gray-500 dark:text-[#9BAF9F] max-w-3xl mx-auto text-lg">
                     Revisa los términos aplicables al uso de <strong className="text-sky-600">LYRIUM BIO MARKETPLACE</strong>.
                     Usa las pestañas para cambiar entre Cliente y Vendedor.
                 </p>
@@ -112,7 +112,7 @@ export default function TermsContent() {
                     <button
                         onClick={() => { setMode('cliente'); if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                         className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all duration-300 shadow-sm border
-              ${mode === 'cliente' ? 'bg-sky-500 text-white border-sky-400 shadow-sky-200' : 'bg-white text-gray-500 border-gray-100 hover:bg-gray-50'}`}
+              ${mode === 'cliente' ? 'bg-sky-500 text-white border-sky-400 shadow-sky-200' : 'bg-white dark:bg-[#111A15] text-gray-500 dark:text-[#9BAF9F] border-gray-100 dark:border-[#2A3F33] hover:bg-gray-50 dark:hover:bg-[#182420]'}`}
                     >
                         <Icon name="User" className="w-5 h-5" />
                         Del Cliente
@@ -120,7 +120,7 @@ export default function TermsContent() {
                     <button
                         onClick={() => { setMode('vendedor'); if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                         className={`flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all duration-300 shadow-sm border
-              ${mode === 'vendedor' ? 'bg-sky-500 text-white border-sky-400 shadow-sky-200' : 'bg-white text-gray-500 border-gray-100 hover:bg-gray-50'}`}
+              ${mode === 'vendedor' ? 'bg-sky-500 text-white border-sky-400 shadow-sky-200' : 'bg-white dark:bg-[#111A15] text-gray-500 dark:text-[#9BAF9F] border-gray-100 dark:border-[#2A3F33] hover:bg-gray-50 dark:hover:bg-[#182420]'}`}
                     >
                         <Icon name="Store" className="w-5 h-5" />
                         Del Vendedor
@@ -128,14 +128,14 @@ export default function TermsContent() {
                     <a
                         href={config.pdfHref}
                         download={config.pdfName}
-                        className="flex items-center gap-2 px-6 py-3 rounded-full font-bold bg-white text-sky-600 border border-sky-100 shadow-sm hover:bg-sky-50 transition-all duration-300 shine-effect"
+                        className="flex items-center gap-2 px-6 py-3 rounded-full font-bold bg-white dark:bg-[#111A15] text-sky-600 border border-sky-100 dark:border-[#2A3F33] shadow-sm hover:bg-sky-50 dark:hover:bg-[#182420] transition-all duration-300 shine-effect"
                     >
                         <Icon name="Download" className="w-5 h-5" />
                         {config.pdfLabel}
                     </a>
                     <button
                         onClick={() => setIsShareModalOpen(true)}
-                        className="flex items-center gap-2 px-6 py-3 rounded-full font-bold bg-white text-sky-500 border border-sky-100 shadow-sm hover:bg-sky-50 transition-all duration-300"
+                        className="flex items-center gap-2 px-6 py-3 rounded-full font-bold bg-white dark:bg-[#111A15] text-sky-500 border border-sky-100 dark:border-[#2A3F33] shadow-sm hover:bg-sky-50 dark:hover:bg-[#182420] transition-all duration-300"
                     >
                         <Icon name="Share2" className="w-5 h-5" />
                         Compartir

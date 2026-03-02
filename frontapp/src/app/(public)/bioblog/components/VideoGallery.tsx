@@ -18,7 +18,7 @@ export default function VideoGallery() {
     return (
         <>
             {/* Video Principal */}
-            <div className="w-full pb-6 bg-white overflow-hidden">
+            <div className="w-full pb-6 bg-white dark:bg-[#111A15] overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl bg-slate-900 aspect-video group">
                         <iframe
@@ -33,7 +33,7 @@ export default function VideoGallery() {
             </div>
 
             {/* Galería de Videos Filtrable */}
-            <div className="w-full py-1 bg-slate-50">
+            <div className="w-full py-1 bg-slate-50 dark:bg-[#0A0F0D]">
                 <div className="max-w-7xl mx-auto px-4">
                     {/* Filtros de Categoría */}
                     <div className="flex flex-wrap justify-center gap-3 mb-12">
@@ -47,7 +47,7 @@ export default function VideoGallery() {
                                 className={`category px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                                     activeFilter === cat.id
                                         ? 'bg-sky-500 text-white shadow-lg'
-                                        : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                                        : 'bg-white dark:bg-[#111A15] text-slate-600 dark:text-[#9BAF9F] hover:bg-slate-100 dark:hover:bg-[#2A3F33] border border-slate-200 dark:border-[#2A3F33]'
                                 }`}
                             >
                                 {cat.name}
@@ -62,7 +62,7 @@ export default function VideoGallery() {
                                 key={video.id}
                                 className={`premium-gallery-item group ${activeFilter !== '*' && video.category !== activeFilter ? 'hidden' : ''}`}
                             >
-                                <div className="relative rounded-[2rem] overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100 bg-white">
+                                <div className="relative rounded-[2rem] overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-[#2A3F33] bg-white dark:bg-[#111A15]">
                                     {/* Miniatura */}
                                     <div className="aspect-video relative overflow-hidden">
                                         <Image
@@ -87,7 +87,7 @@ export default function VideoGallery() {
                                         </a>
 
                                         <div className="absolute top-4 left-4">
-                                            <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-slate-800 text-[10px] font-bold rounded-full uppercase tracking-wider shadow-sm">
+                                            <span className="px-3 py-1 bg-white/90 dark:bg-[#111A15]/90 backdrop-blur-md text-slate-800 dark:text-[#E8EDE9] text-[10px] font-bold rounded-full uppercase tracking-wider shadow-sm">
                                                 {video.categoryLabel}
                                             </span>
                                         </div>
@@ -95,7 +95,7 @@ export default function VideoGallery() {
 
                                     {/* Contenido */}
                                     <div className="p-6">
-                                        <h3 className="text-base md:text-lg font-bold text-slate-800 leading-tight group-hover:text-sky-600 transition-colors line-clamp-2">
+                                        <h3 className="text-base md:text-lg font-bold text-slate-800 dark:text-[#E8EDE9] leading-tight group-hover:text-sky-600 transition-colors line-clamp-2">
                                             {video.title}
                                         </h3>
                                     </div>
@@ -109,7 +109,7 @@ export default function VideoGallery() {
                         <div className="flex justify-center mt-12">
                             <button
                                 onClick={() => setShowAll(!showAll)}
-                                className="px-8 py-3 bg-white text-slate-800 font-bold rounded-2xl shadow-md hover:shadow-xl transition-all border border-slate-100 transform active:scale-95 flex items-center gap-2"
+                                className="px-8 py-3 bg-white dark:bg-[#111A15] text-slate-800 dark:text-[#E8EDE9] font-bold rounded-2xl shadow-md hover:shadow-xl transition-all border border-slate-100 dark:border-[#2A3F33] transform active:scale-95 flex items-center gap-2"
                             >
                                 {showAll ? 'Ver menos' : 'Cargar más'}
                                 <Plus className="w-4 h-4" />

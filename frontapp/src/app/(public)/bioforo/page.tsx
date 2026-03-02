@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import HeroPill from '@/components/layout/public/HeroPill';
 import { forumApi, ForumTopic } from '@/shared/lib/api/forum';
+import Icon from '@/components/ui/Icon';
 
 const REACTION_EMOJIS: Record<string, string> = {
   like: '👍',
@@ -135,7 +136,7 @@ export default function BioForoPage() {
       </section>
 
       {/* Intro Section */}
-      <section className="grid md:grid-cols-2 gap-4 md:gap-8 items-center bg-white rounded-xl md:rounded-3xl p-4 md:p-8 shadow-sm border border-slate-100">
+      <section className="grid md:grid-cols-2 gap-4 md:gap-8 items-center bg-white dark:bg-[#111A15] rounded-xl md:rounded-3xl p-4 md:p-8 shadow-sm border border-slate-100 dark:border-[#2A3F33]">
         <div className="rounded-lg md:rounded-2xl overflow-hidden shadow-md md:shadow-lg aspect-[4/3] relative group order-2 md:order-1">
           <Image
             src="https://lyriumbiomarketplace.com/wp-content/uploads/2025/10/Fondos_BioBlog-4.png"
@@ -158,9 +159,9 @@ export default function BioForoPage() {
               />
             </div>
             <div>
-              <h3 className="text-base md:text-xl font-bold text-slate-900 mb-1">Bienvenido a la comunidad</h3>
-              <p className="text-slate-600 leading-relaxed text-sm md:text-[15px]">
-                <strong className="text-slate-900">BioForo</strong> es el espacio donde expertos, emprendedores y entusiastas se conectan.
+              <h3 className="text-base md:text-xl font-bold text-slate-900 dark:text-[#E8EDE9] mb-1">Bienvenido a la comunidad</h3>
+              <p className="text-slate-600 dark:text-[#7A8F7F] leading-relaxed text-sm md:text-[15px]">
+                <strong className="text-slate-900 dark:text-[#E8EDE9]">BioForo</strong> es el espacio donde expertos, emprendedores y entusiastas se conectan.
               </p>
             </div>
           </div>
@@ -178,38 +179,38 @@ export default function BioForoPage() {
       {/* Estadísticas - Exactamente como el CSS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {/* Temas activos - Verde */}
-        <div className="stat-card relative bg-white rounded-xl p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm border border-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-md overflow-hidden">
+        <div className="stat-card relative bg-white dark:bg-[#111A15] rounded-xl p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm border border-slate-100 dark:border-[#2A3F33] transition-all duration-300 hover:-translate-y-1 hover:shadow-md overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-[9px] rounded-l-xl" style={{ background: '#67ce00' }} />
           <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgb(182, 255, 123)', color: '#499100' }}>
-            <i className="ph ph-chart-bar text-xl md:text-2xl" />
+            <Icon name="TrendingUp" className="text-xl md:text-2xl" />
           </div>
           <div className="flex flex-col gap-1 flex-1">
-            <p className="text-xs md:text-sm text-slate-500 font-normal">Temas activos</p>
-            <p className="text-xl md:text-2xl font-bold text-slate-800">{stats.totalTopics}</p>
+            <p className="text-xs md:text-sm text-slate-500 dark:text-[#7A8F7F] font-normal">Temas activos</p>
+            <p className="text-xl md:text-2xl font-bold text-slate-800 dark:text-[#E8EDE9]">{stats.totalTopics}</p>
           </div>
         </div>
 
         {/* Respuestas - Turquesa */}
-        <div className="stat-card relative bg-white rounded-xl p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm border border-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-md overflow-hidden">
+        <div className="stat-card relative bg-white dark:bg-[#111A15] rounded-xl p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm border border-slate-100 dark:border-[#2A3F33] transition-all duration-300 hover:-translate-y-1 hover:shadow-md overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-[9px] rounded-l-xl" style={{ background: '#019895' }} />
           <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#ccfbf1', color: '#019895' }}>
-            <i className="ph ph-chat-circle-text text-xl md:text-2xl" />
+            <Icon name="MessageSquare" className="text-xl md:text-2xl" />
           </div>
           <div className="flex flex-col gap-1 flex-1">
-            <p className="text-xs md:text-sm text-slate-500 font-normal">Respuestas</p>
-            <p className="text-xl md:text-2xl font-bold text-slate-800">{stats.totalReplies}</p>
+            <p className="text-xs md:text-sm text-slate-500 dark:text-[#7A8F7F] font-normal">Respuestas</p>
+            <p className="text-xl md:text-2xl font-bold text-slate-800 dark:text-[#E8EDE9]">{stats.totalReplies}</p>
           </div>
         </div>
 
         {/* Usuarios en línea - Azul */}
-        <div className="stat-card relative bg-white rounded-xl p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm border border-slate-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-md overflow-hidden">
+        <div className="stat-card relative bg-white dark:bg-[#111A15] rounded-xl p-4 md:p-6 flex items-center gap-3 md:gap-4 shadow-sm border border-slate-100 dark:border-[#2A3F33] transition-all duration-300 hover:-translate-y-1 hover:shadow-md overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-[9px] rounded-l-xl" style={{ background: '#3b82f6' }} />
           <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: '#dbeafe', color: '#3b82f6' }}>
-            <i className="ph ph-users text-xl md:text-2xl" />
+            <Icon name="Users" className="text-xl md:text-2xl" />
           </div>
           <div className="flex flex-col gap-1 flex-1">
-            <p className="text-xs md:text-sm text-slate-500 font-normal">Usuarios en línea</p>
-            <p className="text-xl md:text-2xl font-bold text-slate-800 flex items-center">
+            <p className="text-xs md:text-sm text-slate-500 dark:text-[#7A8F7F] font-normal">Usuarios en línea</p>
+            <p className="text-xl md:text-2xl font-bold text-slate-800 dark:text-[#E8EDE9] flex items-center">
               <span className="w-3 h-3 rounded-full bg-emerald-500 mr-2 animate-pulse" style={{ background: '#10b981' }} />
               {stats.onlineUsers}
             </p>
@@ -223,31 +224,31 @@ export default function BioForoPage() {
           <div className="relative w-full md:w-auto filtro-dropdown-container">
             <button
               onClick={() => setShowDropdown(!showDropdown)}
-              className="flex items-center justify-between md:justify-start gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 transition-all w-full md:w-auto"
+              className="flex items-center justify-between md:justify-start gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#111A15] border border-slate-200 dark:border-[#2A3F33] hover:bg-slate-50 dark:hover:bg-[#182420] text-slate-700 dark:text-[#E8EDE9] transition-all w-full md:w-auto"
             >
               <div className="flex items-center gap-2">
-                <i className="ph ph-funnel" />
-                <span className="truncate">Filtrar por categoría</span>
+                <Icon name="Filter" className="w-4 h-4" />
+                <span className="truncate">Filtrar categoría</span>
               </div>
-              <i className="ph ph-caret-down" />
+              <Icon name="ChevronDown" className="w-4 h-4" />
             </button>
 
             {showDropdown && (
-              <div className="filtro-dropdown show absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-50 min-w-[200px]">
+              <div className="filtro-dropdown show absolute top-full left-0 mt-1 bg-white dark:bg-[#111A15] rounded-xl shadow-lg border border-slate-200 dark:border-[#2A3F33] py-2 z-[9999] min-w-[200px]">
                 <button
                   onClick={() => { setSelectedForum(null); setShowDropdown(false); }}
-                  className={`w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2 ${selectedForum === null ? 'bg-emerald-50 text-emerald-700 font-medium' : ''}`}
+                  className={`w-full text-left px-4 py-2 hover:bg-slate-50 dark:hover:bg-[#182420] text-slate-700 dark:text-[#E8EDE9] flex items-center gap-2 ${selectedForum === null ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 font-medium' : ''}`}
                 >
-                  <i className="ph ph-globe" />
+                  <Icon name="Globe" className="w-4 h-4" />
                   <span>Todas las categorías</span>
                 </button>
                 {forums.map((forum) => (
                   <button
                     key={forum.id}
                     onClick={() => { setSelectedForum(forum.id); setShowDropdown(false); }}
-                    className={`w-full text-left px-4 py-2 hover:bg-slate-50 text-slate-700 flex items-center gap-2 ${selectedForum === forum.id ? 'bg-emerald-50 text-emerald-700 font-medium' : ''}`}
+                    className={`w-full text-left px-4 py-2 hover:bg-slate-50 dark:hover:bg-[#182420] text-slate-700 dark:text-[#E8EDE9] flex items-center gap-2 ${selectedForum === forum.id ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 font-medium' : ''}`}
                   >
-                    <i className="ph ph-folder" />
+                    <Icon name="FolderTree" className="w-4 h-4" />
                     <span>{forum.title?.rendered || forum.forum_name}</span>
                   </button>
                 ))}
@@ -256,15 +257,15 @@ export default function BioForoPage() {
           </div>
 
           {selectedForum && (
-            <div className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium flex items-center justify-between md:justify-start gap-2">
+            <div className="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 rounded-full text-sm font-medium flex items-center justify-between md:justify-start gap-2">
               <div className="flex items-center gap-2">
-                <i className="ph ph-check" />
+                <Icon name="Check" className="w-4 h-4" />
                 <span className="truncate">
                   {forums.find((f) => f.id === selectedForum)?.title?.rendered || forums.find((f) => f.id === selectedForum)?.forum_name || 'Categoría'}
                 </span>
               </div>
-              <button onClick={() => setSelectedForum(null)} className="text-emerald-500 hover:text-emerald-700">
-                <i className="ph ph-x" />
+              <button onClick={() => setSelectedForum(null)} className="text-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-300">
+                <Icon name="X" className="w-4 h-4" />
               </button>
             </div>
           )}
@@ -274,7 +275,7 @@ export default function BioForoPage() {
           href="/bioforo/crear"
           className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-4 py-3 rounded-full font-semibold shadow-lg shadow-emerald-500/30 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 w-full md:w-auto"
         >
-          <i className="ph ph-pencil-simple-bold" />
+          <Icon name="Pencil" className="w-4 h-4" />
           <span className="truncate">Crear Nuevo Tema</span>
         </Link>
       </div>
@@ -286,15 +287,15 @@ export default function BioForoPage() {
             <div className="loader-small" />
           </div>
         ) : topics.length === 0 ? (
-          <div className="bg-white rounded-xl md:rounded-2xl p-8 md:p-12 text-center border border-slate-200">
-            <i className="ph ph-chats-teardrop text-4xl md:text-6xl text-slate-300 mb-3 md:mb-4 inline-block" />
-            <h3 className="text-lg md:text-xl font-semibold text-slate-700 mb-2">No hay temas aún</h3>
-            <p className="text-slate-500 mb-4 md:mb-6 text-sm md:text-base">Sé el primero en crear un tema de discusión</p>
+          <div className="bg-white dark:bg-[#111A15] rounded-xl md:rounded-2xl p-8 md:p-12 text-center border border-slate-200 dark:border-[#2A3F33]">
+            <Icon name="MessageCircle" className="w-12 h-12 text-slate-300 dark:text-[#9BAF9F] mx-auto mb-4" />
+            <h3 className="text-lg md:text-xl font-semibold text-slate-700 dark:text-[#E8EDE9] mb-2">No hay temas aún</h3>
+            <p className="text-slate-500 dark:text-[#9BAF9F] mb-4 md:mb-6 text-sm md:text-base">Sé el primero en crear un tema de discusión</p>
             <Link
               href="/bioforo/crear"
               className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-medium inline-flex items-center gap-2 text-sm md:text-base"
             >
-              <i className="ph ph-plus" />
+              <Icon name="Plus" className="w-4 h-4" />
               Crear primer tema
             </Link>
           </div>
@@ -320,7 +321,7 @@ export default function BioForoPage() {
                         </h4>
                         <div className="flex items-center gap-2 text-xs md:text-sm text-slate-500">
                           <span className="flex items-center gap-1">
-                            <i className="ph ph-clock" />
+                            <Icon name="Clock" className="w-3 h-3" />
                             {formatDate(topic.created || topic.topic_created)}
                           </span>
                           <span className="hidden md:inline">•</span>
@@ -405,7 +406,7 @@ export default function BioForoPage() {
                   href={`/bioforo/${topic.topic_id || topic.id}`}
                   className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-blue-50 hover:bg-blue-100 text-blue-700 transition-all text-xs md:text-sm"
                 >
-                  <i className="ph ph-chat-circle text-base" />
+                  <Icon name="MessageCircle" className="w-4 h-4" />
                   <span>Ver tema</span>
                 </Link>
 
@@ -415,7 +416,7 @@ export default function BioForoPage() {
                   }}
                   className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all text-xs md:text-sm"
                 >
-                  <i className="ph ph-share-network text-base" />
+                  <Icon name="Share2" className="w-4 h-4" />
                   <span>Compartir</span>
                 </button>
               </div>
