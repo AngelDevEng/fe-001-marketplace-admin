@@ -12,6 +12,7 @@ export interface Categoria {
   nombre: string;
   imagen: string;
   descripcion?: string;
+  slug?: string;
 }
 
 export interface Producto {
@@ -23,6 +24,9 @@ export interface Producto {
   estrellas?: string;
   descuento?: number;
   tag?: string;
+  slug?: string;
+  enlace?: string;
+  descripcion?: string;
 }
 
 export interface Marca {

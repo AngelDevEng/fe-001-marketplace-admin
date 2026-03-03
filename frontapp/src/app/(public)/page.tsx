@@ -22,10 +22,10 @@ export default function HomePage() {
             <HeroSection banners={homeData.banners} />
 
             {/* Grilla de Servicios (Categorías de servicios saludables) */}
-            <ServicesGrid categorias={homeData.categorias} />
+            <ServicesGrid categorias={homeData.categorias} useApi={true} />
 
             {/* Categorías de Productos Saludables */}
-            <ProductsGrid categorias={homeData.categoriasProductos} titulo="Categorías de productos saludables" />
+            <ProductsGrid categorias={homeData.categoriasProductos} titulo="Categorías de productos saludables" useApi={true} />
 
             {/* Carrusel de Marcas */}
             <BrandsCarousel marcas={homeData.marcas} />
