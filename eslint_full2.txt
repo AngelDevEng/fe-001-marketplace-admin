@@ -1,0 +1,1028 @@
+
+D:\marketplace-app\frontapp\src\app\(public)\bioblog\components\CommentsSection.tsx
+  106:45  warning  Image elements must have an alt prop, either with meaningful text, or an empty string for decorative images  jsx-a11y/alt-text
+
+D:\marketplace-app\frontapp\src\app\(public)\bioforo\page.tsx
+  48:6  warning  React Hook useEffect has a missing dependency: 'loadData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\marketplace-app\frontapp\src\app\admin\operations\expenses\ExpensesPageClient.tsx
+  6:10  warning  'Receipt' is defined but never used                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  6:19  warning  'TrendingDown' is defined but never used                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  6:33  warning  'DollarSign' is defined but never used                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  6:45  warning  'Plus' is defined but never used                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  8:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  9:36  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\admin\sellers\[id]\SellerDetailPageClient.tsx
+  10:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  11:40  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  26:22  warning  'err' is defined but never used                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\admin\sellers\[id]\page.tsx
+  6:13  warning  'id' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\api\auth\session\route.ts
+  4:27  warning  'request' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\api\blog\categories\route.ts
+  8:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\app\api\blog\comments\route.ts
+  15:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  41:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\app\api\blog\posts\[slug]\route.ts
+  18:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\app\api\blog\posts\route.ts
+  11:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\app\api\forum\categories\route.ts
+  10:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\app\api\forum\topics\[id]\route.ts
+  21:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\app\api\forum\topics\route.ts
+  18:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\app\api\webhooks\woocommerce\route.ts
+  3:10  warning  'writeFile' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\logistics\LogisticsPageClient.tsx
+   3:27  warning  'useEffect' is defined but never used                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   5:8   warning  'BaseButton' is defined but never used                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   6:8   warning  'Skeleton' is defined but never used                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  10:8   warning  'ModalsPortal' is defined but never used                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  26:7   warning  'ShipmentStatusBadge' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  35:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  39:37  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  40:13  warning  'shipments' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  40:24  warning  'isLoading' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  40:35  warning  'filters' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  40:44  warning  'setFilters' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  41:12  warning  'actionModal' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  41:25  warning  'setActionModal' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  45:11  warning  'statusLabels' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\logistics\chat-vendors\LogisticsChatVendorsPageClient.tsx
+   3:17  warning  'useState' is defined but never used                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   5:8   warning  'Icon' is defined but never used                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   7:8   warning  'ChatLayout' is defined but never used                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   8:8   warning  'MessageBubble' is defined but never used                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+   9:8   warning  'MessageInput' is defined but never used                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  11:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  12:48  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  13:50  warning  'setSelectedConversation' is assigned a value but never used                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  13:75  warning  'sendMessage' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\logistics\helpdesk\LogisticsHelpdeskPageClient.tsx
+  7:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  8:45  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  9:22  warning  'selectedTicket' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  9:38  warning  'setSelectedTicket' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\seller\catalog\loading.tsx
+  22:10  warning  'HeaderSkeleton' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\seller\catalog\nuevo\ProductFormClient.tsx
+    3:27  warning  'useTransition' is defined but never used             @typescript-eslint/no-unused-vars
+    7:29  warning  'ProductFormData' is defined but never used           @typescript-eslint/no-unused-vars
+   90:13  warning  'previewUrl' is assigned a value but never used       @typescript-eslint/no-unused-vars
+   91:13  warning  'tempId' is assigned a value but never used           @typescript-eslint/no-unused-vars
+  230:24  warning  'setIsSubmitting' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  261:25  warning  '_' is assigned a value but never used                @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\seller\chat\loading.tsx
+  9:8  warning  'ModuleHeader' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\seller\dashboard\page.tsx
+  11:28  warning  'SalesKPIs' is defined but never used    @typescript-eslint/no-unused-vars
+  11:39  warning  'RecentOrder' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\seller\orders\[id]\OrderDetailClient.tsx
+  18:9  warning  'router' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\app\seller\orders\[id]\error.tsx
+  27:9  warning  'handleGoHome' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\ModalPortal.tsx
+  10:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\components\ModalPortal.tsx:10:9
+   8 |
+   9 |     useEffect(() => {
+> 10 |         setMounted(true);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  11 |         return () => setMounted(false);
+  12 |     }, []);
+  13 |  react-hooks/set-state-in-effect
+
+D:\marketplace-app\frontapp\src\components\admin\CatalogPerformanceList.tsx
+  5:10  warning  'Product' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\RegionalDemandChart.tsx
+  6:10  warning  'Order' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\SellerList.tsx
+  4:22  warning  'Phone' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\StatsDashboard.tsx
+   5:10  warning  'Order' is defined but never used                      @typescript-eslint/no-unused-vars
+  30:21  error    'mainReport' is never reassigned. Use 'const' instead  prefer-const
+
+D:\marketplace-app\frontapp\src\components\admin\analytics\AnalyticsModule.tsx
+  84:105  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\components\admin\contracts\ContractsModule.tsx
+   20:39   warning  'error' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  100:107  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  114:105  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\components\admin\contracts\ContractsUIComponents.tsx
+  3:23  warning  'AlertTriangle' is defined but never used  @typescript-eslint/no-unused-vars
+  3:59  warning  'XCircle' is defined but never used        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\contracts\ContratosModule.tsx
+  121:107  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  135:105  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\components\admin\finance\FinanceCharts.tsx
+  5:10  warning  'Users' is defined but never used       @typescript-eslint/no-unused-vars
+  5:17  warning  'TrendingUp' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\helpdesk\ChatView.tsx
+  6:54  warning  'MessageSquare' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\helpdesk\HelpDeskModule.tsx
+  17:9   warning  'id' is defined but never used            @typescript-eslint/no-unused-vars
+  43:53  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\components\admin\helpdesk\HelpDeskSections.tsx
+  5:18  warning  'PlusCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\helpdesk\TicketList.tsx
+  3:36  warning  'scrollbarClass' is defined but never used  @typescript-eslint/no-unused-vars
+  3:52  warning  'glassCardClass' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\inventory\InventoryTable.tsx
+   3:55  warning  'MoreVertical' is defined but never used  @typescript-eslint/no-unused-vars
+  14:76  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\components\admin\operations\GestionOperativaModule.tsx
+  9:6  warning  'TabId' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\operations\OperationsModals.tsx
+    3:10  warning  'UserPlus' is defined but never used              @typescript-eslint/no-unused-vars
+    3:20  warning  'ShieldCheck' is defined but never used           @typescript-eslint/no-unused-vars
+    9:19  warning  'onClose' is defined but never used               @typescript-eslint/no-unused-vars
+  154:11  warning  'handleClose' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\sellers\ModuleSections.tsx
+  5:10   warning  'Seller' is defined but never used         @typescript-eslint/no-unused-vars
+  6:10   warning  'CVStatusBadge' is defined but never used  @typescript-eslint/no-unused-vars
+  8:16   warning  'Mail' is defined but never used           @typescript-eslint/no-unused-vars
+  8:22   warning  'Phone' is defined but never used          @typescript-eslint/no-unused-vars
+  8:99   warning  'Eye' is defined but never used            @typescript-eslint/no-unused-vars
+  8:117  warning  'XCircle' is defined but never used        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\treasury\TreasuryModals.tsx
+  4:10   warning  'X' is defined but never used         @typescript-eslint/no-unused-vars
+  4:129  warning  'Download' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\admin\treasury\TreasuryTabs.tsx
+  3:10   warning  'FileText' is defined but never used      @typescript-eslint/no-unused-vars
+  3:20   warning  'CheckCircle' is defined but never used   @typescript-eslint/no-unused-vars
+  3:48   warning  'AlertOctagon' is defined but never used  @typescript-eslint/no-unused-vars
+  3:62   warning  'XCircle' is defined but never used       @typescript-eslint/no-unused-vars
+  3:71   warning  'Clock' is defined but never used         @typescript-eslint/no-unused-vars
+  3:78   warning  'CheckCircle2' is defined but never used  @typescript-eslint/no-unused-vars
+  3:92   warning  'Search' is defined but never used        @typescript-eslint/no-unused-vars
+  3:105  warning  'DollarSign' is defined but never used    @typescript-eslint/no-unused-vars
+  3:117  warning  'Wallet' is defined but never used        @typescript-eslint/no-unused-vars
+  3:125  warning  'ShieldCheck' is defined but never used   @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\charts\SalesChart.tsx
+  22:38  warning  'data' is defined but never used                 @typescript-eslint/no-unused-vars
+  36:9   warning  'chartWidth' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\layout\admin\AdminHeader.tsx
+  12:11  warning  'isAdmin' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\layout\shared\BaseLayout.tsx
+   3:17  warning  'useState' is defined but never used     @typescript-eslint/no-unused-vars
+  21:5   warning  'sidebarOpen' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\layout\shared\ModalsPortal.tsx
+  14:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\components\layout\shared\ModalsPortal.tsx:14:9
+  12 |
+  13 |     useEffect(() => {
+> 14 |         setMounted(true);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  15 |         return () => setMounted(false);
+  16 |     }, []);
+  17 |  react-hooks/set-state-in-effect
+
+D:\marketplace-app\frontapp\src\components\layout\shared\SmartSidebar.tsx
+   90:9    error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\components\layout\shared\SmartSidebar.tsx:90:9
+  88 |
+  89 |     useEffect(() => {
+> 90 |         setIsMounted(true);
+     |         ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  91 |         const stored = localStorage.getItem(storageKey);
+  92 |         if (stored) setIsExpanded(JSON.parse(stored));
+  93 |     }, [storageKey]);  react-hooks/set-state-in-effect
+  175:135  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\components\login\LoginForm.tsx
+  3:20  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\shared\helpdesk\TicketStats.tsx
+  29:7   warning  'colorMap' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  86:42  error    Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\components\ui\BaseInputField.tsx
+  56:38  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\marketplace-app\frontapp\src\components\ui\BaseInputField.tsx:56:38
+  54 |     const inputPaddingRight = iconRight ? 'pr-12' : 'pr-4';
+  55 |
+> 56 |     const inputId = name || `input-${Math.random().toString(36).substr(2, 9)}`;
+     |                                      ^^^^^^^^^^^^^ Cannot call impure function
+  57 |
+  58 |     return (
+  59 |         <div className={`space-y-2 ${className}`}>  react-hooks/purity
+
+D:\marketplace-app\frontapp\src\components\ui\BaseSelectField.tsx
+  41:40  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+D:\marketplace-app\frontapp\src\components\ui\BaseSelectField.tsx:41:40
+  39 |     };
+  40 |
+> 41 |     const selectId = name || `select-${Math.random().toString(36).substr(2, 9)}`;
+     |                                        ^^^^^^^^^^^^^ Cannot call impure function
+  42 |
+  43 |     return (
+  44 |         <div className={`space-y-2 ${className}`}>  react-hooks/purity
+
+D:\marketplace-app\frontapp\src\components\ui\BaseStatsGrid.tsx
+  5:8  warning  'Icon' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\ui\DataTable.tsx
+   4:8  warning  'Icon' is defined but never used                 @typescript-eslint/no-unused-vars
+  48:5  warning  'countLabel' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\components\ui\confirm-dialog.tsx
+  35:39  error    Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `state`, but the source dependencies were [state.onConfirm]. Inferred less specific property than source.
+
+D:\marketplace-app\frontapp\src\components\ui\confirm-dialog.tsx:35:39
+  33 |     }, []);
+  34 |
+> 35 |     const handleConfirm = useCallback(() => {
+     |                                       ^^^^^^^
+> 36 |         state.onConfirm?.();
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 37 |         setState(initialState);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 38 |     }, [state.onConfirm]);
+     | ^^^^^^ Could not preserve existing manual memoization
+  39 |
+  40 |     const handleCancel = useCallback(() => {
+  41 |         setState(initialState);  react-hooks/preserve-manual-memoization
+  38:8   warning  React Hook useCallback has a missing dependency: 'state'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              react-hooks/exhaustive-deps
+
+D:\marketplace-app\frontapp\src\data\bioforo\topics.ts
+  26:7  warning  'getCategoryName' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\data\blog\posts.ts
+  1:10  warning  'BlogCategory' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\analytics\AnalyticsPageClient.tsx
+   7:10  warning  'Download' is defined but never used                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   9:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  10:37  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\analytics\hooks\useAnalytics.ts
+  35:22  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\categories\CategoriesPageClient.tsx
+   7:10  warning  'Plus' is defined but never used                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   9:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  10:38  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  11:36  warning  'error' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+  11:43  warning  'refresh' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  11:52  warning  'addCategory' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  12:12  warning  'isSaving' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  12:22  warning  'setIsSaving' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\contracts\ContractsPageClient.tsx
+   7:10  warning  'ContractDetailModal' is defined but never used                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  10:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  11:37  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  13:31  warning  'loading' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\finance\FinancePageClient.tsx
+   7:10  warning  'TopBuyersRanking' is defined but never used                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+   7:28  warning  'SalesHeatmap' is defined but never used                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   9:21  warning  'Download' is defined but never used                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   9:31  warning  'PieChart' is defined but never used                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   9:41  warning  'Trophy' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   9:61  warning  'DollarSign' is defined but never used                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  14:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  15:35  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  16:12  warning  'activeTab' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  16:23  warning  'setActiveTab' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\finance\hooks\useFinance.ts
+   5:10  warning  'SalesReport' is defined but never used  @typescript-eslint/no-unused-vars
+   5:23  warning  'Order' is defined but never used        @typescript-eslint/no-unused-vars
+  81:57  warning  'i' is defined but never used            @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\helpdesk\HelpdeskPageClient.tsx
+  5:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  6:36  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\helpdesk\hooks\useMesaAyuda.ts
+    6:20  warning  'Ticket' is defined but never used      @typescript-eslint/no-unused-vars
+    7:5   warning  'AuditEntry' is defined but never used  @typescript-eslint/no-unused-vars
+    7:38  warning  'FAQArticle' is defined but never used  @typescript-eslint/no-unused-vars
+  133:47  warning  'motivo' is defined but never used      @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\inventory\InventoryPageClient.tsx
+   11:71   warning  'Download' is defined but never used                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   21:11   error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+   25:37   warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  150:101  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-explicit-any
+  164:103  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\admin\operations\OperationsPageClient.tsx
+   7:25  warning  'TwoFactorModalContent' is defined but never used                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  11:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  12:38  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  14:31  warning  'show2FAModal' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\operations\hooks\useGestionOperativa.ts
+   26:18  warning  'err' is defined but never used           @typescript-eslint/no-unused-vars
+   26:23  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  153:23  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\admin\payments\PaymentsPageClient.tsx
+   9:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  10:36  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\rapifac\RapifacPageClient.tsx
+   6:27  warning  'RefreshCw' is defined but never used                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   6:38  warning  'Download' is defined but never used                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   8:20  warning  'SkeletonRow' is defined but never used                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  41:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  42:35  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\reviews\ReviewsPageClient.tsx
+   7:16  warning  'MessageSquare' is defined but never used                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+   7:31  warning  'ThumbsUp' is defined but never used                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   7:41  warning  'ThumbsDown' is defined but never used                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   9:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  13:35  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\sellers\SellersPageClient.tsx
+  141:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  145:35  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\sellers\hooks\useControlVendedores.ts
+   6:64  warning  'AuditEntry' is defined but never used  @typescript-eslint/no-unused-vars
+  73:42  warning  'reason' is defined but never used      @typescript-eslint/no-unused-vars
+  82:21  warning  '_' is defined but never used           @typescript-eslint/no-unused-vars
+  82:24  warning  'variables' is defined but never used   @typescript-eslint/no-unused-vars
+  91:42  warning  'reason' is defined but never used      @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\admin\treasury\hooks\useTreasury.ts
+   25:23  error    Unexpected any. Specify a different type                                                                   @typescript-eslint/no-explicit-any
+   30:8   warning  React Hook useCallback has a missing dependency: 'data'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+   34:8   warning  React Hook useEffect has a missing dependency: 'data'. Either include it or remove the dependency array    react-hooks/exhaustive-deps
+   83:23  error    Unexpected any. Specify a different type                                                                   @typescript-eslint/no-explicit-any
+  108:23  error    Unexpected any. Specify a different type                                                                   @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\admin\treasury\types.ts
+  38:31  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\logistics\helpdesk\hooks\useLogisticsHelpdesk.ts
+  38:23  warning  'setIsLoading' is assigned a value but never used      @typescript-eslint/no-unused-vars
+  46:9   warning  'hasActiveFilters' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\agenda\AgendaPageClient.tsx
+  10:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  14:34  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\agenda\hooks\useAgenda.ts
+  48:22  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\catalog\CatalogPageClient.tsx
+  206:34  warning  '_' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  221:14  warning  'err' is defined but never used         @typescript-eslint/no-unused-vars
+  227:32  warning  '_' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  282:14  warning  'err' is defined but never used         @typescript-eslint/no-unused-vars
+  308:14  warning  'err' is defined but never used         @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\catalog\components\ProductModal.tsx
+  43:17  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\features\seller\catalog\components\ProductModal.tsx:43:17
+  41 |         if (isOpen) {
+  42 |             if (productToEdit) {
+> 43 |                 setFormData(productToEdit);
+     |                 ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  44 |                 setPreviewImage(productToEdit.image);
+  45 |             } else {
+  46 |                 setFormData({ ...initialProduct, id: Date.now().toString() });  react-hooks/set-state-in-effect
+  50:8   warning  React Hook useEffect has a missing dependency: 'initialProduct'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          react-hooks/exhaustive-deps
+
+D:\marketplace-app\frontapp\src\features\seller\catalog\hooks\useSellerCatalog.ts
+  26:22  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  40:68  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\seller\chat\ChatPageClient.tsx
+  13:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  17:32  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  26:9   warning  'isMobileListVisible' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\chat\hooks\useSellerChat.ts
+    5:28  warning  'ChatMessage' is defined but never used   @typescript-eslint/no-unused-vars
+   35:72  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   52:76  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   76:72  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  116:76  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\seller\dashboard\DashboardClient.tsx
+   51:27  error    Unexpected any. Specify a different type        @typescript-eslint/no-explicit-any
+  118:16  warning  'setKpis' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  119:18  warning  'setOrders' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\finance\FinancePageClient.tsx
+   14:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+   18:35  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+  103:49  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\seller\finance\components\CardProxPago.tsx
+  3:10  warning  'formatCurrency' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\finance\components\FinanceChart.tsx
+  80:18  error    Unexpected any. Specify a different type                                                                  @typescript-eslint/no-explicit-any
+  90:8   warning  React Hook useEffect has a missing dependency: 'label'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+D:\marketplace-app\frontapp\src\features\seller\finance\hooks\useSellerFinance.ts
+  32:22  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\help\HelpPageClient.tsx
+  12:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  16:32  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\help\components\ChatInput.tsx
+  24:11  warning  'handleFormat' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\help\components\NewTicketForm.tsx
+  4:10  warning  'TicketType' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\help\hooks\useSellerHelp.ts
+    8:10  warning  'api' is defined but never used           @typescript-eslint/no-unused-vars
+   28:22  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+   56:75  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   59:89  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   66:38  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   84:75  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   96:75  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  109:75  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  137:34  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  139:40  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\seller\invoices\InvoicesPageClient.tsx
+   6:10  warning  'VoucherStatus' is defined but never used                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+   6:25  warning  'VoucherType' is defined but never used                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  13:8   warning  'Icon' is defined but never used                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  17:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  21:36  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\invoices\components\EmitInvoiceModal.tsx
+  41:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\features\seller\invoices\components\EmitInvoiceModal.tsx:41:13
+  39 |     useEffect(() => {
+  40 |         if (isOpen) {
+> 41 |             setForm({ ...EMPTY_FORM });
+     |             ^^^^^^^ Avoid calling setState() directly within an effect
+  42 |             setState('form');
+  43 |             setErrorMsg('');
+  44 |         }  react-hooks/set-state-in-effect
+
+D:\marketplace-app\frontapp\src\features\seller\invoices\components\InvoiceFilters.tsx
+  7:8  warning  'BaseSelectField' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\invoices\components\InvoiceTable.tsx
+  4:19  warning  'VoucherStatus' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\invoices\hooks\useSellerInvoices.ts
+    5:19  warning  'InvoiceKPIs' is defined but never used   @typescript-eslint/no-unused-vars
+   76:22  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  131:76  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  141:76  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  184:27  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\seller\logistics\LogisticsPageClient.tsx
+  15:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  19:37  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\logistics\hooks\useSellerLogistics.ts
+   8:10  warning  'api' is defined but never used  @typescript-eslint/no-unused-vars
+  26:22  warning  'e' is defined but never used    @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\profile\ProfilePageClient.tsx
+  14:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-empty-object-type
+  18:35  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  37:13  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\features\seller\profile\ProfilePageClient.tsx:37:13
+  35 |     useEffect(() => {
+  36 |         if (hookData && !isEditMode) {
+> 37 |             setData(hookData);
+     |             ^^^^^^^ Avoid calling setState() directly within an effect
+  38 |         }
+  39 |     }, [hookData, isEditMode]);
+  40 |  react-hooks/set-state-in-effect
+  68:17  error    Use "@ts-expect-error" instead of "@ts-ignore", as "@ts-ignore" will do nothing if the following line is error-free                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/ban-ts-comment
+
+D:\marketplace-app\frontapp\src\features\seller\profile\hooks\useSellerProfile.ts
+  74:69  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\seller\sales\SalesPageClient.tsx
+   9:17  warning  'SalesKPI' is defined but never used  @typescript-eslint/no-unused-vars
+  23:33  warning  'props' is defined but never used     @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\sales\hooks\useSellerSales.ts
+  39:22  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  55:74  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\seller\services\ServicesPageClient.tsx
+  20:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  24:36  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\services\components\ServiceConfigModal.tsx
+  46:22  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\features\seller\services\components\ServiceConfigModal.tsx:46:22
+  44 |
+  45 |     useEffect(() => {
+> 46 |         if (service) setFormData(service);
+     |                      ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  47 |         else setFormData({
+  48 |             nombre: '',
+  49 |             especialistas_ids: [],  react-hooks/set-state-in-effect
+
+D:\marketplace-app\frontapp\src\features\seller\services\components\SpecialistModal.tsx
+  28:25  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\features\seller\services\components\SpecialistModal.tsx:28:25
+  26 |
+  27 |     useEffect(() => {
+> 28 |         if (specialist) setFormData(specialist);
+     |                         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  29 |         else setFormData({ nombres: '', apellidos: '', especialidad: '', subespecialidad: '', dni: '', foto: null });
+  30 |     }, [specialist, isOpen]);
+  31 |  react-hooks/set-state-in-effect
+
+D:\marketplace-app\frontapp\src\features\seller\services\hooks\useSellerServices.ts
+  24:22  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+  59:22  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+  78:22  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\store\StorePageClient.tsx
+   6:8   warning  'Icon' is defined but never used                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  20:11  error    An empty interface declaration allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowInterfaces' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+  24:33  warning  '_props' is defined but never used                                                                                                                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\BranchModal.tsx
+   9:11  warning  'BranchFormData' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  39:13  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\BranchModal.tsx:39:13
+  37 |     useEffect(() => {
+  38 |         if (branch) {
+> 39 |             setFormData({
+     |             ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  40 |                 name: branch.name,
+  41 |                 address: branch.address,
+  42 |                 city: branch.city,  react-hooks/set-state-in-effect
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\LayoutSelector.tsx
+  146:97  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\Policies.tsx
+  111:22  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\Policies.tsx:111:22
+  109 |
+  110 |                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+> 111 |                     <PolicyRow
+      |                      ^^^^^^^^^ This component is created during render
+  112 |                         label="Política de Envío"
+  113 |                         icon="Truck"
+  114 |                         color="text-sky-600"
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\Policies.tsx:41:23
+  39 |     }
+  40 |
+> 41 |     const PolicyRow = ({ label, icon, color, type, value }: PolicyRowProps) => (
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 42 |         <div className="space-y-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 43 |             <div className="flex items-center justify-between">
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 76 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 77 |     );
+     | ^^^^^^ The component is created during render here
+  78 |
+  79 |     return (
+  80 |         <div className="glass-card p-0 overflow-hidden border-none rounded-[2.5rem] shadow-2xl bg-white mb-8">              react-hooks/static-components
+  118:22  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\Policies.tsx:118:22
+  116 |                         value={config.policies.shippingPdf}
+  117 |                     />
+> 118 |                     <PolicyRow
+      |                      ^^^^^^^^^ This component is created during render
+  119 |                         label="Devoluciones"
+  120 |                         icon="RotateCcw"
+  121 |                         color="text-sky-600"
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\Policies.tsx:41:23
+  39 |     }
+  40 |
+> 41 |     const PolicyRow = ({ label, icon, color, type, value }: PolicyRowProps) => (
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 42 |         <div className="space-y-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 43 |             <div className="flex items-center justify-between">
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 76 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 77 |     );
+     | ^^^^^^ The component is created during render here
+  78 |
+  79 |     return (
+  80 |         <div className="glass-card p-0 overflow-hidden border-none rounded-[2.5rem] shadow-2xl bg-white mb-8">    react-hooks/static-components
+  125:22  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\Policies.tsx:125:22
+  123 |                         value={config.policies.returnPdf}
+  124 |                     />
+> 125 |                     <PolicyRow
+      |                      ^^^^^^^^^ This component is created during render
+  126 |                         label="Privacidad"
+  127 |                         icon="ShieldCheck"
+  128 |                         color="text-emerald-600"
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\Policies.tsx:41:23
+  39 |     }
+  40 |
+> 41 |     const PolicyRow = ({ label, icon, color, type, value }: PolicyRowProps) => (
+     |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 42 |         <div className="space-y-3">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 43 |             <div className="flex items-center justify-between">
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 76 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 77 |     );
+     | ^^^^^^ The component is created during render here
+  78 |
+  79 |     return (
+  80 |         <div className="glass-card p-0 overflow-hidden border-none rounded-[2.5rem] shadow-2xl bg-white mb-8">  react-hooks/static-components
+
+D:\marketplace-app\frontapp\src\features\seller\store\components\StoreAwards.tsx
+  12:39  warning  'config' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\features\seller\store\hooks\useSellerStore.ts
+  13:30  warning  'error' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  24:44  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  33:51  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+  67:75  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\shared\hooks\useApiConnection.tsx
+  41:15  warning  'prev' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  81:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\shared\hooks\useApiConnection.tsx:81:5
+  79 |
+  80 |   useEffect(() => {
+> 81 |     checkConnection();
+     |     ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  82 |     
+  83 |     // Check cada 30 segundos
+  84 |     const interval = setInterval(checkConnection, 30000);  react-hooks/set-state-in-effect
+
+D:\marketplace-app\frontapp\src\shared\hooks\useFilteredList.ts
+  12:59  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  29:69  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  35:68  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  45:61  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  45:83  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\shared\lib\actions\auth.ts
+  59:11  warning  'userId' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\actions\catalog.ts
+    4:10  warning  'parseWPProduct' is defined but never used   @typescript-eslint/no-unused-vars
+    4:26  warning  'parseWPProducts' is defined but never used  @typescript-eslint/no-unused-vars
+   10:35  warning  'vendorId' is defined but never used         @typescript-eslint/no-unused-vars
+   53:37  warning  'productId' is defined but never used        @typescript-eslint/no-unused-vars
+   68:12  warning  'error' is defined but never used            @typescript-eslint/no-unused-vars
+  103:12  warning  'error' is defined but never used            @typescript-eslint/no-unused-vars
+  144:12  warning  'error' is defined but never used            @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\actions\dashboard.ts
+  64:39  warning  'limit' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\actions\nonce-handler.ts
+   88:17  warning  'description' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   88:30  warning  'price' is assigned a value but never used        @typescript-eslint/no-unused-vars
+   88:37  warning  'stock' is assigned a value but never used        @typescript-eslint/no-unused-vars
+   88:44  warning  'category' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  126:12  warning  'error' is defined but never used                 @typescript-eslint/no-unused-vars
+  141:52  warning  'action' is defined but never used                @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\actions\orders.ts
+  276:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\actions\product-form.ts
+  272:73  warning  'images' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\actions\wordpress-auth.ts
+   16:19  warning  'headers' is defined but never used  @typescript-eslint/no-unused-vars
+  268:12  warning  'error' is defined but never used    @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api.ts
+  158:64  warning  'vendorId' is defined but never used      @typescript-eslint/no-unused-vars
+  251:78  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\shared\lib\api\base-client.ts
+  14:10  warning  'revalidateTag' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api\blog.ts
+   3:14  warning  'mockPosts' is defined but never used     @typescript-eslint/no-unused-vars
+  10:5   warning  'BlogPost' is defined but never used      @typescript-eslint/no-unused-vars
+  40:29  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\shared\lib\api\forum.ts
+   3:13  warning  'mockTopics' is defined but never used    @typescript-eslint/no-unused-vars
+   4:12  warning  'mockPosts' is defined but never used     @typescript-eslint/no-unused-vars
+  62:38  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\shared\lib\api\laravel\LaravelAuthRepository.ts
+  65:18  warning  'error' is defined but never used        @typescript-eslint/no-unused-vars
+  82:20  warning  'credentials' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api\laravel\LaravelOrderRepository.ts
+  44:21  warning  'filters' is defined but never used  @typescript-eslint/no-unused-vars
+  48:24  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+  52:23  warning  'input' is defined but never used    @typescript-eslint/no-unused-vars
+  56:23  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+  56:35  warning  'input' is defined but never used    @typescript-eslint/no-unused-vars
+  60:23  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+  64:28  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api\laravel\LaravelProductRepository.ts
+  44:23  warning  'filters' is defined but never used   @typescript-eslint/no-unused-vars
+  48:26  warning  'id' is defined but never used        @typescript-eslint/no-unused-vars
+  52:25  warning  'input' is defined but never used     @typescript-eslint/no-unused-vars
+  56:25  warning  'id' is defined but never used        @typescript-eslint/no-unused-vars
+  56:37  warning  'input' is defined but never used     @typescript-eslint/no-unused-vars
+  60:25  warning  'id' is defined but never used        @typescript-eslint/no-unused-vars
+  64:23  warning  'id' is defined but never used        @typescript-eslint/no-unused-vars
+  64:35  warning  'quantity' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api\laravel\LaravelUserRepository.ts
+  48:23  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+  52:20  warning  'filters' is defined but never used  @typescript-eslint/no-unused-vars
+  56:26  warning  'role' is defined but never used     @typescript-eslint/no-unused-vars
+  60:22  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+  60:34  warning  'input' is defined but never used    @typescript-eslint/no-unused-vars
+  64:22  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api\wp\WPAuthRepository.ts
+  49:18  warning  'error' is defined but never used        @typescript-eslint/no-unused-vars
+  98:20  warning  'credentials' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api\wp\WPOrderRepository.ts
+   2:17  warning  'OrderStatus' is defined but never used        @typescript-eslint/no-unused-vars
+   6:7   warning  'wcClient' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  17:21  warning  'filters' is defined but never used            @typescript-eslint/no-unused-vars
+  21:24  warning  'id' is defined but never used                 @typescript-eslint/no-unused-vars
+  25:23  warning  'input' is defined but never used              @typescript-eslint/no-unused-vars
+  29:23  warning  'id' is defined but never used                 @typescript-eslint/no-unused-vars
+  29:35  warning  'input' is defined but never used              @typescript-eslint/no-unused-vars
+  33:23  warning  'id' is defined but never used                 @typescript-eslint/no-unused-vars
+  37:28  warning  'id' is defined but never used                 @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api\wp\WPProductRepository.ts
+   1:19  warning  'ProductSticker' is defined but never used     @typescript-eslint/no-unused-vars
+   5:7   warning  'wcClient' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  18:23  warning  'filters' is defined but never used            @typescript-eslint/no-unused-vars
+  22:26  warning  'id' is defined but never used                 @typescript-eslint/no-unused-vars
+  26:25  warning  'input' is defined but never used              @typescript-eslint/no-unused-vars
+  30:25  warning  'id' is defined but never used                 @typescript-eslint/no-unused-vars
+  30:37  warning  'input' is defined but never used              @typescript-eslint/no-unused-vars
+  34:25  warning  'id' is defined but never used                 @typescript-eslint/no-unused-vars
+  38:23  warning  'id' is defined but never used                 @typescript-eslint/no-unused-vars
+  38:35  warning  'quantity' is defined but never used           @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\api\wp\WPUserRepository.ts
+  38:23  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+  42:20  warning  'filters' is defined but never used  @typescript-eslint/no-unused-vars
+  46:26  warning  'role' is defined but never used     @typescript-eslint/no-unused-vars
+  50:22  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+  50:34  warning  'input' is defined but never used    @typescript-eslint/no-unused-vars
+  54:22  warning  'id' is defined but never used       @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\context\NotificationContext.tsx
+    3:78  warning  'useMemo' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/no-unused-vars
+    4:33  warning  'NotificationLevel' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  118:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+D:\marketplace-app\frontapp\src\shared\lib\context\NotificationContext.tsx:118:9
+  116 |         }
+  117 |
+> 118 |         setNotifications(mockNotifications);
+      |         ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  119 |     }, [role]);
+  120 |
+  121 |     const unreadCount = notifications.filter(n => !n.read).length;  react-hooks/set-state-in-effect
+  144:18  warning  'e' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+
+D:\marketplace-app\frontapp\src\shared\lib\utils\export.ts
+  5:54  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\marketplace-app\frontapp\src\shared\types\core\index.ts
+  30:31  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 384 problems (104 errors, 280 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+
