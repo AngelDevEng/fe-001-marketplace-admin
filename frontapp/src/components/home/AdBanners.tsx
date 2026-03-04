@@ -52,9 +52,8 @@ function BannerSlider({ slides }: BannerSliderProps) {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === current ? 'w-6 bg-sky-500' : 'w-2 bg-gray-300 dark:bg-gray-600'
-              }`}
+              className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'w-6 bg-sky-500' : 'w-2 bg-gray-300'
+                }`}
               aria-label={`Slide ${i + 1}`}
             />
           ))}
@@ -71,7 +70,7 @@ function SmallBannerCarousel({ images }: { images: string[] }) {
         {images.slice(0, 3).map((img) => (
           <div
             key={img}
-            className="flex-shrink-0 w-full sm:w-[280px] lg:w-[380px] rounded-[18px] overflow-hidden shadow-[0_10px_25px_rgba(15,23,42,0.12)] dark:shadow-[0_10px_25px_rgba(0,0,0,0.3)] cursor-grab hover:scale-[1.02] transition-transform select-none"
+            className="flex-shrink-0 w-full sm:w-[280px] lg:w-[380px] rounded-[18px] overflow-hidden shadow-[0_10px_25px_rgba(15,23,42,0.12)] cursor-grab hover:scale-[1.02] transition-transform select-none"
           >
             <Image
               src={img}
@@ -94,9 +93,9 @@ interface AdBannersProps {
 
 export default function AdBanners({ bannersPub }: AdBannersProps) {
   return (
-    <section className="mt-10 space-y-8 w-full overflow-hidden py-6 bg-white dark:bg-[#111A15]">
+    <section className="mt-10 space-y-8 w-full overflow-hidden">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-[#E8EDE9]">Banners publicitarios</h2>
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-900">Banners publicitarios</h2>
       </div>
 
       {/* Block 1: Slider Grande */}

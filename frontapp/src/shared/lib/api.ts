@@ -260,9 +260,9 @@ export const updateStoreStatus = async (id: number, status: string): Promise<any
 // ============================================
 // NEW API LAYER (Tarea 2)
 // ============================================
-import { WPOrderRepository, WPProductRepository, WPAuthRepository, WPUserRepository } from './api/wp';
-import { LaravelOrderRepository, LaravelProductRepository, LaravelAuthRepository, LaravelUserRepository } from './api/laravel';
-import type { IOrderRepository, IProductRepository, IAuthRepository, IUserRepository } from './api/contracts';
+import { WPOrderRepository, WPProductRepository, WPAuthRepository, WPUserRepository, WPHomeRepository } from './api/wp';
+import { LaravelOrderRepository, LaravelProductRepository, LaravelAuthRepository, LaravelUserRepository, LaravelHomeRepository } from './api/laravel';
+import type { IOrderRepository, IProductRepository, IAuthRepository, IUserRepository, IHomeRepository } from './api/contracts';
 import { API_BACKEND } from './config/flags';
 
 const wpRepositories = {
@@ -270,6 +270,7 @@ const wpRepositories = {
   products: new WPProductRepository(),
   auth: new WPAuthRepository(),
   users: new WPUserRepository(),
+  home: new WPHomeRepository(),
 };
 
 const laravelRepositories = {
@@ -277,6 +278,7 @@ const laravelRepositories = {
   products: new LaravelProductRepository(),
   auth: new LaravelAuthRepository(),
   users: new LaravelUserRepository(),
+  home: new LaravelHomeRepository(),
 };
 
 const repositories = API_BACKEND === 'laravel' ? laravelRepositories : wpRepositories;
@@ -285,7 +287,8 @@ export const orders: IOrderRepository = repositories.orders;
 export const products: IProductRepository = repositories.products;
 export const auth: IAuthRepository = repositories.auth;
 export const users: IUserRepository = repositories.users;
+export const home: IHomeRepository = repositories.home;
 
-export const api = { orders, products, auth, users };
+export const api = { orders, products, auth, users, home };
 
-export type { IOrderRepository, IProductRepository, IAuthRepository, IUserRepository };
+export type { IOrderRepository, IProductRepository, IAuthRepository, IUserRepository, IHomeRepository };

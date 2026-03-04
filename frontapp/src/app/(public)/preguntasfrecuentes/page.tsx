@@ -2,8 +2,26 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
-import Icon from '@/components/ui/Icon';
-import { faqData, benefitsData } from '@/features/public/preguntasfrecuentes/data/faqData';
+import Image from 'next/image';
+import {
+    Phone,
+    Mail,
+    ChevronDown,
+    Plus,
+    Minus,
+    Heart,
+    Store,
+    Tag,
+    ShieldCheck,
+    Zap,
+    Clock,
+    Globe,
+    Users,
+    ShoppingCart,
+    Store as StoreIcon,
+    HelpCircle
+} from 'lucide-react';
+import { faqData, benefitsData } from '@/shared/lib/constants/faqData';
 
 export default function FAQPage() {
     const [openItems, setOpenItems] = useState<string[]>([]);
@@ -12,6 +30,7 @@ export default function FAQPage() {
     const toggleItem = (categoryIndex: number, itemIndex: number) => {
         const itemId = `${categoryIndex}-${itemIndex}`;
         setOpenItems(prev => {
+            // Accordion exclusivo: si se abre uno, se cierran los demás
             if (prev.includes(itemId)) {
                 return prev.filter(id => id !== itemId);
             } else {
@@ -36,22 +55,22 @@ export default function FAQPage() {
 
     const getIconComponent = (iconName: string) => {
         switch (iconName) {
-            case 'heart': return <Icon name="Heart" className="w-10 h-10 text-sky-600 group-hover:scale-125 transition-transform duration-500" />;
-            case 'store': return <Icon name="Store" className="w-10 h-10 text-emerald-600 group-hover:scale-125 transition-transform duration-500" />;
-            case 'tag': return <Icon name="Tag" className="w-10 h-10 text-amber-600 group-hover:scale-125 transition-transform duration-500" />;
-            case 'shield': return <Icon name="ShieldCheck" className="w-10 h-10 text-violet-600 group-hover:scale-125 transition-transform duration-500" />;
-            case 'zap': return <Icon name="Zap" className="w-10 h-10 text-lime-600 group-hover:scale-125 transition-transform duration-500" />;
-            case 'clock': return <Icon name="Clock" className="w-10 h-10 text-slate-600 group-hover:scale-125 transition-transform duration-500" />;
-            case 'globe': return <Icon name="Globe" className="w-10 h-10 text-rose-600 group-hover:scale-125 transition-transform duration-500" />;
+            case 'heart': return <Heart className="w-10 h-10 text-sky-600 group-hover:scale-125 transition-transform duration-500" />;
+            case 'store': return <Store className="w-10 h-10 text-emerald-600 group-hover:scale-125 transition-transform duration-500" />;
+            case 'tag': return <Tag className="w-10 h-10 text-amber-600 group-hover:scale-125 transition-transform duration-500" />;
+            case 'shield': return <ShieldCheck className="w-10 h-10 text-violet-600 group-hover:scale-125 transition-transform duration-500" />;
+            case 'zap': return <Zap className="w-10 h-10 text-lime-600 group-hover:scale-125 transition-transform duration-500" />;
+            case 'clock': return <Clock className="w-10 h-10 text-slate-600 group-hover:scale-125 transition-transform duration-500" />;
+            case 'globe': return <Globe className="w-10 h-10 text-rose-600 group-hover:scale-125 transition-transform duration-500" />;
             default: return null;
         }
     };
 
     const getCategoryIcon = (id: string) => {
         switch (id) {
-            case 'todos': return <Icon name="Users" className="w-8 h-8" />;
-            case 'comprador': return <Icon name="ShoppingCart" className="w-8 h-8" />;
-            case 'vendedor': return <Icon name="Store" className="w-8 h-8" />;
+            case 'todos': return <Users className="w-8 h-8" />;
+            case 'comprador': return <ShoppingCart className="w-8 h-8" />;
+            case 'vendedor': return <StoreIcon className="w-8 h-8" />;
             default: return null;
         }
     };
@@ -74,52 +93,46 @@ export default function FAQPage() {
         }
     };
 
-    const getInnerColorDark = (color: string) => {
-        switch (color) {
-            case 'sky': return 'dark:from-sky-900/30 dark:to-cyan-900/30';
-            case 'emerald': return 'dark:from-emerald-900/30 dark:to-teal-900/30';
-            case 'violet': return 'dark:from-violet-900/30 dark:to-purple-900/30';
-            default: return 'dark:from-gray-900/30 dark:to-slate-900/30';
-        }
-    };
-
     return (
-        <main className="max-w-7xl mx-auto px-4 py-8 md:py-16 space-y-16 md:space-y-24 bg-[#f7fbff] dark:bg-[#0A0F0D]">
+        <main className="max-w-7xl mx-auto px-4 py-8 md:py-16 space-y-16 md:space-y-24">
+            {/* ===================== HEADER SECTION ===================== */}
             <section className="text-center space-y-4 animate-in">
                 <div className="inline-flex items-center gap-4 bg-sky-500 px-6 py-3 rounded-full shadow-lg text-white mb-6">
-                    <Icon name="HelpCircle" className="w-8 h-8 animate-float" />
+                    <HelpCircle className="w-8 h-8 animate-float" />
                     <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tight">Preguntas frecuentes</h1>
                 </div>
-                <p className="text-gray-500 dark:text-[#9BAF9F] max-w-2xl mx-auto text-lg">
+                <p className="text-gray-500 max-w-2xl mx-auto text-lg">
                     Encuentra respuestas rápidas a todas tus dudas sobre nuestra plataforma y servicios.
                 </p>
             </section>
 
+            {/* ===================== TABS NAVIGATION ===================== */}
             <section className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 {faqData.map((category, index) => (
                     <button
                         key={category.id}
                         onClick={() => scrollToSection(category.id)}
-                        className="group shine-effect rounded-2xl border-2 border-gray-100 dark:border-[#2A3F33] bg-white dark:bg-[#111A15] shadow-lg p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-sky-200"
+                        className="group shine-effect rounded-2xl border-2 border-gray-100 bg-white shadow-lg p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:border-sky-200"
                     >
                         <div className={`mx-auto w-16 h-16 rounded-full bg-gradient-to-br ${getCategoryColor(category.color)} text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
                             {getCategoryIcon(category.id)}
                         </div>
-                        <h2 className="font-extrabold text-gray-800 dark:text-[#E8EDE9] text-xl mb-2">{category.title}</h2>
-                        <p className="text-sm text-gray-500 dark:text-[#9BAF9F]">{category.description}</p>
+                        <h2 className="font-extrabold text-gray-800 text-xl mb-2">{category.title}</h2>
+                        <p className="text-sm text-gray-500">{category.description}</p>
                     </button>
                 ))}
             </section>
 
+            {/* ===================== FAQ ACCORDIONS ===================== */}
             <section className="max-w-6xl mx-auto space-y-12">
                 {faqData.map((category, catIdx) => (
                     <div
                         key={category.id}
                         ref={el => { sectionRefs.current[category.id] = el }}
-                        className="faq-group rounded-3xl border-2 border-gray-100 dark:border-[#2A3F33] bg-white dark:bg-[#111A15] shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                        className="faq-group rounded-3xl border-2 border-gray-100 bg-white shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
                     >
-                        <div className={`px-6 md:px-10 py-8 border-b border-gray-100 dark:border-[#2A3F33] bg-gradient-to-r ${getInnerColor(category.color)} ${getInnerColorDark(category.color)}`}>
-                            <h3 className="text-xl md:text-3xl font-extrabold text-gray-800 dark:text-[#E8EDE9] flex items-center gap-4">
+                        <div className={`px-6 md:px-10 py-8 border-b border-gray-100 bg-gradient-to-r ${getInnerColor(category.color)}`}>
+                            <h3 className="text-xl md:text-3xl font-extrabold text-gray-800 flex items-center gap-4">
                                 <span className="text-4xl">{category.icon}</span>
                                 {category.title}
                             </h3>
@@ -129,23 +142,23 @@ export default function FAQPage() {
                             {category.items.map((item, itemIdx) => {
                                 const isOpen = openItems.includes(`${catIdx}-${itemIdx}`);
                                 return (
-                                    <div key={item.question} className="border-b border-gray-50 dark:border-[#2A3F33] last:border-0">
+                                    <div key={item.question} className="border-b border-gray-50 last:border-0">
                                         <button
                                             onClick={() => toggleItem(catIdx, itemIdx)}
                                             className="w-full cursor-pointer list-none flex items-start gap-5 px-4 md:px-6 py-6 text-left group"
                                         >
-                                            <span className={`mt-1 font-bold text-xl transition-transform duration-300 ${isOpen ? 'rotate-90 text-sky-600' : 'text-gray-300 dark:text-[#9BAF9F]'}`}>
+                                            <span className={`mt-1 font-bold text-xl transition-transform duration-300 ${isOpen ? 'rotate-90 text-sky-600' : 'text-gray-300'}`}>
                                                 ▸
                                             </span>
-                                            <span className={`font-bold flex-1 text-lg transition-colors duration-300 ${isOpen ? 'text-sky-600' : 'text-gray-700 dark:text-[#E8EDE9]'}`}>
+                                            <span className={`font-bold flex-1 text-lg transition-colors duration-300 ${isOpen ? 'text-sky-600' : 'text-gray-700'}`}>
                                                 {item.question}
                                             </span>
                                             <span className={`transition-all duration-300 ${isOpen ? 'rotate-45 text-red-500' : 'text-gray-400'}`}>
-                                                <Icon name="Plus" className="w-6 h-6" />
+                                                <Plus className="w-6 h-6" />
                                             </span>
                                         </button>
                                         <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100 mb-6' : 'max-h-0 opacity-0'}`}>
-                                            <div className="px-14 pb-4 text-gray-600 dark:text-[#9BAF9F] text-[17px] leading-relaxed">
+                                            <div className="px-14 pb-4 text-gray-600 text-[17px] leading-relaxed">
                                                 {item.answer}
                                             </div>
                                         </div>
@@ -157,20 +170,21 @@ export default function FAQPage() {
                 ))}
             </section>
 
+            {/* ===================== BENEFITS SECTION ===================== */}
             <section className="space-y-16">
                 <div className="text-center">
-                    <h2 className="text-3xl font-black text-gray-900 dark:text-[#E8EDE9] uppercase tracking-tighter">¿Por qué elegir Lyrium?</h2>
+                    <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter">¿Por qué elegir Lyrium?</h2>
                     <div className="w-24 h-1.5 bg-brand-gradient mx-auto mt-4 rounded-full"></div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
                     {benefitsData.slice(0, 4).map((benefit) => (
-                        <div key={benefit.title} className="benefit-card group shine-effect rounded-[40px] border-2 border-gray-100 dark:border-[#2A3F33] bg-white dark:bg-[#111A15] shadow-xl hover:shadow-2xl p-10 text-center transition-all duration-500 hover:-translate-y-4">
-                            <div className={`benefit-icon-wrap mx-auto w-20 h-20 rounded-[28px] bg-slate-50 dark:bg-[#0A0F0D] flex items-center justify-center mb-8 shadow-inner group-hover:bg-white dark:group-hover:bg-[#182420] group-hover:rotate-6 transition-all duration-500`}>
+                        <div key={benefit.title} className="benefit-card group shine-effect rounded-[40px] border-2 border-gray-100 bg-white shadow-xl hover:shadow-2xl p-10 text-center transition-all duration-500 hover:-translate-y-4">
+                            <div className={`benefit-icon-wrap mx-auto w-20 h-20 rounded-[28px] bg-slate-50 flex items-center justify-center mb-8 shadow-inner group-hover:bg-white group-hover:rotate-6 transition-all duration-500`}>
                                 {getIconComponent(benefit.icon)}
                             </div>
-                            <h4 className="font-black tracking-tight text-gray-900 dark:text-[#E8EDE9] text-lg uppercase mb-3">{benefit.title}</h4>
-                            <p className="text-sky-600 dark:text-[#6BAF7B] font-bold text-[13px] leading-relaxed uppercase">
+                            <h4 className="font-black tracking-tight text-gray-900 text-lg uppercase mb-3">{benefit.title}</h4>
+                            <p className="text-sky-600 font-bold text-[13px] leading-relaxed uppercase">
                                 {benefit.description}
                             </p>
                         </div>
@@ -179,12 +193,12 @@ export default function FAQPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     {benefitsData.slice(4).map((benefit) => (
-                        <div key={benefit.title} className="benefit-card group shine-effect rounded-[40px] border-2 border-gray-100 dark:border-[#2A3F33] bg-white dark:bg-[#111A15] shadow-xl hover:shadow-2xl p-10 text-center transition-all duration-500 hover:-translate-y-4">
-                            <div className={`benefit-icon-wrap mx-auto w-20 h-20 rounded-[28px] bg-slate-50 dark:bg-[#0A0F0D] flex items-center justify-center mb-8 shadow-inner group-hover:bg-white dark:group-hover:bg-[#182420] group-hover:rotate-6 transition-all duration-500`}>
+                        <div key={benefit.title} className="benefit-card group shine-effect rounded-[40px] border-2 border-gray-100 bg-white shadow-xl hover:shadow-2xl p-10 text-center transition-all duration-500 hover:-translate-y-4">
+                            <div className={`benefit-icon-wrap mx-auto w-20 h-20 rounded-[28px] bg-slate-50 flex items-center justify-center mb-8 shadow-inner group-hover:bg-white group-hover:rotate-6 transition-all duration-500`}>
                                 {getIconComponent(benefit.icon)}
                             </div>
-                            <h4 className="font-black tracking-tight text-gray-900 dark:text-[#E8EDE9] text-lg uppercase mb-3">{benefit.title}</h4>
-                            <p className="text-sky-600 dark:text-[#6BAF7B] font-bold text-[13px] leading-relaxed uppercase">
+                            <h4 className="font-black tracking-tight text-gray-900 text-lg uppercase mb-3">{benefit.title}</h4>
+                            <p className="text-sky-600 font-bold text-[13px] leading-relaxed uppercase">
                                 {benefit.description}
                             </p>
                         </div>
@@ -192,9 +206,10 @@ export default function FAQPage() {
                 </div>
             </section>
 
-            <section className="bg-sky-500 dark:bg-sky-600 rounded-[3rem] p-12 text-center text-white space-y-8 shadow-2xl relative overflow-hidden group">
+            {/* ===================== CONTACT CTA ===================== */}
+            <section className="bg-sky-500 rounded-[3rem] p-12 text-center text-white space-y-8 shadow-2xl relative overflow-hidden group">
                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-sky-600/20 to-transparent pointer-events-none"></div>
-                <Icon name="HelpCircle" className="w-20 h-20 mx-auto text-white/20 absolute -top-4 -right-4 rotate-12 group-hover:scale-125 transition-transform duration-700" />
+                <HelpCircle className="w-20 h-20 mx-auto text-white/20 absolute -top-4 -right-4 rotate-12 group-hover:scale-125 transition-transform duration-700" />
 
                 <h2 className="text-4xl font-black uppercase tracking-tighter relative z-10">¿Aún tienes dudas?</h2>
                 <p className="text-sky-100 text-xl max-w-2xl mx-auto relative z-10">
@@ -205,16 +220,16 @@ export default function FAQPage() {
                     <Link
                         href="https://wa.me/51937093420"
                         target="_blank"
-                        className="inline-flex items-center gap-3 bg-white dark:bg-[#111A15] text-sky-600 dark:text-[#E8EDE9] px-8 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-sky-50 dark:hover:bg-[#182420] transition-colors shadow-lg"
+                        className="inline-flex items-center gap-3 bg-white text-sky-600 px-8 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-sky-50 transition-colors shadow-lg"
                     >
-                        <Icon name="Phone" className="w-6 h-6" />
+                        <Phone className="w-6 h-6" />
                         WhatsApp
                     </Link>
                     <Link
                         href="mailto:ventas@lyriumbiomarketplace.com"
-                        className="inline-flex items-center gap-3 bg-sky-600 dark:bg-[#0A0F0D] border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-sky-700 transition-colors shadow-lg"
+                        className="inline-flex items-center gap-3 bg-sky-600 border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-sky-700 transition-colors shadow-lg"
                     >
-                        <Icon name="Mail" className="w-6 h-6" />
+                        <Mail className="w-6 h-6" />
                         Correo Electrónico
                     </Link>
                 </div>

@@ -30,8 +30,8 @@ export default function MegaMenu({
 
     return (
         <div
-            className="fixed left-0 w-full bg-white dark:bg-[#111A15] shadow-2xl dark:shadow-none border-t border-gray-200 dark:border-[#2A3F33] opacity-100 pointer-events-auto transition-all duration-150 z-[99999999]"
-            style={{ top: `${menuPosition.top + 4}px`, bottom: 0 }}
+            className="fixed left-0 w-full bg-white dark:bg-[#111A15] shadow-2xl dark:shadow-none border-t border-gray-200 dark:border-[#2A3F33] opacity-100 pointer-events-auto transition-all duration-150 z-[99999]"
+            style={{ top: `${menuPosition.top}px`, bottom: 0 }}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >

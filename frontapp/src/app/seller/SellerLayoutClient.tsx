@@ -19,7 +19,7 @@ export function SellerLayoutClient({ children }: SellerLayoutClientProps) {
             sidebar={<SellerSidebar isMobileOpen={sidebarOpen} onClose={closeSidebar} />}
             sidebarOpen={sidebarOpen}
             onSidebarClose={closeSidebar}
-            className="bg-gray-50"
+            className="bg-gray-50 dark:bg-gray-900"
             mainClassName="p-4 md:p-8"
         >
             {children}

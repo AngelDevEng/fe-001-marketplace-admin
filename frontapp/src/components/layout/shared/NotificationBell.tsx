@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Bell, AlertTriangle, ShieldAlert, Activity, Check } from 'lucide-react';
 import { useNotifications } from '@/shared/lib/context/NotificationContext';
-import { ProactiveNotification } from '@/lib/types/notifications';
+import { ProactiveNotification } from '@/shared/types/notifications';
 import { useAuth } from '@/shared/lib/context/AuthContext';
 
 export default function NotificationBell() {

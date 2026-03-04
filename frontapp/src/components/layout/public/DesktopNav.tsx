@@ -1,11 +1,10 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import Icon from '@/components/ui/Icon';
 import { MenuItem, MegaCategoryData } from '@/data/menuData';
 import MegaMenu from './MegaMenu';
-import { useHeader } from './HeaderContext';
 
 // Map icon string identifiers from menuData to BaseIcon names
 const iconNameMap: Record<string, string> = {
@@ -28,20 +27,10 @@ export default function DesktopNav({ menuItems, megaMenuData }: DesktopNavProps)
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const [menuPosition, setMenuPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
     const [activeCategory, setActiveCategory] = useState<string>('Bebés y recién nacidos');
-    const [menuTimeout, setMenuTimeout] = useState<NodeJS.Timeout | null>(null);
     const menuRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
-    const { closeSearchDropdowns } = useHeader();
-
-    useEffect(() => {
-        return () => {
-            if (menuTimeout) clearTimeout(menuTimeout);
-        };
-    }, []);
 
     const handleMenuEnter = (label: string, children?: MenuItem[]) => {
-        if (menuTimeout) clearTimeout(menuTimeout);
-        
-        closeSearchDropdowns();
+        setActiveMenu(label);
         
         const firstCategory = children && children.length > 0 ? children[0].label : 'Bebés y recién nacidos';
         setActiveCategory(firstCategory);
@@ -49,19 +38,14 @@ export default function DesktopNav({ menuItems, megaMenuData }: DesktopNavProps)
         const trigger = menuRefs.current[label];
         if (trigger) {
             const rect = trigger.getBoundingClientRect();
-            const top = Math.round(rect.bottom);
+            const top = Math.round(rect.bottom + 10);
             const left = Math.round(rect.left);
             setMenuPosition({ top, left });
         }
-        
-        setActiveMenu(label);
     };
 
     const handleMenuLeave = () => {
-        const timeout = setTimeout(() => {
-            setActiveMenu(null);
-        }, 200);
-        setMenuTimeout(timeout);
+        setActiveMenu(null);
     };
 
     return (

@@ -8,8 +8,8 @@ interface ProductCardProps {
 
 export default function ProductCard({ producto }: ProductCardProps) {
   return (
-    <div className="bg-white dark:bg-[#111A15] rounded-2xl shadow-sm border border-gray-100 dark:border-[#2A3F33] overflow-hidden hover:shadow-lg transition-shadow group">
-      <div className="relative h-48 bg-gray-100 dark:bg-[#182420]">
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow group">
+      <div className="relative h-48 bg-gray-100">
         <Image
           src={producto.imagen}
           alt={producto.titulo}
@@ -24,7 +24,7 @@ export default function ProductCard({ producto }: ProductCardProps) {
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-medium text-gray-900 dark:text-[#E8EDE9] mb-2 line-clamp-2">
+        <h3 className="font-medium text-gray-900 mb-2 line-clamp-2">
           {producto.titulo}
         </h3>
         <div className="flex items-center gap-1 mb-2">
@@ -36,7 +36,7 @@ export default function ProductCard({ producto }: ProductCardProps) {
               />
             ))}
         </div>
-        <p className="text-sky-600 dark:text-[#6BAF7B] font-bold text-lg">
+        <p className="text-sky-600 font-bold text-lg">
           S/{producto.precio.toFixed(2)}
         </p>
       </div>

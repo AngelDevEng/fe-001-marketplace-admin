@@ -36,11 +36,12 @@ interface BenefitsSectionProps {
 }
 
 export default function BenefitsSection({ beneficios }: BenefitsSectionProps) {
+  // Duplicate items for infinite scroll effect
   const allItems = [...beneficios, ...beneficios];
 
   return (
     <section className="max-w-7xl mx-auto px-4 my-8">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-[#E8EDE9]">Beneficios</h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">Beneficios</h2>
 
       <div
         className="relative w-full h-[350px] rounded-2xl shadow-xl overflow-hidden group"

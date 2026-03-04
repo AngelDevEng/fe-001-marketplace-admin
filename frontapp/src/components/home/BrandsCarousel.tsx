@@ -34,11 +34,12 @@ export default function BrandsCarousel({ marcas }: BrandsCarouselProps) {
     setCurrent((c) => Math.min(maxIndex, c + 1));
   }, [maxIndex]);
 
+  // Percentage to shift per item
   const itemWidthPercent = 100 / marcas.length;
 
   return (
-    <section className="rounded-3xl space-y-4 md:space-y-6 max-w-7xl mx-auto px-4 py-6 bg-white dark:bg-[#111A15]">
-      <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-[#E8EDE9]">
+    <section className="space-y-4 md:space-y-6 max-w-7xl mx-auto px-4">
+      <h2 className="text-xl md:text-2xl font-semibold text-gray-900">
         Nuestras marcas
       </h2>
 
@@ -52,7 +53,7 @@ export default function BrandsCarousel({ marcas }: BrandsCarouselProps) {
               key={marca.id}
               className="flex-shrink-0 w-[calc(50%-0.5rem)] sm:w-[calc(33.333%-0.67rem)] lg:w-[calc(16.666%-0.83rem)]"
             >
-              <article className="rounded-[2.5rem] overflow-hidden shadow-md bg-white dark:bg-[#111A15] group cursor-pointer h-28 md:h-36 flex items-center justify-center p-4 transition-all duration-300 border border-transparent hover:shadow-lg dark:border-[#2A3F33]">
+              <article className="rounded-[2.5rem] overflow-hidden shadow-md bg-white group cursor-pointer h-28 md:h-36 flex items-center justify-center p-4 transition-all duration-300 border border-transparent hover:shadow-lg">
                 <Image
                   src={marca.logo}
                   alt={marca.nombre}
@@ -69,19 +70,19 @@ export default function BrandsCarousel({ marcas }: BrandsCarouselProps) {
         {current > 0 && (
           <button
             onClick={prev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white dark:bg-[#111A15] dark:hover:bg-[#182420] p-2.5 rounded-full shadow-lg transition-all duration-200 z-10 hover:scale-105"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2.5 rounded-full shadow-lg transition-all duration-200 z-10 hover:scale-105"
             aria-label="Anterior"
           >
-            <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-[#E8EDE9]" />
+            <ChevronLeft className="w-5 h-5 text-gray-700" />
           </button>
         )}
         {current < maxIndex && (
           <button
             onClick={next}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white dark:bg-[#111A15] dark:hover:bg-[#182420] p-2.5 rounded-full shadow-lg transition-all duration-200 z-10 hover:scale-105"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2.5 rounded-full shadow-lg transition-all duration-200 z-10 hover:scale-105"
             aria-label="Siguiente"
           >
-            <ChevronRight className="w-5 h-5 text-gray-700 dark:text-[#E8EDE9]" />
+            <ChevronRight className="w-5 h-5 text-gray-700" />
           </button>
         )}
       </div>

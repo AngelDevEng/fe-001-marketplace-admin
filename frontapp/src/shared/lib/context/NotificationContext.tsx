@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import { ProactiveNotification, NotificationLevel } from '@/lib/types/notifications';
+import { ProactiveNotification, NotificationLevel } from '@/shared/types/notifications';
 import { useSyncNotifications } from '@/shared/hooks/useSyncNotifications';
 import { useAuth } from './AuthContext';
 
@@ -31,7 +31,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     useEffect(() => {
         const mockNotifications: ProactiveNotification[] = [];
-
+        
         if (role === 'administrator') {
             mockNotifications.push(
                 {
@@ -140,8 +140,8 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         // Efecto de sonido (opcional pero recomendado para admin panels)
         try {
             const audio = new Audio('/sounds/notification.mp3');
-            audio.play().catch(() => { /* Ignorar si el navegador bloquea el auto-play o archivo no existe */ });
-        } catch (e) { /* Silencioso si el archivo no existe */ }
+            audio.play().catch(() => { }); // Ignorar si el navegador bloquea el auto-play
+        } catch (e) { }
     }, []);
 
     // Simulación de Polling Real (Cada 30 segundos)

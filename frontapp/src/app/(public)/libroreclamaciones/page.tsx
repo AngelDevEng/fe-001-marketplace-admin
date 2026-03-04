@@ -1,9 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import {
+    FileText,
+    User,
+    Building2,
+    Mail,
+    Smartphone,
+    MapPin,
+    BadgeHelp,
+    ShoppingBag,
+    Receipt,
+    Calendar,
+    AlertCircle,
+    ShieldCheck,
+    Send,
+    ChevronDown,
+    Upload,
+    Store
+} from 'lucide-react';
 import Link from 'next/link';
-import Icon from '@/components/ui/Icon';
-import { complaintsConfig } from '@/features/public/libroreclamaciones/data/complaintsData';
+import { complaintsConfig } from '@/shared/lib/constants/complaintsData';
 
 export default function ComplaintsBookPage() {
     const [formData, setFormData] = useState({
@@ -49,20 +66,22 @@ export default function ComplaintsBookPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[#f7fbff] dark:bg-[#0A0F0D] py-12 md:py-20 px-4 relative overflow-hidden">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[300px] bg-sky-100/50 dark:bg-sky-900/20 rounded-full blur-[100px] -z-10" />
+        <main className="min-h-screen bg-[#f7fbff] py-12 md:py-20 px-4 relative overflow-hidden">
+            {/* Background radial effects */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[300px] bg-sky-100/50 rounded-full blur-[100px] -z-10" />
 
             <div className="max-w-5xl mx-auto space-y-12">
 
+                {/* ===================== HEADER ===================== */}
                 <div className="flex flex-col items-center text-center space-y-8">
                     <div className="inline-flex items-center gap-4 bg-gradient-to-r from-sky-500 to-sky-600 px-8 py-4 rounded-full shadow-2xl text-white transform hover:scale-105 transition-all duration-500 animate-in">
                         <div className="p-2 bg-white/20 backdrop-blur-md rounded-xl">
-                            <Icon name="FileText" className="w-8 h-8" />
+                            <FileText className="w-8 h-8" />
                         </div>
                         <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tight">{complaintsConfig.header.title}</h1>
                     </div>
 
-                    <div className="bg-white/70 dark:bg-[#111A15]/70 backdrop-blur-md border border-sky-100 dark:border-[#2A3F33] p-6 md:p-8 rounded-[2rem] shadow-xl max-w-3xl animate-in animate-delay-1 text-gray-600 dark:text-[#9BAF9F] leading-relaxed text-sm md:text-base">
+                    <div className="bg-white/70 backdrop-blur-md border border-sky-100 p-6 md:p-8 rounded-[2rem] shadow-xl max-w-3xl animate-in animate-delay-1 text-gray-600 leading-relaxed text-sm md:text-base">
                         {complaintsConfig.header.intro}<br />
                         <div className="mt-4 flex flex-col md:flex-row gap-4 md:gap-8 justify-center">
                             <span><strong className="text-sky-500">{complaintsConfig.helpTexts.queja.title}:</strong> Disconformidad por la atención recibida.</span>
@@ -71,32 +90,34 @@ export default function ComplaintsBookPage() {
                     </div>
                 </div>
 
-                <div className="bg-white/90 dark:bg-[#111A15]/90 backdrop-blur-md border border-gray-100 dark:border-[#2A3F33] rounded-[3rem] shadow-2xl relative overflow-hidden animate-in animate-delay-2 group">
+                {/* ===================== FORM CARD ===================== */}
+                <div className="bg-white/90 backdrop-blur-md border border-gray-100 rounded-[3rem] shadow-2xl relative overflow-hidden animate-in animate-delay-2 group">
                     <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-sky-400 via-sky-500 to-sky-400 bg-[length:200%_100%] animate-shimmer-line"></div>
 
                     <form onSubmit={handleSubmit} className="p-8 md:p-12 space-y-10">
 
+                        {/* SECTION 1: IDENTIFICACIÓN */}
                         <div className="space-y-8">
                             <div className="flex items-center gap-3">
                                 <div className="w-2 h-8 bg-sky-500 rounded-full"></div>
-                                <h3 className="text-xl font-black text-gray-900 dark:text-[#E8EDE9] uppercase tracking-tighter">1. Identificación del Consumidor</h3>
+                                <h3 className="text-xl font-black text-gray-900 uppercase tracking-tighter">1. Identificación del Consumidor</h3>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
-                                    <label htmlFor="tipo_persona" className="text-xs font-bold text-gray-400 dark:text-[#7A8F7F] uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="User" className="w-3.5 h-3.5" /> Tipo de persona
+                                    <label htmlFor="tipo_persona" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
+                                        <User className="w-3.5 h-3.5" /> Tipo de persona
                                     </label>
-                                    <select id="tipo_persona" name="tipo_persona" value={formData.tipo_persona} onChange={handleChange} className="w-full bg-gray-50/50 dark:bg-[#0A0F0D] border-2 border-gray-100 dark:border-[#2A3F33] rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] outline-none transition-all font-semibold text-gray-700 dark:text-[#E8EDE9]">
+                                    <select id="tipo_persona" name="tipo_persona" value={formData.tipo_persona} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         {complaintsConfig.options.tipo_persona.map(opt => <option key={opt}>{opt}</option>)}
                                     </select>
                                 </div>
 
                                 <div className="md:col-span-2 space-y-2">
                                     <label htmlFor="nombre_razon" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="Building2" className="w-3.5 h-3.5" /> Nombre/Razón Social*
+                                        <Building2 className="w-3.5 h-3.5" /> Nombre/Razón Social*
                                     </label>
-                                    <input id="nombre_razon" name="nombre_razon" required type="text" value={formData.nombre_razon} onChange={handleChange} placeholder="Ej: Juan Pérez o Empresa S.A.C" className="w-full bg-gray-50/50 dark:bg-[#0A0F0D] border-2 border-gray-100 dark:border-[#2A3F33] rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white dark:focus:bg-[#111A15] outline-none transition-all font-semibold text-gray-700 dark:text-[#E8EDE9]" />
+                                    <input id="nombre_razon" name="nombre_razon" required type="text" value={formData.nombre_razon} onChange={handleChange} placeholder="Ej: Juan Pérez o Empresa S.A.C" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
@@ -113,21 +134,21 @@ export default function ComplaintsBookPage() {
 
                                 <div className="space-y-2">
                                     <label htmlFor="correo" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="Mail" className="w-3.5 h-3.5" /> Correo electrónico
+                                        <Mail className="w-3.5 h-3.5" /> Correo electrónico
                                     </label>
                                     <input id="correo" name="correo" type="email" value={formData.correo} onChange={handleChange} placeholder="ejemplo@correo.com" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
                                     <label htmlFor="telefono" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="Smartphone" className="w-3.5 h-3.5" /> Teléfono
+                                        <Smartphone className="w-3.5 h-3.5" /> Teléfono
                                     </label>
                                     <input id="telefono" name="telefono" type="tel" value={formData.telefono} onChange={handleChange} placeholder="999 999 999" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="md:col-span-2 space-y-2">
                                     <label htmlFor="direccion" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="MapPin" className="w-3.5 h-3.5" /> Dirección completa
+                                        <MapPin className="w-3.5 h-3.5" /> Dirección completa
                                     </label>
                                     <input id="direccion" name="direccion" type="text" value={formData.direccion} onChange={handleChange} placeholder="Av. Siempre Viva 123, Int 4" className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
@@ -147,16 +168,17 @@ export default function ComplaintsBookPage() {
                             </div>
                         </div>
 
-                        <div className="space-y-8 pt-6 border-t border-dashed border-gray-100 dark:border-[#2A3F33]">
+                        {/* SECTION 2: DETALLES DEL RECLAMO */}
+                        <div className="space-y-8 pt-6 border-t border-dashed border-gray-100">
                             <div className="flex items-center gap-3">
                                 <div className="w-2 h-8 bg-sky-500 rounded-full"></div>
-                                <h3 className="text-xl font-black text-gray-900 dark:text-[#E8EDE9] uppercase tracking-tighter">2. Detalles del incidente</h3>
+                                <h3 className="text-xl font-black text-gray-900 uppercase tracking-tighter">2. Detalles del incidente</h3>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
                                     <label htmlFor="tipo_reclamo" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="BadgeHelp" className="w-3.5 h-3.5 text-sky-500" /> Tipo de reporte
+                                        <BadgeHelp className="w-3.5 h-3.5 text-sky-500" /> Tipo de reporte
                                     </label>
                                     <select id="tipo_reclamo" name="tipo_reclamo" value={formData.tipo_reclamo} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         <option>Reclamo</option>
@@ -166,7 +188,7 @@ export default function ComplaintsBookPage() {
 
                                 <div className="space-y-2">
                                     <label htmlFor="bien_contratado" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="ShoppingBag" className="w-3.5 h-3.5" /> Bien contratado
+                                        <ShoppingBag className="w-3.5 h-3.5" /> Bien contratado
                                     </label>
                                     <select id="bien_contratado" name="bien_contratado" value={formData.bien_contratado} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         {complaintsConfig.options.bien_contratado.map(opt => <option key={opt}>{opt}</option>)}
@@ -175,7 +197,7 @@ export default function ComplaintsBookPage() {
 
                                 <div className="space-y-2">
                                     <label htmlFor="comprobante_pago" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="Receipt" className="w-3.5 h-3.5" /> Comprobante
+                                        <Receipt className="w-3.5 h-3.5" /> Comprobante
                                     </label>
                                     <select id="comprobante_pago" name="comprobante_pago" value={formData.comprobante_pago} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700">
                                         {complaintsConfig.options.comprobante_pago.map(opt => <option key={opt}>{opt}</option>)}
@@ -189,14 +211,14 @@ export default function ComplaintsBookPage() {
 
                                 <div className="space-y-2">
                                     <label htmlFor="fecha_incidente" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="Calendar" className="w-3.5 h-3.5" /> Fecha del incidente
+                                        <Calendar className="w-3.5 h-3.5" /> Fecha del incidente
                                     </label>
                                     <input id="fecha_incidente" name="fecha_incidente" type="date" value={formData.fecha_incidente} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700" />
                                 </div>
 
                                 <div className="space-y-2">
                                     <label htmlFor="tienda_responsable" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2 flex items-center gap-2">
-                                        <Icon name="Store" className="w-3.5 h-3.5" /> Tienda responsable
+                                        <Store className="w-3.5 h-3.5" /> Tienda responsable
                                     </label>
                                     <select id="tienda_responsable" name="tienda_responsable" value={formData.tienda_responsable} onChange={handleChange} className="w-full bg-gray-50/50 border-2 border-gray-100 rounded-2xl px-5 py-3.5 focus:border-sky-500 focus:bg-white outline-none transition-all font-semibold text-gray-700 border-dashed">
                                         {complaintsConfig.options.tiendas.map(opt => <option key={opt}>{opt}</option>)}
@@ -212,7 +234,7 @@ export default function ComplaintsBookPage() {
                                     <div className="flex flex-col gap-2">
                                         <label htmlFor="detalle_reclamo" className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Detalle del reclamo o queja*</label>
                                         <div className="p-4 bg-sky-50 border-l-4 border-sky-400 rounded-r-xl flex items-start gap-3 transition-all duration-500">
-                                            <Icon name="AlertCircle" className="w-5 h-5 text-sky-500 flex-shrink-0 mt-0.5" />
+                                            <AlertCircle className="w-5 h-5 text-sky-500 flex-shrink-0 mt-0.5" />
                                             <p className="text-xs md:text-sm text-sky-600 font-medium">{helpInfo.info}</p>
                                         </div>
                                     </div>
@@ -221,12 +243,13 @@ export default function ComplaintsBookPage() {
                             </div>
                         </div>
 
+                        {/* SECTION 3: ARCHIVO Y ACCIONES */}
                         <div className="space-y-8 pt-6 border-t border-dashed border-gray-100">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-4">
                                     <p className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-2">Adjuntar archivo (Opcional)</p>
                                     <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-3xl p-8 hover:bg-sky-50 hover:border-sky-300 transition-all cursor-pointer group/file">
-                                        <Icon name="Upload" className="w-10 h-10 text-gray-300 group-hover/file:text-sky-500 group-hover/file:animate-float" />
+                                        <Upload className="w-10 h-10 text-gray-300 group-hover/file:text-sky-500 group-hover/file:animate-float" />
                                         <span className="mt-4 text-sm font-bold text-gray-400 group-hover/file:text-sky-600">Subir comprobante o evidencia</span>
                                         <input type="file" className="hidden" />
                                     </label>
@@ -250,7 +273,7 @@ export default function ComplaintsBookPage() {
                             <div className="pt-6 flex justify-center">
                                 <button type="submit" className="group relative px-12 py-5 bg-gradient-to-r from-sky-500 via-sky-600 to-sky-500 bg-[length:200%_100%] hover:bg-[100%_0%] text-white rounded-full font-black uppercase tracking-widest shadow-2xl transition-all duration-500 hover:scale-105 active:scale-95 flex items-center gap-4">
                                     <div className="p-1 px-3 bg-white/20 rounded-lg">
-                                        <Icon name="Send" className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                        <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                                     </div>
                                     Enviar reporte
                                 </button>

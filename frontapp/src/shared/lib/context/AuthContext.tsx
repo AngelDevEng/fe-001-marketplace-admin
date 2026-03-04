@@ -1,9 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { User } from '@/lib/types/auth';
+import { User } from '@/shared/types/auth';
 import { loginAction, logoutAction } from '@/shared/lib/actions/auth';
 
 interface AuthContextType {
@@ -16,62 +15,61 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const fetchSession = async (): Promise<{ authenticated: boolean; user: User | null }> => {
-    const response = await fetch('/api/auth/session');
-    if (!response.ok) {
-        return { authenticated: false, user: null };
-    }
-    return response.json();
-};
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
     const pathname = usePathname();
-    const queryClient = useQueryClient();
-    const [manualUser, setManualUser] = useState<User | null>(null);
 
-    const { data: sessionData, isLoading } = useQuery({
-        queryKey: ['auth-session'],
-        queryFn: fetchSession,
-        staleTime: 1000 * 60 * 5,
-        retry: false,
-    });
+    useEffect(() => {
+        const initAuth = async () => {
+            try {
+                const response = await fetch('/api/auth/session');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.authenticated && data.user) {
+                        setUser(data.user);
+                    }
+                }
+            } catch {
+                // No session, stay unauthenticated
+            } finally {
+                setLoading(false);
+            }
+        };
+        initAuth();
+    }, []);
 
-    const user = sessionData?.user || manualUser;
-    const loading = isLoading;
+    useEffect(() => {
+        if (!loading) {
+            const isAuthPath = pathname === '/login';
+            const isProtectedPath = pathname.startsWith('/admin') || pathname.startsWith('/seller') || pathname.startsWith('/logistics');
 
-    const handleRedirect = () => {
-        if (loading) return;
-        
-        const isAuthPath = pathname === '/login';
-        const isProtectedPath = pathname.startsWith('/admin') || pathname.startsWith('/seller') || pathname.startsWith('/logistics');
-
-        if (!user && isProtectedPath) {
-            router.push('/login');
-        } else if (user && isAuthPath) {
-            if (user.role === 'administrator') {
-                router.push('/admin');
-            } else if (user.role === 'seller') {
-                router.push('/seller');
-            } else if (user.role === 'logistics_operator') {
-                router.push('/logistics');
+            if (!user && isProtectedPath) {
+                router.push('/login');
+            } else if (user && isAuthPath) {
+                if (user.role === 'administrator') {
+                    router.push('/admin');
+                } else if (user.role === 'seller') {
+                    router.push('/seller');
+                } else if (user.role === 'logistics_operator') {
+                    router.push('/logistics');
+                }
             }
         }
-    };
-
-    handleRedirect();
+    }, [pathname, user, loading, router]);
 
     const login = async (credentials: { username: string; password: string }) => {
+        setLoading(true);
         try {
             const result = await loginAction(credentials);
-
+            
             if (!result.success) {
                 return { success: false, error: result.error };
             }
 
-            setManualUser(result.user || null);
-            queryClient.invalidateQueries({ queryKey: ['auth-session'] });
-
+            setUser(result.user || null);
+            
             if (result.user?.role === 'administrator') {
                 router.push('/admin');
             } else if (result.user?.role === 'logistics_operator') {
@@ -79,11 +77,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             } else {
                 router.push('/seller');
             }
-
+            
             return { success: true };
         } catch (error) {
             console.error('Login error:', error);
             return { success: false, error: 'Error de conexión' };
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -93,18 +93,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch {
             // Continue even if server action fails
         }
-        setManualUser(null);
-        queryClient.invalidateQueries({ queryKey: ['auth-session'] });
+        setUser(null);
         router.push('/login');
     };
 
     return (
-        <AuthContext.Provider value={{
-            user,
-            loading,
-            isAuthenticated: !!user,
-            login,
-            logout
+        <AuthContext.Provider value={{ 
+            user, 
+            loading, 
+            isAuthenticated: !!user, 
+            login, 
+            logout 
         }}>
             {children}
         </AuthContext.Provider>

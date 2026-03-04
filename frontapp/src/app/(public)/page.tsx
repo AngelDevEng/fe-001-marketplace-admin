@@ -11,8 +11,17 @@ import {
     NewsletterSection,
 } from '@/components/home';
 import { homeData } from '@/data/homeData';
+import { home } from '@/shared/lib/api';
 
-export default function HomePage() {
+export default async function HomePage() {
+    let bannersPub = homeData.bannersPub;
+
+    try {
+        bannersPub = await home.getBannersPub();
+    } catch (error) {
+        console.warn('Using fallback bannersPub data:', error);
+    }
+
     return (
         <div className="space-y-8 md:space-y-16 pb-8 md:pb-12">
             {/* Buscador con Filtros */}
@@ -22,10 +31,10 @@ export default function HomePage() {
             <HeroSection banners={homeData.banners} />
 
             {/* Grilla de Servicios (Categorías de servicios saludables) */}
-            <ServicesGrid categorias={homeData.categorias} useApi={true} />
+            <ServicesGrid categorias={homeData.categorias} />
 
             {/* Categorías de Productos Saludables */}
-            <ProductsGrid categorias={homeData.categoriasProductos} titulo="Categorías de productos saludables" useApi={true} />
+            <ProductsGrid categorias={homeData.categoriasProductos} titulo="Categorías de productos saludables" />
 
             {/* Carrusel de Marcas */}
             <BrandsCarousel marcas={homeData.marcas} />
@@ -38,7 +47,7 @@ export default function HomePage() {
             />
 
             {/* Banners Publicitarios (4 bloques) */}
-            <AdBanners bannersPub={homeData.bannersPub} />
+            <AdBanners bannersPub={bannersPub} />
 
             {/* Sliders de Productos por Categoría */}
             <ProductSlider

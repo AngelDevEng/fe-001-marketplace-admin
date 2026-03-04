@@ -19,7 +19,7 @@ export function AdminLayoutClient({ children }: AdminLayoutClientProps) {
             sidebar={<AdminSidebar isMobileOpen={sidebarOpen} onClose={closeSidebar} />}
             sidebarOpen={sidebarOpen}
             onSidebarClose={closeSidebar}
-            className="bg-gray-50/50"
+            className="bg-gray-50 dark:bg-gray-900"
             mainClassName="p-6 md:p-8"
         >
             {children}
