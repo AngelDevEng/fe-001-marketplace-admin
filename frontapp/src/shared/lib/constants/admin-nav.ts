@@ -40,6 +40,11 @@ export const adminNavigation: NavSection[] = [
                 icon: 'Invoices',
             },
             {
+                label: 'Gestión de Planes',
+                href: '/admin/planes-lyrium',
+                icon: 'Sparkles',
+            },
+            {
                 label: 'Gestión de Categorías',
                 href: '/admin/categories',
                 icon: 'FolderTree',
