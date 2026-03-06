@@ -9,13 +9,6 @@ export interface SellerModule {
 
 export const sellerNavigation: SellerModule[] = [
     {
-        id: 'planes',
-        label: 'Mi Plan',
-        description: 'Gestiona tu suscripción y plan de servicios',
-        icon: 'CreditCard',
-        href: '/seller/planes'
-    },
-    {
         id: 'mis-datos',
         label: 'Mis Datos',
         description: 'Información de la cuenta y configuración del perfil',
@@ -77,6 +70,13 @@ export const sellerNavigation: SellerModule[] = [
         description: 'Comunicación directa y soporte en tiempo real',
         icon: 'Messages',
         href: '/seller/chat'
+    },
+    {
+        id: 'planes',
+        label: 'Mi Plan',
+        description: 'Gestiona tu suscripción y plan de servicios',
+        icon: 'CreditCard',
+        href: '/seller/planes'
     },
     {
         id: 'ayuda',
